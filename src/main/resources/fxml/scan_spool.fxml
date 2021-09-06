@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1fdede;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
+    <children>
+        <AnchorPane layoutX="371.0" layoutY="134.0" prefHeight="452.0" prefWidth="339.0" AnchorPane.topAnchor="134.0">
+            <children>
+                <VBox prefHeight="428.0" prefWidth="181.0" spacing="10.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label fx:id="lbl_pr400" text="Прямолин 400">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_pr1" text="Прямолин 600_1">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_pr2" text="Прямолин 600_2">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_pr3" text="Прямолин 600_3">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_pr4" text="Прямолин 600_4">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_pr5" text="Прямолин 600_5">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_pr_avg" text="Прям. 600_сред.">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_torsion" text="Кручение">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_defect" text="Код дефекта">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_torsRope" text="Кручение кан.">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lbl_prRope" text="Прям.кан.">
+                            <font>
+                                <Font name="System Bold" size="22.0" />
+                            </font>
+                        </Label>
+                        <Label>
+                            <font>
+                                <Font size="22.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox layoutX="184.0" spacing="10.0">
+                    <children>
+                        <TextField fx:id="straightforwardness400" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardness1" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardness2" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardness3" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardness4" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardness5" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardnessAvg" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="torsion" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="codeDefect" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="torsRope" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardnessRope" prefHeight="32.0" stylesheets="@../css/style.css" />
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+        <VBox layoutX="14.0" layoutY="134.0" prefHeight="452.0" prefWidth="150.0" spacing="10.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="134.0">
+            <children>
+                <Label fx:id="lbl_type" prefHeight="0.0" prefWidth="149.0" text="Тип катушки">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_code" prefHeight="0.0" prefWidth="149.0" text="Код">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_construct" prefHeight="0.0" prefWidth="149.0" text="Конструкция">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_date" prefHeight="0.0" prefWidth="149.0" text="Дата">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_LR" prefHeight="0.0" prefWidth="149.0" text="L/R">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_machine" prefHeight="0.0" prefWidth="149.0" text="№ машины">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_part" prefHeight="0.0" prefWidth="149.0" text="№ партии">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_lot" prefHeight="0.0" prefWidth="149.0" text="LOT">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_length" prefHeight="0.0" prefWidth="149.0" text="Длинна">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_welds" prefHeight="0.0" prefWidth="149.0" text="Сварка">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Label fx:id="lbl_rope" prefHeight="0.0" prefWidth="149.0" text="№ канатчика">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+            </children>
+            <cursor>
+                <Cursor fx:constant="DEFAULT" />
+            </cursor>
+        </VBox>
+        <Button fx:id="btn_labelForm" layoutX="717.0" layoutY="347.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="175.0" text="Сформировать бирку">
+            <graphic>
+                <ImageView fitHeight="26.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/logo_print.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Pane layoutY="-1.0" prefHeight="71.0" prefWidth="900.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="319.0" layoutY="9.0" text="SCAN КАТУШКИ" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="53.0" fitWidth="63.0" layoutX="605.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/logo_spool.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="53.0" fitWidth="56.0" layoutX="263.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/logo_barcode.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+        <Label fx:id="lbl_spool" layoutX="270.0" layoutY="73.0" prefHeight="25.0" prefWidth="135.0" text="№ катушки">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+        <TextField fx:id="numberSpool" alignment="CENTER" layoutX="411.0" layoutY="75.0" prefHeight="32.0" prefWidth="156.0" promptText="Отсканируйте № катушки" stylesheets="@../css/style.css" />
+        <Button fx:id="btn_getInfo" alignment="CENTER" layoutX="577.0" layoutY="73.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" text="Get Info">
+            <graphic>
+                <ImageView fitHeight="27.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/logo_info.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <VBox layoutX="164.0" layoutY="134.0" spacing="10.0">
+            <children>
+                <TextField fx:id="typeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="construct" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <DatePicker fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="rl" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="textField_machine" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="part" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="lot" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="length" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="welds" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="personal_rope" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+            </children>
+        </VBox>
+        <Separator focusTraversable="false" layoutY="115.0" prefHeight="4.0" prefWidth="900.0" style="-fx-background-color: #000000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    </children>
+</AnchorPane>
