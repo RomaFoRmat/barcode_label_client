@@ -1,5 +1,6 @@
 package gui.model;
 
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

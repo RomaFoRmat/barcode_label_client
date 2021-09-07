@@ -1,6 +1,7 @@
 package gui.controller;
 
 
+import com.google.gson.JsonParser;
 import gui.application.AppProperties;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import javafx.scene.layout.AnchorPane;
+import jdk.nashorn.internal.parser.JSONParser;
 
 import java.awt.event.ActionEvent;
 import java.net.URL;
@@ -180,11 +182,26 @@ public class ScanController {
 
         List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" + numberSpool.getText());
         TestLabel label = testLabelList.get(0);
-//        TestLabel testLabel = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" +numberSpool.getText());
-
-
-        typeSpool.setText(String.valueOf(testLabelList.get(0)));
-        code.setText(String.valueOf(testLabelList.get(0)));
+        typeSpool.setText(String.valueOf(label.getTypeSpool()));
+        code.setText(label.getCode());
+        date_create.setText(String.valueOf(label.getDate_create()));
+        rl.setText(label.getRl());
+        part.setText(label.getPart());
+        lot.setText(String.valueOf(label.getLot()));
+        length.setText(String.valueOf(label.getLength()));
+        welds.setText(String.valueOf(label.getWelds()));
+        personal_rope.setText(label.getPersonal_rope());
+        straightforwardness400.setText(String.valueOf(label.getStraightforwardness400()));
+        straightforwardness2.setText(String.valueOf(label.getStraightforwardness2()));
+        straightforwardness3.setText(String.valueOf(label.getStraightforwardness3()));
+        straightforwardness4.setText(String.valueOf(label.getStraightforwardness4()));
+        straightforwardness5.setText(String.valueOf(label.getStraightforwardness5()));
+        straightforwardnessAvg.setText(String.valueOf(label.getStraightforwardnessAvg()));
+        torsion.setText(String.valueOf(label.getTorsion()));
+        codeDefect.setText(label.getCodeDefect());
+        torsRope.setText(String.valueOf(label.getTorsRope()));
+        straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
+//        code.setText(String.valueOf(testLabelList.get(0)));
 //        code.setText(testLabel.getCode());
 //        date_create.setText(String.valueOf(testLabel.getDate_create()));
 //        rl.setText(testLabel.getRl());
