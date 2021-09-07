@@ -26,6 +26,7 @@ public class Main extends Application {
         primaryStage.requestFocus();
         primaryStage.show();
 
+
     }
 
     @Override

@@ -1,6 +1,9 @@
 package gui.controller;
 
 
+import gui.application.AppProperties;
+import gui.model.TestLabel;
+import gui.repository.TestLabelRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -11,10 +14,13 @@ import javafx.scene.control.TextField;
 
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.event.ActionEvent;
 import java.net.URL;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class ScanController implements Initializable{
+public class ScanController {
 
     @FXML
     private AnchorPane anchorPaneMain;
@@ -140,7 +146,7 @@ public class ScanController implements Initializable{
     private TextField construct;
 
     @FXML
-    private DatePicker date_create;
+    private TextField date_create;
 
     @FXML
     private TextField rl;
@@ -163,11 +169,32 @@ public class ScanController implements Initializable{
     @FXML
     private TextField personal_rope;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public void initialize() {
+
 
     }
 
+
+    public void getInfoAction() {
+
+        List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" + numberSpool.getText());
+        TestLabel label = testLabelList.get(0);
+//        TestLabel testLabel = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" +numberSpool.getText());
+
+
+        typeSpool.setText(String.valueOf(testLabelList.get(0)));
+        code.setText(String.valueOf(testLabelList.get(0)));
+//        code.setText(testLabel.getCode());
+//        date_create.setText(String.valueOf(testLabel.getDate_create()));
+//        rl.setText(testLabel.getRl());
+//        part.setText(testLabel.getPart());
+//        lot.setText(String.valueOf(testLabel.getLot()));
+//        welds.setText(String.valueOf(testLabel.getWelds()));
+//        personal_rope.setText(testLabel.getPersonal_rope());
+
+
+    }
 
 
 }
