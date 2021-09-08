@@ -12,7 +12,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1fdede;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPaneMain" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: #1fdede;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="gui.controller.ScanController">
     <children>
         <AnchorPane layoutX="371.0" layoutY="134.0" prefHeight="452.0" prefWidth="339.0" AnchorPane.topAnchor="134.0">
             <children>
@@ -20,7 +23,7 @@
                     <children>
                         <Label fx:id="lbl_pr400" text="Прямолин 400">
                             <font>
-                                <Font name="System Bold" size="22.0" />
+                                <Font name="System Bold" size="22.0"/>
                             </font>
                         </Label>
                         <Label fx:id="lbl_pr1" text="Прямолин 600_1">
@@ -82,17 +85,61 @@
                 </VBox>
                 <VBox layoutX="184.0" spacing="10.0">
                     <children>
-                        <TextField fx:id="straightforwardness400" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardness1" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardness2" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardness3" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardness4" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardness5" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardnessAvg" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="torsion" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="codeDefect" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="torsRope" prefHeight="32.0" stylesheets="@../css/style.css" />
-                        <TextField fx:id="straightforwardnessRope" prefHeight="32.0" stylesheets="@../css/style.css" />
+                        <TextField fx:id="straightforwardness400" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardness1" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardness2" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardness3" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardness4" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardness5" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardnessAvg" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="torsion" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="codeDefect" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="torsRope" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
+                        <TextField fx:id="straightforwardnessRope" prefHeight="32.0" stylesheets="@../css/style.css">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </TextField>
                     </children>
                 </VBox>
             </children>
@@ -210,17 +257,62 @@
         </Button>
         <VBox layoutX="164.0" layoutY="134.0" spacing="10.0">
             <children>
-                <TextField fx:id="typeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="construct" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css"/>
-                <TextField fx:id="rl" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="textField_machine" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="part" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="lot" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="length" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="welds" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
-                <TextField fx:id="personal_rope" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css" />
+                <TextField fx:id="typeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="construct" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="rl" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="textField_machine" prefHeight="32.0" prefWidth="149.0"
+                           stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="part" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="lot" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="length" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="welds" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="personal_rope" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                </TextField>
             </children>
         </VBox>
         <Separator focusTraversable="false" layoutY="115.0" prefHeight="8.0" prefWidth="900.0"

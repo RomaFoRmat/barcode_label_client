@@ -1,26 +1,23 @@
 package gui.controller;
 
 
-import com.google.gson.JsonParser;
-import gui.application.AppProperties;
+
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
+import gui.service.DateUtil;
+import gui.service.TextFieldService;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import jdk.nashorn.internal.parser.JSONParser;
 
-import java.awt.event.ActionEvent;
-import java.net.URL;
-import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
+
 
 public class ScanController {
 
@@ -180,39 +177,71 @@ public class ScanController {
 
     public void getInfoAction() {
 
-        List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" + numberSpool.getText());
-        TestLabel label = testLabelList.get(0);
-        typeSpool.setText(String.valueOf(label.getTypeSpool()));
-        code.setText(label.getCode());
-        date_create.setText(String.valueOf(label.getDate_create()));
-        rl.setText(label.getRl());
-        part.setText(label.getPart());
-        lot.setText(String.valueOf(label.getLot()));
-        length.setText(String.valueOf(label.getLength()));
-        welds.setText(String.valueOf(label.getWelds()));
-        personal_rope.setText(label.getPersonal_rope());
-        straightforwardness400.setText(String.valueOf(label.getStraightforwardness400()));
-        straightforwardness2.setText(String.valueOf(label.getStraightforwardness2()));
-        straightforwardness3.setText(String.valueOf(label.getStraightforwardness3()));
-        straightforwardness4.setText(String.valueOf(label.getStraightforwardness4()));
-        straightforwardness5.setText(String.valueOf(label.getStraightforwardness5()));
-        straightforwardnessAvg.setText(String.valueOf(label.getStraightforwardnessAvg()));
-        torsion.setText(String.valueOf(label.getTorsion()));
-        codeDefect.setText(label.getCodeDefect());
-        torsRope.setText(String.valueOf(label.getTorsRope()));
-        straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
-//        code.setText(String.valueOf(testLabelList.get(0)));
-//        code.setText(testLabel.getCode());
-//        date_create.setText(String.valueOf(testLabel.getDate_create()));
-//        rl.setText(testLabel.getRl());
-//        part.setText(testLabel.getPart());
-//        lot.setText(String.valueOf(testLabel.getLot()));
-//        welds.setText(String.valueOf(testLabel.getWelds()));
-//        personal_rope.setText(testLabel.getPersonal_rope());
+        numberSpool.setStyle("-fx-border-color: #000000");
+        if (!numberSpool.getText().isEmpty()) {
+            List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" + numberSpool.getText());
+            TestLabel label = testLabelList.get(0);
+            System.out.println(label);
 
+            typeSpool.setText(String.valueOf(label.getTypeSpool()));
+            code.setText(label.getCode());
+            date_create.setText(String.valueOf(label.getDate_create()));
+//            date_create.setText(DateUtil.format(label.getDate_create()));
+            rl.setText(label.getRl());
+            part.setText(label.getPart());
+            lot.setText(String.valueOf(label.getLot()));
+            length.setText(String.valueOf(label.getLength()));
+            welds.setText(String.valueOf(label.getWelds()));
+            personal_rope.setText(label.getPersonal_rope());
+            straightforwardness400.setText(String.valueOf(label.getStraightforwardness400()));
+            straightforwardness1.setText(String.valueOf(label.getStraightforwardness400()));
+            straightforwardness2.setText(String.valueOf(label.getStraightforwardness2()));
+            straightforwardness3.setText(String.valueOf(label.getStraightforwardness3()));
+            straightforwardness4.setText(String.valueOf(label.getStraightforwardness4()));
+            straightforwardness5.setText(String.valueOf(label.getStraightforwardness5()));
+            straightforwardnessAvg.setText(String.valueOf(label.getStraightforwardnessAvg()));
+            torsion.setText(String.valueOf(label.getTorsion()));
+            codeDefect.setText(label.getCodeDefect());
+            torsRope.setText(String.valueOf(label.getTorsRope()));
+            straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
+            numberSpool.setStyle("-fx-border-color: #a7fc2d");
+
+        } else if (numberSpool.getText().isEmpty()) {
+            numberSpool.setStyle("-fx-border-color: #ff0000");
+            TextFieldService.alert("Поле  ввода пустое!\nОтсканируйте штрих-код катушки");
+        } else {
+            TextFieldService.alert("Данной катушки в базе нет!");
+        }
+
+//            typeSpool.setText("");
+//            code.setText("");
+//            date_create.setText("");
+//            rl.setText("");
+//            part.setText("");
+//            lot.setText("");
+//            length.setText("");
+//            welds.setText("");
+//            personal_rope.setText("");
+//            straightforwardness400.setText("");
+//            straightforwardness1.setText("");
+//            straightforwardness2.setText("");
+//            straightforwardness3.setText("");
+//            straightforwardness4.setText("");
+//            straightforwardness5.setText("");
+//            straightforwardnessAvg.setText("");
+//           torsion.setText("");
+//            codeDefect.setText("");
+//            torsRope.setText("");
+//            straightforwardnessRope.setText("");
 
     }
 
-
+    public void scanByKey(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            getInfoAction();
+        }
+    }
 }
+
+
 

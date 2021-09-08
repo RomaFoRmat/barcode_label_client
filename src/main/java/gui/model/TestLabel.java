@@ -1,10 +1,13 @@
 package gui.model;
 
-import com.google.gson.Gson;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Getter
@@ -13,7 +16,8 @@ import java.util.Date;
 public class TestLabel {
     private Long id_group;
 
-    private Date date_create;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")
+    private LocalDate date_create;
 
     private String code;
 
