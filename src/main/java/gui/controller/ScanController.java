@@ -185,8 +185,8 @@ public class ScanController {
 
             typeSpool.setText(String.valueOf(label.getTypeSpool()));
             code.setText(label.getCode());
-            date_create.setText(String.valueOf(label.getDate_create()));
-//            date_create.setText(DateUtil.format(label.getDate_create()));
+//            date_create.setText(String.valueOf(label.getDate_create()));
+            date_create.setText(DateUtil.format(label.getDate_create()));
             rl.setText(label.getRl());
             part.setText(label.getPart());
             lot.setText(String.valueOf(label.getLot()));
