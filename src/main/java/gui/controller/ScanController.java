@@ -183,28 +183,103 @@ public class ScanController {
             TestLabel label = testLabelList.get(0);
             System.out.println(label);
 
-            typeSpool.setText(String.valueOf(label.getTypeSpool()));
-            code.setText(label.getCode());
-//            date_create.setText(String.valueOf(label.getDate_create()));
-            date_create.setText(DateUtil.format(label.getDate_create()));
-            rl.setText(label.getRl());
-            part.setText(label.getPart());
-            lot.setText(String.valueOf(label.getLot()));
-            length.setText(String.valueOf(label.getLength()));
+            if (label.getTypeSpool() != null) {
+                typeSpool.setText(String.valueOf(label.getTypeSpool()));
+            } else {
+                typeSpool.setText("");
+            }
+            if (label.getCode() != null) {
+                code.setText(label.getCode());
+            } else {
+                code.setText("");
+            }
+            if (label.getDate_create() != null) {
+                date_create.setText(DateUtil.format(label.getDate_create()));
+            } else {
+                date_create.setText("");
+            }
+            if (label.getRl() != null) {
+                rl.setText(label.getRl());
+            } else {
+                rl.setText("");
+            }
+            if (label.getPart() != null) {
+                part.setText(label.getPart());
+            } else
+                part.setText("");
+            if (label.getLot() != 0) {
+                lot.setText(String.valueOf(label.getLot()));
+            } else {
+                lot.setText("");
+            }
+            if (label.getLength() != 0) {
+                length.setText(String.valueOf(label.getLength()));
+            } else {
+                length.setText("");
+            }
             welds.setText(String.valueOf(label.getWelds()));
-            personal_rope.setText(label.getPersonal_rope());
-            straightforwardness400.setText(String.valueOf(label.getStraightforwardness400()));
-            straightforwardness1.setText(String.valueOf(label.getStraightforwardness400()));
-            straightforwardness2.setText(String.valueOf(label.getStraightforwardness2()));
-            straightforwardness3.setText(String.valueOf(label.getStraightforwardness3()));
-            straightforwardness4.setText(String.valueOf(label.getStraightforwardness4()));
-            straightforwardness5.setText(String.valueOf(label.getStraightforwardness5()));
-            straightforwardnessAvg.setText(String.valueOf(label.getStraightforwardnessAvg()));
-            torsion.setText(String.valueOf(label.getTorsion()));
-            codeDefect.setText(label.getCodeDefect());
-            torsRope.setText(String.valueOf(label.getTorsRope()));
-            straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
+            if (label.getPersonal_rope() != null) {
+                personal_rope.setText(label.getPersonal_rope());
+            } else {
+                personal_rope.setText("");
+            }
+            if (label.getStraightforwardness400() != null) {
+                straightforwardness400.setText(String.valueOf(label.getStraightforwardness400()));
+            } else {
+                straightforwardness400.setText("");
+            }
+            if (label.getStraightforwardness1() != null) {
+                straightforwardness1.setText(String.valueOf(label.getStraightforwardness1()));
+            } else {
+                straightforwardness1.setText("");
+            }
+            if (label.getStraightforwardness2() != null) {
+                straightforwardness2.setText(String.valueOf(label.getStraightforwardness2()));
+            } else {
+                straightforwardness2.setText("");
+            }
+            if (label.getStraightforwardness3() != null) {
+                straightforwardness3.setText(String.valueOf(label.getStraightforwardness3()));
+            } else {
+                straightforwardness3.setText("");
+            }
+            if (label.getStraightforwardness4() != null) {
+                straightforwardness4.setText(String.valueOf(label.getStraightforwardness4()));
+            } else {
+                straightforwardness4.setText("");
+            }
+            if (label.getStraightforwardness5() != null) {
+                straightforwardness5.setText(String.valueOf(label.getStraightforwardness5()));
+            } else {
+                straightforwardness5.setText("");
+            }
+            if (label.getStraightforwardnessAvg() != null) {
+                straightforwardnessAvg.setText(String.valueOf(label.getStraightforwardnessAvg()));
+            } else {
+                straightforwardnessAvg.setText("");
+            }
+            if (label.getTorsion() != null) {
+                torsion.setText(String.valueOf(label.getTorsion()));
+            } else {
+                torsion.setText("");
+            }
+            if (label.getCodeDefect() != null) {
+                codeDefect.setText(label.getCodeDefect());
+            } else {
+                codeDefect.setText("");
+            }
+            if (label.getTorsRope() != null) {
+                torsRope.setText(String.valueOf(label.getTorsRope()));
+            } else {
+                torsRope.setText("");
+            }
+            if (label.getStraightforwardnessRope() != null) {
+                straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
+            } else {
+                straightforwardnessRope.setText("");
+            }
             numberSpool.setStyle("-fx-border-color: #a7fc2d");
+            numberSpool.setText("");
 
         } else if (numberSpool.getText().isEmpty()) {
             numberSpool.setStyle("-fx-border-color: #ff0000");

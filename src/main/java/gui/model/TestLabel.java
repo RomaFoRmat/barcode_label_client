@@ -37,25 +37,25 @@ public class TestLabel {
 
     private int welds;
 
-    private Integer straightforwardness1;
+    private Float straightforwardness1;
 
-    private Integer straightforwardness2;
+    private Float straightforwardness2;
 
-    private Integer straightforwardness3;
+    private Float straightforwardness3;
 
-    private Integer straightforwardness4;
+    private Float straightforwardness4;
 
-    private Integer straightforwardness5;
+    private Float straightforwardness5;
 
-    private Integer straightforwardnessAvg;
+    private Float straightforwardnessAvg;
 
-    private Integer torsRope;
+    private Float torsRope;
 
-    private Integer straightforwardnessRope;
+    private Float straightforwardnessRope;
 
-    private Integer straightforwardness400;
+    private Float straightforwardness400;
 
-    private Integer torsion;
+    private Float torsion;
 
     private String codeDefect;
 
