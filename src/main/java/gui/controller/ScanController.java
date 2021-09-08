@@ -6,6 +6,7 @@ import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.DateUtil;
 import gui.service.TextFieldService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -81,8 +82,8 @@ public class ScanController {
     @FXML
     private TextField torsion;
 
-    @FXML
-    private TextField codeDefect;
+//    @FXML
+//    private TextField codeDefect;
 
     @FXML
     private TextField torsRope;
@@ -150,8 +151,8 @@ public class ScanController {
     @FXML
     private TextField rl;
 
-    @FXML
-    private TextField textField_machine;
+//    @FXML
+//    private TextField textField_machine;
 
     @FXML
     private TextField part;
@@ -170,13 +171,18 @@ public class ScanController {
 
     @FXML
     public void initialize() {
-
+        /**для наведения фокуса на определенное поле*/
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                numberSpool.requestFocus();
+            }
+        });
 
     }
 
 
     public void getInfoAction() {
-
         numberSpool.setStyle("-fx-border-color: #000000");
         if (!numberSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/" + numberSpool.getText());
@@ -263,11 +269,6 @@ public class ScanController {
             } else {
                 torsion.setText("");
             }
-            if (label.getCodeDefect() != null) {
-                codeDefect.setText(label.getCodeDefect());
-            } else {
-                codeDefect.setText("");
-            }
             if (label.getTorsRope() != null) {
                 torsRope.setText(String.valueOf(label.getTorsRope()));
             } else {
@@ -283,33 +284,11 @@ public class ScanController {
 
         } else if (numberSpool.getText().isEmpty()) {
             numberSpool.setStyle("-fx-border-color: #ff0000");
-            TextFieldService.alert("Поле  ввода пустое!\nОтсканируйте штрих-код катушки");
-        } else {
-            TextFieldService.alert("Данной катушки в базе нет!");
+
+            TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
         }
-
-//            typeSpool.setText("");
-//            code.setText("");
-//            date_create.setText("");
-//            rl.setText("");
-//            part.setText("");
-//            lot.setText("");
-//            length.setText("");
-//            welds.setText("");
-//            personal_rope.setText("");
-//            straightforwardness400.setText("");
-//            straightforwardness1.setText("");
-//            straightforwardness2.setText("");
-//            straightforwardness3.setText("");
-//            straightforwardness4.setText("");
-//            straightforwardness5.setText("");
-//            straightforwardnessAvg.setText("");
-//           torsion.setText("");
-//            codeDefect.setText("");
-//            torsRope.setText("");
-//            straightforwardnessRope.setText("");
-
     }
+
 
     public void scanByKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {

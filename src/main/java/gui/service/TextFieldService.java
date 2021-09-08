@@ -12,6 +12,7 @@ public class TextFieldService {
         Alert alert = new Alert(Alert.AlertType.WARNING, error, ButtonType.OK);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+        alert.setTitle("Предупреждение");
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             System.out.println(error);
