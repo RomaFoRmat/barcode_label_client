@@ -2,6 +2,7 @@ package gui.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import gui.application.AppProperties;
 import gui.model.TestLabel;
 import org.apache.http.client.methods.HttpGet;
@@ -25,6 +26,7 @@ public class TestLabelRepository {
     public static List<TestLabel> getTestLabel(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
+            mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(), new TypeReference<List<TestLabel>>() {
                     }));
