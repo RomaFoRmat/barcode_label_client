@@ -16,7 +16,7 @@ import java.util.Date;
 public class TestLabel {
     private Long id_group;
 
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")
+
     private LocalDate date_create;
 
     private String code;
