@@ -132,10 +132,67 @@ public class ScanController {
 
     @FXML
     private TextField straightforwardnessRope;
+
     @FXML
     private TextField straightforwardness300;
+
     @FXML
-    private ScrollPane spTable;
+    private CheckBox cb_typeSpool;
+
+    @FXML
+    private CheckBox cb_code;
+
+    @FXML
+    private CheckBox cb_construct;
+
+    @FXML
+    private CheckBox cb_lr;
+
+    @FXML
+    private CheckBox cb_part;
+
+    @FXML
+    private CheckBox cb_lot;
+
+    @FXML
+    private CheckBox cb_length;
+
+    @FXML
+    private CheckBox cb_welds;
+
+    @FXML
+    private CheckBox cb_persRope;
+
+    @FXML
+    private CheckBox cb_straight300;
+
+    @FXML
+    private CheckBox cb_straight600_1;
+
+    @FXML
+    private CheckBox cb_straight600_2;
+
+    @FXML
+    private CheckBox cb_straight600_3;
+
+    @FXML
+    private CheckBox cb_straight600_4;
+
+    @FXML
+    private CheckBox cb_straight600_5;
+
+    @FXML
+    private CheckBox cb_straight600Avg;
+
+    @FXML
+    private CheckBox cb_torsion;
+
+    @FXML
+    private CheckBox cb_torsRope;
+
+    @FXML
+    private CheckBox cb_straightRope;
+
     @FXML
     private TableView<TestLabel> tableView;
     @FXML
