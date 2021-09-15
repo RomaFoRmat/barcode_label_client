@@ -1,0 +1,27 @@
+.jfx-tab-pane .tab-selected-line{
+    -fx-border-color: #02fa17 ;
+}
+
+.tab {
+    -fx-font: 24px "Calibri" ;
+    -fx-background-radius: 12;
+}
+
+.tab:selected{
+/*    -fx-border-color:#02fa17;*/
+    -fx-background-color:  #5eff92;
+}
+.tab:focused{
+    -fx-focus-color: transparent;
+}
+
+.tab-label{
+    -fx-text-fill: #000000;
+
+}
+.tab-header-background{
+   -fx-background-color:  #1bd8fa;
+}
+
+
+

@@ -16,10 +16,13 @@ import java.util.Date;
 public class TestLabel {
     private Long id_group;
 
+//    private Long id_foreing_group;
 
     private LocalDate date_create;
 
     private String code;
+
+    private String construct;
 
     private int lot;
 
@@ -53,7 +56,7 @@ public class TestLabel {
 
     private Float straightforwardnessRope;
 
-    private Float straightforwardness400;
+    private Float straightforwardness300;
 
     private Float torsion;
 

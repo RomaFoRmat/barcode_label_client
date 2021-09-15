@@ -6,16 +6,18 @@ import gui.repository.TestLabelRepository;
 import gui.service.DateUtil;
 import gui.service.TextFieldService;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -23,6 +25,54 @@ public class ScanController {
 
     @FXML
     private AnchorPane anchorPaneMain;
+
+    public ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
+    @FXML
+    private Button btn_labelForm;
+    @FXML
+    private Label lbl_spool;
+    @FXML
+    private TextField numberSpool;
+    @FXML
+    private Button btn_getInfo;
+    @FXML
+    private Label lbl_type;
+    @FXML
+    private Label lbl_code;
+    @FXML
+    private Label lbl_construct;
+    @FXML
+    private Label lbl_date;
+    @FXML
+    private Label lbl_LR;
+    @FXML
+    private Label lbl_part;
+    @FXML
+    private Label lbl_lot;
+    @FXML
+    private Label lbl_length;
+    @FXML
+    private Label lbl_welds;
+    @FXML
+    private Label lbl_rope;
+    @FXML
+    private TextField typeSpool;
+    @FXML
+    private TextField code;
+    @FXML
+    private TextField construct;
+    @FXML
+    private TextField date_create;
+    @FXML
+    private TextField rl;
+    @FXML
+    private TextField part;
+    @FXML
+    private TextField lot;
+    @FXML
+    private TextField length;
+    @FXML
+    private TextField welds;
 
     @FXML
     private Label lbl_pr400;
@@ -49,16 +99,12 @@ public class ScanController {
     private Label lbl_torsion;
 
     @FXML
-    private Label lbl_defect;
-
-    @FXML
     private Label lbl_torsRope;
 
     @FXML
     private Label lbl_prRope;
-
     @FXML
-    private TextField straightforwardness400;
+    private TextField personal_rope;
 
     @FXML
     private TextField straightforwardness1;
@@ -81,92 +127,59 @@ public class ScanController {
     @FXML
     private TextField torsion;
 
-//    @FXML
-//    private TextField codeDefect;
-
     @FXML
     private TextField torsRope;
 
     @FXML
     private TextField straightforwardnessRope;
-
     @FXML
-    private Label lbl_type;
-
+    private TextField straightforwardness300;
     @FXML
-    private Label lbl_code;
-
+    private ScrollPane spTable;
     @FXML
-    private Label lbl_construct;
-
+    private TableView<TestLabel> tableView;
     @FXML
-    private Label lbl_date;
-
+    private TableColumn<TestLabel, String> tc_numberSpool;
     @FXML
-    private Label lbl_LR;
-
+    private TableColumn<TestLabel, String> tc_typeSpool;
     @FXML
-    private Label lbl_machine;
-
+    private TableColumn<TestLabel, String> tc_code;
     @FXML
-    private Label lbl_part;
-
+    private TableColumn<TestLabel, String> tc_construct;
     @FXML
-    private Label lbl_lot;
-
+    private TableColumn<TestLabel, LocalDate> tc_date;
     @FXML
-    private Label lbl_length;
-
+    private TableColumn<TestLabel, String> tc_lr;
     @FXML
-    private Label lbl_welds;
-
+    private TableColumn<TestLabel, String> tc_part;
     @FXML
-    private Label lbl_rope;
-
+    private TableColumn<TestLabel, Integer> tc_lot;
     @FXML
-    private Button btn_labelForm;
-
+    private TableColumn<TestLabel, Integer> tc_length;
     @FXML
-    private Label lbl_spool;
-
+    private TableColumn<TestLabel, Integer> tc_welds;
     @FXML
-    private TextField numberSpool;
-
+    private TableColumn<TestLabel, String> tc_personalRope;
     @FXML
-    private Button btn_getInfo;
-
+    private TableColumn<TestLabel, Float> tc_straight_300;
     @FXML
-    private TextField typeSpool;
-
+    private TableColumn<TestLabel, Float> tc_straight600_1;
     @FXML
-    private TextField code;
-
+    private TableColumn<TestLabel, Float> tc_straight600_2;
     @FXML
-    private TextField construct;
-
+    private TableColumn<TestLabel, Float> tc_straight600_3;
     @FXML
-    private TextField date_create;
-
+    private TableColumn<TestLabel, Float> tc_straight600_4;
     @FXML
-    private TextField rl;
-
-//    @FXML
-//    private TextField textField_machine;
-
+    private TableColumn<TestLabel, Float> tc_straight600_5;
     @FXML
-    private TextField part;
-
+    private TableColumn<TestLabel, Float> tc_straight600Avg;
     @FXML
-    private TextField lot;
-
+    private TableColumn<TestLabel, Float> tc_torsion;
     @FXML
-    private TextField length;
-
+    private TableColumn<TestLabel, Float> tc_torsionRope;
     @FXML
-    private TextField welds;
-
-    @FXML
-    private TextField personal_rope;
+    private TableColumn<TestLabel, Float> tc_straightRope;
 
     @FXML
     public void initialize() {
@@ -178,6 +191,66 @@ public class ScanController {
             }
         });
 
+        initializeTableColumns();
+
+        List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
+
+        tableSpool.addAll(testLabelList);
+        tableView.setItems(tableSpool);
+
+//        TestLabel testLabel = new TestLabel();
+//        testLabel.setTypeSpool("BS-60");
+//        testLabel.setLength(23424);
+//        tableSpool.addAll(testLabel);
+//        tableView.setItems(tableSpool);
+
+    }
+
+    public void clearFields() {
+        typeSpool.clear();
+        code.clear();
+        construct.clear();
+        date_create.clear();
+        rl.clear();
+        part.clear();
+        lot.clear();
+        length.clear();
+        welds.clear();
+        personal_rope.clear();
+        straightforwardness1.clear();
+        straightforwardness2.clear();
+        straightforwardness3.clear();
+        straightforwardness4.clear();
+        straightforwardness5.clear();
+        straightforwardnessAvg.clear();
+        torsion.clear();
+        torsRope.clear();
+        straightforwardnessRope.clear();
+    }
+
+    public void initializeTableColumns() {
+        tc_numberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
+        tc_typeSpool.setCellValueFactory(new PropertyValueFactory<>("typeSpool"));
+        tc_code.setCellValueFactory(new PropertyValueFactory<>("code"));
+        tc_construct.setCellValueFactory(new PropertyValueFactory<>("construct"));
+        tc_date.setCellValueFactory(new PropertyValueFactory<>("date_create"));
+        tc_lr.setCellValueFactory(new PropertyValueFactory<>("rl"));
+        tc_part.setCellValueFactory(new PropertyValueFactory<>("part"));
+        tc_lot.setCellValueFactory(new PropertyValueFactory<>("lot"));
+        tc_length.setCellValueFactory(new PropertyValueFactory<>("length"));
+        tc_welds.setCellValueFactory(new PropertyValueFactory<>("welds"));
+        tc_personalRope.setCellValueFactory(new PropertyValueFactory<>("personal_rope"));
+        tc_straight_300.setCellValueFactory(new PropertyValueFactory<>("straightforwardness300"));
+        tc_straight600_1.setCellValueFactory(new PropertyValueFactory<>("straightforwardness1"));
+        tc_straight600_2.setCellValueFactory(new PropertyValueFactory<>("straightforwardness2"));
+        tc_straight600_3.setCellValueFactory(new PropertyValueFactory<>("straightforwardness3"));
+        tc_straight600_4.setCellValueFactory(new PropertyValueFactory<>("straightforwardness4"));
+        tc_straight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness5"));
+        tc_straight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessAvg"));
+        tc_torsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
+        tc_torsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
+        tc_straightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
+
     }
 
 
@@ -186,6 +259,14 @@ public class ScanController {
         if (!numberSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
                     + numberSpool.getText());
+
+            if (testLabelList != null && testLabelList.isEmpty()) {
+                clearFields();
+                TextFieldService.alert("Данной записи в БД не найдено!");
+                numberSpool.setStyle("-fx-border-color: #ff0000");
+                numberSpool.setText("");
+            }
+
             TestLabel label = testLabelList.get(0);
             System.out.println(label);
 
@@ -198,8 +279,8 @@ public class ScanController {
             length.setText(label.getLength() != 0 ? String.valueOf(label.getLength()) : "");
             welds.setText(label.getWelds() != 0 ? String.valueOf(label.getWelds()) : "0");
             personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
-            straightforwardness400.setText(label.getStraightforwardness400() != null ?
-                    String.valueOf(label.getStraightforwardness400()) : "");
+            straightforwardness300.setText(label.getStraightforwardness300() != null ?
+                    String.valueOf(label.getStraightforwardness300()) : "");
             straightforwardness1.setText(label.getStraightforwardness1() != null ?
                     String.valueOf(label.getStraightforwardness1()) : "");
             straightforwardness2.setText(label.getStraightforwardness2() != null ?
@@ -226,6 +307,7 @@ public class ScanController {
 
         } else if (numberSpool.getText().isEmpty()) {
             numberSpool.setStyle("-fx-border-color: #ff0000");
+            clearFields();
             TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
         }
     }
