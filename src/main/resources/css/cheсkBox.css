@@ -1,7 +1,4 @@
-/*.check-box:focused{*/
-/*    -fx-color: #ff5400;*/
-/*    -fx-focused-color: #f4e5bc;*/
-/*}*/
+
 /*.check-box .box{*/
 /*    -fx-background-color: #ffc400;*/
 /*    -fx-shadow-hightlight-color: #ffe657;*/
@@ -12,22 +9,17 @@
 /*    -fx-padding: 0.25em;*/
 /*}*/
 
-/*.check-box:focused .box{*/
-/*    -fx-background-color: red;*/
-/*    -fx-background-insets: -1.4,0,1,2;*/
-/*    -fx-background-radius: 3,4,2,1,1;*/
-/*}*/
+.check-box:focused .box{
+    /*-fx-background-color: red;*/
+    -fx-background-insets: -1.4,0,1,2;
+    -fx-background-radius: 3,4,2,1,1;
+}
 
-/*.check-box:hover .box{*/
+.check-box:hover .box{
+    -fx-color: #6e5dad;
+    -fx-hover-base:#7ebcea;
+}
 
-/*    -fx-color:#9d4024;*/
-/*    -fx-hover-base:#7ebcea;*/
-/*}*/
-
-/*.check-box .mark{*/
-/*    -fx-background-insets: 1 0 -1 0 0;*/
-/*    -fx-padding: 0.3333333em;*/
-/*}*/
 
 .check-box:selected .box {
     /* background color for selected checkbox */

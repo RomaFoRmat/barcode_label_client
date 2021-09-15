@@ -319,6 +319,7 @@ public class ScanController {
 
             if (testLabelList != null && testLabelList.isEmpty()) {
                 clearFields();
+                numberSpool.setStyle("-fx-background-color: #ff0000");
                 TextFieldService.alert("Данной записи в БД не найдено!");
                 numberSpool.setStyle("-fx-border-color: #ff0000");
                 numberSpool.setText("");
@@ -363,9 +364,10 @@ public class ScanController {
             numberSpool.setText("");
 
         } else if (numberSpool.getText().isEmpty()) {
-            numberSpool.setStyle("-fx-border-color: #ff0000");
+            numberSpool.setStyle("-fx-background-color: #ff0000");
             clearFields();
             TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
+            numberSpool.setStyle("-fx-border-color: #ff0000");
         }
     }
 

@@ -3,25 +3,37 @@
 }
 
 .tab {
-    -fx-font: 24px "Calibri" ;
-    -fx-background-radius: 12;
+    -fx-font-family: Calibri;
+    -fx-font-size: 24;
+    -fx-background-color: #14d8fa;
+    -fx-padding: 2 3 2 3;
+    -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
+    /*-fx-background-radius: 3;*/
 }
 
 .tab:selected{
-/*    -fx-border-color:#02fa17;*/
-    -fx-background-color:  #5eff92;
-}
-.tab:focused{
-    -fx-focus-color: transparent;
+    -fx-background-color: #5eff92;
 }
 
-.tab-label{
+.tab-label {
     -fx-text-fill: #000000;
-
+    -fx-alignment: CENTER;
 }
+
+#2466fc
 .tab-header-background{
    -fx-background-color:  #1bd8fa;
 }
+
+.tab-pane {
+    -fx-tab-min-width:100px;
+    -fx-tab-max-width:1750px;
+    -fx-tab-min-height:25px;
+    -fx-tab-max-height:25px;
+}
+
+
+
 
 
 
