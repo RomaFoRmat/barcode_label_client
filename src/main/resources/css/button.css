@@ -1,0 +1,22 @@
+.button:pressed, .button:default:hover:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+}
+
+
+
+
+.button:hover {
+    -fx-background-color: #6c5ebb;
+    -fx-text-fill: azure;
+}
+
+.button:pressed {
+    -fx-background-color: lime;
+    -fx-text-fill: #1d1d1d;
+}

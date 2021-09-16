@@ -4,6 +4,7 @@ package gui.controller;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.DateUtil;
+import gui.service.LabelListCreator;
 import gui.service.TextFieldService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -238,6 +240,8 @@ public class ScanController {
     @FXML
     private TableColumn<TestLabel, Float> tc_straightRope;
 
+    private TestLabel testLabel;
+
     @FXML
     public void initialize() {
         /**для наведения фокуса на определенное поле*/
@@ -285,6 +289,10 @@ public class ScanController {
         straightforwardnessRope.clear();
     }
 
+    public void toFormLabel() throws IOException {
+        LabelListCreator.createExcelList();
+    }
+
     public void initializeTableColumns() {
         tc_numberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
         tc_typeSpool.setCellValueFactory(new PropertyValueFactory<>("typeSpool"));
@@ -330,6 +338,7 @@ public class ScanController {
 
             typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
             code.setText(label.getCode() != null ? String.valueOf(label.getCode()) : "");
+            construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
             date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");

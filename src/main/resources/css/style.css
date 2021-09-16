@@ -8,11 +8,3 @@
     -fx-border-color: #8800ff;
 }
 
-.button {
-
-}
-
-
-.button:pressed {
-    -fx-background-color: #B04BA0;
-}
