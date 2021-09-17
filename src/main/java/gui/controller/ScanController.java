@@ -13,12 +13,19 @@ import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.IOException;
+import java.awt.*;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -148,6 +155,9 @@ public class ScanController {
     private CheckBox cb_construct;
 
     @FXML
+    private CheckBox cb_date;
+
+    @FXML
     private CheckBox cb_lr;
 
     @FXML
@@ -240,6 +250,12 @@ public class ScanController {
     @FXML
     private TableColumn<TestLabel, Float> tc_straightRope;
 
+    @FXML
+    private Label lblNumbSpool;
+
+    @FXML
+    private Tab tabInfoSpool;
+
     private TestLabel testLabel;
 
     @FXML
@@ -267,6 +283,29 @@ public class ScanController {
 
     }
 
+    public void unselectCheckBox(){
+        cb_typeSpool.setSelected(false);
+        cb_code.setSelected(false);
+        cb_construct.setSelected(false);
+        cb_date.setSelected(false);
+        cb_lr.setSelected(false);
+        cb_part.setSelected(false);
+        cb_lot.setSelected(false);
+        cb_length.setSelected(false);
+        cb_welds.setSelected(false);
+        cb_persRope.setSelected(false);
+        cb_straight300.setSelected(false);
+        cb_straight600_1.setSelected(false);
+        cb_straight600_2.setSelected(false);
+        cb_straight600_3.setSelected(false);
+        cb_straight600_4.setSelected(false);
+        cb_straight600_5.setSelected(false);
+        cb_straight600Avg.setSelected(false);
+        cb_torsion.setSelected(false);
+        cb_torsRope.setSelected(false);
+        cb_straightRope.setSelected(false);
+    }
+
     public void clearFields() {
         typeSpool.clear();
         code.clear();
@@ -289,8 +328,112 @@ public class ScanController {
         straightforwardnessRope.clear();
     }
 
+//    public void clickColor(){
+//        if(cb_typeSpool.isSelected() && cb_code.isSelected()){
+//            typeSpool.setStyle("-fx-background-color: #fffb02");
+////            typeSpool.setStyle("-fx-border-color: #fcef00");
+//        } else { typeSpool.setStyle("-fx-border-color: #1d1d1d");}
+//
+////        if (cb_code.isSelected()) {
+////            code.setStyle("-fx-background-color: #86f670");
+////        } else {
+////            code.setStyle("-fx-border-color: #1d1d1d");
+////        }
+//
+//
+//    }
+
+    public void Excel(){
+        try {
+
+            File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
+            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
+
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            Sheet sheet = workbook.getSheetAt(0);
+            Cell cell = null;
+
+            cell = sheet.getRow(7).getCell(1);
+            cell.setCellValue(lblNumbSpool.getText());
+            //Update the value of cell
+            if(cb_typeSpool.isSelected()) {
+                cell = sheet.getRow(4).getCell(0);
+                cell.setCellValue(typeSpool.getText());
+            } else {
+                cell = sheet.getRow(4).getCell(0);
+                cell.setCellValue("");
+            }
+            if (cb_code.isSelected()) {
+                cell = sheet.getRow(5).getCell(1);
+                cell.setCellValue(code.getText());
+            } else {
+                cell = sheet.getRow(5).getCell(1);
+                cell.setCellValue("");
+            }
+            if (cb_lr.isSelected()){
+                cell = sheet.getRow(6).getCell(1);
+                cell.setCellValue(rl.getText());
+            } else {
+                cell = sheet.getRow(6).getCell(1);
+                cell.setCellValue("");
+            }
+            if (cb_date.isSelected()){
+                cell = sheet.getRow(8).getCell(1);
+                cell.setCellValue(date_create.getText());
+            }else {
+                cell = sheet.getRow(8).getCell(1);
+                cell.setCellValue("");
+            }
+            if (cb_length.isSelected()){
+                cell = sheet.getRow(9).getCell(1);
+                cell.setCellValue(length.getText());
+            } else {
+                cell = sheet.getRow(9).getCell(1);
+                cell.setCellValue("");
+            }
+            if (cb_part.isSelected()){
+                cell = sheet.getRow(10).getCell(1);
+                cell.setCellValue(part.getText());
+            } else {
+                cell = sheet.getRow(10).getCell(1);
+                cell.setCellValue("");
+            }
+            if (cb_lot.isSelected()){
+                cell = sheet.getRow(11).getCell(1);
+                cell.setCellValue(lot.getText());
+            } else {
+                cell = sheet.getRow(11).getCell(1);
+                cell.setCellValue("");
+            }
+
+            file.close();
+
+            FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
+            workbook.write(outFile);
+            outFile.close();
+            Desktop.getDesktop().open(fileTemp);
+            clearFields();
+            lblNumbSpool.setText("");
+            unselectCheckBox();
+            initialize();
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public void CheckBoxEmpty(){
+//        boolean isMyCheckBoxEmpty= (cb_code.get)
+//    }
+
+
     public void toFormLabel() throws IOException {
-        LabelListCreator.createExcelList();
+//        LabelListCreator.createExcelList();
+
+        Excel();
     }
 
     public void initializeTableColumns() {
@@ -369,7 +512,10 @@ public class ScanController {
 //            } else {
 //                straightforwardnessRope.setText("");
 //            }
+
             numberSpool.setStyle("-fx-border-color: #a7fc2d");
+            lblNumbSpool.setText(numberSpool.getText());
+//            tabInfoSpool.setText("Информация о катушке: №"+ numberSpool.getText());
             numberSpool.setText("");
 
         } else if (numberSpool.getText().isEmpty()) {
