@@ -28,7 +28,7 @@ public class Main extends Application {
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/scan_spool.fxml"));
         primaryStage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ");
-        primaryStage.setScene(new Scene(root, 900, 630));
+        primaryStage.setScene(new Scene(root, 900, 633));
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         primaryStage.setResizable(false);
         primaryStage.requestFocus();

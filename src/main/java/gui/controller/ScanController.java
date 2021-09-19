@@ -254,6 +254,9 @@ public class ScanController {
     private Label lblNumbSpool;
 
     @FXML
+    private Label lblSpool;
+
+    @FXML
     private Tab tabInfoSpool;
 
     private TestLabel testLabel;
@@ -271,7 +274,6 @@ public class ScanController {
         initializeTableColumns();
 
         List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
-
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
 
@@ -326,6 +328,10 @@ public class ScanController {
         torsion.clear();
         torsRope.clear();
         straightforwardnessRope.clear();
+        numberSpool.setText("");
+
+        lblNumbSpool.setText("");
+        lblSpool.setText("");
     }
 
 //    public void clickColor(){
@@ -412,10 +418,13 @@ public class ScanController {
             workbook.write(outFile);
             outFile.close();
             Desktop.getDesktop().open(fileTemp);
+
             clearFields();
             lblNumbSpool.setText("");
+            lblSpool.setText("");
+
             unselectCheckBox();
-            initialize();
+            numberSpool.requestFocus();
 
 
         } catch (FileNotFoundException e) {
@@ -433,7 +442,19 @@ public class ScanController {
     public void toFormLabel() throws IOException {
 //        LabelListCreator.createExcelList();
 
+        if(cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
+                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected()|| cb_lot.isSelected() ||
+                cb_welds.isSelected() || cb_persRope.isSelected() || cb_straight300.isSelected() ||
+                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
+                cb_straight600_4.isSelected() ||  cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
+                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
+        {
         Excel();
+        }
+        else
+        {
+            TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
+        }
     }
 
     public void initializeTableColumns() {
@@ -514,6 +535,7 @@ public class ScanController {
 //            }
 
             numberSpool.setStyle("-fx-border-color: #a7fc2d");
+            lblSpool.setText("Катушка №:");
             lblNumbSpool.setText(numberSpool.getText());
 //            tabInfoSpool.setText("Информация о катушке: №"+ numberSpool.getText());
             numberSpool.setText("");
