@@ -4,7 +4,6 @@ package gui.controller;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.DateUtil;
-import gui.service.LabelListCreator;
 import gui.service.TextFieldService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -21,13 +20,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ScanController {
@@ -334,6 +336,46 @@ public class ScanController {
         lblSpool.setText("");
     }
 
+//    public void hashMapToExcel() {
+//
+//        try {
+//
+//            File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
+//            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
+//            XSSFWorkbook workbook = new XSSFWorkbook(file);
+//            Sheet sheet = workbook.getSheetAt(0);
+//
+//        Map<String,String> data = new HashMap<String,String>();
+//            List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
+//                    + numberSpool.getText());
+//            TestLabel label = testLabelList.get(0);
+//
+//        data.put(lbl_type.getText() ,typeSpool.getText());
+//        data.put("Сode:",code.getText(String.valueOf(label.getCode())));
+//        data.put("Date" ,date_create.getText());
+//        data.put(lbl_LR.getText() ,rl.getText());
+//
+//        int rowExcel=5;
+//
+//        for(Map.Entry entry:data.entrySet())
+//        {
+//            Row row =sheet.createRow(rowExcel++);
+//
+//            row.createCell(0).setCellValue(String.valueOf(entry.getKey()));
+//            row.createCell(1).setCellValue(String.valueOf(entry.getValue()));
+//        }
+//        file.close();
+//        FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
+//            workbook.write(outFile);
+//            outFile.close();
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void exportToExcel(){
         try {
 
@@ -343,7 +385,6 @@ public class ScanController {
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
             Cell cell = null;
-
             cell = sheet.getRow(7).getCell(1);
             cell.setCellValue(lblNumbSpool.getText());
             //Update the value of cell
