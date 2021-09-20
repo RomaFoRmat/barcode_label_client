@@ -334,22 +334,7 @@ public class ScanController {
         lblSpool.setText("");
     }
 
-//    public void clickColor(){
-//        if(cb_typeSpool.isSelected() && cb_code.isSelected()){
-//            typeSpool.setStyle("-fx-background-color: #fffb02");
-////            typeSpool.setStyle("-fx-border-color: #fcef00");
-//        } else { typeSpool.setStyle("-fx-border-color: #1d1d1d");}
-//
-////        if (cb_code.isSelected()) {
-////            code.setStyle("-fx-background-color: #86f670");
-////        } else {
-////            code.setStyle("-fx-border-color: #1d1d1d");
-////        }
-//
-//
-//    }
-
-    public void Excel(){
+    public void exportToExcel(){
         try {
 
             File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
@@ -420,9 +405,8 @@ public class ScanController {
             Desktop.getDesktop().open(fileTemp);
 
             clearFields();
-            lblNumbSpool.setText("");
-            lblSpool.setText("");
-
+//            lblNumbSpool.setText("");
+//            lblSpool.setText("");
             unselectCheckBox();
             numberSpool.requestFocus();
 
@@ -434,27 +418,25 @@ public class ScanController {
         }
     }
 
-//    public void CheckBoxEmpty(){
-//        boolean isMyCheckBoxEmpty= (cb_code.get)
-//    }
-
 
     public void toFormLabel() throws IOException {
 //        LabelListCreator.createExcelList();
 
-        if(cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
+          if(cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
                 cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected()|| cb_lot.isSelected() ||
                 cb_welds.isSelected() || cb_persRope.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() ||  cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
-        {
-        Excel();
-        }
-        else
-        {
-            TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
-        }
+
+            {
+                exportToExcel();
+            }
+
+          else
+            {
+                TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
+            }
     }
 
     public void initializeTableColumns() {
@@ -495,6 +477,7 @@ public class ScanController {
                 TextFieldService.alert("Данной записи в БД не найдено!");
                 numberSpool.setStyle("-fx-border-color: #ff0000");
                 numberSpool.setText("");
+                unselectCheckBox();
             }
 
             TestLabel label = testLabelList.get(0);
@@ -543,6 +526,7 @@ public class ScanController {
         } else if (numberSpool.getText().isEmpty()) {
             numberSpool.setStyle("-fx-background-color: #ff0000");
             clearFields();
+            unselectCheckBox();
             TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
             numberSpool.setStyle("-fx-border-color: #ff0000");
         }
