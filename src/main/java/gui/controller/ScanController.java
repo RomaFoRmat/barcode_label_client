@@ -19,9 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.*;
@@ -336,45 +335,51 @@ public class ScanController {
         lblSpool.setText("");
     }
 
-//    public void hashMapToExcel() {
-//
-//        try {
-//
-//            File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
-//            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
-//            XSSFWorkbook workbook = new XSSFWorkbook(file);
-//            Sheet sheet = workbook.getSheetAt(0);
-//
-//        Map<String,String> data = new HashMap<String,String>();
-//            List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
-//                    + numberSpool.getText());
-//            TestLabel label = testLabelList.get(0);
-//
-//        data.put(lbl_type.getText() ,typeSpool.getText());
-//        data.put("Сode:",code.getText(String.valueOf(label.getCode())));
-//        data.put("Date" ,date_create.getText());
-//        data.put(lbl_LR.getText() ,rl.getText());
-//
-//        int rowExcel=5;
-//
-//        for(Map.Entry entry:data.entrySet())
-//        {
-//            Row row =sheet.createRow(rowExcel++);
-//
-//            row.createCell(0).setCellValue(String.valueOf(entry.getKey()));
-//            row.createCell(1).setCellValue(String.valueOf(entry.getValue()));
-//        }
-//        file.close();
-//        FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
-//            workbook.write(outFile);
-//            outFile.close();
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void hashMapToExcel() {
+
+        try {
+
+            File fileTemp = new File("src\\main\\resources\\temp\\ExcelPath.xlsx");
+            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            Map<String,String> data = new HashMap<String,String>();
+
+            data.put("type", typeSpool.getText());
+            data.put("construct", construct.getText());
+            data.put("Сode:", code.getText());
+            data.put("L/R", rl.getText());
+            data.put("Bob.№", lblNumbSpool.getText());
+            data.put("Date", date_create.getText());
+            data.put("Part №", part.getText());
+            data.put("Lot №", lot.getText());
+            data.put("made in belarus", "Made in Belarus");
+
+        int rowExcel=4;
+
+        for(Map.Entry<String,String> entry:data.entrySet()) {
+
+            Row row = sheet.getRow(rowExcel++);
+
+            row.createCell(0).setCellValue(String.valueOf(entry.getKey()));
+            row.createCell(1).setCellValue(String.valueOf(entry.getValue()));
+
+        }
+
+
+        file.close();
+        FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
+            workbook.write(outFile);
+            outFile.close();
+            Desktop.getDesktop().open(fileTemp);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void exportToExcel(){
         try {
@@ -471,7 +476,8 @@ public class ScanController {
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
 
             {
-                exportToExcel();
+//                exportToExcel();
+                hashMapToExcel();
             }
 
           else
