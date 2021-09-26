@@ -1,6 +1,7 @@
 package gui.controller;
 
 
+import gui.model.FieldModel;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.DateUtil;
@@ -21,11 +22,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -262,6 +268,11 @@ public class ScanController {
 
     private TestLabel testLabel;
 
+//    private List<FieldModel> fieldModelsList;
+
+    private List<FieldModel> fieldModelList = new ArrayList();
+
+
     @FXML
     public void initialize() {
         /**для наведения фокуса на определенное поле*/
@@ -272,19 +283,58 @@ public class ScanController {
             }
         });
 
-        initializeTableColumns();
 
+        fieldModelList.add(new FieldModel(typeSpool, cb_typeSpool, ""));
+        fieldModelList.add(new FieldModel(code, cb_code, "Code"));
+        fieldModelList.add(new FieldModel(construct, cb_construct, ""));
+        fieldModelList.add(new FieldModel(date_create, cb_date, "Date"));
+        fieldModelList.add(new FieldModel(rl, cb_lr, ""));
+        fieldModelList.add(new FieldModel(part, cb_part, "Part №"));
+        fieldModelList.add(new FieldModel(lot, cb_lot, "Lot №"));
+        fieldModelList.add(new FieldModel(length, cb_length, "Length"));
+        fieldModelList.add(new FieldModel(welds, cb_welds, "Welds"));
+
+
+        initializeTableColumns();
         List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
 
-//        TestLabel testLabel = new TestLabel();
-//        testLabel.setTypeSpool("BS-60");
-//        testLabel.setLength(23424);
-//        tableSpool.addAll(testLabel);
-//        tableView.setItems(tableSpool);
-
     }
+
+//    public  CellStyle createHeadingStyle(XSSFWorkbook workbook) {
+//
+//        try {
+//
+////            File fileTemp = new File("src\\main\\resources\\temp\\templateExport.xlsx");
+////            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
+////            XSSFWorkbook workbook = new XSSFWorkbook(file);
+////            Sheet sheet = workbook.getSheetAt(0);
+//
+//            XSSFFont font = workbook.createFont();
+//            font.setFontName("Times New Roman");
+//            font.setFontHeightInPoints((short) 10);
+//            font.setBold(true);
+//
+//            XSSFCellStyle style = workbook.createCellStyle();
+//            style.setVerticalAlignment(VerticalAlignment.CENTER);
+//            style.setFont(font);
+//
+//
+//        return style;
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        return null;
+//    }
+
+
+
 
     public void unselectCheckBox(){
         cb_typeSpool.setSelected(false);
@@ -335,128 +385,66 @@ public class ScanController {
         lblSpool.setText("");
     }
 
-    public void hashMapToExcel() {
+    public void exportToExcel() {
 
         try {
 
-            File fileTemp = new File("src\\main\\resources\\temp\\ExcelPath.xlsx");
+            File fileTemp = new File("src\\main\\resources\\temp\\templateExport.xlsx");
             FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
 
-            Map<String,String> data = new HashMap<String,String>();
+            XSSFFont font = workbook.createFont();
+            font.setFontName("Times New Roman");
+            font.setFontHeightInPoints((short) 10);
+            font.setBold(true);
 
-            data.put("type", typeSpool.getText());
-            data.put("construct", construct.getText());
-            data.put("Сode:", code.getText());
-            data.put("L/R", rl.getText());
-            data.put("Bob.№", lblNumbSpool.getText());
-            data.put("Date", date_create.getText());
-            data.put("Part №", part.getText());
-            data.put("Lot №", lot.getText());
-            data.put("made in belarus", "Made in Belarus");
+            XSSFCellStyle style = workbook.createCellStyle();
+            style.setVerticalAlignment(VerticalAlignment.CENTER);
+            style.setAlignment(HorizontalAlignment.LEFT);
+            style.setFont(font);
+
+            XSSFCellStyle style2 = workbook.createCellStyle();
+            style2.setVerticalAlignment(VerticalAlignment.CENTER);
+            style2.setAlignment(HorizontalAlignment.CENTER);
+            style2.setFont(font);
 
         int rowExcel=4;
 
-        for(Map.Entry<String,String> entry:data.entrySet()) {
+        for(FieldModel field : fieldModelList){
+            Row row = sheet.getRow(rowExcel);
+            Cell cell0 = row.createCell(0);
+            Cell cell1 = row.createCell(1);
 
-            Row row = sheet.getRow(rowExcel++);
-
-            row.createCell(0).setCellValue(String.valueOf(entry.getKey()));
-            row.createCell(1).setCellValue(String.valueOf(entry.getValue()));
-
+            if (field.getCheckBox().isSelected()){
+                row.createCell(0).setCellValue(field.getType());
+                cell0.setCellStyle(style);
+                row.createCell(1).setCellValue(field.getTextField().getText());
+                cell1.setCellStyle(style);
+                rowExcel++;
+            }
+            Cell cell = sheet.getRow(rowExcel).getCell(0);
+            cell.setCellValue("Made in Belarus");
+            cell.setCellStyle(style2);
         }
-
+            sheet.addMergedRegion(new CellRangeAddress(
+                    rowExcel,
+                    rowExcel,
+                    0,
+                    1)
+            );
 
         file.close();
-        FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
+//        FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
+        FileOutputStream outFile =new FileOutputStream("new.xlsx");
             workbook.write(outFile);
             outFile.close();
-            Desktop.getDesktop().open(fileTemp);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void exportToExcel(){
-        try {
-
-            File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
-            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
-
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-            Sheet sheet = workbook.getSheetAt(0);
-            Cell cell = null;
-            cell = sheet.getRow(7).getCell(1);
-            cell.setCellValue(lblNumbSpool.getText());
-            //Update the value of cell
-            if(cb_typeSpool.isSelected()) {
-                cell = sheet.getRow(4).getCell(0);
-                cell.setCellValue(typeSpool.getText());
-            } else {
-                cell = sheet.getRow(4).getCell(0);
-                cell.setCellValue("");
-            }
-            if (cb_code.isSelected()) {
-                cell = sheet.getRow(5).getCell(1);
-                cell.setCellValue(code.getText());
-            } else {
-                cell = sheet.getRow(5).getCell(1);
-                cell.setCellValue("");
-            }
-            if (cb_lr.isSelected()){
-                cell = sheet.getRow(6).getCell(1);
-                cell.setCellValue(rl.getText());
-            } else {
-                cell = sheet.getRow(6).getCell(1);
-                cell.setCellValue("");
-            }
-            if (cb_date.isSelected()){
-                cell = sheet.getRow(8).getCell(1);
-                cell.setCellValue(date_create.getText());
-            }else {
-                cell = sheet.getRow(8).getCell(1);
-                cell.setCellValue("");
-            }
-            if (cb_length.isSelected()){
-                cell = sheet.getRow(9).getCell(1);
-                cell.setCellValue(length.getText());
-            } else {
-                cell = sheet.getRow(9).getCell(1);
-                cell.setCellValue("");
-            }
-            if (cb_part.isSelected()){
-                cell = sheet.getRow(10).getCell(1);
-                cell.setCellValue(part.getText());
-            } else {
-                cell = sheet.getRow(10).getCell(1);
-                cell.setCellValue("");
-            }
-            if (cb_lot.isSelected()){
-                cell = sheet.getRow(11).getCell(1);
-                cell.setCellValue(lot.getText());
-            } else {
-                cell = sheet.getRow(11).getCell(1);
-                cell.setCellValue("");
-            }
-
-            file.close();
-
-            FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
-            workbook.write(outFile);
-            outFile.close();
-            Desktop.getDesktop().open(fileTemp);
+            Desktop.getDesktop().open(new File("new.xlsx"));
 
             clearFields();
-//            lblNumbSpool.setText("");
-//            lblSpool.setText("");
             unselectCheckBox();
             numberSpool.requestFocus();
 
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -464,9 +452,7 @@ public class ScanController {
         }
     }
 
-
     public void toFormLabel() throws IOException {
-//        LabelListCreator.createExcelList();
 
           if(cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
                 cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected()|| cb_lot.isSelected() ||
@@ -476,8 +462,7 @@ public class ScanController {
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
 
             {
-//                exportToExcel();
-                hashMapToExcel();
+                exportToExcel();
             }
 
           else
@@ -565,6 +550,7 @@ public class ScanController {
 //            }
 
             numberSpool.setStyle("-fx-border-color: #a7fc2d");
+            cb_date.setSelected(true);
             lblSpool.setText("Катушка №:");
             lblNumbSpool.setText(numberSpool.getText());
 //            tabInfoSpool.setText("Информация о катушке: №"+ numberSpool.getText());
