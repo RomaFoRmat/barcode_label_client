@@ -1,9 +1,11 @@
 package gui.controller;
 
 
+import gui.model.CellStyleOption;
 import gui.model.FieldModel;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
+import gui.service.CellStylesUtil;
 import gui.service.DateUtil;
 import gui.service.TextFieldService;
 import javafx.animation.Animation;
@@ -12,6 +14,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.*;
@@ -27,6 +30,7 @@ import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -47,10 +51,10 @@ public class ScanController {
 
     @FXML
     private AnchorPane anchorPaneMain;
-
-    public ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
     @FXML
     private Button btn_labelForm;
+    @FXML
+    private Button btn_printLabel;
     @FXML
     private Label lbl_spool;
     @FXML
@@ -274,6 +278,8 @@ public class ScanController {
 
     private TestLabel testLabel;
 
+    public ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
+
 //    private List<FieldModel> fieldModelsList;
 
     private List<FieldModel> fieldModelList = new ArrayList();
@@ -291,15 +297,21 @@ public class ScanController {
 
         initClock();
 
-        fieldModelList.add(new FieldModel(typeSpool, cb_typeSpool, ""));
-        fieldModelList.add(new FieldModel(code, cb_code, "Code"));
-        fieldModelList.add(new FieldModel(construct, cb_construct, ""));
-        fieldModelList.add(new FieldModel(date_create, cb_date, "Date"));
-        fieldModelList.add(new FieldModel(rl, cb_lr, ""));
-        fieldModelList.add(new FieldModel(part, cb_part, "Part №"));
-        fieldModelList.add(new FieldModel(lot, cb_lot, "Lot №"));
-        fieldModelList.add(new FieldModel(length, cb_length, "Length"));
-        fieldModelList.add(new FieldModel(welds, cb_welds, "Welds"));
+        List<TestLabel> testLabelListForType = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
+                + numberSpool.getText());
+
+        TestLabel label = testLabelListForType.get(0);
+
+        fieldModelList.add(new FieldModel(construct, cb_construct, label.getConstruct(), CellStyleOption.ENLARGED2));
+        fieldModelList.add(new FieldModel(code, cb_code, "Code:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
+        fieldModelList.add(new FieldModel(part, cb_part, "Part №:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(lot, cb_lot, "Lot №:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(length, cb_length, "Length:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(typeSpool, cb_typeSpool, "", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(date_create, cb_date, "Date:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(personal_rope, cb_persRope, "persRope:", CellStyleOption.BASE));
 
 
         initializeTableColumns();
@@ -309,36 +321,6 @@ public class ScanController {
 
     }
 
-//    public  CellStyle createHeadingStyle(XSSFWorkbook workbook) {
-//
-//        try {
-//
-////            File fileTemp = new File("src\\main\\resources\\temp\\templateExport.xlsx");
-////            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
-////            XSSFWorkbook workbook = new XSSFWorkbook(file);
-////            Sheet sheet = workbook.getSheetAt(0);
-//
-//            XSSFFont font = workbook.createFont();
-//            font.setFontName("Times New Roman");
-//            font.setFontHeightInPoints((short) 10);
-//            font.setBold(true);
-//
-//            XSSFCellStyle style = workbook.createCellStyle();
-//            style.setVerticalAlignment(VerticalAlignment.CENTER);
-//            style.setFont(font);
-//
-//
-//        return style;
-//
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//        return null;
-//    }
 
     private void initClock() {
 
@@ -351,7 +333,7 @@ public class ScanController {
     }
 
 
-    public void unselectCheckBox(){
+    public void unselectCheckBox() {
         cb_typeSpool.setSelected(false);
         cb_code.setSelected(false);
         cb_construct.setSelected(false);
@@ -404,44 +386,38 @@ public class ScanController {
 
         try {
 
-            File fileTemp = new File("src\\main\\resources\\temp\\templateExport.xlsx");
+            File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
             FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
 
-            XSSFFont font = workbook.createFont();
-            font.setFontName("Times New Roman");
-            font.setFontHeightInPoints((short) 10);
-            font.setBold(true);
 
-            XSSFCellStyle style = workbook.createCellStyle();
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-            style.setAlignment(HorizontalAlignment.LEFT);
-            style.setFont(font);
+            sheet.addMergedRegion(new CellRangeAddress(
+                    4,
+                    4,
+                    0,
+                    1)
+            );
 
-            XSSFCellStyle style2 = workbook.createCellStyle();
-            style2.setVerticalAlignment(VerticalAlignment.CENTER);
-            style2.setAlignment(HorizontalAlignment.CENTER);
-            style2.setFont(font);
+            int rowExcel = 4;
 
-        int rowExcel=4;
+            for (FieldModel field : fieldModelList) {
+                Row row = sheet.getRow(rowExcel);
+                Cell cell0 = row.createCell(0);
+                Cell cell1 = row.createCell(1);
 
-        for(FieldModel field : fieldModelList){
-            Row row = sheet.getRow(rowExcel);
-            Cell cell0 = row.createCell(0);
-            Cell cell1 = row.createCell(1);
+                if (field.getCheckBox().isSelected()) {
+                    row.createCell(0).setCellValue(field.getType());
+                    cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                    row.createCell(1).setCellValue(field.getTextField().getText());
+                    cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                    rowExcel++;
+                }
+                Cell cellLast = sheet.getRow(rowExcel).getCell(0);
+                cellLast.setCellValue("Made in Belarus");
+                cellLast.setCellStyle(CellStylesUtil.getCellStyle(workbook, CellStyleOption.COUNTRY));
 
-            if (field.getCheckBox().isSelected()){
-                row.createCell(0).setCellValue(field.getType());
-                cell0.setCellStyle(style);
-                row.createCell(1).setCellValue(field.getTextField().getText());
-                cell1.setCellStyle(style);
-                rowExcel++;
             }
-            Cell cell = sheet.getRow(rowExcel).getCell(0);
-            cell.setCellValue("Made in Belarus");
-            cell.setCellStyle(style2);
-        }
             sheet.addMergedRegion(new CellRangeAddress(
                     rowExcel,
                     rowExcel,
@@ -449,15 +425,16 @@ public class ScanController {
                     1)
             );
 
-        file.close();
-//        FileOutputStream outFile =new FileOutputStream(new File(String.valueOf(fileTemp)));
-        FileOutputStream outFile =new FileOutputStream("new.xlsx");
+
+            file.close();
+
+            FileOutputStream outFile = new FileOutputStream("new.xlsx");
             workbook.write(outFile);
             outFile.close();
             Desktop.getDesktop().open(new File("new.xlsx"));
 
             clearFields();
-            unselectCheckBox();
+//            unselectCheckBox();
             numberSpool.requestFocus();
 
         } catch (FileNotFoundException e) {
@@ -467,23 +444,25 @@ public class ScanController {
         }
     }
 
+    public  void printLabel() {
+
+    }
+
     public void toFormLabel() throws IOException {
 
-          if(cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
-                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected()|| cb_lot.isSelected() ||
+        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
+                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
                 cb_welds.isSelected() || cb_persRope.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
-                cb_straight600_4.isSelected() ||  cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
+                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
+        {
+            exportToExcel();
 
-            {
-                exportToExcel();
-            }
+        } else {
 
-          else
-            {
-                TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
-            }
+            TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
+        }
     }
 
     public void initializeTableColumns() {
@@ -565,7 +544,7 @@ public class ScanController {
 //            }
 
             numberSpool.setStyle("-fx-border-color: #a7fc2d");
-            cb_date.setSelected(true);
+//            cb_date.setSelected(true);
             lblSpool.setText("Катушка №:");
             lblNumbSpool.setText(numberSpool.getText());
 //            tabInfoSpool.setText("Информация о катушке: №"+ numberSpool.getText());
@@ -586,6 +565,7 @@ public class ScanController {
             getInfoAction();
         }
     }
+
 }
 
 

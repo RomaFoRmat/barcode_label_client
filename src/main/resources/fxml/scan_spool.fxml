@@ -83,22 +83,22 @@
                                                                   <Font name="System Bold" size="22.0" />
                                                               </font>
                                                           </Label>
-                                                          <Label fx:id="lbl_code" prefHeight="0.0" prefWidth="149.0" text="Код">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
                                                           <Label fx:id="lbl_construct" prefHeight="0.0" prefWidth="149.0" text="Конструкция">
                                                               <font>
                                                                   <Font name="System Bold" size="22.0" />
                                                               </font>
                                                           </Label>
-                                                          <Label fx:id="lbl_date" prefHeight="0.0" prefWidth="149.0" text="Дата">
+                                                          <Label fx:id="lbl_code" prefHeight="0.0" prefWidth="149.0" text="Код">
                                                               <font>
                                                                   <Font name="System Bold" size="22.0" />
                                                               </font>
                                                           </Label>
                                                           <Label fx:id="lbl_LR" prefHeight="0.0" prefWidth="149.0" text="L/R">
+                                                              <font>
+                                                                  <Font name="System Bold" size="22.0" />
+                                                              </font>
+                                                          </Label>
+                                                          <Label fx:id="lbl_date" prefHeight="0.0" prefWidth="149.0" text="Дата">
                                                               <font>
                                                                   <Font name="System Bold" size="22.0" />
                                                               </font>
@@ -140,22 +140,22 @@
                                                                   <Font name="System Bold" size="12.0" />
                                                               </font>
                                                           </TextField>
-                                                          <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
                                                           <TextField fx:id="construct" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                               <font>
                                                                   <Font name="System Bold" size="12.0" />
                                                               </font>
                                                           </TextField>
-                                                          <TextField fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                          <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                               <font>
                                                                   <Font name="System Bold" size="12.0" />
                                                               </font>
                                                           </TextField>
                                                           <TextField fx:id="rl" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                              <font>
+                                                                  <Font name="System Bold" size="12.0" />
+                                                              </font>
+                                                          </TextField>
+                                                          <TextField fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                               <font>
                                                                   <Font name="System Bold" size="12.0" />
                                                               </font>
@@ -298,10 +298,10 @@
                                           <VBox layoutX="343.0" layoutY="51.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                              <children>
                                                         <CheckBox fx:id="cb_typeSpool" mnemonicParsing="false" />
-                                                        <CheckBox fx:id="cb_code" mnemonicParsing="false" />
                                                         <CheckBox fx:id="cb_construct" mnemonicParsing="false" />
-                                                        <CheckBox fx:id="cb_date" mnemonicParsing="false" />
+                                                        <CheckBox fx:id="cb_code" mnemonicParsing="false" />
                                                         <CheckBox fx:id="cb_lr" mnemonicParsing="false" />
+                                                        <CheckBox fx:id="cb_date" mnemonicParsing="false" />
                                                         <CheckBox fx:id="cb_part" mnemonicParsing="false" />
                                                         <CheckBox fx:id="cb_lot" mnemonicParsing="false" />
                                                         <CheckBox fx:id="cb_length" mnemonicParsing="false" />
@@ -328,11 +328,11 @@
                                                 <Font name="Comic Sans MS" size="20.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="btn_labelForm" layoutX="354.0" layoutY="454.0" mnemonicParsing="false" onAction="#toFormLabel" prefHeight="32.0" prefWidth="175.0" stylesheets="@../css/button.css" text="Сформировать бирку">
+                                          <Button fx:id="btn_labelForm" layoutX="289.0" layoutY="460.0" mnemonicParsing="false" onAction="#toFormLabel" prefHeight="30.0" prefWidth="166.0" stylesheets="@../css/button.css" text="Просмотр этикетки">
                                              <graphic>
-                                                <ImageView fitHeight="26.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../icon/logo_print.png" />
+                                                      <Image url="@../icon/excel_logo.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -342,6 +342,15 @@
                                                 <Font name="Comic Sans MS" size="20.0" />
                                              </font>
                                           </Label>
+                                          <Button fx:id="btn_printLabel" layoutX="464.0" layoutY="460.0" mnemonicParsing="false" onAction="#printLabel" prefHeight="25.0" prefWidth="147.0" stylesheets="@../css/button.css" text="Печать этикетки">
+                                             <graphic>
+                                                <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icon/logo_print.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
                                               </children>
                                           </AnchorPane>
                                  </children>
