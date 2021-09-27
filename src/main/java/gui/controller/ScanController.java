@@ -6,6 +6,9 @@ import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.DateUtil;
 import gui.service.TextFieldService;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -31,6 +35,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.awt.*;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -264,7 +270,7 @@ public class ScanController {
     private Label lblSpool;
 
     @FXML
-    private Tab tabInfoSpool;
+    private Label lbl_dateTime;
 
     private TestLabel testLabel;
 
@@ -283,6 +289,7 @@ public class ScanController {
             }
         });
 
+        initClock();
 
         fieldModelList.add(new FieldModel(typeSpool, cb_typeSpool, ""));
         fieldModelList.add(new FieldModel(code, cb_code, "Code"));
@@ -333,7 +340,15 @@ public class ScanController {
 //        return null;
 //    }
 
+    private void initClock() {
 
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            lbl_dateTime.setText(LocalDateTime.now().format(formatter));
+        }), new KeyFrame(Duration.seconds(1)));
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
+    }
 
 
     public void unselectCheckBox(){
