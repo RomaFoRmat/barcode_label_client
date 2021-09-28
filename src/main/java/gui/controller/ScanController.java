@@ -425,6 +425,12 @@ public class ScanController {
                     1)
             );
 
+            //добавление внешних границ к этикетке:
+            CellRangeAddress region = new CellRangeAddress(0, rowExcel, 0, 1);
+            RegionUtil.setBorderBottom(BorderStyle.THIN, region, sheet);
+            RegionUtil.setBorderTop(BorderStyle.THIN, region, sheet);
+            RegionUtil.setBorderLeft(BorderStyle.THIN, region, sheet);
+            RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
 
             file.close();
 
