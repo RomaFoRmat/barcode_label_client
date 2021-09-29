@@ -1,12 +1,14 @@
 package gui.controller;
 
 
+import com.jfoenix.controls.JFXButton;
 import gui.model.CellStyleOption;
 import gui.model.FieldModel;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.CellStylesUtil;
 import gui.service.DateUtil;
+import gui.service.PrintUtility;
 import gui.service.TextFieldService;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -17,6 +19,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import javafx.scene.control.Button;
@@ -26,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,7 +42,10 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import java.awt.*;
+import java.awt.print.PrinterException;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,9 +61,9 @@ public class ScanController {
     @FXML
     private AnchorPane anchorPaneMain;
     @FXML
-    private Button btn_labelForm;
+    private JFXButton btn_labelForm;
     @FXML
-    private Button btn_printLabel;
+    private JFXButton btn_printLabel;
     @FXML
     private Label lbl_spool;
     @FXML
@@ -297,12 +306,7 @@ public class ScanController {
 
         initClock();
 
-        List<TestLabel> testLabelListForType = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
-                + numberSpool.getText());
-
-        TestLabel label = testLabelListForType.get(0);
-
-        fieldModelList.add(new FieldModel(construct, cb_construct, label.getConstruct(), CellStyleOption.ENLARGED2));
+        fieldModelList.add(new FieldModel(construct, cb_construct, "", CellStyleOption.ENLARGED2));
         fieldModelList.add(new FieldModel(code, cb_code, "Code:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
         fieldModelList.add(new FieldModel(part, cb_part, "Part №:", CellStyleOption.BASE));
@@ -391,14 +395,6 @@ public class ScanController {
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
 
-
-            sheet.addMergedRegion(new CellRangeAddress(
-                    4,
-                    4,
-                    0,
-                    1)
-            );
-
             int rowExcel = 4;
 
             for (FieldModel field : fieldModelList) {
@@ -407,23 +403,34 @@ public class ScanController {
                 Cell cell1 = row.createCell(1);
 
                 if (field.getCheckBox().isSelected()) {
-                    row.createCell(0).setCellValue(field.getType());
-                    cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                    row.createCell(1).setCellValue(field.getTextField().getText());
-                    cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                    if (field.getCheckBox().equals(cb_construct)) {
+                        sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
+                        row.createCell(0).setCellValue(field.getTextField().getText());
+                        cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.setHeightInPoints(15);
+                    } else if(field.getCheckBox().equals(cb_lr)){
+                        row.createCell(1).setCellValue(field.getTextField().getText());
+                        cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.setHeightInPoints(15);
+                    }
+                    else {
+                        row.createCell(0).setCellValue(field.getType());
+                        cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.createCell(1).setCellValue(field.getTextField().getText());
+                        cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.setHeightInPoints(11);
+                    }
                     rowExcel++;
                 }
-                Cell cellLast = sheet.getRow(rowExcel).getCell(0);
-                cellLast.setCellValue("Made in Belarus");
-                cellLast.setCellStyle(CellStylesUtil.getCellStyle(workbook, CellStyleOption.COUNTRY));
-
             }
-            sheet.addMergedRegion(new CellRangeAddress(
-                    rowExcel,
-                    rowExcel,
-                    0,
-                    1)
-            );
+//            Cell cellLast = sheet.getRow(rowExcel).createCell(0);
+            Row row = sheet.getRow(rowExcel);
+            Cell cellLast = row.createCell(0);
+            row.setHeightInPoints(11);
+            cellLast.setCellValue("Made in Belarus");
+            cellLast.setCellStyle(CellStylesUtil.getCellStyle(workbook, CellStyleOption.COUNTRY));
+            sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
+
 
             //добавление внешних границ к этикетке:
             CellRangeAddress region = new CellRangeAddress(0, rowExcel, 0, 1);
@@ -433,11 +440,11 @@ public class ScanController {
             RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
 
             file.close();
-
-            FileOutputStream outFile = new FileOutputStream("new.xlsx");
+            FileOutputStream outFile = new FileOutputStream("label.xlsx");
             workbook.write(outFile);
             outFile.close();
-            Desktop.getDesktop().open(new File("new.xlsx"));
+//            Desktop.getDesktop().open(new File("label_"+ lblNumbSpool.getText()+ ".xlsx"));
+//            Desktop.getDesktop().open(new File("label.xlsx"));
 
             clearFields();
 //            unselectCheckBox();
@@ -450,8 +457,9 @@ public class ScanController {
         }
     }
 
-    public  void printLabel() {
-
+    public  void printLabel() throws IOException {
+            exportToExcel();
+            Desktop.getDesktop().print(new File("label.xlsx"));
     }
 
     public void toFormLabel() throws IOException {
@@ -464,6 +472,7 @@ public class ScanController {
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
         {
             exportToExcel();
+            Desktop.getDesktop().open(new File("label.xlsx"));
 
         } else {
 
