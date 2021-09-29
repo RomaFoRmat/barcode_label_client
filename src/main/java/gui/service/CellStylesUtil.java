@@ -1,10 +1,7 @@
 package gui.service;
 
 import gui.model.CellStyleOption;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -35,6 +32,7 @@ public class CellStylesUtil {
         font.setBold(true);
         font.setFontHeightInPoints((short) 10);
         font.setFontName("Times New Roman");
+//        style.setBorderBottom(BorderStyle.THIN);
 //        font.setUnderline(Font.U_SINGLE);
         style.setFont(font);
         return style;
@@ -47,7 +45,7 @@ public class CellStylesUtil {
         XSSFFont font = workbook.createFont();
         font.setBold(true);
         font.setFontHeightInPoints((short) 18);
-        font.setFontName("Times New Roman");
+        font.setFontName("Times New Roman ");
         style.setFont(font);
         return style;
     }

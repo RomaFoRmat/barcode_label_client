@@ -7,9 +7,9 @@
     -fx-opacity: 0.4;
     -fx-background-color: #1d1d1d;
 }
-
-
-
+.button{
+    -fx-background-color: ghostwhite;
+}
 
 .button:hover {
     -fx-background-color: #6c5ebb;
