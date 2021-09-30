@@ -12,6 +12,7 @@ import gui.service.PrintUtility;
 import gui.service.TextFieldService;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -65,9 +66,11 @@ public class ScanController {
     @FXML
     private JFXButton btn_printLabel;
     @FXML
-    private Label lbl_spool;
+    private JFXButton btn_clear;
     @FXML
-    private TextField numberSpool;
+    private Label lbl_barcodeSpool;
+    @FXML
+    private TextField barcodeSpool;
     @FXML
     private Button btn_getInfo;
     @FXML
@@ -89,7 +92,7 @@ public class ScanController {
     @FXML
     private Label lbl_welds;
     @FXML
-    private Label lbl_rope;
+    private Label lbl_numberSpool;
     @FXML
     private TextField typeSpool;
     @FXML
@@ -139,7 +142,9 @@ public class ScanController {
     @FXML
     private Label lbl_prRope;
     @FXML
-    private TextField personal_rope;
+//    private TextField personal_rope;
+
+    private TextField numberSpool;
 
     @FXML
     private TextField straightforwardness1;
@@ -199,7 +204,8 @@ public class ScanController {
     private CheckBox cb_welds;
 
     @FXML
-    private CheckBox cb_persRope;
+//    private CheckBox cb_persRope;
+    private CheckBox cb_numberSpool;
 
     @FXML
     private CheckBox cb_straight300;
@@ -284,6 +290,8 @@ public class ScanController {
 
     @FXML
     private Label lbl_dateTime;
+    @FXML
+    private Tab tabInfoSpool;
 
     private TestLabel testLabel;
 
@@ -300,7 +308,7 @@ public class ScanController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                numberSpool.requestFocus();
+                barcodeSpool.requestFocus();
             }
         });
 
@@ -309,13 +317,13 @@ public class ScanController {
         fieldModelList.add(new FieldModel(construct, cb_construct, "", CellStyleOption.ENLARGED2));
         fieldModelList.add(new FieldModel(code, cb_code, "Code:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
+        fieldModelList.add(new FieldModel(numberSpool, cb_numberSpool, "Bob.№:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(part, cb_part, "Part №:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(lot, cb_lot, "Lot №:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(length, cb_length, "Length:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(typeSpool, cb_typeSpool, "", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(date_create, cb_date, "Date:", CellStyleOption.BASE));
-        fieldModelList.add(new FieldModel(personal_rope, cb_persRope, "persRope:", CellStyleOption.BASE));
 
 
         initializeTableColumns();
@@ -347,7 +355,7 @@ public class ScanController {
         cb_lot.setSelected(false);
         cb_length.setSelected(false);
         cb_welds.setSelected(false);
-        cb_persRope.setSelected(false);
+        cb_numberSpool.setSelected(false);
         cb_straight300.setSelected(false);
         cb_straight600_1.setSelected(false);
         cb_straight600_2.setSelected(false);
@@ -370,7 +378,7 @@ public class ScanController {
         lot.clear();
         length.clear();
         welds.clear();
-        personal_rope.clear();
+        numberSpool.clear();
         straightforwardness1.clear();
         straightforwardness2.clear();
         straightforwardness3.clear();
@@ -380,7 +388,8 @@ public class ScanController {
         torsion.clear();
         torsRope.clear();
         straightforwardnessRope.clear();
-        numberSpool.setText("");
+        barcodeSpool.setText("");
+        tabInfoSpool.setText("Информация о катушке");
 
         lblNumbSpool.setText("");
         lblSpool.setText("");
@@ -446,9 +455,9 @@ public class ScanController {
 //            Desktop.getDesktop().open(new File("label_"+ lblNumbSpool.getText()+ ".xlsx"));
 //            Desktop.getDesktop().open(new File("label.xlsx"));
 
-            clearFields();
+//            clearFields();
 //            unselectCheckBox();
-            numberSpool.requestFocus();
+            barcodeSpool.requestFocus();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -457,16 +466,18 @@ public class ScanController {
         }
     }
 
+
     public  void printLabel() throws IOException {
             exportToExcel();
             Desktop.getDesktop().print(new File("label.xlsx"));
+//            clearFields();
     }
 
     public void toFormLabel() throws IOException {
 
         if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
                 cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
-                cb_welds.isSelected() || cb_persRope.isSelected() || cb_straight300.isSelected() ||
+                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
@@ -506,18 +517,24 @@ public class ScanController {
     }
 
 
+    public void clearAction() {
+        unselectCheckBox();
+        clearFields();
+    }
+
+
     public void getInfoAction() {
-        numberSpool.setStyle("-fx-border-color: #000000");
-        if (!numberSpool.getText().isEmpty()) {
+        barcodeSpool.setStyle("-fx-border-color: #000000");
+        if (!barcodeSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
-                    + numberSpool.getText());
+                    + barcodeSpool.getText());
 
             if (testLabelList != null && testLabelList.isEmpty()) {
                 clearFields();
-                numberSpool.setStyle("-fx-background-color: #ff0000");
+                barcodeSpool.setStyle("-fx-background-color: #ff0000");
                 TextFieldService.alert("Данной записи в БД не найдено!");
-                numberSpool.setStyle("-fx-border-color: #ff0000");
-                numberSpool.setText("");
+                barcodeSpool.setStyle("-fx-border-color: #ff0000");
+                barcodeSpool.setText("");
                 unselectCheckBox();
             }
 
@@ -527,13 +544,14 @@ public class ScanController {
             typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
             code.setText(label.getCode() != null ? String.valueOf(label.getCode()) : "");
             construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
+            numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
             date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
             lot.setText(label.getLot() != 0 ? String.valueOf(label.getLot()) : "");
             length.setText(label.getLength() != 0 ? String.valueOf(label.getLength()) : "");
             welds.setText(label.getWelds() != 0 ? String.valueOf(label.getWelds()) : "0");
-            personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
+//            personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
             straightforwardness300.setText(label.getStraightforwardness300() != null ?
                     String.valueOf(label.getStraightforwardness300()) : "");
             straightforwardness1.setText(label.getStraightforwardness1() != null ?
@@ -558,19 +576,21 @@ public class ScanController {
 //                straightforwardnessRope.setText("");
 //            }
 
-            numberSpool.setStyle("-fx-border-color: #a7fc2d");
-//            cb_date.setSelected(true);
-            lblSpool.setText("Катушка №:");
-            lblNumbSpool.setText(numberSpool.getText());
-//            tabInfoSpool.setText("Информация о катушке: №"+ numberSpool.getText());
-            numberSpool.setText("");
+            barcodeSpool.setStyle("-fx-border-color: #a7fc2d");
+            cb_date.setSelected(true);
+            cb_numberSpool.setSelected(true);
+            cb_code.setSelected(true);
+//            lblSpool.setText("Катушка №:");
+//            lblNumbSpool.setText(barcodeSpool.getText());
+            tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
+            barcodeSpool.setText("");
 
-        } else if (numberSpool.getText().isEmpty()) {
-            numberSpool.setStyle("-fx-background-color: #ff0000");
+        } else if (barcodeSpool.getText().isEmpty()) {
+            barcodeSpool.setStyle("-fx-background-color: #ff0000");
             clearFields();
             unselectCheckBox();
             TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
-            numberSpool.setStyle("-fx-border-color: #ff0000");
+            barcodeSpool.setStyle("-fx-border-color: #ff0000");
         }
     }
 
