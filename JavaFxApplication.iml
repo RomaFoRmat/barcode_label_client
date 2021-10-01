@@ -98,5 +98,9 @@
     <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:2.0.22" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.32" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.32" level="project" />
+    <orderEntry type="library" name="Maven: com.google.zxing:core:3.4.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.zxing:javase:3.4.1" level="project" />
+    <orderEntry type="library" name="Maven: com.beust:jcommander:1.78" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.github.jai-imageio:jai-imageio-core:1.4.0" level="project" />
   </component>
 </module>

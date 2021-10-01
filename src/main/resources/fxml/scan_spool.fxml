@@ -51,10 +51,10 @@
             </Label>
             </children>
         </Pane>
-        <Label fx:id="lbl_barcodeSpool" layoutX="158.0" layoutY="73.0" prefHeight="35.0" prefWidth="253.0"
+        <Label fx:id="lbl_barcodeSpool" layoutX="170.0" layoutY="73.0" prefHeight="35.0" prefWidth="246.0"
                text="Отсканируйте штрих-код">
             <font>
-                <Font name="System Bold" size="20.0"/>
+                <Font name="Calibri Light Italic" size="21.0"/>
             </font>
         </Label>
         <TextField fx:id="barcodeSpool" alignment="CENTER" layoutX="418.0" layoutY="75.0" prefHeight="32.0"
@@ -71,6 +71,9 @@
                     <image>
                         <Image url="@../icon/findSpool.gif"/>
                     </image>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
                 </ImageView>
             </graphic>
         </Button>
@@ -105,7 +108,7 @@
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0"/>
                                                                     </font>
-                                                          </Label>
+                                                                </Label>
                                                           <Label fx:id="lbl_code" prefHeight="0.0" prefWidth="149.0" text="Код">
                                                               <font>
                                                                   <Font name="System Bold" size="22.0" />
@@ -168,7 +171,7 @@
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0"/>
                                                                     </font>
-                                                          </TextField>
+                                                                </TextField>
                                                           <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                               <font>
                                                                   <Font name="System Bold" size="12.0" />
@@ -286,7 +289,7 @@
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0"/>
                                                                     </font>
-                                                          </TextField>
+                                                                </TextField>
                                                           <TextField fx:id="straightforwardness2" prefHeight="32.0" stylesheets="@../css/style.css">
                                                               <font>
                                                                   <Font name="System Bold" size="12.0" />
@@ -343,7 +346,7 @@
                                                                 <CheckBox fx:id="cb_length" mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cb_welds" mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cb_date" mnemonicParsing="false"/>
-                                             </children>
+                                                            </children>
                                           </VBox>
                                                         <VBox layoutX="844.0" layoutY="30.0" spacing="24.0"
                                                               stylesheets="@../css/cheсkBox.css">
@@ -364,8 +367,9 @@
                                                                           mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cb_torsion" mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cb_torsRope" mnemonicParsing="false"/>
-                                                        <CheckBox fx:id="cb_straightRope" mnemonicParsing="false" />
-                                             </children>
+                                                                <CheckBox fx:id="cb_straightRope"
+                                                                          mnemonicParsing="false"/>
+                                                            </children>
                                           </VBox>
                                                         <JFXButton fx:id="btn_labelForm" buttonType="RAISED"
                                                                    layoutX="233.0" layoutY="440.0"
@@ -413,6 +417,9 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
+                                                        <Button fx:id="btn_qrCode" layoutX="394.0" layoutY="115.0"
+                                                                mnemonicParsing="false" onAction="#generateQrCode"
+                                                                text="QR-CODE"/>
                                                     </children>
                                           </AnchorPane>
                                  </children>
@@ -440,16 +447,16 @@
                                         <TableColumn fx:id="tc_part" prefWidth="77.0" text="№ партии" />
                                         <TableColumn fx:id="tc_lot" prefWidth="54.0" text="LOT" />
                                         <TableColumn fx:id="tc_length" prefWidth="56.0" text="Длинна" />
-                                        <TableColumn fx:id="tc_welds" prefWidth="50.0" text="Сварка" />
-                                        <TableColumn fx:id="tc_personalRope" prefWidth="66.0" text="№ канатчика" />
-                                        <TableColumn fx:id="tc_straight_300" prefWidth="67.0" text="Прям.300" />
-                                        <TableColumn fx:id="tc_straight600_1" prefWidth="78.0" text="Прям.600_1" />
-                                        <TableColumn fx:id="tc_straight600_2" prefWidth="73.0" text="Прям.600_2" />
-                                        <TableColumn fx:id="tc_straight600_3" prefWidth="75.0" text="Прям.600_3" />
-                                        <TableColumn fx:id="tc_straight600_4" prefWidth="75.0" text="Прям.600_4" />
-                                        <TableColumn fx:id="tc_straight600_5" prefWidth="75.0" text="Прям.600_5" />
-                                        <TableColumn fx:id="tc_straight600Avg" prefWidth="102.0" text="Прям.600_сред." />
-                                        <TableColumn fx:id="tc_torsion" prefWidth="70.0" text="Кручение" />
+                                        <TableColumn fx:id="tc_welds" prefWidth="50.0" text="Сварка"/>
+                                        <TableColumn fx:id="tc_personalRope" prefWidth="66.0" text="№ канатчика"/>
+                                        <TableColumn fx:id="tc_straight_300" prefWidth="67.0" text="Прям.300"/>
+                                        <TableColumn fx:id="tc_straight600_1" prefWidth="78.0" text="Прям.600_1"/>
+                                        <TableColumn fx:id="tc_straight600_2" prefWidth="73.0" text="Прям.600_2"/>
+                                        <TableColumn fx:id="tc_straight600_3" prefWidth="75.0" text="Прям.600_3"/>
+                                        <TableColumn fx:id="tc_straight600_4" prefWidth="75.0" text="Прям.600_4"/>
+                                        <TableColumn fx:id="tc_straight600_5" prefWidth="75.0" text="Прям.600_5"/>
+                                        <TableColumn fx:id="tc_straight600Avg" prefWidth="102.0" text="Прям.600_сред."/>
+                                        <TableColumn fx:id="tc_torsion" prefWidth="70.0" text="Кручение"/>
                                         <TableColumn fx:id="tc_torsionRope" prefWidth="95.0" text="Кручение кан."/>
                                         <TableColumn fx:id="tc_straightRope" prefWidth="75.0" text="Прям.кан."/>
                                     </columns>

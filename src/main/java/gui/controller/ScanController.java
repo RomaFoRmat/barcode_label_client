@@ -1,6 +1,12 @@
 package gui.controller;
 
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.JFXButton;
 import gui.model.CellStyleOption;
 import gui.model.FieldModel;
@@ -38,6 +44,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -51,10 +58,8 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 
 public class ScanController {
@@ -466,10 +471,69 @@ public class ScanController {
         }
     }
 
+    public void generateQrCode() throws WriterException, IOException {
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("QR-Code");
 
-    public  void printLabel() throws IOException {
-            exportToExcel();
-            Desktop.getDesktop().print(new File("label.xlsx"));
+            for (FieldModel field : fieldModelList) {
+                if (field.getCheckBox().isSelected()) {
+                    String genCode = field.getType() + field.getTextField().getText();
+                    String imageFormat = "png";
+
+                    Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+                    hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+
+                    BitMatrix bitMatrix = new QRCodeWriter().encode(genCode, BarcodeFormat.QR_CODE, 114, 119, hints);
+                    MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, new FileOutputStream(new File("qr-code.png")));
+                    System.out.println(genCode);
+                }
+            }
+            InputStream inputStream = new FileInputStream("qr-code.png");
+            //Get the contents of an InputStream as a byte[].
+            byte[] bytes = IOUtils.toByteArray(inputStream);
+            //Adds a picture to the workbook
+            int pictureIdx = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
+            //close the input stream
+            inputStream.close();
+
+            //Creates the top-level drawing patriarch.
+            Drawing drawing = sheet.createDrawingPatriarch();
+            //Returns an object that handles instantiating concrete classes
+            CreationHelper helper = workbook.getCreationHelper();
+            //Create an anchor that is attached to the worksheet
+            ClientAnchor anchor = helper.createClientAnchor();
+            //set top-left corner for the image
+            anchor.setCol1(0);
+            anchor.setRow1(0);
+            //Creates a picture
+            Picture pict = drawing.createPicture(anchor, pictureIdx);
+            //Reset the image to the original size
+            pict.resize();
+
+//            Cell cell = sheet.createRow(0).createCell(0);
+//            //set width to n character widths = count characters * 256
+//            int widthUnits = 20*256;
+//            sheet.setColumnWidth(0, widthUnits);
+//
+//            //set height to n points in twips = n * 20
+//            short heightUnits = 70 *20;
+//            cell.getRow().setHeight(heightUnits);
+
+            FileOutputStream fileOut = new FileOutputStream("qr-code.xlsx");
+            workbook.write(fileOut);
+
+            fileOut.close();
+            Desktop.getDesktop().open(new File("qr-code.xlsx"));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+
+    public void printLabel() throws IOException {
+        exportToExcel();
+        Desktop.getDesktop().print(new File("label.xlsx"));
 //            clearFields();
     }
 
