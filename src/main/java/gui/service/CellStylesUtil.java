@@ -6,6 +6,10 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import gui.model.CellStyleOption;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class CellStylesUtil {
 
     public static CellStyle getCellStyle(XSSFWorkbook workbook, CellStyleOption cellStyleOption) {

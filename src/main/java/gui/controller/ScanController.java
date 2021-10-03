@@ -338,17 +338,15 @@ public class ScanController {
 
     }
 
-
     private void initClock() {
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             lbl_dateTime.setText(LocalDateTime.now().format(formatter));
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
-
 
     public void unselectCheckBox() {
         cb_typeSpool.setSelected(false);
@@ -422,12 +420,11 @@ public class ScanController {
                         row.createCell(0).setCellValue(field.getTextField().getText());
                         cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.setHeightInPoints(15);
-                    } else if(field.getCheckBox().equals(cb_lr)){
+                    } else if (field.getCheckBox().equals(cb_lr)) {
                         row.createCell(1).setCellValue(field.getTextField().getText());
                         cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.setHeightInPoints(15);
-                    }
-                    else {
+                    } else {
                         row.createCell(0).setCellValue(field.getType());
                         cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.createCell(1).setCellValue(field.getTextField().getText());
@@ -471,24 +468,31 @@ public class ScanController {
         }
     }
 
-    public void generateQrCode() throws WriterException, IOException {
+    public void toFormQrCode() throws WriterException, IOException {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
             Sheet sheet = workbook.createSheet("QR-Code");
 
+            StringBuilder codeBuilder = new StringBuilder();
+            String imageFormat = "png";
+            Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+            hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            hints.put(EncodeHintType.MARGIN, 0);
+
             for (FieldModel field : fieldModelList) {
                 if (field.getCheckBox().isSelected()) {
-                    String genCode = field.getType() + field.getTextField().getText();
-                    String imageFormat = "png";
-
-                    Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-                    hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-
-                    BitMatrix bitMatrix = new QRCodeWriter().encode(genCode, BarcodeFormat.QR_CODE, 114, 119, hints);
-                    MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, new FileOutputStream(new File("qr-code.png")));
-                    System.out.println(genCode);
+                    if (field.getCheckBox().equals(cb_construct)) {
+                        codeBuilder.append("Construct: ").append(field.getTextField().getText()).append("\n");
+                    } else {
+                        codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
+                    }
                 }
             }
+            codeBuilder.append("Made in Belarus");
+            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 114, 120, hints);
+            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, new FileOutputStream(new File("qr-code.png")));
+            System.out.println(codeBuilder);
+
             InputStream inputStream = new FileInputStream("qr-code.png");
             //Get the contents of an InputStream as a byte[].
             byte[] bytes = IOUtils.toByteArray(inputStream);
@@ -524,16 +528,54 @@ public class ScanController {
             workbook.write(fileOut);
 
             fileOut.close();
-            Desktop.getDesktop().open(new File("qr-code.xlsx"));
+            barcodeSpool.requestFocus();
+//            Desktop.getDesktop().open(new File("qr-code.xlsx"));
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
+    public void generateQrCode() throws IOException, WriterException {
+        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
+                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
+                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
+                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
+                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
+                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+            toFormQrCode();
+            Desktop.getDesktop().open(new File("qr-code.xlsx"));
+        } else {
+            TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
+        }
+    }
+
+    public void printQR_Code() throws IOException, WriterException {
+        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
+                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
+                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
+                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
+                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
+                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+            toFormQrCode();
+            Desktop.getDesktop().print(new File("qr-code.xlsx"));
+        } else {
+            TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
+        }
+    }
+
 
     public void printLabel() throws IOException {
-        exportToExcel();
-        Desktop.getDesktop().print(new File("label.xlsx"));
+        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
+                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
+                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
+                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
+                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
+                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+            exportToExcel();
+            Desktop.getDesktop().print(new File("label.xlsx"));
+        }  else {
+            TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
+        }
 //            clearFields();
     }
 
@@ -544,8 +586,7 @@ public class ScanController {
                 cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected())
-        {
+                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
             exportToExcel();
             Desktop.getDesktop().open(new File("label.xlsx"));
 
