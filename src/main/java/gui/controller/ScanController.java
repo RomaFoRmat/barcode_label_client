@@ -8,6 +8,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import gui.model.CellStyleOption;
 import gui.model.FieldModel;
 import gui.model.TestLabel;
@@ -23,6 +24,8 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -38,6 +41,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
@@ -75,7 +79,7 @@ public class ScanController {
     @FXML
     private Label lbl_barcodeSpool;
     @FXML
-    private TextField barcodeSpool;
+    private JFXTextField barcodeSpool;
     @FXML
     private Button btn_getInfo;
     @FXML
@@ -286,6 +290,8 @@ public class ScanController {
     private TableColumn<TestLabel, Float> tc_torsionRope;
     @FXML
     private TableColumn<TestLabel, Float> tc_straightRope;
+    @FXML
+    private TextField filterField;
 
     @FXML
     private Label lblNumbSpool;
@@ -336,6 +342,31 @@ public class ScanController {
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
 
+        /**Обворачиваем ObservableList в FilteredList (initially display all data) */
+        FilteredList<TestLabel> filteredData = new FilteredList<>(tableSpool, b -> true);
+
+        /** Устанавливаем предикат фильтра всякий раз, когда фильтр изменяется: */
+        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(testLabel -> {
+                // If filter text is empty, display all spools.
+//                if (newValue == null || newValue.isEmpty()) {
+//                    return true;
+//                }
+                // Сравниваем номер каждой катушки с текстом фильтра.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (testLabel.getNumberSpool().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; //
+                } else
+                    return false;
+            });
+        });
+        /** Обворачиваем FilteredList в SortedList: */
+        SortedList<TestLabel> sortedData = new SortedList<>(filteredData);
+        /** Привязываем компаратор SortedList к компаратору TableView: */
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        /** Добавляем в таблицу отфильтрованные данные: */
+        tableView.setItems(sortedData);
     }
 
     private void initClock() {
@@ -619,6 +650,7 @@ public class ScanController {
         tc_torsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
         tc_straightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
 
+
     }
 
 
@@ -629,16 +661,18 @@ public class ScanController {
 
 
     public void getInfoAction() {
-        barcodeSpool.setStyle("-fx-border-color: #000000");
+//        barcodeSpool.setStyle("-fx-border-color: #000000");
         if (!barcodeSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
                     + barcodeSpool.getText());
 
             if (testLabelList != null && testLabelList.isEmpty()) {
                 clearFields();
-                barcodeSpool.setStyle("-fx-background-color: #ff0000");
+//                barcodeSpool.setStyle("-fx-background-color: #ff0000");
+                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
                 TextFieldService.alert("Данной записи в БД не найдено!");
-                barcodeSpool.setStyle("-fx-border-color: #ff0000");
+//                barcodeSpool.setStyle("-fx-border-color: #ff0000");
+                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
                 barcodeSpool.setText("");
                 unselectCheckBox();
             }
@@ -653,7 +687,7 @@ public class ScanController {
             date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
-            lot.setText(label.getLot() != 0 ? String.valueOf(label.getLot()) : "");
+            lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
             length.setText(label.getLength() != 0 ? String.valueOf(label.getLength()) : "");
             welds.setText(label.getWelds() != 0 ? String.valueOf(label.getWelds()) : "0");
 //            personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
@@ -681,7 +715,8 @@ public class ScanController {
 //                straightforwardnessRope.setText("");
 //            }
 
-            barcodeSpool.setStyle("-fx-border-color: #a7fc2d");
+//            barcodeSpool.setStyle("-fx-border-color: #a7fc2d");
+            barcodeSpool.setFocusColor(Paint.valueOf("#a7fc2d"));
             cb_date.setSelected(true);
             cb_numberSpool.setSelected(true);
             cb_code.setSelected(true);
@@ -691,11 +726,13 @@ public class ScanController {
             barcodeSpool.setText("");
 
         } else if (barcodeSpool.getText().isEmpty()) {
-            barcodeSpool.setStyle("-fx-background-color: #ff0000");
+//            barcodeSpool.setStyle("-fx-background-color: #ff0000");
+            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
             clearFields();
             unselectCheckBox();
             TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
-            barcodeSpool.setStyle("-fx-border-color: #ff0000");
+//            barcodeSpool.setStyle("-fx-border-color: #ff0000");
+            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
         }
     }
 

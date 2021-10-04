@@ -25,7 +25,7 @@ public class TestLabel {
 
     private String construct;
 
-    private int lot;
+    private String lot;
 
     private String part;
 

@@ -1,0 +1,3 @@
+.text-input:focused {
+    -fx-border-color: #8800ff;
+}
