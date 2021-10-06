@@ -1,0 +1,15 @@
+.jfx-text-field
+{
+    -jfx-focus-color: lime;
+}
+
+.text-field
+{
+    -fx-prompt-text-fill: lime;
+    -fx-text-fill: #000000;
+}
+
+.text-field .input-line
+{
+    -fx-background-color: lime;
+}

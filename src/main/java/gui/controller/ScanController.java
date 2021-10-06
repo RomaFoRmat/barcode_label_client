@@ -13,25 +13,18 @@ import gui.model.CellStyleOption;
 import gui.model.FieldModel;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
-import gui.service.CellStylesUtil;
+import gui.service.*;
 import gui.service.DateUtil;
-import gui.service.PrintUtility;
-import gui.service.TextFieldService;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 
 import javafx.scene.control.Button;
@@ -41,23 +34,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.util.IOUtils;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
 import java.awt.*;
-import java.awt.print.PrinterException;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -342,6 +327,16 @@ public class ScanController {
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
 
+
+
+        UpdaterUtil updaterUtil = new UpdaterUtil(this);
+        Timer timer = new Timer();
+        timer.schedule(updaterUtil,0,5000);
+
+
+    }
+
+    public void filterTable() {
         /**Обворачиваем ObservableList в FilteredList (initially display all data) */
         FilteredList<TestLabel> filteredData = new FilteredList<>(tableSpool, b -> true);
 
@@ -349,9 +344,9 @@ public class ScanController {
         filterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(testLabel -> {
                 // If filter text is empty, display all spools.
-//                if (newValue == null || newValue.isEmpty()) {
-//                    return true;
-//                }
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
                 // Сравниваем номер каждой катушки с текстом фильтра.
                 String lowerCaseFilter = newValue.toLowerCase();
 
@@ -368,6 +363,15 @@ public class ScanController {
         /** Добавляем в таблицу отфильтрованные данные: */
         tableView.setItems(sortedData);
     }
+
+    public void refreshTable(){
+        tableSpool.clear();
+        List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
+        tableSpool.addAll(testLabelList);
+        tableView.setItems(tableSpool);
+        filterTable();
+    }
+
 
     private void initClock() {
 
@@ -662,17 +666,17 @@ public class ScanController {
 
     public void getInfoAction() {
 //        barcodeSpool.setStyle("-fx-border-color: #000000");
+
         if (!barcodeSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
                     + barcodeSpool.getText());
 
             if (testLabelList != null && testLabelList.isEmpty()) {
                 clearFields();
-//                barcodeSpool.setStyle("-fx-background-color: #ff0000");
-                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
                 TextFieldService.alert("Данной записи в БД не найдено!");
-//                barcodeSpool.setStyle("-fx-border-color: #ff0000");
-                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
+//                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
+                barcodeSpool.getStylesheets().clear();
+                barcodeSpool.getStylesheets().add("/css/jfx_error.css");
                 barcodeSpool.setText("");
                 unselectCheckBox();
             }
@@ -715,24 +719,24 @@ public class ScanController {
 //                straightforwardnessRope.setText("");
 //            }
 
-//            barcodeSpool.setStyle("-fx-border-color: #a7fc2d");
-            barcodeSpool.setFocusColor(Paint.valueOf("#a7fc2d"));
+
+//            barcodeSpool.setFocusColor(Paint.valueOf("#a7fc2d"));
+            barcodeSpool.getStylesheets().clear();
+            barcodeSpool.getStylesheets().add("/css/jfx_success.css");
             cb_date.setSelected(true);
             cb_numberSpool.setSelected(true);
             cb_code.setSelected(true);
-//            lblSpool.setText("Катушка №:");
-//            lblNumbSpool.setText(barcodeSpool.getText());
             tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
             barcodeSpool.setText("");
 
         } else if (barcodeSpool.getText().isEmpty()) {
-//            barcodeSpool.setStyle("-fx-background-color: #ff0000");
-            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
+            barcodeSpool.getStylesheets().clear();
+            barcodeSpool.getStylesheets().add("/css/jfx_error.css");
             clearFields();
             unselectCheckBox();
             TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
-//            barcodeSpool.setStyle("-fx-border-color: #ff0000");
-            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
+
+//            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
         }
     }
 

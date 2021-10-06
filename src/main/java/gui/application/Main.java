@@ -32,6 +32,7 @@ public class Main extends Application {
     @Override
     public void stop() {
         Platform.exit();
+        System.exit (0);
     }
 
     public static void main(String[] args) {

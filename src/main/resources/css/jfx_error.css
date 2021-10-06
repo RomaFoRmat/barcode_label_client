@@ -1,0 +1,15 @@
+.jfx-text-field
+{
+    -jfx-focus-color: red;
+}
+
+.text-field
+{
+    -fx-prompt-text-fill: red;
+    -fx-text-fill: #000000;
+}
+
+.text-field .input-line
+{
+    -fx-background-color: red;
+}
