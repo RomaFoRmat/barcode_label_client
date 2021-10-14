@@ -331,7 +331,7 @@ public class ScanController {
 
         UpdaterUtil updaterUtil = new UpdaterUtil(this);
         Timer timer = new Timer();
-        timer.schedule(updaterUtil,0,5000);
+        timer.schedule(updaterUtil, 0, 20000);
 
 
     }
@@ -486,9 +486,12 @@ public class ScanController {
             RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
 
             file.close();
-            FileOutputStream outFile = new FileOutputStream("label.xlsx");
-            workbook.write(outFile);
+            File newLabelFile = File.createTempFile("label", ".xlsx", new File("src\\main\\resources\\temp\\"));
+            FileOutputStream outFile = new FileOutputStream(newLabelFile);
+//            FileOutputStream outFile = new FileOutputStream("label.xlsx");
             outFile.close();
+            newLabelFile.deleteOnExit();
+
 //            Desktop.getDesktop().open(new File("label_"+ lblNumbSpool.getText()+ ".xlsx"));
 //            Desktop.getDesktop().open(new File("label.xlsx"));
 
@@ -524,7 +527,7 @@ public class ScanController {
                 }
             }
             codeBuilder.append("Made in Belarus");
-            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 114, 120, hints);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 120, 130, hints);
             MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, new FileOutputStream(new File("qr-code.png")));
             System.out.println(codeBuilder);
 
@@ -550,19 +553,13 @@ public class ScanController {
             //Reset the image to the original size
             pict.resize();
 
-//            Cell cell = sheet.createRow(0).createCell(0);
-//            //set width to n character widths = count characters * 256
-//            int widthUnits = 20*256;
-//            sheet.setColumnWidth(0, widthUnits);
-//
-//            //set height to n points in twips = n * 20
-//            short heightUnits = 70 *20;
-//            cell.getRow().setHeight(heightUnits);
-
-            FileOutputStream fileOut = new FileOutputStream("qr-code.xlsx");
+            File newQrCode = File.createTempFile("qr-code", ".xlsx", new File("src\\main\\resources\\temp\\"));
+            FileOutputStream fileOut = new FileOutputStream(newQrCode);
+//            FileOutputStream fileOut = new FileOutputStream("qr-code.xlsx");
             workbook.write(fileOut);
-
             fileOut.close();
+            newQrCode.deleteOnExit();
+
             barcodeSpool.requestFocus();
 //            Desktop.getDesktop().open(new File("qr-code.xlsx"));
         } catch (Exception e) {

@@ -35,7 +35,7 @@ public class TestLabelRepository {
     }
 
     public static List<TestLabel> findByNumberSpool(String numberSpool) {
-        String url = "http://" + AppProperties.getHost() + "/api/label/spool/api/label/spool/" + numberSpool;
+        String url = "http://" + AppProperties.getHost() + "/api/label/spool/" + numberSpool;
         return getTestLabel(url);
     }
 

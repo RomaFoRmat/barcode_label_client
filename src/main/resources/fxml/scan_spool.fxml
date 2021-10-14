@@ -419,10 +419,12 @@
                 <Font name="Comic Sans MS" size="20.0" />
             </font>
         </Label>
-      <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#7c0ed0" labelFloat="true" layoutX="331.0" layoutY="69.0" prefHeight="30.0" prefWidth="253.0" promptText="Отсканируйте штрих-код" unFocusColor="BLACK">
-         <font>
-            <Font name="Times New Roman" size="22.0" />
-         </font>
+      <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#7c0ed0" labelFloat="true" layoutX="331.0"
+                    layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код"
+                    unFocusColor="BLACK">
+          <font>
+              <Font name="Times New Roman" size="22.0"/>
+          </font>
       </JFXTextField>
     </children>
 </AnchorPane>

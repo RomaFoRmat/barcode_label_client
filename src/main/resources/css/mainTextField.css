@@ -1,0 +1,14 @@
+.jfx-text-field {
+    -jfx-focus-color: #a7fc2d;
+}
+
+.text-field {
+    -fx-text-fill: #000000;
+}
+
+.text-field .input-line {
+    -fx-background-color: #a7fc2d;
+}
+
+
+

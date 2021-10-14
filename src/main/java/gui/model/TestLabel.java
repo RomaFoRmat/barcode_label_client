@@ -17,7 +17,7 @@ import java.util.Date;
 public class TestLabel {
     private Long id_group;
 
-//    private Long id_foreing_group;
+    private Long id_foreing_group;
 
     private LocalDate date_create;
 
