@@ -527,7 +527,7 @@ public class ScanController {
                 }
             }
             codeBuilder.append("Made in Belarus");
-            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 120, 130, hints);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 117, 117, hints);
             MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, new FileOutputStream(new File("qr-code.png")));
             System.out.println(codeBuilder);
 
@@ -558,7 +558,7 @@ public class ScanController {
 //            FileOutputStream fileOut = new FileOutputStream("qr-code.xlsx");
             workbook.write(fileOut);
             fileOut.close();
-            newQrCode.deleteOnExit();
+//            newQrCode.deleteOnExit();
 
             barcodeSpool.requestFocus();
 //            Desktop.getDesktop().open(new File("qr-code.xlsx"));
@@ -722,7 +722,7 @@ public class ScanController {
             barcodeSpool.getStylesheets().add("/css/jfx_success.css");
             cb_date.setSelected(true);
             cb_numberSpool.setSelected(true);
-            cb_code.setSelected(true);
+            cb_construct.setSelected(true);
             tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
             barcodeSpool.setText("");
 
