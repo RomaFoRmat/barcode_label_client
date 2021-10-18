@@ -35,6 +35,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -44,11 +45,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.awt.*;
 import java.io.*;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 
 public class ScanController {
@@ -433,11 +437,11 @@ public class ScanController {
         lblSpool.setText("");
     }
 
-    public void exportToExcel() {
+    public File exportToExcel() {
 
         try {
 
-            File fileTemp = new File("src\\main\\resources\\temp\\Export.xlsx");
+            File fileTemp = new File("src\\main\\resources\\template\\Export.xlsx");
             FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
@@ -486,27 +490,25 @@ public class ScanController {
             RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
 
             file.close();
-            File newLabelFile = File.createTempFile("label", ".xlsx", new File("src\\main\\resources\\temp\\"));
-            FileOutputStream outFile = new FileOutputStream(newLabelFile);
-//            FileOutputStream outFile = new FileOutputStream("label.xlsx");
-            outFile.close();
-            newLabelFile.deleteOnExit();
 
-//            Desktop.getDesktop().open(new File("label_"+ lblNumbSpool.getText()+ ".xlsx"));
-//            Desktop.getDesktop().open(new File("label.xlsx"));
+            File newLabelFile = TempFileUtil.createTemporaryLabel();
+            FileOutputStream outFile = new FileOutputStream(newLabelFile);
+            workbook.write(outFile);
+            outFile.close();
 
 //            clearFields();
 //            unselectCheckBox();
             barcodeSpool.requestFocus();
+            return newLabelFile;
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+
     }
 
-    public void toFormQrCode() throws WriterException, IOException {
+    public File toFormQrCode() throws WriterException, IOException {
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
             Sheet sheet = workbook.createSheet("QR-Code");
@@ -527,11 +529,14 @@ public class ScanController {
                 }
             }
             codeBuilder.append("Made in Belarus");
+
+            File imageQrCode = TempFileUtil.createQrCodePng();
             BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 117, 117, hints);
-            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, new FileOutputStream(new File("qr-code.png")));
+            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat,
+                    new FileOutputStream(new File(String.valueOf(imageQrCode))));
             System.out.println(codeBuilder);
 
-            InputStream inputStream = new FileInputStream("qr-code.png");
+            InputStream inputStream = new FileInputStream(imageQrCode);
             //Get the contents of an InputStream as a byte[].
             byte[] bytes = IOUtils.toByteArray(inputStream);
             //Adds a picture to the workbook
@@ -553,17 +558,19 @@ public class ScanController {
             //Reset the image to the original size
             pict.resize();
 
-            File newQrCode = File.createTempFile("qr-code", ".xlsx", new File("src\\main\\resources\\temp\\"));
+//            File newQrCode = File.createTempFile("qr-code", ".xlsx", new File("src\\main\\resources\\template\\temp\\"));
+//            FileOutputStream fileOut = new FileOutputStream(newQrCode);
+            File newQrCode = TempFileUtil.createTemporaryLabel();
             FileOutputStream fileOut = new FileOutputStream(newQrCode);
-//            FileOutputStream fileOut = new FileOutputStream("qr-code.xlsx");
             workbook.write(fileOut);
             fileOut.close();
 //            newQrCode.deleteOnExit();
-
             barcodeSpool.requestFocus();
-//            Desktop.getDesktop().open(new File("qr-code.xlsx"));
+            return newQrCode;
+
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
     }
 
@@ -574,8 +581,9 @@ public class ScanController {
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
-            toFormQrCode();
-            Desktop.getDesktop().open(new File("qr-code.xlsx"));
+
+            Desktop.getDesktop().open(toFormQrCode());
+
         } else {
             TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
         }
@@ -588,8 +596,7 @@ public class ScanController {
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
-            toFormQrCode();
-            Desktop.getDesktop().print(new File("qr-code.xlsx"));
+            Desktop.getDesktop().print(toFormQrCode());
         } else {
             TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
         }
@@ -603,8 +610,9 @@ public class ScanController {
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
-            exportToExcel();
-            Desktop.getDesktop().print(new File("label.xlsx"));
+//            exportToExcel();
+            Desktop.getDesktop().print(exportToExcel());
+
         }  else {
             TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
         }
@@ -619,14 +627,27 @@ public class ScanController {
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
                 cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
-            exportToExcel();
-            Desktop.getDesktop().open(new File("label.xlsx"));
+//            exportToExcel();
+
+            Desktop.getDesktop().open(exportToExcel());
 
         } else {
 
             TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
         }
     }
+
+//    public static File createTemporaryLabel() {
+//        try {
+//            FileUtils.cleanDirectory(new File("src\\main\\resources\\template\\temp\\"));
+//        } catch (IOException e) {
+//            e.getMessage();
+//        }
+//        DateTimeFormatter formatForDate = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH.mm.ss");
+//        String id = String.valueOf(LocalDateTime.now().format(formatForDate));
+//        System.out.println(id);
+//        return new File("src\\main\\resources\\template\\temp\\" + "label -" + id + ".xlsx");
+//    }
 
     public void initializeTableColumns() {
         tc_numberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
