@@ -102,27 +102,31 @@
                                                                   <Font name="System Bold" size="22.0" />
                                                               </font>
                                                           </Label>
-                                                          <Label fx:id="lbl_lot" prefHeight="0.0" prefWidth="149.0" text="LOT">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
-                                                          <Label fx:id="lbl_length" prefHeight="0.0" prefWidth="149.0" text="Длинна">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
-                                                          <Label fx:id="lbl_welds" prefHeight="0.0" prefWidth="149.0" text="Сварка">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
-                                                                <Label fx:id="lbl_date" prefHeight="0.0" prefWidth="149.0" text="Дата">
+                                                                <Label fx:id="lbl_lot" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="LOT">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                      </children>
+                                                                <Label fx:id="lbl_welds" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Сварка">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <Label fx:id="lbl_date" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Дата">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <Label fx:id="lbl_torsion" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Кручение">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
                                                       <cursor>
                                                           <Cursor fx:constant="DEFAULT" />
                                                       </cursor>
@@ -159,27 +163,35 @@
                                                                   <Font name="System Bold" size="12.0" />
                                                               </font>
                                                           </TextField>
-                                                          <TextField fx:id="lot" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
-                                                          <TextField fx:id="length" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
-                                                          <TextField fx:id="welds" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
-                                                                <TextField fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="lot" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                      </children>
+                                                                <TextField fx:id="welds" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0"/>
+                                                                    </font>
+                                                                </TextField>
+                                                                <TextField fx:id="date_create" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0"/>
+                                                                    </font>
+                                                                </TextField>
+                                                                <TextField fx:id="torsion" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0"/>
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
                                                   </VBox>
                                                         <VBox layoutX="491.0" layoutY="23.0" prefHeight="392.0" prefWidth="187.0" spacing="9.0">
                                                             <children>
@@ -218,22 +230,22 @@
                                                                   <Font name="System Bold" size="22.0" />
                                                               </font>
                                                           </Label>
-                                                          <Label fx:id="lbl_torsion" text="Кручение">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
-                                                          <Label fx:id="lbl_torsRope" text="Кручение кан.">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
-                                                          <Label fx:id="lbl_prRope" text="Прям.кан.">
-                                                              <font>
-                                                                  <Font name="System Bold" size="22.0" />
-                                                              </font>
-                                                          </Label>
-                                                      </children>
+                                                                <Label fx:id="lbl_torsRope" text="Кручение кан.">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <Label fx:id="lbl_prRope" text="Прям.кан.">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                                <Label fx:id="lbl_length" text="Длинна">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
                                                   </VBox>
                                                         <VBox layoutX="678.0" layoutY="22.0" prefHeight="401.0" prefWidth="155.0" spacing="9.0">
                                                             <children>
@@ -272,22 +284,26 @@
                                                                   <Font name="System Bold" size="12.0" />
                                                               </font>
                                                           </TextField>
-                                                          <TextField fx:id="torsion" prefHeight="32.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
-                                                          <TextField fx:id="torsRope" prefHeight="32.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
-                                                          <TextField fx:id="straightforwardnessRope" prefHeight="32.0" stylesheets="@../css/style.css">
-                                                              <font>
-                                                                  <Font name="System Bold" size="12.0" />
-                                                              </font>
-                                                          </TextField>
-                                                      </children>
+                                                                <TextField fx:id="torsRope" prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0"/>
+                                                                    </font>
+                                                                </TextField>
+                                                                <TextField fx:id="straightforwardnessRope"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0"/>
+                                                                    </font>
+                                                                </TextField>
+                                                                <TextField fx:id="length" prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0"/>
+                                                                    </font>
+                                                                </TextField>
+                                                            </children>
                                                   </VBox>
                                                         <VBox layoutX="343.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
@@ -298,9 +314,9 @@
                                                                 <CheckBox fx:id="cb_numberSpool" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_part" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_lot" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_length" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_welds" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_date" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_torsion" mnemonicParsing="false"/>
                                                             </children>
                                           </VBox>
                                                         <VBox layoutX="844.0" layoutY="30.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
@@ -312,9 +328,9 @@
                                                                 <CheckBox fx:id="cb_straight600_4" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_straight600_5" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_straight600Avg" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_torsion" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_torsRope" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_straightRope" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_length" mnemonicParsing="false"/>
                                                             </children>
                                           </VBox>
                                                         <JFXButton fx:id="btn_labelForm" buttonType="RAISED" layoutX="481.0" layoutY="440.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">

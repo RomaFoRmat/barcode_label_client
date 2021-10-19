@@ -324,10 +324,10 @@ public class ScanController {
         fieldModelList.add(new FieldModel(numberSpool, cb_numberSpool, "Bob.№:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(part, cb_part, "Part №:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(lot, cb_lot, "Lot №:", CellStyleOption.BASE));
-        fieldModelList.add(new FieldModel(length, cb_length, "Length:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(typeSpool, cb_typeSpool, "", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
         fieldModelList.add(new FieldModel(date_create, cb_date, "Date:", CellStyleOption.BASE));
+        fieldModelList.add(new FieldModel(torsion, cb_torsion, "Torsion:", CellStyleOption.BASE));
 
 
         initializeTableColumns();
@@ -472,7 +472,7 @@ public class ScanController {
                         cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.createCell(1).setCellValue(field.getTextField().getText());
                         cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                        row.setHeightInPoints(11);
+                        row.setHeightInPoints(10);
                     }
                     rowExcel++;
                 }
@@ -745,9 +745,11 @@ public class ScanController {
 //            barcodeSpool.setFocusColor(Paint.valueOf("#a7fc2d"));
             barcodeSpool.getStylesheets().clear();
             barcodeSpool.getStylesheets().add("/css/jfx_success.css");
-            cb_date.setSelected(true);
-            cb_numberSpool.setSelected(true);
             cb_construct.setSelected(true);
+            cb_code.setSelected(true);
+            cb_lr.setSelected(true);
+            cb_numberSpool.setSelected(true);
+            cb_date.setSelected(true);
             tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
             barcodeSpool.setText("");
 
