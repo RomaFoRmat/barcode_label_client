@@ -17,7 +17,10 @@ public class UpdaterUtil extends TimerTask {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                contr.refreshTable();
+//                if (!contr.tabSpoolList.isSelected()) {
+                    contr.refreshTable();
+//                    System.out.println("UPDATED");
+//                }
             }
         });
 

@@ -290,8 +290,12 @@ public class ScanController {
 
     @FXML
     private Label lbl_dateTime;
+
     @FXML
     private Tab tabInfoSpool;
+
+    @FXML
+    public Tab tabSpoolList;
 
     private TestLabel testLabel;
 
@@ -532,10 +536,10 @@ public class ScanController {
 
             File imageQrCode = TempFileUtil.createQrCodePng();
             BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 117, 117, hints);
-            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat,
-                    new FileOutputStream(new File(String.valueOf(imageQrCode))));
+            FileOutputStream outputStreamQr =  new FileOutputStream(new File(String.valueOf(imageQrCode)));
+            MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, outputStreamQr);
             System.out.println(codeBuilder);
-
+            outputStreamQr.close();
             InputStream inputStream = new FileInputStream(imageQrCode);
             //Get the contents of an InputStream as a byte[].
             byte[] bytes = IOUtils.toByteArray(inputStream);
