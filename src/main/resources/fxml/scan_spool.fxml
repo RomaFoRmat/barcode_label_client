@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -72,7 +71,7 @@
                                             <children>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="482.0" prefWidth="900.0" stylesheets="@../css/button.css">
                                                     <children>
-                                                        <VBox layoutX="35.0" layoutY="22.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0">
+                                                        <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0">
                                                             <children>
                                                                 <Label fx:id="lbl_type" prefHeight="0.0" prefWidth="149.0" text="Тип катушки">
                                                                     <font>
@@ -129,7 +128,7 @@
                                                           <Cursor fx:constant="DEFAULT" />
                                                       </cursor>
                                                   </VBox>
-                                                        <VBox layoutX="185.0" layoutY="22.0" spacing="9.0">
+                                                        <VBox layoutX="178.0" layoutY="22.0" spacing="9.0">
                                                             <children>
                                                                 <TextField fx:id="typeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                                     <font>
@@ -291,7 +290,7 @@
                                                                 </TextField>
                                                             </children>
                                                   </VBox>
-                                                        <VBox layoutX="343.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
                                                                 <CheckBox fx:id="cb_typeSpool" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cb_construct" mnemonicParsing="false" />
@@ -364,12 +363,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </JFXButton>
-                                          <JFXComboBox fx:id="cb_consumer" layoutX="380.0" layoutY="9.0" prefHeight="28.0" prefWidth="100.0">
-                                             <stylesheets>
-                                                <URL value="@../css/jfx_comboBox.css" />
-                                                <URL value="@../css/jfx_comboBox.css" />
-                                             </stylesheets>
-                                          </JFXComboBox>
+                                          <JFXComboBox fx:id="cb_consumer" focusColor="#7c0ed0" labelFloat="true" layoutX="363.0" layoutY="16.0" prefHeight="31.0" prefWidth="122.0" promptText="ТИП:" stylesheets="@../css/jfx_comboBox.css" unFocusColor="#7c0ed0" />
                                                     </children>
                                           </AnchorPane>
                                  </children>

@@ -11,8 +11,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gui.model.CellStyleOption;
-import gui.model.FieldModelEng;
-import gui.model.FieldModelRus;
+import gui.model.FieldModel;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
 import gui.service.*;
@@ -301,8 +300,8 @@ public class ScanController {
 
 //    private List<FieldModel> fieldModelsList;
 
-    private final List<FieldModelEng> fieldModelEngList = new ArrayList();
-    private final List<FieldModelRus> fieldModelRusList = new ArrayList();
+    private final List<FieldModel> fieldModelEngList = new ArrayList();
+    private final List<FieldModel> fieldModelRusList = new ArrayList();
 
     ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
     @FXML
@@ -321,35 +320,33 @@ public class ScanController {
         initClock();
 
         cb_consumer.setItems(data);
-        cb_consumer.getSelectionModel().select(1);
+        cb_consumer.getSelectionModel().select(0);
 
 
-        fieldModelEngList.add(new FieldModelEng(construct, cb_construct, "", CellStyleOption.ENLARGED2));
-        fieldModelEngList.add(new FieldModelEng(code, cb_code, "Code:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(rl, cb_lr, "", CellStyleOption.ENLARGED));
-        fieldModelEngList.add(new FieldModelEng(numberSpool, cb_numberSpool, "Bob.№:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(part, cb_part, "Part №:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(lot, cb_lot, "Lot №:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(typeSpool, cb_typeSpool, "", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(welds, cb_welds, "Welds:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(date_create, cb_date, "Date:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModelEng(torsion, cb_torsion, "Torsion:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(construct, cb_construct, "", CellStyleOption.ENLARGED2));
+        fieldModelEngList.add(new FieldModel(code, cb_code, "Code:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
+        fieldModelEngList.add(new FieldModel(numberSpool, cb_numberSpool, "Bob.№:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(part, cb_part, "Part №:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(lot, cb_lot, "Lot №:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(typeSpool, cb_typeSpool, "", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(date_create, cb_date, "Date:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(torsion, cb_torsion, "Torsion:", CellStyleOption.BASE));
 
 
-        fieldModelRusList.add(new FieldModelRus(construct, cb_construct, "", CellStyleOption.ENLARGED2));
-        fieldModelRusList.add(new FieldModelRus(code, cb_code, "Код:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModelRus(rl, cb_lr, "", CellStyleOption.ENLARGED));
-        fieldModelRusList.add(new FieldModelRus(numberSpool, cb_numberSpool, "№ кат.", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModelRus(welds, cb_welds, "Welds:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModelRus(date_create, cb_date, "Дата:", CellStyleOption.BASE));
-
+        fieldModelRusList.add(new FieldModel(construct, cb_construct, "", CellStyleOption.ENLARGED2));
+        fieldModelRusList.add(new FieldModel(code, cb_code, "Код:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
+        fieldModelRusList.add(new FieldModel(numberSpool, cb_numberSpool, "№ кат.", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(date_create, cb_date, "Дата:", CellStyleOption.BASE));
 
 
         initializeTableColumns();
         List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
-
 
 
         UpdaterUtil updaterUtil = new UpdaterUtil(this);
@@ -387,7 +384,7 @@ public class ScanController {
         tableView.setItems(sortedData);
     }
 
-    public void refreshTable(){
+    public void refreshTable() {
         tableSpool.clear();
         List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
         tableSpool.addAll(testLabelList);
@@ -467,75 +464,50 @@ public class ScanController {
 
             int rowExcel = 4;
 
-            if(cb_consumer.getValue().equals("ЭКСПОРТ")) {
-                for (FieldModelEng field : fieldModelEngList) {
-                    Row row = sheet.getRow(rowExcel);
-                    Cell cell0 = row.createCell(0);
-                    Cell cell1 = row.createCell(1);
+            List<FieldModel> fieldModels;
+            String lastCellValue;
 
-                    if (field.getCheckBox().isSelected()) {
-                        if (field.getCheckBox().equals(cb_construct)) {
-                            sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
-                            row.createCell(0).setCellValue(field.getTextField().getText());
-                            cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.setHeightInPoints(14);
-                        } else if (field.getCheckBox().equals(cb_lr)) {
-                            row.createCell(1).setCellValue(field.getTextField().getText());
-                            cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.setHeightInPoints(14);
-                        } else {
-                            row.createCell(0).setCellValue(field.getType());
-                            cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.createCell(1).setCellValue(field.getTextField().getText());
-                            cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.setHeightInPoints(10);
-                        }
-                        rowExcel++;
-                    }
-                }
-                System.out.println("Выбрана LabelEng");
-                //            Cell cellLast = sheet.getRow(rowExcel).createCell(0);
-                Row row = sheet.getRow(rowExcel);
-                Cell cellLast = row.createCell(0);
-                row.setHeightInPoints(11);
-                cellLast.setCellValue("Made in Belarus");
-                cellLast.setCellStyle(CellStylesUtil.getCellStyle(workbook, CellStyleOption.COUNTRY));
-                sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
-            } else if (cb_consumer.getValue().equals("РЯДОВОЙ")) {
-                for (FieldModelRus field : fieldModelRusList) {
-                    Row row = sheet.getRow(rowExcel);
-                    Cell cell0 = row.createCell(0);
-                    Cell cell1 = row.createCell(1);
-
-                    if (field.getCheckBox().isSelected()) {
-                        if (field.getCheckBox().equals(cb_construct)) {
-                            sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
-                            row.createCell(0).setCellValue(field.getTextField().getText());
-                            cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.setHeightInPoints(14);
-                        } else if (field.getCheckBox().equals(cb_lr)) {
-                            row.createCell(1).setCellValue(field.getTextField().getText());
-                            cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.setHeightInPoints(14);
-                        } else {
-                            row.createCell(0).setCellValue(field.getType());
-                            cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.createCell(1).setCellValue(field.getTextField().getText());
-                            cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                            row.setHeightInPoints(10);
-                        }
-                        rowExcel++;
-                    }
-                }
-                //            Cell cellLast = sheet.getRow(rowExcel).createCell(0);
-                Row row = sheet.getRow(rowExcel);
-                Cell cellLast = row.createCell(0);
-                row.setHeightInPoints(11);
-                cellLast.setCellValue("Сделано в Беларуси");
-                cellLast.setCellStyle(CellStylesUtil.getCellStyle(workbook, CellStyleOption.COUNTRY));
-                sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
+            if (cb_consumer.getValue().equals("РЯДОВОЙ")) {
+                fieldModels = fieldModelRusList;
+                lastCellValue = "Сделано в Беларуси";
                 System.out.println("Выбрана LabelRus");
+            } else {
+                fieldModels = fieldModelEngList;
+                lastCellValue = "Made in Belarus";
+                System.out.println("Выбрана LabelEng");
             }
+            for (FieldModel field : fieldModels) {
+                Row row = sheet.getRow(rowExcel);
+                Cell cell0 = row.createCell(0);
+                Cell cell1 = row.createCell(1);
+
+                if (field.getCheckBox().isSelected()) {
+                    if (field.getCheckBox().equals(cb_construct)) {
+                        sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
+                        row.createCell(0).setCellValue(field.getTextField().getText());
+                        cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.setHeightInPoints(14);
+                    } else if (field.getCheckBox().equals(cb_lr)) {
+                        row.createCell(1).setCellValue(field.getTextField().getText());
+                        cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.setHeightInPoints(14);
+                    } else {
+                        row.createCell(0).setCellValue(field.getType());
+                        cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.createCell(1).setCellValue(field.getTextField().getText());
+                        cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
+                        row.setHeightInPoints(10);
+                    }
+                    rowExcel++;
+                }
+            }
+            //            Cell cellLast = sheet.getRow(rowExcel).createCell(0);
+            Row row = sheet.getRow(rowExcel);
+            Cell cellLast = row.createCell(0);
+            row.setHeightInPoints(11);
+            cellLast.setCellValue(lastCellValue);
+            cellLast.setCellStyle(CellStylesUtil.getCellStyle(workbook, CellStyleOption.COUNTRY));
+            sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
 
             //добавление внешних границ к этикетке:
             CellRangeAddress region = new CellRangeAddress(0, rowExcel, 0, 1);
@@ -574,60 +546,60 @@ public class ScanController {
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
             hints.put(EncodeHintType.MARGIN, 0);
 
-            if(cb_consumer.getValue().equals("ЭКСПОРТ")) {
-                for (FieldModelEng field : fieldModelEngList) {
-                    if (field.getCheckBox().isSelected()) {
-                        if (field.getCheckBox().equals(cb_construct)) {
-                            codeBuilder.append("Construct: ").append(field.getTextField().getText()).append("\n");
-                        } else {
-                            codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
-                        }
-                    }
-                }
-                codeBuilder.append("Made in Belarus");
-            } else if(cb_consumer.getValue().equals("РЯДОВОЙ")){
-                for (FieldModelRus field : fieldModelRusList) {
-                    if (field.getCheckBox().isSelected()) {
-                        if (field.getCheckBox().equals(cb_construct)) {
-                            codeBuilder.append("Construct: ").append(field.getTextField().getText()).append("\n");
-                        } else {
-                            codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
-                        }
-                    }
-                }
-                codeBuilder.append("Сделано в Беларуси");
+            List<FieldModel> fieldModels;
+            String lastCellValue;
+
+            if (cb_consumer.getValue().equals("РЯДОВОЙ")) {
+                fieldModels = fieldModelRusList;
+                lastCellValue = "Сделано в Беларуси";
+                System.out.println("Выбрана LabelRus");
+            } else {
+                fieldModels = fieldModelEngList;
+                lastCellValue = "Made in Belarus";
+                System.out.println("Выбрана LabelEng");
             }
+
+            for (FieldModel field : fieldModels) {
+                if (field.getCheckBox().isSelected()) {
+                    if (field.getCheckBox().equals(cb_construct)) {
+                        codeBuilder.append("Construct: ").append(field.getTextField().getText()).append("\n");
+                    } else {
+                        codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
+                    }
+                }
+            }
+            codeBuilder.append(lastCellValue);
+
 
             File imageQrCode = TempFileUtil.createQrCodePng();
             BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 117, 117, hints);
-            FileOutputStream outputStreamQr =  new FileOutputStream(new File(String.valueOf(imageQrCode)));
+            FileOutputStream outputStreamQr = new FileOutputStream(new File(String.valueOf(imageQrCode)));
             MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, outputStreamQr);
             System.out.println(codeBuilder);
             outputStreamQr.close();
             InputStream inputStream = new FileInputStream(imageQrCode);
-            //Get the contents of an InputStream as a byte[].
+
+            //Получите содержимое InputStream как byte [].
             byte[] bytes = IOUtils.toByteArray(inputStream);
-            //Adds a picture to the workbook
+            //Добавляет картинку в workbook
             int pictureIdx = workbook.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
-            //close the input stream
+            //закрываем входной поток
             inputStream.close();
 
-            //Creates the top-level drawing patriarch.
+            //Creates the top-level drawing patriarch(создаем рисунок верхнего уровня)
             Drawing drawing = sheet.createDrawingPatriarch();
-            //Returns an object that handles instantiating concrete classes
+            //Returns an object that handles instantiating concrete classes()
             CreationHelper helper = workbook.getCreationHelper();
-            //Create an anchor that is attached to the worksheet
+            //Create an anchor that is attached to the worksheet (Создаем привязку, прикрепленную к листу)
             ClientAnchor anchor = helper.createClientAnchor();
-            //set top-left corner for the image
+            //устанавливаем верхний левый угол для изображения
             anchor.setCol1(0);
             anchor.setRow1(0);
-            //Creates a picture
+            //Создаем изображение
             Picture pict = drawing.createPicture(anchor, pictureIdx);
-            //Reset the image to the original size
+            //Восстанавливаем исходный размер изображения
             pict.resize();
 
-//            File newQrCode = File.createTempFile("qr-code", ".xlsx", new File("src\\main\\resources\\template\\temp\\"));
-//            FileOutputStream fileOut = new FileOutputStream(newQrCode);
             File newQrCode = TempFileUtil.createTemporaryLabel();
             FileOutputStream fileOut = new FileOutputStream(newQrCode);
             workbook.write(fileOut);
@@ -680,7 +652,7 @@ public class ScanController {
 //            exportToExcel();
             Desktop.getDesktop().print(exportToExcel());
 
-        }  else {
+        } else {
             TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
         }
 //            clearFields();

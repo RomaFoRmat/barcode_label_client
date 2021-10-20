@@ -5,11 +5,9 @@ import javafx.scene.control.TextField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-
-
 @Data
 @AllArgsConstructor
-public class FieldModelEng {
+public class FieldModel {
 
     private TextField textField;
     private CheckBox checkBox;
