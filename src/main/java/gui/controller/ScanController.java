@@ -26,15 +26,21 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
@@ -691,7 +697,7 @@ public class ScanController {
     public void initializeTableColumns() {
         tc_numberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
         tc_typeSpool.setCellValueFactory(new PropertyValueFactory<>("typeSpool"));
-        tc_code.setCellValueFactory(new PropertyValueFactory<>("code"));
+        tc_code.setCellValueFactory(new PropertyValueFactory<>("consumer_code"));
         tc_construct.setCellValueFactory(new PropertyValueFactory<>("construct"));
         tc_date.setCellValueFactory(new PropertyValueFactory<>("date_create"));
         tc_lr.setCellValueFactory(new PropertyValueFactory<>("rl"));
@@ -722,7 +728,6 @@ public class ScanController {
 
 
     public void getInfoAction() {
-//        barcodeSpool.setStyle("-fx-border-color: #000000");
 
         if (!barcodeSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
@@ -741,11 +746,14 @@ public class ScanController {
             TestLabel label = testLabelList.get(0);
             System.out.println(label);
 
+            LocalDate datePrintLabel = LocalDate.now();
+
             typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
-            code.setText(label.getCode() != null ? String.valueOf(label.getCode()) : "");
+            code.setText(label.getConsumer_code() != null ? String.valueOf(label.getConsumer_code()) : "");
             construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
             numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
-            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
+//            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
+            date_create.setText(DateUtil.format(datePrintLabel));
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
             lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
