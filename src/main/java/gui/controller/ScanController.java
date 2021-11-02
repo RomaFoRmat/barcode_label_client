@@ -10,6 +10,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import gui.application.Main;
 import gui.model.CellStyleOption;
 import gui.model.FieldModel;
 import gui.model.TestLabel;
@@ -26,6 +27,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,7 +37,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -409,6 +410,28 @@ public class ScanController {
         clock.play();
     }
 
+    @FXML
+    public void addSpool() {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/modalAllSpool.fxml"));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Ввод новой катушки");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
+//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+        stage.showAndWait();
+    }
+
     public void unselectCheckBox() {
         cb_typeSpool.setSelected(false);
         cb_code.setSelected(false);
@@ -568,7 +591,7 @@ public class ScanController {
             for (FieldModel field : fieldModels) {
                 if (field.getCheckBox().isSelected()) {
                     if (field.getCheckBox().equals(cb_construct)) {
-                        codeBuilder.append("Construct: ").append(field.getTextField().getText()).append("\n");
+                        codeBuilder.append("Construct:").append(field.getTextField().getText()).append("\n");
                     } else {
                         codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
                     }
@@ -576,9 +599,9 @@ public class ScanController {
             }
             codeBuilder.append(lastCellValue);
 
-
+            //width X heigt = 117 X 117 либо 133 X 133
             File imageQrCode = TempFileUtil.createQrCodePng();
-            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 117, 117, hints);
+            BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 125, 125, hints);
             FileOutputStream outputStreamQr = new FileOutputStream(new File(String.valueOf(imageQrCode)));
             MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, outputStreamQr);
             System.out.println(codeBuilder);
@@ -735,12 +758,15 @@ public class ScanController {
 
             if (testLabelList != null && testLabelList.isEmpty()) {
                 clearFields();
-                TextFieldService.alert("Данной записи в БД не найдено!");
+//                TextFieldService.alert("Данной записи в БД не найдено!");
+
+                addSpool();
+
 //                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
-                barcodeSpool.getStylesheets().clear();
-                barcodeSpool.getStylesheets().add("/css/jfx_error.css");
-                barcodeSpool.setText("");
-                unselectCheckBox();
+//                barcodeSpool.getStylesheets().clear();
+//                barcodeSpool.getStylesheets().add("/css/jfx_error.css");
+//                barcodeSpool.setText("");
+//                unselectCheckBox();
             }
 
             TestLabel label = testLabelList.get(0);
