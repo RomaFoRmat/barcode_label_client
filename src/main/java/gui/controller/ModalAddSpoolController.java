@@ -3,6 +3,7 @@ package gui.controller;
 import com.jfoenix.controls.JFXComboBox;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -19,7 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class ModalAddSpoolController {
+public class ModalAddSpoolController implements Serializable {
 
     public ModalAddSpoolController modalAddSpoolController;
     ObservableList<String> data = FXCollections.observableArrayList("L", "R");
