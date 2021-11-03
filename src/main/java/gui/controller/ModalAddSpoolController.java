@@ -6,10 +6,21 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import gui.model.Code;
+import gui.model.MainGroup;
+import gui.model.TestLabel;
+import gui.repository.CodeRepository;
+import gui.repository.MainGroupRepository;
+import gui.repository.TestLabelRepository;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -18,14 +29,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ModalAddSpoolController implements Serializable {
 
-    public ModalAddSpoolController modalAddSpoolController;
-    ObservableList<String> data = FXCollections.observableArrayList("L", "R");
-    ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 72);
-    ObservableList<String> typeSpool = FXCollections.observableArrayList("BS60", "BS40", "BS80/17", "BS80/33");
     @FXML
     private ResourceBundle resources;
     @FXML
@@ -48,16 +59,14 @@ public class ModalAddSpoolController implements Serializable {
     private ComboBox<Integer> cbCountSpool;
     @FXML
     private DatePicker dateCreateMain;
-    @FXML
-    private ComboBox<?> cbCode;
+    private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
     @FXML
     private ComboBox<String> cbTypeSpool;
     @FXML
     private Label lblCountSpool;
     @FXML
     private TextField newNumberSpool;
-    @FXML
-    private TextField newDateRope;
+    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 72);
     @FXML
     private TextField newNumberRopeMachine;
     @FXML
@@ -96,10 +105,30 @@ public class ModalAddSpoolController implements Serializable {
     private TextField newDefectCode;
     @FXML
     private CheckBox newSample;
+    private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS40", "BS60", "BS80/17", "BS80/33");
+    private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР");
+    public ModalAddSpoolController modalAddSpoolController;
     @FXML
-    private JFXComboBox<?> cbMode;
+    private ComboBox<String> cbCode;
     @FXML
-    private Label cbCreateMainGroup;
+    private DatePicker newDateRope;
+    @FXML
+    private JFXComboBox<String> cbMode;
+    @FXML
+    private Label lblSelectMainGroup;
+    @FXML
+    private JFXComboBox<String> cbSelectMain;
+    @FXML
+    private VBox vBoxMain0;
+    @FXML
+    private VBox vBoxMain1;
+    private Stage stage;
+    private MainGroup mainGroup;
+    private List<String> codeList = CodeRepository.findAllByConversionIdConversion();
+    private ObservableList<String> codes = FXCollections.observableArrayList(codeList);
+
+    private List<String> idGroupList = MainGroupRepository.getAllIdGroup();
+    private ObservableList<String> idGroups = FXCollections.observableArrayList(idGroupList);
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,9 +142,6 @@ public class ModalAddSpoolController implements Serializable {
         }
         modalAddSpoolController = fxmlLoader.getController();
 
-        cbLr.setItems(data);
-        cbCountSpool.setItems(countSpool);
-
     }
 
     @FXML
@@ -125,6 +151,45 @@ public class ModalAddSpoolController implements Serializable {
         cbCountSpool.setItems(countSpool);
         cbCountSpool.getSelectionModel().select(0);
         cbTypeSpool.setItems(typeSpool);
+        cbTypeSpool.getSelectionModel().select(1);
         dateCreateMain.setValue(LocalDate.now());
+        cbMode.setItems(mode);
+        cbMode.getSelectionModel().select(1);
+        cbCode.setItems(codes);
+        cbSelectMain.setItems(idGroups);
+//        selectionMode();
     }
+
+
+    public void modalAddSpoolCancel() {
+        stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
+    }
+
+
+    public void cancelModalKey(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ESCAPE) {
+            modalAddSpoolCancel();
+        }
+    }
+
+    public void okBtn() {
+
+
+    }
+
+    public void selectionMode() {
+        if (cbMode.getValue().equals("ВЫБОР")) {
+            vBoxMain0.setDisable(true);
+            vBoxMain1.setDisable(true);
+            System.out.println("Select mode ВЫБОР ");
+        } else {
+            cbSelectMain.setDisable(true);
+            vBoxMain0.setDisable(false);
+            vBoxMain1.setDisable(false);
+            System.out.println("Select mode СОЗДАНИЕ");
+        }
+    }
+
+
 }

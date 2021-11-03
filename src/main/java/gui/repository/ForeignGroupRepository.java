@@ -65,7 +65,7 @@ public class ForeignGroupRepository {
         return null;
     }
 
-    List<ForeignGroup> findAllByMainGroupIdConversionAndIdForeignGroup() {
+    public static List<ForeignGroup> findAllByMainGroupIdConversionAndIdForeignGroup() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(FOREIGN_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());

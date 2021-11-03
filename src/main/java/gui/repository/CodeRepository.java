@@ -19,13 +19,13 @@ public class CodeRepository {
     public static final String CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllCodes";
     public static ObjectMapper mapper = new ObjectMapper();
 
-    List<Code> findAllByConversionIdConversion() {
+    public static List<String> findAllByConversionIdConversion() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(CODE_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
-                            new TypeReference<List<Code>>() {
+                            new TypeReference<List<String>>() {
                             }));
         } catch (IOException e) {
             e.printStackTrace();

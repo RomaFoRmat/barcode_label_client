@@ -37,6 +37,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -303,14 +304,14 @@ public class ScanController {
 
     private TestLabel testLabel;
 
-    public ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
+    private ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
 
 //    private List<FieldModel> fieldModelsList;
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
 
-    ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
+    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
     @FXML
     private JFXComboBox<String> cb_consumer;
 
@@ -428,7 +429,7 @@ public class ScanController {
         stage.setTitle("Ввод новой катушки");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
-//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         stage.showAndWait();
     }
 
@@ -757,7 +758,7 @@ public class ScanController {
                     + barcodeSpool.getText());
 
             if (testLabelList != null && testLabelList.isEmpty()) {
-                clearFields();
+//                clearFields();
 //                TextFieldService.alert("Данной записи в БД не найдено!");
 
                 addSpool();

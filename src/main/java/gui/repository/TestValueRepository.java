@@ -67,7 +67,7 @@ public class TestValueRepository {
         return null;
     }
 
-    List<TestValue> findAllByIdConversion() {
+    public static List<TestValue> findAllByIdConversion() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(TEST_VALUE_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());

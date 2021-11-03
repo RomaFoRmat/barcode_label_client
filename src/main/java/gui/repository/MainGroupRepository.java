@@ -25,6 +25,7 @@ public class MainGroupRepository {
 
     public static final String MAIN_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllByConversion11690/idMainGroup";
     public static ObjectMapper mapper = new ObjectMapper();
+    public static final String MAIN_ID_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllIdGroup";
 
     public static MainGroup addIdMain(MainGroup mainGroup) {
         String url = "http://" + AppProperties.getHost() + "/api/addIdGroup";
@@ -36,7 +37,6 @@ public class MainGroupRepository {
         return getMainGroup(url);
     }
 
-
     public static List<MainGroup> findAllByIdConversion() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(MAIN_ENDPOINT);
@@ -44,6 +44,20 @@ public class MainGroupRepository {
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
                             new TypeReference<List<MainGroup>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public static List<String> getAllIdGroup() {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(MAIN_ID_ENDPOINT);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<String>>() {
                             }));
         } catch (IOException e) {
             e.printStackTrace();
