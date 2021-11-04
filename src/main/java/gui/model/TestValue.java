@@ -14,6 +14,7 @@ public class TestValue {
     private Double value;
     private Integer idConversion;
 
+    @Data
     public static class TestValuePrimaryKey implements Serializable {
 
         private Long idForeign;

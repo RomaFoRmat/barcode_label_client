@@ -15,7 +15,6 @@ public class TestLabel {
 
     private Long id_group;
     private Long id_foreign_group;
-    ;
     private LocalDate date_create;
     private String code;
     private String construct;

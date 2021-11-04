@@ -1,6 +1,7 @@
 package gui.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ public class MainValue {
     private String value;
     private Float numberValue;
 
+    @Data
     public static class MainValuePrimaryKey implements Serializable {
 
         private Long idGroup;

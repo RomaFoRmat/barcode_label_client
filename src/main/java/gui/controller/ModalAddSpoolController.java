@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import gui.model.Code;
-import gui.model.MainGroup;
-import gui.model.TestLabel;
-import gui.repository.CodeRepository;
-import gui.repository.MainGroupRepository;
-import gui.repository.TestLabelRepository;
+import gui.application.Main;
+import gui.model.*;
+import gui.repository.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -123,7 +120,6 @@ public class ModalAddSpoolController implements Serializable {
     @FXML
     private VBox vBoxMain1;
     private Stage stage;
-    private MainGroup mainGroup;
     private List<String> codeList = CodeRepository.findAllByConversionIdConversion();
     private ObservableList<String> codes = FXCollections.observableArrayList(codeList);
 
@@ -173,9 +169,47 @@ public class ModalAddSpoolController implements Serializable {
         }
     }
 
-    public void okBtn() {
+    public void okBtnAction() {
+        if (cbMode.getValue().equals("ВЫБОР")) {
+            MainGroup mainGroup = new MainGroup();
+            mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
+            ForeignGroup foreignGroup = new ForeignGroup();
+            foreignGroup.setMainGroup(mainGroup);
 
+            TestValue testValue = new TestValue();
+            TestValue.TestValuePrimaryKey testValuePrimaryKey = new TestValue.TestValuePrimaryKey();
+            testValuePrimaryKey.setIdForeign(foreignGroup.getIdForeignGroup());
+            testValuePrimaryKey.setIdTestHead(11697L);
+            testValue.setValue(Double.valueOf(newNumberSpool.getText()));
+            testValuePrimaryKey.setIdTestHead(11728L);
+            testValue.setValue(Double.valueOf(newStraight300.getText()));
+            //set fields other
+            TestValueRepository.saveAndFlush(testValue);
 
+            ForeignGroupRepository.addIdForeign(foreignGroup);
+        } else {
+            MainGroup createdMainGroup = new MainGroup();
+
+            ForeignGroup foreignGroup = new ForeignGroup();
+            foreignGroup.setMainGroup(createdMainGroup);
+            ForeignGroupRepository.addIdForeign(foreignGroup);
+
+            MainValue mainValue = new MainValue();
+            MainValue.MainValuePrimaryKey mainValuePrimaryKey = new MainValue.MainValuePrimaryKey();
+            mainValuePrimaryKey.setIdHead(11691L);
+            mainValue.setValue(cbCode.getValue());
+            mainValuePrimaryKey.setIdHead(11692L);
+            mainValue.setValue(numberLot.getText());
+            mainValuePrimaryKey.setIdHead(11693L);
+            mainValue.setValue(numberPart.getText());
+            mainValuePrimaryKey.setIdHead(11694L);
+            mainValue.setValue(cbLr.getValue());
+            mainValuePrimaryKey.setIdHead(12507L);
+            mainValue.setValue(cbTypeSpool.getValue());
+            MainValueRepository.saveAndFlush(mainValue);
+
+            MainGroupRepository.addIdMain(createdMainGroup);
+        }
     }
 
     public void selectionMode() {

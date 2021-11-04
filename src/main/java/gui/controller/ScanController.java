@@ -762,12 +762,6 @@ public class ScanController {
 //                TextFieldService.alert("Данной записи в БД не найдено!");
 
                 addSpool();
-
-//                barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
-//                barcodeSpool.getStylesheets().clear();
-//                barcodeSpool.getStylesheets().add("/css/jfx_error.css");
-//                barcodeSpool.setText("");
-//                unselectCheckBox();
             }
 
             TestLabel label = testLabelList.get(0);
