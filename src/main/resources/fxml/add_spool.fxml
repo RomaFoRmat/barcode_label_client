@@ -13,182 +13,167 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="717.0"
-            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.controller.AddSpoolController">
-    <children>
-        <GridPane hgap="14.0" layoutX="9.0" layoutY="17.0" maxHeight="+Infinity" maxWidth="+Infinity"
-                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="715.0" vgap="20.0">
-            <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="-Infinity"
-                                   prefWidth="207.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="0.0"
-                                   prefWidth="12.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0"
-                                   prefWidth="215.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="6.0"
-                                   prefWidth="6.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="0.0"
-                                   prefWidth="207.0"/>
-            </columnConstraints>
-            <padding>
-                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0"/>
-            </padding>
-            <rowConstraints>
-                <RowConstraints maxHeight="Infinity" minHeight="-Infinity" prefHeight="233.0" valignment="CENTER"
-                                vgrow="ALWAYS"/>
-            </rowConstraints>
-            <children>
-                <VBox prefHeight="416.0" prefWidth="207.0" spacing="7.0">
-                    <children>
-                        <Label text="№ катушки:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newNumberSpool"/>
-                        <Label text="Дата КУ:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newDateRope"/>
-                        <Label text="№ канатной машины:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newNumberRopeMachine"/>
-                        <Label text="Табельный № канатчика:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newPersonalRope"/>
-                        <Label text="№ сварочного:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newNumberWeldingMachine"/>
-                        <Label text="Количество сварок:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newCountOfWelds"/>
-                        <Label text="Длина:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newLength"/>
-                    </children>
-                </VBox>
-                <Separator orientation="VERTICAL" prefHeight="437.0" prefWidth="3.0" style="-fx-border-width: 1px;"
-                           GridPane.columnIndex="1"/>
-                <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="0.0" style="-fx-border-width: 1px;"
-                           GridPane.columnIndex="3"/>
-                <VBox prefHeight="406.0" prefWidth="210.0" spacing="7.0" GridPane.columnIndex="2">
-                    <children>
-                        <Label text="Кручение канатное:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newTorsionRope"/>
-                        <Label text="Прямолинейность канатное:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraightRope"/>
-                        <Label text="Кручение:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newTorsion"/>
-                        <Label text="Прямолинейность 300:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight300"/>
-                        <Label text="Прямолинейность 600:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600"/>
-                        <Label text="Прямолинейность 600_1:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600_1"/>
-                        <Label text="Прямолинейность 600_2:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600_2"/>
-                    </children>
-                </VBox>
-                <VBox prefHeight="416.0" prefWidth="207.0" spacing="7.0" GridPane.columnIndex="4">
-                    <children>
-                        <Label text="Прямолинейность 600_3:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600_3"/>
-                        <Label text="Прямолинейность 600_4:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600_4"/>
-                        <Label text="Прямолинейность 600_5:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600_5"/>
-                        <Label text="Прямолинейность 600_среднее:">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newStraight600Avg"/>
-                        <Label text="Среднее остаточное кручение:" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newAvgResidualTorsion"/>
-                        <Label text="Код дефекта" wrapText="true">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                        <TextField fx:id="newDefectCode"/>
-                        <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0"
-                                  text="Образец"/>
-                    </children>
-                </VBox>
-            </children>
-        </GridPane>
-        <Separator layoutY="441.0" prefHeight="0.0" prefWidth="491.0" style="-fx-border-width: 1px;"
-                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0"/>
-        <Button fx:id="okButton" layoutX="21.0" layoutY="456.0" minWidth="80.0" mnemonicParsing="false"
-                onMouseClicked="#newLotOkButtonClick" text="Ок"/>
-        <Button fx:id="cancelButton" cancelButton="true" layoutX="112.0" layoutY="456.0" minWidth="80.0"
-                mnemonicParsing="false" onMouseClicked="#newLotCancelButtonClick" text="Отмена"/>
-        <Label layoutX="21.0" layoutY="2.0" prefHeight="25.0" prefWidth="171.0" text="Ввод новой катушки:">
-            <font>
-                <Font name="System Bold" size="16.0"/>
-            </font>
-        </Label>
-    </children>
+<AnchorPane fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="493.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.AddSpoolController">
+   <children>
+      <GridPane hgap="14.0" layoutX="9.0" layoutY="17.0" maxHeight="+Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="715.0" vgap="20.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="-Infinity" prefWidth="207.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="0.0" prefWidth="12.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0" prefWidth="215.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="6.0" prefWidth="6.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="Infinity" minWidth="0.0" prefWidth="207.0" />
+         </columnConstraints>
+         <padding>
+            <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+         </padding>
+         <rowConstraints>
+            <RowConstraints maxHeight="Infinity" minHeight="-Infinity" prefHeight="233.0" valignment="CENTER" vgrow="ALWAYS" />
+         </rowConstraints>
+         <children>
+            <VBox prefHeight="416.0" prefWidth="207.0" spacing="7.0">
+               <children>
+                  <Label text="№ катушки:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newNumberSpool" />
+                  <Label text="Дата КУ:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newDateRope" />
+                  <Label text="№ канатной машины:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newNumberRopeMachine" />
+                  <Label text="Табельный № канатчика:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newPersonalRope" />
+                  <Label text="№ сварочного:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newNumberWeldingMachine" />
+                  <Label text="Количество сварок:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newCountOfWelds" />
+                  <Label text="Длина:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newLength" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="437.0" prefWidth="3.0" style="-fx-border-width: 1px;" GridPane.columnIndex="1" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="0.0" style="-fx-border-width: 1px;" GridPane.columnIndex="3" />
+            <VBox prefHeight="406.0" prefWidth="210.0" spacing="7.0" GridPane.columnIndex="2">
+               <children>
+                  <Label text="Кручение канатное:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newTorsionRope" />
+                  <Label text="Прямолинейность канатное:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraightRope" />
+                  <Label text="Кручение:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newTorsion" />
+                  <Label text="Прямолинейность 300:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight300" />
+                  <Label text="Прямолинейность 600:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600" />
+                  <Label text="Прямолинейность 600_1:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600_1" />
+                  <Label text="Прямолинейность 600_2:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600_2" />
+               </children>
+            </VBox>
+            <VBox prefHeight="416.0" prefWidth="207.0" spacing="7.0" GridPane.columnIndex="4">
+               <children>
+                  <Label text="Прямолинейность 600_3:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600_3" />
+                  <Label text="Прямолинейность 600_4:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600_4" />
+                  <Label text="Прямолинейность 600_5:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600_5" />
+                  <Label text="Прямолинейность 600_среднее:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newStraight600Avg" />
+                  <Label text="Среднее остаточное кручение:" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newAvgResidualTorsion" />
+                  <Label text="Код дефекта" wrapText="true">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="newDefectCode" />
+                  <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0" text="Образец" />
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <Separator layoutY="441.0" prefHeight="0.0" prefWidth="491.0" style="-fx-border-width: 1px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="2.0" />
+      <Button fx:id="okButton" layoutX="21.0" layoutY="456.0" minWidth="80.0" mnemonicParsing="false" onMouseClicked="#newLotOkButtonClick" text="Ок" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="112.0" layoutY="456.0" minWidth="80.0" mnemonicParsing="false" onMouseClicked="#newLotCancelButtonClick" text="Отмена" />
+      <Label layoutX="21.0" layoutY="2.0" prefHeight="25.0" prefWidth="171.0" text="Ввод новой катушки:">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+   </children>
 </AnchorPane>

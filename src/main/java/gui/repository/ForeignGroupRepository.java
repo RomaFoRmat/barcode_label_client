@@ -25,7 +25,7 @@ public class ForeignGroupRepository {
     public static final String FOREIGN_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllByIdForeignGroup";
     public static ObjectMapper mapper = new ObjectMapper();
 
-    public static ForeignGroup addIdForeign(ForeignGroup foreignGroup) {
+    public static Long addIdForeign(ForeignGroup foreignGroup) {
         String url = "http://" + AppProperties.getHost() + "/api/create/foreignGroup";
         return getResponseEntity(url, foreignGroup);
     }
@@ -35,7 +35,7 @@ public class ForeignGroupRepository {
         return getForeignGroup(url);
     }
 
-    public static ForeignGroup getResponseEntity(String url, ForeignGroup foreignGroup) {
+    public static Long getResponseEntity(String url, ForeignGroup foreignGroup) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             Gson gson = new GsonBuilder()
@@ -45,7 +45,7 @@ public class ForeignGroupRepository {
             mapper.registerModule(new JavaTimeModule());
             httpPost.setEntity(new StringEntity(gson.toJson(foreignGroup), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(), ForeignGroup.class));
+                    mapper.readValue(httpResponse.getEntity().getContent(), Long.class));
         } catch (IOException e) {
             e.printStackTrace();
         }

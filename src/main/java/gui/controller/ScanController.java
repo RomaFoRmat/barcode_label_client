@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gui.application.Main;
 import gui.model.CellStyleOption;
+import gui.model.Constants;
 import gui.model.FieldModel;
 import gui.model.TestLabel;
 import gui.repository.TestLabelRepository;
@@ -758,9 +759,7 @@ public class ScanController {
                     + barcodeSpool.getText());
 
             if (testLabelList != null && testLabelList.isEmpty()) {
-//                clearFields();
-//                TextFieldService.alert("Данной записи в БД не найдено!");
-
+                Constants.SPOOL_NUMBER = barcodeSpool.getText();
                 addSpool();
             }
 

@@ -8,3 +8,6 @@
 .text-input:focused {
     -fx-border-color: #8800ff;
 }
+.combo-box:focused{
+    -fx-border-color: #8800ff;
+}

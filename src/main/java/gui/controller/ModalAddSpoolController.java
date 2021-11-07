@@ -151,9 +151,10 @@ public class ModalAddSpoolController implements Serializable {
         dateCreateMain.setValue(LocalDate.now());
         cbMode.setItems(mode);
         cbMode.getSelectionModel().select(1);
+        selectionMode(cbMode.getValue());
         cbCode.setItems(codes);
         cbSelectMain.setItems(idGroups);
-//        selectionMode();
+        newNumberSpool.setText(Constants.SPOOL_NUMBER);
     }
 
 
@@ -183,10 +184,13 @@ public class ModalAddSpoolController implements Serializable {
             testValue.setValue(Double.valueOf(newNumberSpool.getText()));
             testValuePrimaryKey.setIdTestHead(11728L);
             testValue.setValue(Double.valueOf(newStraight300.getText()));
+            testValue.setTestValuePrimaryKey(testValuePrimaryKey);
             //set fields other
+
+            Long idForeignGroup = ForeignGroupRepository.addIdForeign(foreignGroup);
+            testValue.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
             TestValueRepository.saveAndFlush(testValue);
 
-            ForeignGroupRepository.addIdForeign(foreignGroup);
         } else {
             MainGroup createdMainGroup = new MainGroup();
 
@@ -212,8 +216,8 @@ public class ModalAddSpoolController implements Serializable {
         }
     }
 
-    public void selectionMode() {
-        if (cbMode.getValue().equals("ВЫБОР")) {
+    public void selectionMode(String mode) {
+        if (mode.equals("ВЫБОР")) {
             vBoxMain0.setDisable(true);
             vBoxMain1.setDisable(true);
             System.out.println("Select mode ВЫБОР ");
