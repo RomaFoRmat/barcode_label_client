@@ -57,14 +57,12 @@ public class ModalAddSpoolController implements Serializable {
     private ComboBox<Integer> cbCountSpool;
     @FXML
     private DatePicker dateCreateMain;
-    private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
     @FXML
     private ComboBox<String> cbTypeSpool;
     @FXML
     private Label lblCountSpool;
     @FXML
     private TextField newNumberSpool;
-    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 72);
     @FXML
     private TextField newNumberRopeMachine;
     @FXML
@@ -103,8 +101,7 @@ public class ModalAddSpoolController implements Serializable {
     private TextField newDefectCode;
     @FXML
     private CheckBox newSample;
-    private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS40", "BS60", "BS80/17", "BS80/33");
-    private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
+
     public ModalAddSpoolController modalAddSpoolController;
     @FXML
     private ComboBox<String> cbCode;
@@ -129,6 +126,11 @@ public class ModalAddSpoolController implements Serializable {
 
     private List<String> idGroupList = MainGroupRepository.getAllIdGroup();
     private ObservableList<String> idGroups = FXCollections.observableArrayList(idGroupList);
+
+    private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS40", "BS60", "BS80/17", "BS80/33");
+    private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
+    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 48, 72);
+    private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -161,6 +163,7 @@ public class ModalAddSpoolController implements Serializable {
         newNumberSpool.setText(Constants.SPOOL_NUMBER);
     }
 
+    //для выбора активного режима
     @FXML
     public void selectionAction(ActionEvent event) {
         selectionMode(cbMode.getValue());
@@ -182,6 +185,9 @@ public class ModalAddSpoolController implements Serializable {
     public void okBtnAction() {
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
+            Conversion conversion = new Conversion();
+            conversion.setIdConversion(11690);
+            mainGroup.setIdConversion(conversion);
             mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
             ForeignGroup foreignGroup = new ForeignGroup();
             foreignGroup.setMainGroup(mainGroup);
@@ -190,9 +196,10 @@ public class ModalAddSpoolController implements Serializable {
             TestValue.TestValuePrimaryKey testValuePrimaryKey = new TestValue.TestValuePrimaryKey();
             testValuePrimaryKey.setIdForeign(foreignGroup.getIdForeignGroup());
             testValuePrimaryKey.setIdTestHead(11697L);
-            testValue.setValue(Double.valueOf(newNumberSpool.getText()));
-            testValuePrimaryKey.setIdTestHead(11728L);
-            testValue.setValue(Double.valueOf(newStraight300.getText()));
+            testValue.setTextValue(newNumberSpool.getText());
+//            testValuePrimaryKey.setIdTestHead(11728L);
+//            testValue.setValue(Double.valueOf(newStraight300.getText()));
+
             testValue.setTestValuePrimaryKey(testValuePrimaryKey);
             //set fields other
 

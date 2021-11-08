@@ -1,6 +1,6 @@
 .jfx-text-field
 {
-    -jfx-focus-color: lime;
+    -jfx-focus-color: lawngreen;
 }
 
 .text-field
@@ -9,7 +9,6 @@
     -fx-text-fill: #000000;
 }
 
-.text-field .input-line
-{
-    -fx-background-color: lime;
+.text-field .input-line {
+    -fx-background-color: lawngreen;
 }

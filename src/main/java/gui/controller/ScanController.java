@@ -316,6 +316,9 @@ public class ScanController {
     @FXML
     private JFXComboBox<String> cb_consumer;
 
+//    @FXML
+//    private Button btnLab2;
+
     @FXML
     public void initialize() {
         /**для наведения фокуса на определенное поле*/
@@ -832,6 +835,13 @@ public class ScanController {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             getInfoAction();
         }
+    }
+
+    //Запуск лаб испытаний:
+    @FXML
+    public void openProjectStart2() throws IOException {
+        Runtime.getRuntime().exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
+        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
     }
 
 }
