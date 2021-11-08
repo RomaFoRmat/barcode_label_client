@@ -2,11 +2,12 @@ package gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.event.ActionEvent;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -103,7 +104,7 @@ public class ModalAddSpoolController implements Serializable {
     @FXML
     private CheckBox newSample;
     private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS40", "BS60", "BS80/17", "BS80/33");
-    private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР");
+    private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
     public ModalAddSpoolController modalAddSpoolController;
     @FXML
     private ComboBox<String> cbCode;
@@ -119,6 +120,9 @@ public class ModalAddSpoolController implements Serializable {
     private VBox vBoxMain0;
     @FXML
     private VBox vBoxMain1;
+    @FXML
+    private Label lblCreateMainGroup;
+
     private Stage stage;
     private List<String> codeList = CodeRepository.findAllByConversionIdConversion();
     private ObservableList<String> codes = FXCollections.observableArrayList(codeList);
@@ -157,6 +161,11 @@ public class ModalAddSpoolController implements Serializable {
         newNumberSpool.setText(Constants.SPOOL_NUMBER);
     }
 
+    @FXML
+    public void selectionAction(ActionEvent event) {
+        selectionMode(cbMode.getValue());
+    }
+
 
     public void modalAddSpoolCancel() {
         stage = (Stage) cancelBtn.getScene().getWindow();
@@ -171,7 +180,7 @@ public class ModalAddSpoolController implements Serializable {
     }
 
     public void okBtnAction() {
-        if (cbMode.getValue().equals("ВЫБОР")) {
+        if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
             mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
             ForeignGroup foreignGroup = new ForeignGroup();
@@ -217,12 +226,17 @@ public class ModalAddSpoolController implements Serializable {
     }
 
     public void selectionMode(String mode) {
-        if (mode.equals("ВЫБОР")) {
+        if (mode.equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
+            lblSelectMainGroup.setDisable(false);
+            cbSelectMain.setDisable(false);
+            lblCreateMainGroup.setDisable(true);
             vBoxMain0.setDisable(true);
             vBoxMain1.setDisable(true);
-            System.out.println("Select mode ВЫБОР ");
-        } else {
+            System.out.println("Select mode ВЫБОР");
+        } else if (mode.equals("СОЗДАНИЕ")) {
             cbSelectMain.setDisable(true);
+            lblSelectMainGroup.setDisable(true);
+            lblCreateMainGroup.setDisable(false);
             vBoxMain0.setDisable(false);
             vBoxMain1.setDisable(false);
             System.out.println("Select mode СОЗДАНИЕ");
