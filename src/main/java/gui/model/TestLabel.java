@@ -27,16 +27,16 @@ public class TestLabel {
     private int length;
     private String numberSpool;
     private int welds;
-    private Float straightforwardness1;
-    private Float straightforwardness2;
-    private Float straightforwardness3;
-    private Float straightforwardness4;
-    private Float straightforwardness5;
-    private Float straightforwardnessAvg;
-    private Float torsRope;
-    private Float straightforwardnessRope;
-    private Float straightforwardness300;
-    private Float torsion;
+    private Double straightforwardness1;
+    private Double straightforwardness2;
+    private Double straightforwardness3;
+    private Double straightforwardness4;
+    private Double straightforwardness5;
+    private Double straightforwardnessAvg;
+    private Double torsRope;
+    private Double straightforwardnessRope;
+    private Double straightforwardness300;
+    private Double torsion;
     private String codeDefect;
 
 

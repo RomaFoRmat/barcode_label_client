@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class GroupConversion {
 
-    private Integer idGroup;
+    private Long idGroup;
     private String nameGroup;
 }

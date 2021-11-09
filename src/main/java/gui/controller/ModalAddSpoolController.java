@@ -185,26 +185,32 @@ public class ModalAddSpoolController implements Serializable {
     public void okBtnAction() {
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
-            Conversion conversion = new Conversion();
-            conversion.setIdConversion(11690);
-            mainGroup.setIdConversion(conversion);
+//            Conversion conversion = new Conversion();
+//            conversion.setIdConversion(11690L);
+//            mainGroup.setIdConversion(conversion);
             mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
             ForeignGroup foreignGroup = new ForeignGroup();
             foreignGroup.setMainGroup(mainGroup);
+
 
             TestValue testValue = new TestValue();
             TestValue.TestValuePrimaryKey testValuePrimaryKey = new TestValue.TestValuePrimaryKey();
             testValuePrimaryKey.setIdForeign(foreignGroup.getIdForeignGroup());
             testValuePrimaryKey.setIdTestHead(11697L);
             testValue.setTextValue(newNumberSpool.getText());
-//            testValuePrimaryKey.setIdTestHead(11728L);
-//            testValue.setValue(Double.valueOf(newStraight300.getText()));
-
             testValue.setTestValuePrimaryKey(testValuePrimaryKey);
-            //set fields other
+
+
+            TestValue testValue2 = new TestValue();
+            TestValue.TestValuePrimaryKey testValuePrimaryKey2 = new TestValue.TestValuePrimaryKey();
+            testValuePrimaryKey2.setIdForeign(foreignGroup.getIdForeignGroup());
+            testValuePrimaryKey2.setIdTestHead(11728L);
+            testValue2.setValue(Double.valueOf(newStraight300.getText()));
+            testValue2.setTestValuePrimaryKey(testValuePrimaryKey2);
 
             Long idForeignGroup = ForeignGroupRepository.addIdForeign(foreignGroup);
             testValue.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
+            testValue2.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
             TestValueRepository.saveAndFlush(testValue);
 
         } else {

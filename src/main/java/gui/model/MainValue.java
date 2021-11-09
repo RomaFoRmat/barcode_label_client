@@ -11,7 +11,7 @@ public class MainValue {
 
     private MainValuePrimaryKey mainValuePrimaryKey;
     private String value;
-    private Float numberValue;
+    private Double numberValue;
 
     @Data
     public static class MainValuePrimaryKey implements Serializable {

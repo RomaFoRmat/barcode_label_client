@@ -2,13 +2,14 @@ package gui.model;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 @Data
 public class MainGroup {
 
     private Long idGroup;
     private Conversion idConversion;
-    private LocalDate dateCreate;
+    private LocalDateTime dateCreate;
 
 }

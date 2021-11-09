@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TestHead {
 
-    private Integer idTestHead;
+    private Long idTestHead;
     private String name;
     private String captionName;
 

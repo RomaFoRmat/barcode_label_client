@@ -12,7 +12,7 @@ public class TestValue {
     private TestValuePrimaryKey testValuePrimaryKey;
     private String textValue;
     private Double value;
-    private Integer idConversion;
+    private Long idConversion;
 
     @Data
     public static class TestValuePrimaryKey implements Serializable {
