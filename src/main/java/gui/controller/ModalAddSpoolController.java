@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -185,56 +186,76 @@ public class ModalAddSpoolController implements Serializable {
     public void okBtnAction() {
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
-//            Conversion conversion = new Conversion();
-//            conversion.setIdConversion(11690L);
-//            mainGroup.setIdConversion(conversion);
+
             mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
             ForeignGroup foreignGroup = new ForeignGroup();
             foreignGroup.setMainGroup(mainGroup);
 
+            List<TestValueDTO> testValueDTOs = new ArrayList<>();
+            TestValueDTO testValueDTO = new TestValueDTO();
+            testValueDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            testValueDTO.setIdTestHead(11697L);
+            testValueDTO.setTextValue(newNumberSpool.getText());
+            testValueDTO.setIdConversion(11690L);
+            testValueDTO.setMainGroup(mainGroup);
 
-            TestValue testValue = new TestValue();
-            TestValue.TestValuePrimaryKey testValuePrimaryKey = new TestValue.TestValuePrimaryKey();
-            testValuePrimaryKey.setIdForeign(foreignGroup.getIdForeignGroup());
-            testValuePrimaryKey.setIdTestHead(11697L);
-            testValue.setTextValue(newNumberSpool.getText());
-            testValue.setTestValuePrimaryKey(testValuePrimaryKey);
+            TestValueDTO testValueDTO2 = new TestValueDTO();
+            testValueDTO2.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            testValueDTO2.setIdTestHead(11728L);
+            testValueDTO2.setValue(Double.valueOf(newStraight300.getText()));
+            testValueDTO2.setIdConversion(testValueDTO.getIdConversion());
+            testValueDTO2.setMainGroup(mainGroup);
+            testValueDTOs.add(testValueDTO);
+            testValueDTOs.add(testValueDTO2);
+
+            ForeignGroupRepository.addIdForeign(testValueDTOs);
+            modalAddSpoolCancel();
 
 
-            TestValue testValue2 = new TestValue();
-            TestValue.TestValuePrimaryKey testValuePrimaryKey2 = new TestValue.TestValuePrimaryKey();
-            testValuePrimaryKey2.setIdForeign(foreignGroup.getIdForeignGroup());
-            testValuePrimaryKey2.setIdTestHead(11728L);
-            testValue2.setValue(Double.valueOf(newStraight300.getText()));
-            testValue2.setTestValuePrimaryKey(testValuePrimaryKey2);
-
-            Long idForeignGroup = ForeignGroupRepository.addIdForeign(foreignGroup);
-            testValue.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
-            testValue2.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
-            TestValueRepository.saveAndFlush(testValue);
+//            TestValue testValue = new TestValue();
+//            TestValue.TestValuePrimaryKey testValuePrimaryKey = new TestValue.TestValuePrimaryKey();
+//            testValuePrimaryKey.setIdForeign(foreignGroup.getIdForeignGroup());
+//            testValuePrimaryKey.setIdTestHead(11697L);
+//            testValue.setTextValue(newNumberSpool.getText());
+//            testValue.setTestValuePrimaryKey(testValuePrimaryKey);
+//
+//
+//            TestValue testValue2 = new TestValue();
+//            TestValue.TestValuePrimaryKey testValuePrimaryKey2 = new TestValue.TestValuePrimaryKey();
+//            testValuePrimaryKey2.setIdForeign(foreignGroup.getIdForeignGroup());
+//            testValuePrimaryKey2.setIdTestHead(11728L);
+//            testValue2.setValue(Double.valueOf(newStraight300.getText()));
+////            testValue2.setValue(Double.valueOf(newStraight300.getText() != null ? newStraight300.getText() : ""));
+//            testValue2.setTestValuePrimaryKey(testValuePrimaryKey2);
+//
+//
+//            Long idForeignGroup = ForeignGroupRepository.addIdForeign(foreignGroup);
+//            testValue.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
+//            testValue2.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
+//            TestValueRepository.saveAndFlush(testValue);
 
         } else {
-            MainGroup createdMainGroup = new MainGroup();
-
-            ForeignGroup foreignGroup = new ForeignGroup();
-            foreignGroup.setMainGroup(createdMainGroup);
-            ForeignGroupRepository.addIdForeign(foreignGroup);
-
-            MainValue mainValue = new MainValue();
-            MainValue.MainValuePrimaryKey mainValuePrimaryKey = new MainValue.MainValuePrimaryKey();
-            mainValuePrimaryKey.setIdHead(11691L);
-            mainValue.setValue(cbCode.getValue());
-            mainValuePrimaryKey.setIdHead(11692L);
-            mainValue.setValue(numberLot.getText());
-            mainValuePrimaryKey.setIdHead(11693L);
-            mainValue.setValue(numberPart.getText());
-            mainValuePrimaryKey.setIdHead(11694L);
-            mainValue.setValue(cbLr.getValue());
-            mainValuePrimaryKey.setIdHead(12507L);
-            mainValue.setValue(cbTypeSpool.getValue());
-            MainValueRepository.saveAndFlush(mainValue);
-
-            MainGroupRepository.addIdMain(createdMainGroup);
+//            MainGroup createdMainGroup = new MainGroup();
+//
+//            ForeignGroup foreignGroup = new ForeignGroup();
+//            foreignGroup.setMainGroup(createdMainGroup);
+//            ForeignGroupRepository.addIdForeign(foreignGroup);
+//
+//            MainValue mainValue = new MainValue();
+//            MainValue.MainValuePrimaryKey mainValuePrimaryKey = new MainValue.MainValuePrimaryKey();
+//            mainValuePrimaryKey.setIdHead(11691L);
+//            mainValue.setValue(cbCode.getValue());
+//            mainValuePrimaryKey.setIdHead(11692L);
+//            mainValue.setValue(numberLot.getText());
+//            mainValuePrimaryKey.setIdHead(11693L);
+//            mainValue.setValue(numberPart.getText());
+//            mainValuePrimaryKey.setIdHead(11694L);
+//            mainValue.setValue(cbLr.getValue());
+//            mainValuePrimaryKey.setIdHead(12507L);
+//            mainValue.setValue(cbTypeSpool.getValue());
+//            MainValueRepository.saveAndFlush(mainValue);
+//
+//            MainGroupRepository.addIdMain(createdMainGroup);
         }
     }
 

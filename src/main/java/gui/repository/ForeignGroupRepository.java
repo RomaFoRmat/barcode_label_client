@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.ForeignGroup;
+import gui.model.TestValueDTO;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -25,9 +26,9 @@ public class ForeignGroupRepository {
     public static final String FOREIGN_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllByIdForeignGroup";
     public static ObjectMapper mapper = new ObjectMapper();
 
-    public static Long addIdForeign(ForeignGroup foreignGroup) {
+    public static Long addIdForeign(List<TestValueDTO> testValueDTOs) {
         String url = "http://" + AppProperties.getHost() + "/api/create/foreignGroup";
-        return getResponseEntity(url, foreignGroup);
+        return getResponseEntity(url, testValueDTOs);
     }
 
     public static List<ForeignGroup> findByMainGroupIdConversionAndIdForeignGroup(Long idForeignGroup) {
@@ -35,7 +36,7 @@ public class ForeignGroupRepository {
         return getForeignGroup(url);
     }
 
-    public static Long getResponseEntity(String url, ForeignGroup foreignGroup) {
+    public static Long getResponseEntity(String url, List<TestValueDTO> testValueDTOs) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             Gson gson = new GsonBuilder()
@@ -43,7 +44,7 @@ public class ForeignGroupRepository {
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapterUtil())
                     .create();
             mapper.registerModule(new JavaTimeModule());
-            httpPost.setEntity(new StringEntity(gson.toJson(foreignGroup), StandardCharsets.UTF_8));
+            httpPost.setEntity(new StringEntity(gson.toJson(testValueDTOs), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(), Long.class));
         } catch (IOException e) {

@@ -755,7 +755,7 @@ public class ScanController {
     }
 
 
-    public void getInfoAction() {
+    public void  getInfoAction() {
 
         if (!barcodeSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
@@ -784,7 +784,7 @@ public class ScanController {
             welds.setText(label.getWelds() != 0 ? String.valueOf(label.getWelds()) : "0");
 //            personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
             straightforwardness300.setText(label.getStraightforwardness300() != null ?
-                    String.valueOf(label.getStraightforwardness300()) : "");
+                    String.valueOf((label.getStraightforwardness300())) : "");
             straightforwardness1.setText(label.getStraightforwardness1() != null ?
                     String.valueOf(label.getStraightforwardness1()) : "");
             straightforwardness2.setText(label.getStraightforwardness2() != null ?
