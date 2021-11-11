@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.ForeignGroup;
-import gui.model.TestValueDTO;
+import gui.model.dto.TestValueDTO;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;

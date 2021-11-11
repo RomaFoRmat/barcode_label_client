@@ -2,6 +2,7 @@ package gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import gui.model.dto.TestValueDTO;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -12,14 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import gui.application.Main;
 import gui.model.*;
 import gui.repository.*;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -192,21 +189,180 @@ public class ModalAddSpoolController implements Serializable {
             foreignGroup.setMainGroup(mainGroup);
 
             List<TestValueDTO> testValueDTOs = new ArrayList<>();
-            TestValueDTO testValueDTO = new TestValueDTO();
-            testValueDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            testValueDTO.setIdTestHead(11697L);
-            testValueDTO.setTextValue(newNumberSpool.getText());
-            testValueDTO.setIdConversion(11690L);
-            testValueDTO.setMainGroup(mainGroup);
 
-            TestValueDTO testValueDTO2 = new TestValueDTO();
-            testValueDTO2.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            testValueDTO2.setIdTestHead(11728L);
-            testValueDTO2.setValue(Double.valueOf(newStraight300.getText()));
-            testValueDTO2.setIdConversion(testValueDTO.getIdConversion());
-            testValueDTO2.setMainGroup(mainGroup);
-            testValueDTOs.add(testValueDTO);
-            testValueDTOs.add(testValueDTO2);
+            //установить значение для поля "№ катушки":
+            TestValueDTO numberSpoolDTO = new TestValueDTO();
+            numberSpoolDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            numberSpoolDTO.setIdTestHead(11697L);
+            numberSpoolDTO.setTextValue(newNumberSpool.getText() != null ? newNumberSpool.getText() : "");
+            numberSpoolDTO.setIdConversion(11690L);
+            numberSpoolDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Дата КУ":
+            TestValueDTO dataRopeDTO = new TestValueDTO();
+            dataRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            dataRopeDTO.setIdTestHead(11727L);
+            dataRopeDTO.setDateValue(newDateRope.getValue() != null ? newDateRope.getValue() : LocalDate.parse(""));
+            dataRopeDTO.setIdConversion(11690L);
+            dataRopeDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "№ канатной машины":
+            TestValueDTO numberRopeMachineDTO = new TestValueDTO();
+            numberRopeMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            numberRopeMachineDTO.setIdTestHead(11699L);
+            numberRopeMachineDTO.setValue(Double.valueOf(newNumberRopeMachine.getText() != null ? newNumberRopeMachine.getText() : ""));
+            numberRopeMachineDTO.setIdConversion(11690L);
+            numberRopeMachineDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Табельный канатчика":
+            TestValueDTO personalRopeDTO = new TestValueDTO();
+            personalRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            personalRopeDTO.setIdTestHead(11700L);
+            personalRopeDTO.setTextValue(newPersonalRope.getText() != null ? newPersonalRope.getText() : "");
+            personalRopeDTO.setIdConversion(11690L);
+            personalRopeDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "№ сварочного аппарата":
+            TestValueDTO numbWeldingMachineDTO = new TestValueDTO();
+            numbWeldingMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            numbWeldingMachineDTO.setIdTestHead(1875350L);
+            numbWeldingMachineDTO.setValue(Double.valueOf(newNumberWeldingMachine.getText() != null ? newNumberWeldingMachine.getText() : ""));
+            numbWeldingMachineDTO.setIdConversion(11690L);
+            numbWeldingMachineDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "кол-во сварок":
+            TestValueDTO numbOfWeldsDTO = new TestValueDTO();
+            numbOfWeldsDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            numbOfWeldsDTO.setIdTestHead(11730L);
+            numbOfWeldsDTO.setValue(Double.valueOf(newCountOfWelds.getText() != null ? newCountOfWelds.getText() : ""));
+            numbOfWeldsDTO.setIdConversion(11690L);
+            numbOfWeldsDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Длина":
+            TestValueDTO lengthDTO = new TestValueDTO();
+            lengthDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            lengthDTO.setIdTestHead(11701L);
+            lengthDTO.setValue(Double.valueOf(newLength.getText() != null ? newLength.getText() : ""));
+            lengthDTO.setIdConversion(11690L);
+            lengthDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Кручение канатное":
+            TestValueDTO torsionRopeDTO = new TestValueDTO();
+            torsionRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            torsionRopeDTO.setIdTestHead(11703L);
+            torsionRopeDTO.setValue(Double.valueOf(newTorsionRope.getText() != null ? newTorsionRope.getText() : ""));
+            torsionRopeDTO.setIdConversion(11690L);
+            torsionRopeDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность канатное":
+            TestValueDTO straightRopeDTO = new TestValueDTO();
+            straightRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straightRopeDTO.setIdTestHead(11702L);
+            straightRopeDTO.setValue(Double.valueOf(newStraightRope.getText() != null ? newStraightRope.getText() : ""));
+            straightRopeDTO.setIdConversion(11690L);
+            straightRopeDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Кручение":
+            TestValueDTO torsionDTO = new TestValueDTO();
+            torsionDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            torsionDTO.setIdTestHead(11729L);
+            torsionDTO.setValue(Double.valueOf(newTorsion.getText() != null ? newTorsion.getText() : ""));
+            torsionDTO.setIdConversion(11690L);
+            torsionDTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 300":
+            TestValueDTO straight300DTO = new TestValueDTO();
+            straight300DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight300DTO.setIdTestHead(11728L);
+            straight300DTO.setValue(Double.valueOf(newStraight300.getText() != null ? newStraight300.getText() : ""));
+            straight300DTO.setIdConversion(11690L);
+            straight300DTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 600":
+            TestValueDTO straight600DTO = new TestValueDTO();
+            straight600DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600DTO.setIdTestHead(1918897L);
+            straight600DTO.setValue(Double.valueOf(newStraight600.getText() != null ? newStraight600.getText() : ""));
+            straight600DTO.setIdConversion(11690L);
+            straight600DTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 600_1":
+            TestValueDTO straight600_1DTO = new TestValueDTO();
+            straight600_1DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600_1DTO.setIdTestHead(11731L);
+            straight600_1DTO.setValue(Double.valueOf(newStraight600_1.getText() != null ? newStraight600_1.getText() : ""));
+            straight600_1DTO.setIdConversion(11690L);
+            straight600_1DTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 600_2":
+            TestValueDTO straight600_2DTO = new TestValueDTO();
+            straight600_2DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600_2DTO.setIdTestHead(11732L);
+            straight600_2DTO.setValue(Double.valueOf(newStraight600_2.getText() != null ? newStraight600_2.getText() : ""));
+            straight600_2DTO.setIdConversion(11690L);
+            straight600_2DTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 600_3":
+            TestValueDTO straight600_3DTO = new TestValueDTO();
+            straight600_3DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600_3DTO.setIdTestHead(11733L);
+            straight600_3DTO.setValue(Double.valueOf(newStraight600_3.getText() != null ? newStraight600_3.getText() : ""));
+            straight600_3DTO.setIdConversion(11690L);
+            straight600_3DTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 600_4":
+            TestValueDTO straight600_4DTO = new TestValueDTO();
+            straight600_4DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600_4DTO.setIdTestHead(11734L);
+            straight600_4DTO.setValue(Double.valueOf(newStraight600_4.getText() != null ? newStraight600_4.getText() : ""));
+            straight600_4DTO.setIdConversion(11690L);
+            straight600_4DTO.setMainGroup(mainGroup);
+
+            //установить значение для поля "Прямолинейность 600_5":
+            TestValueDTO straight600_5DTO = new TestValueDTO();
+            straight600_5DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600_5DTO.setIdTestHead(11735L);
+            straight600_5DTO.setValue(Double.valueOf(newStraight600_5.getText() != null ? newStraight600_5.getText() : ""));
+            straight600_5DTO.setIdConversion(11690L);
+            straight600_5DTO.setMainGroup(mainGroup);
+
+//            //установить значение для поля "Прямолинейность 600 среднее":
+//            TestValueDTO straight600AvgDTO = new TestValueDTO();
+//            straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            straight600AvgDTO.setIdTestHead(11736L);
+//            straight600AvgDTO.setValue(Double.valueOf(newStraight600Avg.getText() != null ? newStraight600Avg.getText() : ""));
+//            straight600AvgDTO.setIdConversion(11690L);
+//            straight600AvgDTO.setMainGroup(mainGroup);
+
+//            //установить значение для поля "Образец":
+//            TestValueDTO sampleDTO = new TestValueDTO();
+//            sampleDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            sampleDTO.setIdTestHead(11698L);
+//            sampleDTO.setValue(Double.valueOf(newSample.isSelected() ? newSample.getText() : ""));
+//            sampleDTO.setIdConversion(11690L);
+//            sampleDTO.setMainGroup(mainGroup);
+
+
+            testValueDTOs.add(numberSpoolDTO);
+            testValueDTOs.add(dataRopeDTO);
+            testValueDTOs.add(numberRopeMachineDTO);
+            testValueDTOs.add(personalRopeDTO);
+            testValueDTOs.add(numbWeldingMachineDTO);
+            testValueDTOs.add(numbOfWeldsDTO);
+            testValueDTOs.add(lengthDTO);
+            testValueDTOs.add(torsionRopeDTO);
+            testValueDTOs.add(straightRopeDTO);
+            testValueDTOs.add(torsionDTO);
+            testValueDTOs.add(straight300DTO);
+            testValueDTOs.add(straight600DTO);
+            testValueDTOs.add(straight600_1DTO);
+            testValueDTOs.add(straight600_2DTO);
+            testValueDTOs.add(straight600_3DTO);
+            testValueDTOs.add(straight600_4DTO);
+            testValueDTOs.add(straight600_5DTO);
+//            testValueDTOs.add(straight600AvgDTO);
+//            testValueDTOs.add(sampleDTO);
+
 
             ForeignGroupRepository.addIdForeign(testValueDTOs);
             modalAddSpoolCancel();

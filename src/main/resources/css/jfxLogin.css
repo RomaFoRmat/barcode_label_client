@@ -1,0 +1,14 @@
+.jfx-password-field {
+    -fx-font-size: 22px;
+    -fx-alignment: center;
+    -fx-font-weight: 500;
+    /*-fx-font-family: 'Comic Sans MS';*/
+}
+
+.button-raised {
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: #00ff00;
+    -fx-text-fill: black;
+
+}

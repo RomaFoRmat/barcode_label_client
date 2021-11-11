@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="311.0" prefWidth="500.0" style="-fx-background-color: #1bd8fa;"
+            stylesheets="@../css/jfxLogin.css" xmlns="http://javafx.com/javafx/8.0.171">
+    <children>
+        <ImageView fitHeight="142.0" fitWidth="142.0" layoutX="179.0" layoutY="7.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <image>
+                <Image url="@../icon/keysLogo.png"/>
+            </image>
+        </ImageView>
+        <JFXPasswordField fx:id="loginUserTextField" focusColor="BLACK" labelFloat="true" layoutX="145.0"
+                          layoutY="179.0" prefHeight="43.0" prefWidth="213.0" promptText="Введите пароль:"/>
+        <JFXButton fx:id="loginButton" layoutX="222.0" layoutY="258.0" onMouseClicked="#login" prefHeight="30.0"
+                   prefWidth="59.0" styleClass="button-raised" text="Войти"/>
+    </children>
+</AnchorPane>
