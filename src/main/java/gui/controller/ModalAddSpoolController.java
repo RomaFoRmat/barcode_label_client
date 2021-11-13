@@ -210,7 +210,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO numberRopeMachineDTO = new TestValueDTO();
             numberRopeMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             numberRopeMachineDTO.setIdTestHead(11699L);
-            numberRopeMachineDTO.setValue(Double.valueOf(newNumberRopeMachine.getText().isEmpty() ? newNumberRopeMachine.getText() : ""));
+            numberRopeMachineDTO.setValue(!newNumberRopeMachine.getText().equals("") ? Double.valueOf(newNumberRopeMachine.getText()) : null);
             numberRopeMachineDTO.setIdConversion(11690L);
             numberRopeMachineDTO.setMainGroup(mainGroup);
 
@@ -226,7 +226,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO numbWeldingMachineDTO = new TestValueDTO();
             numbWeldingMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             numbWeldingMachineDTO.setIdTestHead(1875350L);
-            numbWeldingMachineDTO.setValue(Double.valueOf(newNumberWeldingMachine.getText() != null ? newNumberWeldingMachine.getText() : ""));
+            numbWeldingMachineDTO.setValue(!newNumberWeldingMachine.getText().equals("") ? Double.valueOf(newNumberWeldingMachine.getText()) : null);
             numbWeldingMachineDTO.setIdConversion(11690L);
             numbWeldingMachineDTO.setMainGroup(mainGroup);
 
@@ -234,7 +234,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO numbOfWeldsDTO = new TestValueDTO();
             numbOfWeldsDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             numbOfWeldsDTO.setIdTestHead(11730L);
-            numbOfWeldsDTO.setValue(Double.valueOf(newCountOfWelds.getText() != null ? newCountOfWelds.getText() : ""));
+            numbOfWeldsDTO.setValue(!newCountOfWelds.getText().equals("") ? Double.valueOf(newCountOfWelds.getText()) : null);
             numbOfWeldsDTO.setIdConversion(11690L);
             numbOfWeldsDTO.setMainGroup(mainGroup);
 
@@ -242,7 +242,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO lengthDTO = new TestValueDTO();
             lengthDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             lengthDTO.setIdTestHead(11701L);
-            lengthDTO.setValue(Double.valueOf(newLength.getText() != null ? newLength.getText() : ""));
+            lengthDTO.setValue(!newLength.getText().equals("") ? Double.valueOf(newLength.getText()) : null);
             lengthDTO.setIdConversion(11690L);
             lengthDTO.setMainGroup(mainGroup);
 
@@ -250,7 +250,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO torsionRopeDTO = new TestValueDTO();
             torsionRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             torsionRopeDTO.setIdTestHead(11703L);
-            torsionRopeDTO.setValue(Double.valueOf(newTorsionRope.getText() != null ? newTorsionRope.getText() : ""));
+            torsionRopeDTO.setValue(!newTorsionRope.getText().equals("") ? Double.valueOf(newTorsionRope.getText()) : null);
             torsionRopeDTO.setIdConversion(11690L);
             torsionRopeDTO.setMainGroup(mainGroup);
 
@@ -258,7 +258,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straightRopeDTO = new TestValueDTO();
             straightRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straightRopeDTO.setIdTestHead(11702L);
-            straightRopeDTO.setValue(Double.valueOf(newStraightRope.getText() != null ? newStraightRope.getText() : ""));
+            straightRopeDTO.setValue(!newStraightRope.getText().equals("") ? Double.valueOf(newStraightRope.getText()) : null);
             straightRopeDTO.setIdConversion(11690L);
             straightRopeDTO.setMainGroup(mainGroup);
 
@@ -266,7 +266,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO torsionDTO = new TestValueDTO();
             torsionDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             torsionDTO.setIdTestHead(11729L);
-            torsionDTO.setValue(Double.valueOf(newTorsion.getText() != null ? newTorsion.getText() : ""));
+            torsionDTO.setValue(!newTorsion.getText().equals("") ? Double.valueOf(newTorsion.getText()) : null);
             torsionDTO.setIdConversion(11690L);
             torsionDTO.setMainGroup(mainGroup);
 
@@ -274,7 +274,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight300DTO = new TestValueDTO();
             straight300DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight300DTO.setIdTestHead(11728L);
-            straight300DTO.setValue(Double.valueOf(newStraight300.getText() != null ? newStraight300.getText() : ""));
+            straight300DTO.setValue(!newStraight300.getText().equals("") ? Double.valueOf(newStraight300.getText()) : null);
             straight300DTO.setIdConversion(11690L);
             straight300DTO.setMainGroup(mainGroup);
 
@@ -282,7 +282,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight600DTO = new TestValueDTO();
             straight600DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600DTO.setIdTestHead(1918897L);
-            straight600DTO.setValue(Double.valueOf(newStraight600.getText() != null ? newStraight600.getText() : ""));
+            straight600DTO.setValue(!newStraight600.getText().equals("") ? Double.valueOf(newStraight600.getText()) : null);
             straight600DTO.setIdConversion(11690L);
             straight600DTO.setMainGroup(mainGroup);
 
@@ -290,7 +290,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight600_1DTO = new TestValueDTO();
             straight600_1DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600_1DTO.setIdTestHead(11731L);
-            straight600_1DTO.setValue(Double.valueOf(newStraight600_1.getText() != null ? newStraight600_1.getText() : ""));
+            straight600_1DTO.setValue(!newStraight600_1.getText().equals("") ? Double.valueOf(newStraight600_1.getText()) : null);
             straight600_1DTO.setIdConversion(11690L);
             straight600_1DTO.setMainGroup(mainGroup);
 
@@ -298,7 +298,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight600_2DTO = new TestValueDTO();
             straight600_2DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600_2DTO.setIdTestHead(11732L);
-            straight600_2DTO.setValue(Double.valueOf(newStraight600_2.getText() != null ? newStraight600_2.getText() : ""));
+            straight600_2DTO.setValue(!newStraight600_2.getText().equals("") ? Double.valueOf(newStraight600_2.getText()) : null);
             straight600_2DTO.setIdConversion(11690L);
             straight600_2DTO.setMainGroup(mainGroup);
 
@@ -306,7 +306,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight600_3DTO = new TestValueDTO();
             straight600_3DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600_3DTO.setIdTestHead(11733L);
-            straight600_3DTO.setValue(Double.valueOf(newStraight600_3.getText() != null ? newStraight600_3.getText() : ""));
+            straight600_3DTO.setValue(!newStraight600_3.getText().equals("") ? Double.valueOf(newStraight600_3.getText()) : null);
             straight600_3DTO.setIdConversion(11690L);
             straight600_3DTO.setMainGroup(mainGroup);
 
@@ -314,7 +314,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight600_4DTO = new TestValueDTO();
             straight600_4DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600_4DTO.setIdTestHead(11734L);
-            straight600_4DTO.setValue(Double.valueOf(newStraight600_4.getText() != null ? newStraight600_4.getText() : ""));
+            straight600_4DTO.setValue(!newStraight600_4.getText().equals("") ? Double.valueOf(newStraight600_4.getText()) : null);
             straight600_4DTO.setIdConversion(11690L);
             straight600_4DTO.setMainGroup(mainGroup);
 
@@ -322,42 +322,36 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO straight600_5DTO = new TestValueDTO();
             straight600_5DTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600_5DTO.setIdTestHead(11735L);
-            straight600_5DTO.setValue(Double.valueOf(newStraight600_5.getText() != null ? newStraight600_5.getText() : ""));
+            straight600_5DTO.setValue(!newStraight600_5.getText().equals("") ? Double.valueOf(newStraight600_5.getText()) : null);
             straight600_5DTO.setIdConversion(11690L);
             straight600_5DTO.setMainGroup(mainGroup);
 
 
-            Double str600 = Double.valueOf(newStraight600.getText());
-            Double str600_1 = Double.valueOf(newStraight600_1.getText());
-            Double str600_2 = Double.valueOf(newStraight600_2.getText());
-            Double str600_3 = Double.valueOf(newStraight600_3.getText());
-            Double str600_4 = Double.valueOf(newStraight600_4.getText());
-            Double str600_5 = Double.valueOf(newStraight600_5.getText());
+            Double str600 = !newStraight600.getText().equals("") ? Double.valueOf(newStraight600.getText()) : null;
+            Double str600_1 = !newStraight600_1.getText().equals("") ? Double.valueOf(newStraight600_1.getText()) : null;
+            Double str600_2 = !newStraight600_2.getText().equals("") ? Double.valueOf(newStraight600_2.getText()) : null;
+            Double str600_3 = !newStraight600_3.getText().equals("") ? Double.valueOf(newStraight600_3.getText()) : null;
+            Double str600_4 = !newStraight600_4.getText().equals("") ? Double.valueOf(newStraight600_4.getText()) : null;
+            Double str600_5 = !newStraight600_5.getText().equals("") ? Double.valueOf(newStraight600_5.getText()) : null;
+            Double strAVG = ((str600 + str600_1 + str600_2 + str600_3 + str600_4 + str600_5) / 6);
+            Double result = Math.ceil(strAVG);
 
             //установить значение для поля "Прямолинейность 600 среднее":
             TestValueDTO straight600AvgDTO = new TestValueDTO();
             straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             straight600AvgDTO.setIdTestHead(11736L);
-            straight600AvgDTO.setValue((str600 + str600_1 + str600_2 + str600_3 + str600_4 + str600_5) / 6);
+            straight600AvgDTO.setValue(result);
             straight600AvgDTO.setIdConversion(11690L);
             straight600AvgDTO.setMainGroup(mainGroup);
 
 
-//            //установить значение для поля "Прямолинейность 600 среднее":
-//            TestValueDTO straight600AvgDTO = new TestValueDTO();
-//            straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-//            straight600AvgDTO.setIdTestHead(11736L);
-//            straight600AvgDTO.setValue(Double.valueOf(newStraight600Avg.getText() != null ? newStraight600Avg.getText() : ""));
-//            straight600AvgDTO.setIdConversion(11690L);
-//            straight600AvgDTO.setMainGroup(mainGroup);
-//
-//            //установить значение для поля "Образец":
-//            TestValueDTO sampleDTO = new TestValueDTO();
-//            sampleDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-//            sampleDTO.setIdTestHead(11698L);
-//            sampleDTO.setValue(Double.valueOf(newSample.isSelected() ? newSample.getText() : ""));
-//            sampleDTO.setIdConversion(11690L);
-//            sampleDTO.setMainGroup(mainGroup);
+            //установить значение для поля "Образец":
+            TestValueDTO sampleDTO = new TestValueDTO();
+            sampleDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            sampleDTO.setIdTestHead(11698L);
+            sampleDTO.setValue(!newSample.isSelected() ? (Double.valueOf(newSample.getText())) : null);
+            sampleDTO.setIdConversion(11690L);
+            sampleDTO.setMainGroup(mainGroup);
 
 
             testValueDTOs.add(numberSpoolDTO);
@@ -378,7 +372,7 @@ public class ModalAddSpoolController implements Serializable {
             testValueDTOs.add(straight600_4DTO);
             testValueDTOs.add(straight600_5DTO);
             testValueDTOs.add(straight600AvgDTO);
-//            testValueDTOs.add(sampleDTO);
+            testValueDTOs.add(sampleDTO);
 
 
             ForeignGroupRepository.addIdForeign(testValueDTOs);

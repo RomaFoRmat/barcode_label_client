@@ -117,7 +117,10 @@ public class ScanController {
     private TextField welds;
 
     @FXML
-    private Label lbl_pr400;
+    private Label lbl_pr300;
+
+    @FXML
+    private Label lbl_pr600;
 
     @FXML
     private Label lbl_pr1;
@@ -151,22 +154,25 @@ public class ScanController {
     private TextField numberSpool;
 
     @FXML
-    private TextField straightforwardness1;
+    private TextField straightforwardness600_0;
 
     @FXML
-    private TextField straightforwardness2;
+    private TextField straightforwardness600_1;
 
     @FXML
-    private TextField straightforwardness3;
+    private TextField straightforwardness600_2;
 
     @FXML
-    private TextField straightforwardness4;
+    private TextField straightforwardness600_3;
 
     @FXML
-    private TextField straightforwardness5;
+    private TextField straightforwardness600_4;
 
     @FXML
-    private TextField straightforwardnessAvg;
+    private TextField straightforwardness600_5;
+
+    @FXML
+    private TextField straightforwardness600Avg;
 
     @FXML
     private TextField torsion;
@@ -215,6 +221,9 @@ public class ScanController {
     private CheckBox cb_straight300;
 
     @FXML
+    private CheckBox cb_straight600_0;
+
+    @FXML
     private CheckBox cb_straight600_1;
 
     @FXML
@@ -235,11 +244,12 @@ public class ScanController {
     @FXML
     private CheckBox cb_torsion;
 
-    @FXML
-    private CheckBox cb_torsRope;
 
-    @FXML
-    private CheckBox cb_straightRope;
+//    @FXML
+//    private CheckBox cb_torsRope;
+
+//    @FXML
+//    private CheckBox cb_straightRope;
 
     @FXML
     private TableView<TestLabel> tableView;
@@ -266,25 +276,25 @@ public class ScanController {
     @FXML
     private TableColumn<TestLabel, String> tc_personalRope;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight_300;
+    private TableColumn<TestLabel, Double> tc_straight_300;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight600_1;
+    private TableColumn<TestLabel, Double> tc_straight600_1;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight600_2;
+    private TableColumn<TestLabel, Double> tc_straight600_2;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight600_3;
+    private TableColumn<TestLabel, Double> tc_straight600_3;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight600_4;
+    private TableColumn<TestLabel, Double> tc_straight600_4;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight600_5;
+    private TableColumn<TestLabel, Double> tc_straight600_5;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straight600Avg;
+    private TableColumn<TestLabel, Double> tc_straight600Avg;
     @FXML
-    private TableColumn<TestLabel, Float> tc_torsion;
+    private TableColumn<TestLabel, Double> tc_torsion;
     @FXML
-    private TableColumn<TestLabel, Float> tc_torsionRope;
+    private TableColumn<TestLabel, Double> tc_torsionRope;
     @FXML
-    private TableColumn<TestLabel, Float> tc_straightRope;
+    private TableColumn<TestLabel, Double> tc_straightRope;
     @FXML
     private TextField filterField;
 
@@ -456,8 +466,8 @@ public class ScanController {
         cb_straight600_5.setSelected(false);
         cb_straight600Avg.setSelected(false);
         cb_torsion.setSelected(false);
-        cb_torsRope.setSelected(false);
-        cb_straightRope.setSelected(false);
+//        cb_torsRope.setSelected(false);
+//        cb_straightRope.setSelected(false);
     }
 
     public void clearFields() {
@@ -471,12 +481,13 @@ public class ScanController {
         length.clear();
         welds.clear();
         numberSpool.clear();
-        straightforwardness1.clear();
-        straightforwardness2.clear();
-        straightforwardness3.clear();
-        straightforwardness4.clear();
-        straightforwardness5.clear();
-        straightforwardnessAvg.clear();
+        straightforwardness600_0.clear();
+        straightforwardness600_1.clear();
+        straightforwardness600_2.clear();
+        straightforwardness600_3.clear();
+        straightforwardness600_4.clear();
+        straightforwardness600_5.clear();
+        straightforwardness600Avg.clear();
         torsion.clear();
         torsRope.clear();
         straightforwardnessRope.clear();
@@ -653,7 +664,7 @@ public class ScanController {
                 cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
 
             Desktop.getDesktop().open(toFormQrCode());
 
@@ -668,7 +679,7 @@ public class ScanController {
                 cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
             Desktop.getDesktop().print(toFormQrCode());
         } else {
             TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
@@ -682,7 +693,7 @@ public class ScanController {
                 cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
 //            exportToExcel();
             Desktop.getDesktop().print(exportToExcel());
 
@@ -699,7 +710,7 @@ public class ScanController {
                 cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
                 cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
                 cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_torsRope.isSelected() || cb_straightRope.isSelected()) {
+                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
 //            exportToExcel();
 
             Desktop.getDesktop().open(exportToExcel());
@@ -735,12 +746,12 @@ public class ScanController {
         tc_welds.setCellValueFactory(new PropertyValueFactory<>("welds"));
         tc_personalRope.setCellValueFactory(new PropertyValueFactory<>("personal_rope"));
         tc_straight_300.setCellValueFactory(new PropertyValueFactory<>("straightforwardness300"));
-        tc_straight600_1.setCellValueFactory(new PropertyValueFactory<>("straightforwardness1"));
-        tc_straight600_2.setCellValueFactory(new PropertyValueFactory<>("straightforwardness2"));
-        tc_straight600_3.setCellValueFactory(new PropertyValueFactory<>("straightforwardness3"));
-        tc_straight600_4.setCellValueFactory(new PropertyValueFactory<>("straightforwardness4"));
-        tc_straight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness5"));
-        tc_straight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessAvg"));
+        tc_straight600_1.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_1"));
+        tc_straight600_2.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_2"));
+        tc_straight600_3.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_3"));
+        tc_straight600_4.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_4"));
+        tc_straight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_5"));
+        tc_straight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600Avg"));
         tc_torsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
         tc_torsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
         tc_straightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
@@ -780,23 +791,25 @@ public class ScanController {
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
             lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
-            length.setText(label.getLength() != 0 ? String.valueOf(label.getLength()) : "");
-            welds.setText(label.getWelds() != 0 ? String.valueOf(label.getWelds()) : "0");
+            length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
+            welds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
 //            personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
             straightforwardness300.setText(label.getStraightforwardness300() != null ?
                     String.valueOf((label.getStraightforwardness300())) : "");
-            straightforwardness1.setText(label.getStraightforwardness1() != null ?
-                    String.valueOf(label.getStraightforwardness1()) : "");
-            straightforwardness2.setText(label.getStraightforwardness2() != null ?
-                    String.valueOf(label.getStraightforwardness2()) : "");
-            straightforwardness3.setText(label.getStraightforwardness3() != null ?
-                    String.valueOf(label.getStraightforwardness3()) : "");
-            straightforwardness4.setText(label.getStraightforwardness4() != null ?
-                    String.valueOf(label.getStraightforwardness4()) : "");
-            straightforwardness5.setText(label.getStraightforwardness5() != null ?
-                    String.valueOf(label.getStraightforwardness5()) : "");
-            straightforwardnessAvg.setText(label.getStraightforwardnessAvg() != null ?
-                    String.valueOf(label.getStraightforwardnessAvg()) : "");
+            straightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
+                    String.valueOf((label.getStraightforwardness600_0())) : "");
+            straightforwardness600_1.setText(label.getStraightforwardness600_1() != null ?
+                    String.valueOf(label.getStraightforwardness600_1()) : "");
+            straightforwardness600_2.setText(label.getStraightforwardness600_2() != null ?
+                    String.valueOf(label.getStraightforwardness600_2()) : "");
+            straightforwardness600_3.setText(label.getStraightforwardness600_3() != null ?
+                    String.valueOf(label.getStraightforwardness600_3()) : "");
+            straightforwardness600_4.setText(label.getStraightforwardness600_4() != null ?
+                    String.valueOf(label.getStraightforwardness600_4()) : "");
+            straightforwardness600_5.setText(label.getStraightforwardness600_5() != null ?
+                    String.valueOf(label.getStraightforwardness600_5()) : "");
+            straightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
+                    String.valueOf(label.getStraightforwardness600Avg()) : "");
             torsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
             torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
             straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
