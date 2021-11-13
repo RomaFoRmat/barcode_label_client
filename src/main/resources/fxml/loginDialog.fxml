@@ -7,18 +7,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="311.0" prefWidth="500.0" style="-fx-background-color: #1bd8fa;"
+            minWidth="-Infinity" prefHeight="304.0" prefWidth="500.0" style="-fx-background-color: #1bd8fa;"
             stylesheets="@../css/jfxLogin.css" xmlns="http://javafx.com/javafx/8.0.171">
     <children>
-        <ImageView fitHeight="142.0" fitWidth="142.0" layoutX="179.0" layoutY="7.0" pickOnBounds="true"
-                   preserveRatio="true">
+        <ImageView fitHeight="142.0" fitWidth="142.0" layoutX="178.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../icon/keysLogo.png"/>
             </image>
         </ImageView>
-        <JFXPasswordField fx:id="loginUserTextField" focusColor="BLACK" labelFloat="true" layoutX="145.0"
-                          layoutY="179.0" prefHeight="43.0" prefWidth="213.0" promptText="Введите пароль:"/>
-        <JFXButton fx:id="loginButton" layoutX="222.0" layoutY="258.0" onMouseClicked="#login" prefHeight="30.0"
+        <JFXPasswordField fx:id="loginUserTextField" focusColor="BLACK" labelFloat="true" layoutX="144.0"
+                          layoutY="172.0" prefHeight="43.0" prefWidth="213.0" promptText="Введите пароль:"/>
+        <JFXButton fx:id="loginButton" layoutX="221.0" layoutY="239.0" onMouseClicked="#login" prefHeight="30.0"
                    prefWidth="59.0" styleClass="button-raised" text="Войти"/>
+        <AnchorPane layoutY="280.0" prefHeight="30.0" prefWidth="500.0" style="-fx-background-color: #FFF;"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <ImageView fitHeight="23.0" fitWidth="200.0" layoutX="150.0" layoutY="5.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/loading.gif"/>
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>

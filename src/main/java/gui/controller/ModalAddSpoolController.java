@@ -102,7 +102,7 @@ public class ModalAddSpoolController implements Serializable {
 
     public ModalAddSpoolController modalAddSpoolController;
     @FXML
-    private ComboBox<String> cbCode;
+    private ComboBox<Code> cbCode;
     @FXML
     private DatePicker newDateRope;
     @FXML
@@ -119,8 +119,8 @@ public class ModalAddSpoolController implements Serializable {
     private Label lblCreateMainGroup;
 
     private Stage stage;
-    private List<String> codeList = CodeRepository.findAllByConversionIdConversion();
-    private ObservableList<String> codes = FXCollections.observableArrayList(codeList);
+    private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
+    private ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
     private List<String> idGroupList = MainGroupRepository.getAllIdGroup();
     private ObservableList<String> idGroups = FXCollections.observableArrayList(idGroupList);
@@ -210,7 +210,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO numberRopeMachineDTO = new TestValueDTO();
             numberRopeMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             numberRopeMachineDTO.setIdTestHead(11699L);
-            numberRopeMachineDTO.setValue(Double.valueOf(newNumberRopeMachine.getText() != null ? newNumberRopeMachine.getText() : ""));
+            numberRopeMachineDTO.setValue(Double.valueOf(newNumberRopeMachine.getText().isEmpty() ? newNumberRopeMachine.getText() : ""));
             numberRopeMachineDTO.setIdConversion(11690L);
             numberRopeMachineDTO.setMainGroup(mainGroup);
 
@@ -326,6 +326,23 @@ public class ModalAddSpoolController implements Serializable {
             straight600_5DTO.setIdConversion(11690L);
             straight600_5DTO.setMainGroup(mainGroup);
 
+
+            Double str600 = Double.valueOf(newStraight600.getText());
+            Double str600_1 = Double.valueOf(newStraight600_1.getText());
+            Double str600_2 = Double.valueOf(newStraight600_2.getText());
+            Double str600_3 = Double.valueOf(newStraight600_3.getText());
+            Double str600_4 = Double.valueOf(newStraight600_4.getText());
+            Double str600_5 = Double.valueOf(newStraight600_5.getText());
+
+            //установить значение для поля "Прямолинейность 600 среднее":
+            TestValueDTO straight600AvgDTO = new TestValueDTO();
+            straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            straight600AvgDTO.setIdTestHead(11736L);
+            straight600AvgDTO.setValue((str600 + str600_1 + str600_2 + str600_3 + str600_4 + str600_5) / 6);
+            straight600AvgDTO.setIdConversion(11690L);
+            straight600AvgDTO.setMainGroup(mainGroup);
+
+
 //            //установить значение для поля "Прямолинейность 600 среднее":
 //            TestValueDTO straight600AvgDTO = new TestValueDTO();
 //            straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
@@ -333,7 +350,7 @@ public class ModalAddSpoolController implements Serializable {
 //            straight600AvgDTO.setValue(Double.valueOf(newStraight600Avg.getText() != null ? newStraight600Avg.getText() : ""));
 //            straight600AvgDTO.setIdConversion(11690L);
 //            straight600AvgDTO.setMainGroup(mainGroup);
-
+//
 //            //установить значение для поля "Образец":
 //            TestValueDTO sampleDTO = new TestValueDTO();
 //            sampleDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
@@ -360,7 +377,7 @@ public class ModalAddSpoolController implements Serializable {
             testValueDTOs.add(straight600_3DTO);
             testValueDTOs.add(straight600_4DTO);
             testValueDTOs.add(straight600_5DTO);
-//            testValueDTOs.add(straight600AvgDTO);
+            testValueDTOs.add(straight600AvgDTO);
 //            testValueDTOs.add(sampleDTO);
 
 
