@@ -10,8 +10,10 @@ import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 import gui.model.*;
 import gui.repository.*;
@@ -333,23 +335,51 @@ public class ModalAddSpoolController implements Serializable {
             Double str600_3 = !newStraight600_3.getText().equals("") ? Double.valueOf(newStraight600_3.getText()) : null;
             Double str600_4 = !newStraight600_4.getText().equals("") ? Double.valueOf(newStraight600_4.getText()) : null;
             Double str600_5 = !newStraight600_5.getText().equals("") ? Double.valueOf(newStraight600_5.getText()) : null;
-            Double strAVG = ((str600 + str600_1 + str600_2 + str600_3 + str600_4 + str600_5) / 6);
-            Double result = Math.ceil(strAVG);
 
-            //установить значение для поля "Прямолинейность 600 среднее":
-            TestValueDTO straight600AvgDTO = new TestValueDTO();
-            straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            straight600AvgDTO.setIdTestHead(11736L);
-            straight600AvgDTO.setValue(result);
-            straight600AvgDTO.setIdConversion(11690L);
-            straight600AvgDTO.setMainGroup(mainGroup);
+            List<Double> strAVGList = new ArrayList<>();
 
+            if (str600 != null) {
+                strAVGList.add(str600);
+            }
+            if (str600_1 != null) {
+                strAVGList.add(str600_1);
+            }
+            if (str600_2 != null) {
+                strAVGList.add(str600_2);
+            }
+            if (str600_3 != null) {
+                strAVGList.add(str600_3);
+            }
+            if (str600_4 != null) {
+                strAVGList.add(str600_4);
+            }
+            if (str600_5 != null) {
+                strAVGList.add(str600_5);
+            }
+
+            if (strAVGList != null && !strAVGList.isEmpty()) {
+                double sum = 0;
+                Iterator<Double> iter1 = strAVGList.iterator();
+                while (iter1.hasNext()) {
+                    sum += iter1.next();
+                }
+                double average = sum / strAVGList.size();
+                System.out.println("Average = " + average);
+                //установить значение для поля "Прямолинейность 600 среднее":
+                TestValueDTO straight600AvgDTO = new TestValueDTO();
+                straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+                straight600AvgDTO.setIdTestHead(11736L);
+                straight600AvgDTO.setValue(average);
+                straight600AvgDTO.setIdConversion(11690L);
+                straight600AvgDTO.setMainGroup(mainGroup);
+                testValueDTOs.add(straight600AvgDTO);
+            }
 
             //установить значение для поля "Образец":
             TestValueDTO sampleDTO = new TestValueDTO();
             sampleDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
             sampleDTO.setIdTestHead(11698L);
-            sampleDTO.setValue(!newSample.isSelected() ? (Double.valueOf(newSample.getText())) : null);
+            sampleDTO.setValue(newSample.isSelected() ? 1d : 0d);
             sampleDTO.setIdConversion(11690L);
             sampleDTO.setMainGroup(mainGroup);
 
@@ -371,35 +401,13 @@ public class ModalAddSpoolController implements Serializable {
             testValueDTOs.add(straight600_3DTO);
             testValueDTOs.add(straight600_4DTO);
             testValueDTOs.add(straight600_5DTO);
-            testValueDTOs.add(straight600AvgDTO);
+//            testValueDTOs.add(straight600AvgDTO);
             testValueDTOs.add(sampleDTO);
-
 
             ForeignGroupRepository.addIdForeign(testValueDTOs);
             modalAddSpoolCancel();
 
 
-//            TestValue testValue = new TestValue();
-//            TestValue.TestValuePrimaryKey testValuePrimaryKey = new TestValue.TestValuePrimaryKey();
-//            testValuePrimaryKey.setIdForeign(foreignGroup.getIdForeignGroup());
-//            testValuePrimaryKey.setIdTestHead(11697L);
-//            testValue.setTextValue(newNumberSpool.getText());
-//            testValue.setTestValuePrimaryKey(testValuePrimaryKey);
-//
-//
-//            TestValue testValue2 = new TestValue();
-//            TestValue.TestValuePrimaryKey testValuePrimaryKey2 = new TestValue.TestValuePrimaryKey();
-//            testValuePrimaryKey2.setIdForeign(foreignGroup.getIdForeignGroup());
-//            testValuePrimaryKey2.setIdTestHead(11728L);
-//            testValue2.setValue(Double.valueOf(newStraight300.getText()));
-////            testValue2.setValue(Double.valueOf(newStraight300.getText() != null ? newStraight300.getText() : ""));
-//            testValue2.setTestValuePrimaryKey(testValuePrimaryKey2);
-//
-//
-//            Long idForeignGroup = ForeignGroupRepository.addIdForeign(foreignGroup);
-//            testValue.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
-//            testValue2.getTestValuePrimaryKey().setIdForeign(idForeignGroup);
-//            TestValueRepository.saveAndFlush(testValue);
 
         } else {
 //            MainGroup createdMainGroup = new MainGroup();
