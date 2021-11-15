@@ -122,7 +122,7 @@ public class ModalAddSpoolController implements Serializable {
 
     private Stage stage;
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
-    private ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
+    private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
     private List<String> idGroupList = MainGroupRepository.getAllIdGroup();
     private ObservableList<String> idGroups = FXCollections.observableArrayList(idGroupList);

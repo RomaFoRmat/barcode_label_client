@@ -53,7 +53,7 @@
                 <TextField fx:id="numberPart"/>
                 <Label prefHeight="19.0" prefWidth="94.0" text="№ лота:" wrapText="true">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
                 <TextField fx:id="numberLot" />
@@ -185,17 +185,18 @@
                 <TextField fx:id="newStraight600_2" />
             </children>
         </VBox>
-        <VBox layoutX="479.0" layoutY="328.0" prefHeight="377.0" prefWidth="207.0" spacing="7.0" stylesheets="@../css/textFieldModal.css">
+        <VBox layoutX="479.0" layoutY="328.0" prefHeight="271.0" prefWidth="207.0" spacing="7.0"
+              stylesheets="@../css/textFieldModal.css">
             <children>
                 <Label text="Прямолинейность 600_3:" wrapText="true">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="newStraight600_3" />
+                <TextField fx:id="newStraight600_3"/>
                 <Label text="Прямолинейность 600_4:">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
                 <TextField fx:id="newStraight600_4" />
@@ -205,18 +206,6 @@
                     </font>
                 </Label>
                 <TextField fx:id="newStraight600_5" />
-                <Label text="Прямолинейность 600_среднее:">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="newStraight600Avg" />
-                <Label text="Среднее остаточное кручение:" wrapText="true">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="newAvgResidualTorsion" />
                 <Label text="Код дефекта" wrapText="true">
                     <font>
                         <Font size="13.0" />
