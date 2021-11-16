@@ -182,17 +182,16 @@
                                                                 </TextField>
                                                             </children>
                                                         </VBox>
-                                                        <VBox layoutX="491.0" layoutY="23.0" prefHeight="363.0"
-                                                              prefWidth="187.0" spacing="9.0">
+                                                        <VBox layoutX="491.0" layoutY="23.0" prefHeight="363.0" prefWidth="187.0" spacing="9.0">
                                                             <children>
                                                                 <Label fx:id="lbl_pr600" text="Прямолин 600">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0"/>
+                                                                        <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
                                                                 <Label fx:id="lbl_pr1" text="Прямолин 600_1">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0"/>
+                                                                        <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
                                                                 <Label fx:id="lbl_pr2" text="Прямолин 600_2">
@@ -222,7 +221,7 @@
                                                                 </Label>
                                                                 <Label fx:id="lbl_pr300" text="Прямолин 300">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0"/>
+                                                                        <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
                                                                 <Label fx:id="lbl_length" text="Длинна">
@@ -232,63 +231,46 @@
                                                                 </Label>
                                                             </children>
                                                         </VBox>
-                                                        <VBox layoutX="678.0" layoutY="22.0" prefHeight="364.0"
-                                                              prefWidth="155.0" spacing="9.0">
+                                                        <VBox layoutX="678.0" layoutY="22.0" prefHeight="364.0" prefWidth="155.0" spacing="9.0">
                                                             <children>
-                                                                <TextField fx:id="straightforwardness600_0"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600_0" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_1"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600_1" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_2"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600_2" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_3"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600_3" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_4"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600_4" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_5"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600_5" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600Avg"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness600Avg" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness300"
-                                                                           prefHeight="32.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="straightforwardness300" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
                                                                 <TextField fx:id="length" prefHeight="32.0" stylesheets="@../css/style.css">
@@ -312,25 +294,17 @@
                                                                 <CheckBox fx:id="cb_torsion" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
-                                                        <VBox disable="true" layoutX="844.0" layoutY="30.0"
-                                                              spacing="24.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox disable="true" layoutX="844.0" layoutY="30.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cb_straight600_0"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_straight600_1"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_straight600_2"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_straight600_3"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_straight600_4"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_straight600_5"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_straight600Avg"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_torsRope" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cb_length" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cb_straight600_0" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600_1" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600_2" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600_3" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600_4" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600_5" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600Avg" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight300" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_length" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
                                                         <JFXButton fx:id="btn_labelForm" buttonType="RAISED" layoutX="481.0" layoutY="440.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">
@@ -369,51 +343,34 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btn_qrCode" buttonType="RAISED" layoutX="72.0"
-                                                                   layoutY="440.0" onAction="#generateQrCode"
-                                                                   prefHeight="34.0" prefWidth="159.0"
-                                                                   style="-fx-border-radius: 4; -fx-border-color: #090000;"
-                                                                   stylesheets="@../css/button.css"
-                                                                   text="Просмотр QR-CODE">
+                                                        <JFXButton fx:id="btn_qrCode" buttonType="RAISED" layoutX="72.0" layoutY="440.0" onAction="#generateQrCode" prefHeight="34.0" prefWidth="159.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр QR-CODE">
                                                             <graphic>
-                                                                <ImageView fitHeight="23.0" fitWidth="29.0"
-                                                                           pickOnBounds="true" preserveRatio="true">
+                                                                <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@../icon/qr-code_view.png"/>
+                                                                        <Image url="@../icon/qr-code_view.png" />
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXComboBox fx:id="cb_consumer" focusColor="#7c0ed0"
-                                                                     labelFloat="true" layoutX="363.0" layoutY="16.0"
-                                                                     prefHeight="31.0" prefWidth="122.0"
-                                                                     promptText="ТИП:"
-                                                                     stylesheets="@../css/jfx_comboBox.css"
-                                                                     unFocusColor="#7c0ed0"/>
-                                                        <Label fx:id="lbl_torsRope" layoutX="491.0" layoutY="391.0"
-                                                               text="Прям. кан.">
+                                                        <JFXComboBox fx:id="cb_consumer" focusColor="#7c0ed0" labelFloat="true" layoutX="363.0" layoutY="16.0" prefHeight="31.0" prefWidth="122.0" promptText="ТИП:" stylesheets="@../css/jfx_comboBox.css" unFocusColor="#7c0ed0" />
+                                                        <Label fx:id="lbl_torsRope" layoutX="491.0" layoutY="391.0" text="Прям. кан.">
                                                             <font>
-                                                                <Font name="System Bold" size="22.0"/>
+                                                                <Font name="System Bold" size="22.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="straightforwardnessRope" layoutX="614.0"
-                                                                   layoutY="396.0" prefHeight="25.0" prefWidth="55.0"
-                                                                   stylesheets="@../css/style.css">
+                                                        <TextField fx:id="straightforwardnessRope" layoutX="614.0" layoutY="396.0" prefHeight="25.0" prefWidth="55.0" stylesheets="@../css/style.css">
                                                             <font>
-                                                                <Font name="System Bold" size="12.0"/>
+                                                                <Font name="System Bold" size="12.0" />
                                                             </font>
                                                         </TextField>
-                                                        <Label fx:id="lbl_torsRope" layoutX="678.0" layoutY="391.0"
-                                                               prefHeight="32.0" prefWidth="136.0" text="Кручен. кан.">
+                                                        <Label fx:id="lbl_torsRope" layoutX="678.0" layoutY="391.0" prefHeight="32.0" prefWidth="136.0" text="Кручен. кан.">
                                                             <font>
-                                                                <Font name="System Bold" size="22.0"/>
+                                                                <Font name="System Bold" size="22.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="torsRope" layoutX="817.0" layoutY="396.0"
-                                                                   prefHeight="25.0" prefWidth="55.0"
-                                                                   stylesheets="@../css/style.css">
+                                                        <TextField fx:id="torsRope" layoutX="817.0" layoutY="396.0" prefHeight="25.0" prefWidth="55.0" stylesheets="@../css/style.css">
                                                             <font>
-                                                                <Font name="System Bold" size="12.0"/>
+                                                                <Font name="System Bold" size="12.0" />
                                                             </font>
                                                         </TextField>
                                                     </children>
@@ -473,11 +430,9 @@
                 <Font name="Comic Sans MS" size="20.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#55fa00" labelFloat="true" layoutX="331.0"
-                      layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код"
-                      unFocusColor="BLACK">
+        <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#55fa00" labelFloat="true" layoutX="331.0" layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код" unFocusColor="BLACK">
             <font>
-                <Font name="Times New Roman" size="22.0"/>
+                <Font name="Times New Roman" size="22.0" />
             </font>
         </JFXTextField>
     </children>

@@ -481,6 +481,7 @@ public class ScanController {
         length.clear();
         welds.clear();
         numberSpool.clear();
+        straightforwardness300.clear();
         straightforwardness600_0.clear();
         straightforwardness600_1.clear();
         straightforwardness600_2.clear();
@@ -775,6 +776,7 @@ public class ScanController {
             if (testLabelList != null && testLabelList.isEmpty()) {
                 Constants.SPOOL_NUMBER = barcodeSpool.getText();
                 addSpool();
+                return ;
             }
 
             TestLabel label = testLabelList.get(0);
@@ -820,8 +822,6 @@ public class ScanController {
 //                straightforwardnessRope.setText("");
 //            }
 
-
-//            barcodeSpool.setFocusColor(Paint.valueOf("#a7fc2d"));
             barcodeSpool.getStylesheets().clear();
             barcodeSpool.getStylesheets().add("/css/jfx_success.css");
             cb_construct.setSelected(true);
