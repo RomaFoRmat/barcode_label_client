@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.TimerTask;
 
 public class UpdaterUtil extends TimerTask {
-    Date now = new Date();
+//    Date now = new Date();
     ScanController contr;
     public UpdaterUtil(ScanController contr){
         this.contr = contr;

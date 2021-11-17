@@ -52,8 +52,10 @@ import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.swing.text.DateFormatter;
 import java.awt.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -104,7 +106,7 @@ public class ScanController {
     @FXML
     private TextField construct;
     @FXML
-    private TextField date_create;
+    private TextField dateCreate;
     @FXML
     private TextField rl;
     @FXML
@@ -149,7 +151,7 @@ public class ScanController {
     @FXML
     private Label lbl_prRope;
     @FXML
-//    private TextField personal_rope;
+//    private TextField personalRope;
 
     private TextField numberSpool;
 
@@ -187,62 +189,62 @@ public class ScanController {
     private TextField straightforwardness300;
 
     @FXML
-    private CheckBox cb_typeSpool;
+    private CheckBox cbTypeSpool;
 
     @FXML
-    private CheckBox cb_code;
+    private CheckBox cbCode;
 
     @FXML
-    private CheckBox cb_construct;
+    private CheckBox cbConstruct;
 
     @FXML
-    private CheckBox cb_date;
+    private CheckBox cbDate;
 
     @FXML
-    private CheckBox cb_lr;
+    private CheckBox cbLr;
 
     @FXML
-    private CheckBox cb_part;
+    private CheckBox cbPart;
 
     @FXML
-    private CheckBox cb_lot;
+    private CheckBox cbLot;
 
     @FXML
-    private CheckBox cb_length;
+    private CheckBox cbLength;
 
     @FXML
-    private CheckBox cb_welds;
+    private CheckBox cbWelds;
 
     @FXML
 //    private CheckBox cb_persRope;
-    private CheckBox cb_numberSpool;
+    private CheckBox cbNumberSpool;
 
     @FXML
-    private CheckBox cb_straight300;
+    private CheckBox cbStraight300;
 
     @FXML
     private CheckBox cb_straight600_0;
 
     @FXML
-    private CheckBox cb_straight600_1;
+    private CheckBox cbStraight600_1;
 
     @FXML
-    private CheckBox cb_straight600_2;
+    private CheckBox cbStraight600_2;
 
     @FXML
-    private CheckBox cb_straight600_3;
+    private CheckBox cbStraight600_3;
 
     @FXML
-    private CheckBox cb_straight600_4;
+    private CheckBox cbStraight600_4;
 
     @FXML
-    private CheckBox cb_straight600_5;
+    private CheckBox cbStraight600_5;
 
     @FXML
-    private CheckBox cb_straight600Avg;
+    private CheckBox cbStraight600Avg;
 
     @FXML
-    private CheckBox cb_torsion;
+    private CheckBox cbTorsion;
 
 
 //    @FXML
@@ -254,47 +256,55 @@ public class ScanController {
     @FXML
     private TableView<TestLabel> tableView;
     @FXML
-    private TableColumn<TestLabel, String> tc_numberSpool;
+    private TableColumn<TestLabel, String> tcNumberSpool;
     @FXML
-    private TableColumn<TestLabel, String> tc_typeSpool;
+    private TableColumn<TestLabel, String> tcTypeSpool;
     @FXML
-    private TableColumn<TestLabel, String> tc_code;
+    private TableColumn<TestLabel, String> tcCode;
     @FXML
-    private TableColumn<TestLabel, String> tc_construct;
+    private TableColumn<TestLabel, String> tcConstruct;
     @FXML
-    private TableColumn<TestLabel, LocalDate> tc_date;
+    private TableColumn<TestLabel, LocalDateTime> tcDateCreate;
     @FXML
-    private TableColumn<TestLabel, String> tc_lr;
+    private TableColumn<TestLabel, String> tcLR;
     @FXML
-    private TableColumn<TestLabel, String> tc_part;
+    private TableColumn<TestLabel, String> tcPart;
     @FXML
-    private TableColumn<TestLabel, Integer> tc_lot;
+    private TableColumn<TestLabel, Integer> tcLot;
     @FXML
-    private TableColumn<TestLabel, Integer> tc_length;
+    private TableColumn<TestLabel, LocalDate> tcDateRope;
     @FXML
-    private TableColumn<TestLabel, Integer> tc_welds;
+    private TableColumn<TestLabel, Integer> tcLength;
     @FXML
-    private TableColumn<TestLabel, String> tc_personalRope;
+    private TableColumn<TestLabel, Integer> tcWelds;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight_300;
+    private TableColumn<TestLabel, String> tcPersonalRope;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight600_1;
+    private TableColumn<TestLabel, Double> tcNumberRopeMachine;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight600_2;
+    private TableColumn<TestLabel, Double> tcNumbWeldingMachine;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight600_3;
+    private TableColumn<TestLabel, Double> tcStraight300;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight600_4;
+    private TableColumn<TestLabel, Double> tcStraight600_0;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight600_5;
+    private TableColumn<TestLabel, Double> tcStraight600_1;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straight600Avg;
+    private TableColumn<TestLabel, Double> tcStraight600_2;
     @FXML
-    private TableColumn<TestLabel, Double> tc_torsion;
+    private TableColumn<TestLabel, Double> tcStraight600_3;
     @FXML
-    private TableColumn<TestLabel, Double> tc_torsionRope;
+    private TableColumn<TestLabel, Double> tcStraight600_4;
     @FXML
-    private TableColumn<TestLabel, Double> tc_straightRope;
+    private TableColumn<TestLabel, Double> tcStraight600_5;
+    @FXML
+    private TableColumn<TestLabel, Double> tcStraight600Avg;
+    @FXML
+    private TableColumn<TestLabel, Double> tcTorsion;
+    @FXML
+    private TableColumn<TestLabel, Double> tcTorsionRope;
+    @FXML
+    private TableColumn<TestLabel, Double> tcStraightRope;
     @FXML
     private TextField filterField;
 
@@ -305,7 +315,7 @@ public class ScanController {
     private Label lblSpool;
 
     @FXML
-    private Label lbl_dateTime;
+    private Label lblDateTime;
 
     @FXML
     private Tab tabInfoSpool;
@@ -345,27 +355,42 @@ public class ScanController {
         cb_consumer.getSelectionModel().select(0);
 
 
-        fieldModelEngList.add(new FieldModel(construct, cb_construct, "", CellStyleOption.ENLARGED2));
-        fieldModelEngList.add(new FieldModel(code, cb_code, "Code:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
-        fieldModelEngList.add(new FieldModel(numberSpool, cb_numberSpool, "Bob.№:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(part, cb_part, "Part №:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(lot, cb_lot, "Lot №:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(typeSpool, cb_typeSpool, "", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(date_create, cb_date, "Date:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(torsion, cb_torsion, "Torsion:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
+        fieldModelEngList.add(new FieldModel(code, cbCode, "Code:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(rl, cbLr, "", CellStyleOption.ENLARGED));
+        fieldModelEngList.add(new FieldModel(numberSpool, cbNumberSpool, "Bob.№:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(part, cbPart, "Part №:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(lot, cbLot, "Lot №:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(typeSpool, cbTypeSpool, "", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(welds, cbWelds, "Welds:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(dateCreate, cbDate, "Date:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(torsion, cbTorsion, "Torsion:", CellStyleOption.BASE));
 
 
-        fieldModelRusList.add(new FieldModel(construct, cb_construct, "", CellStyleOption.ENLARGED2));
-        fieldModelRusList.add(new FieldModel(code, cb_code, "Код:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(rl, cb_lr, "", CellStyleOption.ENLARGED));
-        fieldModelRusList.add(new FieldModel(numberSpool, cb_numberSpool, "№ кат.", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(welds, cb_welds, "Welds:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(date_create, cb_date, "Дата:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
+        fieldModelRusList.add(new FieldModel(code, cbCode, "Код:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(rl, cbLr, "", CellStyleOption.ENLARGED));
+        fieldModelRusList.add(new FieldModel(numberSpool, cbNumberSpool, "№ кат.", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(welds, cbWelds, "Welds:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(dateCreate, cbDate, "Дата:", CellStyleOption.BASE));
 
 
         initializeTableColumns();
+
+        //Для отображения корректного времени в tableColumn dateCreate:
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+        tcDateCreate.setCellFactory(column -> new TableCell<TestLabel, LocalDateTime>() {
+            @Override
+            protected void updateItem(LocalDateTime dateTime, boolean empty) {
+                super.updateItem(dateTime, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    this.setText(formatter.format(dateTime));
+                }
+            }
+        });
+
         List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
@@ -419,7 +444,7 @@ public class ScanController {
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-            lbl_dateTime.setText(LocalDateTime.now().format(formatter));
+            lblDateTime.setText(LocalDateTime.now().format(formatter));
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
@@ -448,24 +473,24 @@ public class ScanController {
     }
 
     public void unselectCheckBox() {
-        cb_typeSpool.setSelected(false);
-        cb_code.setSelected(false);
-        cb_construct.setSelected(false);
-        cb_date.setSelected(false);
-        cb_lr.setSelected(false);
-        cb_part.setSelected(false);
-        cb_lot.setSelected(false);
-        cb_length.setSelected(false);
-        cb_welds.setSelected(false);
-        cb_numberSpool.setSelected(false);
-        cb_straight300.setSelected(false);
-        cb_straight600_1.setSelected(false);
-        cb_straight600_2.setSelected(false);
-        cb_straight600_3.setSelected(false);
-        cb_straight600_4.setSelected(false);
-        cb_straight600_5.setSelected(false);
-        cb_straight600Avg.setSelected(false);
-        cb_torsion.setSelected(false);
+        cbTypeSpool.setSelected(false);
+        cbCode.setSelected(false);
+        cbConstruct.setSelected(false);
+        cbDate.setSelected(false);
+        cbLr.setSelected(false);
+        cbPart.setSelected(false);
+        cbLot.setSelected(false);
+        cbLength.setSelected(false);
+        cbWelds.setSelected(false);
+        cbNumberSpool.setSelected(false);
+        cbStraight300.setSelected(false);
+        cbStraight600_1.setSelected(false);
+        cbStraight600_2.setSelected(false);
+        cbStraight600_3.setSelected(false);
+        cbStraight600_4.setSelected(false);
+        cbStraight600_5.setSelected(false);
+        cbStraight600Avg.setSelected(false);
+        cbTorsion.setSelected(false);
 //        cb_torsRope.setSelected(false);
 //        cb_straightRope.setSelected(false);
     }
@@ -474,7 +499,7 @@ public class ScanController {
         typeSpool.clear();
         code.clear();
         construct.clear();
-        date_create.clear();
+        dateCreate.clear();
         rl.clear();
         part.clear();
         lot.clear();
@@ -528,12 +553,12 @@ public class ScanController {
                 Cell cell1 = row.createCell(1);
 
                 if (field.getCheckBox().isSelected()) {
-                    if (field.getCheckBox().equals(cb_construct)) {
+                    if (field.getCheckBox().equals(cbConstruct)) {
                         sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
                         row.createCell(0).setCellValue(field.getTextField().getText());
                         cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.setHeightInPoints(14);
-                    } else if (field.getCheckBox().equals(cb_lr)) {
+                    } else if (field.getCheckBox().equals(cbLr)) {
                         row.createCell(1).setCellValue(field.getTextField().getText());
                         cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.setHeightInPoints(14);
@@ -607,7 +632,7 @@ public class ScanController {
 
             for (FieldModel field : fieldModels) {
                 if (field.getCheckBox().isSelected()) {
-                    if (field.getCheckBox().equals(cb_construct)) {
+                    if (field.getCheckBox().equals(cbConstruct)) {
                         codeBuilder.append("Construct:").append(field.getTextField().getText()).append("\n");
                     } else {
                         codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
@@ -660,12 +685,12 @@ public class ScanController {
     }
 
     public void generateQrCode() throws IOException, WriterException {
-        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
-                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
-                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
-                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
-                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
+                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
+                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
+                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
+                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
+                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
 
             Desktop.getDesktop().open(toFormQrCode());
 
@@ -675,12 +700,12 @@ public class ScanController {
     }
 
     public void printQR_Code() throws IOException, WriterException {
-        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
-                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
-                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
-                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
-                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
+                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
+                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
+                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
+                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
+                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
             Desktop.getDesktop().print(toFormQrCode());
         } else {
             TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
@@ -689,12 +714,12 @@ public class ScanController {
 
 
     public void printLabel() throws IOException {
-        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
-                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
-                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
-                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
-                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
+                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
+                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
+                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
+                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
+                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
 //            exportToExcel();
             Desktop.getDesktop().print(exportToExcel());
 
@@ -706,12 +731,12 @@ public class ScanController {
 
     public void toFormLabel() throws IOException {
 
-        if (cb_typeSpool.isSelected() || cb_code.isSelected() || cb_construct.isSelected() || cb_date.isSelected() ||
-                cb_lr.isSelected() || cb_part.isSelected() || cb_length.isSelected() || cb_lot.isSelected() ||
-                cb_welds.isSelected() || cb_numberSpool.isSelected() || cb_straight300.isSelected() ||
-                cb_straight600_1.isSelected() || cb_straight600_2.isSelected() || cb_straight600_3.isSelected() ||
-                cb_straight600_4.isSelected() || cb_straight600_5.isSelected() || cb_straight600Avg.isSelected() ||
-                cb_torsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
+                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
+                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
+                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
+                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
+                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
 //            exportToExcel();
 
             Desktop.getDesktop().open(exportToExcel());
@@ -735,27 +760,31 @@ public class ScanController {
 //    }
 
     public void initializeTableColumns() {
-        tc_numberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
-        tc_typeSpool.setCellValueFactory(new PropertyValueFactory<>("typeSpool"));
-        tc_code.setCellValueFactory(new PropertyValueFactory<>("consumer_code"));
-        tc_construct.setCellValueFactory(new PropertyValueFactory<>("construct"));
-        tc_date.setCellValueFactory(new PropertyValueFactory<>("date_create"));
-        tc_lr.setCellValueFactory(new PropertyValueFactory<>("rl"));
-        tc_part.setCellValueFactory(new PropertyValueFactory<>("part"));
-        tc_lot.setCellValueFactory(new PropertyValueFactory<>("lot"));
-        tc_length.setCellValueFactory(new PropertyValueFactory<>("length"));
-        tc_welds.setCellValueFactory(new PropertyValueFactory<>("welds"));
-        tc_personalRope.setCellValueFactory(new PropertyValueFactory<>("personal_rope"));
-        tc_straight_300.setCellValueFactory(new PropertyValueFactory<>("straightforwardness300"));
-        tc_straight600_1.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_1"));
-        tc_straight600_2.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_2"));
-        tc_straight600_3.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_3"));
-        tc_straight600_4.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_4"));
-        tc_straight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_5"));
-        tc_straight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600Avg"));
-        tc_torsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
-        tc_torsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
-        tc_straightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
+        tcNumberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
+        tcTypeSpool.setCellValueFactory(new PropertyValueFactory<>("typeSpool"));
+        tcCode.setCellValueFactory(new PropertyValueFactory<>("consumerCode"));
+        tcConstruct.setCellValueFactory(new PropertyValueFactory<>("construct"));
+        tcDateCreate.setCellValueFactory(new PropertyValueFactory<>("dateCreate"));
+        tcLR.setCellValueFactory(new PropertyValueFactory<>("rl"));
+        tcPart.setCellValueFactory(new PropertyValueFactory<>("part"));
+        tcLot.setCellValueFactory(new PropertyValueFactory<>("lot"));
+        tcLength.setCellValueFactory(new PropertyValueFactory<>("length"));
+        tcWelds.setCellValueFactory(new PropertyValueFactory<>("welds"));
+        tcPersonalRope.setCellValueFactory(new PropertyValueFactory<>("personalRope"));
+        tcNumberRopeMachine.setCellValueFactory(new PropertyValueFactory<>("numberRopeMachine"));
+        tcNumbWeldingMachine.setCellValueFactory(new PropertyValueFactory<>("numberWeldingMachine"));
+        tcDateRope.setCellValueFactory(new PropertyValueFactory<>("dateRope"));
+        tcStraight300.setCellValueFactory(new PropertyValueFactory<>("straightforwardness300"));
+        tcStraight600_0.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_0"));
+        tcStraight600_1.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_1"));
+        tcStraight600_2.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_2"));
+        tcStraight600_3.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_3"));
+        tcStraight600_4.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_4"));
+        tcStraight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_5"));
+        tcStraight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600Avg"));
+        tcTorsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
+        tcTorsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
+        tcStraightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
 
 
     }
@@ -785,17 +814,17 @@ public class ScanController {
             LocalDate datePrintLabel = LocalDate.now();
 
             typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
-            code.setText(label.getConsumer_code() != null ? String.valueOf(label.getConsumer_code()) : "");
+            code.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
             construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
             numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
 //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
-            date_create.setText(DateUtil.format(datePrintLabel));
+            dateCreate.setText(DateUtil.format(datePrintLabel));
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
             lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
             length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
             welds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
-//            personal_rope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
+//            personalRope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
             straightforwardness300.setText(label.getStraightforwardness300() != null ?
                     String.valueOf((label.getStraightforwardness300())) : "");
             straightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
@@ -824,11 +853,11 @@ public class ScanController {
 
             barcodeSpool.getStylesheets().clear();
             barcodeSpool.getStylesheets().add("/css/jfx_success.css");
-            cb_construct.setSelected(true);
-            cb_code.setSelected(true);
-            cb_lr.setSelected(true);
-            cb_numberSpool.setSelected(true);
-            cb_date.setSelected(true);
+            cbConstruct.setSelected(true);
+            cbCode.setSelected(true);
+            cbLr.setSelected(true);
+            cbNumberSpool.setSelected(true);
+            cbDate.setSelected(true);
             tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
             barcodeSpool.setText("");
 

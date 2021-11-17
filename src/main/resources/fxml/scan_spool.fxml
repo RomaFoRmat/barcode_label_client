@@ -39,9 +39,9 @@
                         <Image url="@../icon/logo_barcode.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="lbl_dateTime" layoutX="2.0" prefHeight="25.0" prefWidth="147.0" textFill="WHITE">
+                <Label fx:id="lblDateTime" layoutX="2.0" prefHeight="25.0" prefWidth="147.0" textFill="WHITE">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="14.0"/>
                     </font>
                 </Label>
             </children>
@@ -282,29 +282,38 @@
                                                         </VBox>
                                                         <VBox layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cb_typeSpool" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_construct" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_code" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_lr" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_numberSpool" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_part" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_lot" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_welds" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_date" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_torsion" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbTypeSpool" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbConstruct" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbCode" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbLr" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbNumberSpool"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbPart" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbLot" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbWelds" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbDate" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbTorsion" mnemonicParsing="false"/>
                                                             </children>
                                                         </VBox>
                                                         <VBox disable="true" layoutX="844.0" layoutY="30.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cb_straight600_0" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight600_1" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight600_2" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight600_3" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight600_4" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight600_5" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight600Avg" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_straight300" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cb_length" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cb_straight600_0"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight600_1"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight600_2"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight600_3"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight600_4"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight600_5"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight600Avg"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbStraight300"
+                                                                          mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbLength" mnemonicParsing="false"/>
                                                             </children>
                                                         </VBox>
                                                         <JFXButton fx:id="btn_labelForm" buttonType="RAISED" layoutX="481.0" layoutY="440.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">
@@ -388,29 +397,35 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="900.0">
                             <children>
-                                <TableView fx:id="tableView" prefHeight="462.0" prefWidth="900.0">
+                                <TableView fx:id="tableView" prefHeight="462.0" prefWidth="900.0"
+                                           stylesheets="@../css/tableView.css">
                                     <columns>
-                                        <TableColumn fx:id="tc_numberSpool" prefWidth="75.0" text="№ катушки" />
-                                        <TableColumn fx:id="tc_typeSpool" prefWidth="83.0" text="Тип катушки" />
-                                        <TableColumn fx:id="tc_code" prefWidth="47.0" text="Код" />
-                                        <TableColumn fx:id="tc_construct" prefWidth="95.0" text="Конструкция" />
-                                        <TableColumn fx:id="tc_date" prefWidth="70.0" text="Дата" />
-                                        <TableColumn fx:id="tc_lr" prefWidth="33.0" text="L/R" />
-                                        <TableColumn fx:id="tc_part" prefWidth="77.0" text="№ партии" />
-                                        <TableColumn fx:id="tc_lot" prefWidth="54.0" text="LOT" />
-                                        <TableColumn fx:id="tc_length" prefWidth="56.0" text="Длинна" />
-                                        <TableColumn fx:id="tc_welds" prefWidth="50.0" text="Сварка" />
-                                        <TableColumn fx:id="tc_personalRope" prefWidth="66.0" text="№ канатчика" />
-                                        <TableColumn fx:id="tc_straight_300" prefWidth="67.0" text="Прям.300" />
-                                        <TableColumn fx:id="tc_straight600_1" prefWidth="78.0" text="Прям.600_1" />
-                                        <TableColumn fx:id="tc_straight600_2" prefWidth="73.0" text="Прям.600_2" />
-                                        <TableColumn fx:id="tc_straight600_3" prefWidth="75.0" text="Прям.600_3" />
-                                        <TableColumn fx:id="tc_straight600_4" prefWidth="75.0" text="Прям.600_4" />
-                                        <TableColumn fx:id="tc_straight600_5" prefWidth="75.0" text="Прям.600_5" />
-                                        <TableColumn fx:id="tc_straight600Avg" prefWidth="102.0" text="Прям.600_сред." />
-                                        <TableColumn fx:id="tc_torsion" prefWidth="70.0" text="Кручение" />
-                                        <TableColumn fx:id="tc_torsionRope" prefWidth="95.0" text="Кручение кан." />
-                                        <TableColumn fx:id="tc_straightRope" prefWidth="75.0" text="Прям.кан." />
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки"/>
+                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
+                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код"/>
+                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция"/>
+                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания"/>
+                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R"/>
+                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии"/>
+                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT"/>
+                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ"/>
+                                        <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна"/>
+                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок"/>
+                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор"/>
+                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="79.0"
+                                                     text="№ канат машины"/>
+                                        <TableColumn fx:id="tcNumbWeldingMachine" prefWidth="78.0" text="№ сварочного"/>
+                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300"/>
+                                        <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600"/>
+                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение"/>
+                                        <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1"/>
+                                        <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2"/>
+                                        <TableColumn fx:id="tcStraight600_3" prefWidth="75.0" text="Прям.600_3"/>
+                                        <TableColumn fx:id="tcStraight600_4" prefWidth="75.0" text="Прям.600_4"/>
+                                        <TableColumn fx:id="tcStraight600_5" prefWidth="75.0" text="Прям.600_5"/>
+                                        <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред."/>
+                                        <TableColumn fx:id="tcTorsionRope" prefWidth="95.0" text="Кручение кан."/>
+                                        <TableColumn fx:id="tcStraightRope" prefWidth="75.0" text="Прям.кан."/>
                                     </columns>
                                 </TableView>
                                 <TextField fx:id="filterField" layoutX="7.0" layoutY="468.0" prefHeight="25.0" prefWidth="126.0" promptText="Поиск катушки..." stylesheets="@../css/searchTab2.css" />

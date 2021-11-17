@@ -406,7 +406,8 @@ public class ModalAddSpoolController implements Serializable {
 
             ForeignGroupRepository.addIdForeign(testValueDTOs);
             modalAddSpoolCancel();
-
+            TestValueDTO valueForeign = testValueDTOs.get(0);
+            System.out.println(testValueDTOs);
 
 
         } else {

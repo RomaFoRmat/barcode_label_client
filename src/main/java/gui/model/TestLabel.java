@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -13,20 +14,23 @@ import java.time.LocalDate;
 @ToString
 public class TestLabel {
 
-    private Long id_group;
-    private Long id_foreign_group;
-    private LocalDate date_create;
+    private Long idGroup;
+    private Long idForeignGroup;
+    private LocalDateTime dateCreate;
+    private LocalDate dateRope;
     private String code;
     private String construct;
-    private String consumer_code;
+    private String consumerCode;
     private String lot;
     private String part;
     private String rl;
     private String typeSpool;
-    private String personal_rope;
+    private String personalRope;
     private Integer length;
     private String numberSpool;
     private Integer welds;
+    private Double numberRopeMachine;
+    private Double numberWeldingMachine;
     private Double straightforwardness600_0;
     private Double straightforwardness600_1;
     private Double straightforwardness600_2;
