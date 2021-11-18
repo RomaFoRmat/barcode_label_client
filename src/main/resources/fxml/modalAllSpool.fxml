@@ -57,40 +57,36 @@
                     </font>
                 </Label>
                 <TextField fx:id="numberLot" />
-                <Label prefHeight="19.0" prefWidth="94.0" text="L/R:" wrapText="true">
+                <Label fx:id="lblCountSpool" prefHeight="19.0" prefWidth="177.0" text="Кол-во катушек в партии:"
+                       wrapText="true">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
-                <ComboBox fx:id="cbLr" prefHeight="25.0" prefWidth="210.0" />
                 <ComboBox fx:id="cbCountSpool" prefHeight="25.0" prefWidth="210.0" />
             </children>
         </VBox>
-        <VBox fx:id="vBoxMain0" layoutX="13.0" layoutY="83.0" prefHeight="199.0" prefWidth="188.0" spacing="7.0" stylesheets="@../css/textFieldModal.css">
+        <VBox fx:id="vBoxMain0" layoutX="13.0" layoutY="83.0" prefHeight="180.0" prefWidth="188.0" spacing="7.0"
+              stylesheets="@../css/textFieldModal.css">
             <children>
-                <Label text="Дата создания:">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <DatePicker fx:id="dateCreateMain" prefHeight="10.0" prefWidth="188.0" />
                 <Label text="Код:">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
-                <ComboBox fx:id="cbCode" editable="true" prefHeight="25.0" prefWidth="210.0" />
+                <ComboBox fx:id="cbCode" editable="true" prefHeight="25.0" prefWidth="210.0"/>
                 <Label prefHeight="19.0" prefWidth="94.0" text="Тип катушки:" wrapText="true">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
                 <ComboBox fx:id="cbTypeSpool" editable="true" prefHeight="25.0" prefWidth="188.0" />
-                <Label fx:id="lblCountSpool" prefHeight="2.0" prefWidth="168.0" text="Кол-во катушек в партии:" wrapText="true">
+                <Label fx:id="lblCountSpool" prefHeight="2.0" prefWidth="168.0" text="L/R:" wrapText="true">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
+                <ComboBox fx:id="cbLr" prefHeight="25.0" prefWidth="210.0"/>
             </children>
         </VBox>
         <VBox layoutX="14.0" layoutY="328.0" prefHeight="406.0" prefWidth="207.0" spacing="7.0" stylesheets="@../css/textFieldModal.css">

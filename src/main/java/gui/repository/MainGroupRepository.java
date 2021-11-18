@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.MainGroup;
 import gui.model.TestLabel;
+import gui.model.dto.MainValueDTO;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -27,9 +28,9 @@ public class MainGroupRepository {
     public static ObjectMapper mapper = new ObjectMapper();
     public static final String MAIN_ID_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllIdGroup";
 
-    public static MainGroup addIdMain(MainGroup mainGroup) {
+    public static Long addIdMain(List<MainValueDTO> mainValueDTOs) {
         String url = "http://" + AppProperties.getHost() + "/api/addIdGroup";
-        return getResponseEntity(url, mainGroup);
+        return getResponseEntity(url, mainValueDTOs);
     }
 
     public static List<MainGroup> findByIdGroup(Long idGroup) {
@@ -65,7 +66,7 @@ public class MainGroupRepository {
         return Collections.emptyList();
     }
 
-    public static MainGroup getResponseEntity(String url, MainGroup mainGroup) {
+    public static Long getResponseEntity(String url, List<MainValueDTO> mainValueDTOs) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             Gson gson = new GsonBuilder()
@@ -73,9 +74,9 @@ public class MainGroupRepository {
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapterUtil())
                     .create();
             mapper.registerModule(new JavaTimeModule());
-            httpPost.setEntity(new StringEntity(gson.toJson(mainGroup), StandardCharsets.UTF_8));
+            httpPost.setEntity(new StringEntity(gson.toJson(mainValueDTOs), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(), MainGroup.class));
+                    mapper.readValue(httpResponse.getEntity().getContent(), Long.class));
         } catch (IOException e) {
             e.printStackTrace();
         }

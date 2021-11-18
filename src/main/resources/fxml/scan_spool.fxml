@@ -170,9 +170,11 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="date_create" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="dateCreate" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
                                                                 <TextField fx:id="torsion" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">

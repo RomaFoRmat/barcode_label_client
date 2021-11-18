@@ -380,7 +380,6 @@ public class ScanController {
         //Для отображения корректного времени в tableColumn dateCreate:
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
         tcDateCreate.setCellFactory(column -> new TableCell<TestLabel, LocalDateTime>() {
-            @Override
             protected void updateItem(LocalDateTime dateTime, boolean empty) {
                 super.updateItem(dateTime, empty);
                 if (empty) {

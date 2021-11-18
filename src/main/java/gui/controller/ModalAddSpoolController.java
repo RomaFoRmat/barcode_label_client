@@ -2,6 +2,7 @@ package gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import gui.model.dto.MainValueDTO;
 import gui.model.dto.TestValueDTO;
 import javafx.event.ActionEvent;
 
@@ -55,8 +56,8 @@ public class ModalAddSpoolController implements Serializable {
     private ComboBox<String> cbLr;
     @FXML
     private ComboBox<Integer> cbCountSpool;
-    @FXML
-    private DatePicker dateCreateMain;
+    //    @FXML
+//    private DatePicker dateCreateMain;
     @FXML
     private ComboBox<String> cbTypeSpool;
     @FXML
@@ -154,7 +155,7 @@ public class ModalAddSpoolController implements Serializable {
         cbCountSpool.getSelectionModel().select(0);
         cbTypeSpool.setItems(typeSpool);
         cbTypeSpool.getSelectionModel().select(1);
-        dateCreateMain.setValue(LocalDate.now());
+//        dateCreateMain.setValue(LocalDate.now());
         cbMode.setItems(mode);
         cbMode.getSelectionModel().select(1);
         selectionMode(cbMode.getValue());
@@ -411,27 +412,50 @@ public class ModalAddSpoolController implements Serializable {
 
 
         } else {
-//            MainGroup createdMainGroup = new MainGroup();
-//
-//            ForeignGroup foreignGroup = new ForeignGroup();
-//            foreignGroup.setMainGroup(createdMainGroup);
-//            ForeignGroupRepository.addIdForeign(foreignGroup);
-//
-//            MainValue mainValue = new MainValue();
-//            MainValue.MainValuePrimaryKey mainValuePrimaryKey = new MainValue.MainValuePrimaryKey();
-//            mainValuePrimaryKey.setIdHead(11691L);
-//            mainValue.setValue(cbCode.getValue());
-//            mainValuePrimaryKey.setIdHead(11692L);
-//            mainValue.setValue(numberLot.getText());
-//            mainValuePrimaryKey.setIdHead(11693L);
-//            mainValue.setValue(numberPart.getText());
-//            mainValuePrimaryKey.setIdHead(11694L);
-//            mainValue.setValue(cbLr.getValue());
-//            mainValuePrimaryKey.setIdHead(12507L);
-//            mainValue.setValue(cbTypeSpool.getValue());
-//            MainValueRepository.saveAndFlush(mainValue);
-//
-//            MainGroupRepository.addIdMain(createdMainGroup);
+
+            MainGroup mainGroup = new MainGroup();
+
+
+            List<MainValueDTO> mainValueDTOs = new ArrayList<>();
+
+            MainValueDTO codeDTO = new MainValueDTO();
+            codeDTO.setIdHead(11691L);
+            codeDTO.setValue(String.valueOf(cbCode.getValue().getCodePrimaryKey().getIdCode()));
+            codeDTO.setIdGroup(mainGroup.getIdGroup());
+
+            mainValueDTOs.add(codeDTO);
+
+            //установить значение для поля "Тип катушки":
+            MainValueDTO typeSpoolDTO = new MainValueDTO();
+            typeSpoolDTO.setIdGroup(mainGroup.getIdGroup());
+            typeSpoolDTO.setIdHead(12507L);
+            typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
+
+            //установить значение для поля "L/R":
+            MainValueDTO lrDTO = new MainValueDTO();
+            lrDTO.setIdGroup(mainGroup.getIdGroup());
+            lrDTO.setIdHead(11694L);
+            lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
+
+            //установить значение для поля "№ партии:"
+            MainValueDTO partDTO = new MainValueDTO();
+            partDTO.setIdGroup(mainGroup.getIdGroup());
+            partDTO.setIdHead(11693L);
+            partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
+
+            //установить значение для поля "№ лота:"
+            MainValueDTO lotDTO = new MainValueDTO();
+            lotDTO.setIdGroup(mainGroup.getIdGroup());
+            lotDTO.setIdHead(11692L);
+            lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
+
+
+            mainValueDTOs.add(typeSpoolDTO);
+            mainValueDTOs.add(lrDTO);
+            mainValueDTOs.add(partDTO);
+            mainValueDTOs.add(lotDTO);
+            MainGroupRepository.addIdMain(mainValueDTOs);
+
         }
     }
 

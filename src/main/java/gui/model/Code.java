@@ -3,7 +3,6 @@ package gui.model;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Data
 public class Code {
@@ -22,4 +21,8 @@ public class Code {
         private Conversion conversion;
     }
 
+    @Override
+    public String toString() {
+        return code + " - " + description;
+    }
 }
