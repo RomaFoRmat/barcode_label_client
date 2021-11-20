@@ -3,6 +3,8 @@ package gui.service;
 import gui.controller.ScanController;
 import javafx.application.Platform;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimerTask;
 
@@ -19,7 +21,8 @@ public class UpdaterUtil extends TimerTask {
             public void run() {
                 if (!contr.tabSpoolList.isSelected()) {
                     contr.refreshTable();
-                    System.out.println("UPDATED");
+                    System.out.println("UPDATED: " + LocalDateTime.now()
+                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
                 }
             }
         });

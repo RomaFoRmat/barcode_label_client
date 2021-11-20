@@ -113,7 +113,7 @@ public class ModalAddSpoolController implements Serializable {
     @FXML
     private Label lblSelectMainGroup;
     @FXML
-    private JFXComboBox<String> cbSelectMain;
+    private JFXComboBox<MainGroup> cbSelectMain;
     @FXML
     private VBox vBoxMain0;
     @FXML
@@ -125,8 +125,8 @@ public class ModalAddSpoolController implements Serializable {
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
-    private List<String> idGroupList = MainGroupRepository.getAllIdGroup();
-    private ObservableList<String> idGroups = FXCollections.observableArrayList(idGroupList);
+    private List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroup();
+    private ObservableList<MainGroup> idGroups = FXCollections.observableArrayList(idGroupList);
 
     private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS40", "BS60", "BS80/17", "BS80/33");
     private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
@@ -186,8 +186,8 @@ public class ModalAddSpoolController implements Serializable {
     public void okBtnAction() {
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
-
-            mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
+//            mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
+            mainGroup.setIdGroup(Long.valueOf(String.valueOf(cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup())));
             ForeignGroup foreignGroup = new ForeignGroup();
             foreignGroup.setMainGroup(mainGroup);
 
@@ -365,12 +365,13 @@ public class ModalAddSpoolController implements Serializable {
                     sum += iter1.next();
                 }
                 double average = sum / strAVGList.size();
-                System.out.println("Average = " + average);
+                double resultAVG = Math.round(average);
+                System.out.println("Average = " + resultAVG);
                 //установить значение для поля "Прямолинейность 600 среднее":
                 TestValueDTO straight600AvgDTO = new TestValueDTO();
                 straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
                 straight600AvgDTO.setIdTestHead(11736L);
-                straight600AvgDTO.setValue(average);
+                straight600AvgDTO.setValue(resultAVG);
                 straight600AvgDTO.setIdConversion(11690L);
                 straight600AvgDTO.setMainGroup(mainGroup);
                 testValueDTOs.add(straight600AvgDTO);
@@ -415,12 +416,12 @@ public class ModalAddSpoolController implements Serializable {
 
             MainGroup mainGroup = new MainGroup();
 
-
             List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
+            //установить значение для поля "КОД":
             MainValueDTO codeDTO = new MainValueDTO();
             codeDTO.setIdHead(11691L);
-            codeDTO.setValue(String.valueOf(cbCode.getValue().getCodePrimaryKey().getIdCode()));
+            codeDTO.setValue(String.valueOf(cbCode.getItems().get(cbCode.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode()));
             codeDTO.setIdGroup(mainGroup.getIdGroup());
 
             mainValueDTOs.add(codeDTO);

@@ -52,13 +52,13 @@ public class MainGroupRepository {
         return Collections.emptyList();
     }
 
-    public static List<String> getAllIdGroup() {
+    public static List<MainGroup> getAllIdGroup() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(MAIN_ID_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
-                            new TypeReference<List<String>>() {
+                            new TypeReference<List<MainGroup>>() {
                             }));
         } catch (IOException e) {
             e.printStackTrace();
