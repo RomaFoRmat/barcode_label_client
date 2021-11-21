@@ -13,9 +13,14 @@ public class MainGroup {
     private Conversion idConversion;
     private LocalDateTime dateCreate;
 
+//    @Override
+//    public String toString() {
+//        return  idGroup + " / " + "ДАТА: " + dateCreate;
+//    }
+
     @Override
     public String toString() {
-        return  idGroup + " / " + "ДАТА: "
+        return idGroup + " / " + "ДАТА: "
                 + dateCreate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
     }
 }

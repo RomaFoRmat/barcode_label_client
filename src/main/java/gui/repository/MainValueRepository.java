@@ -34,6 +34,24 @@ public class MainValueRepository {
         return getMainValue(url);
     }
 
+    public static List<String> findFirstByMainValuePrimaryKeyIdHeadOrderByNumberValueDesc() {
+        String url = "http://" + AppProperties.getHost() + "/api/lastProtocol";
+        return getLastProtocol(url);
+    }
+
+    public static List<String> getLastProtocol(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(), new TypeReference<List<String>>() {
+                    }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     public static MainValue getResponseEntity(String url, MainValue mainValue) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);

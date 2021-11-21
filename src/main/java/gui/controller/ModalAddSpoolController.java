@@ -2,6 +2,7 @@ package gui.controller;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import gui.application.AppProperties;
 import gui.model.dto.MainValueDTO;
 import gui.model.dto.TestValueDTO;
 import javafx.event.ActionEvent;
@@ -128,7 +129,7 @@ public class ModalAddSpoolController implements Serializable {
     private List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroup();
     private ObservableList<MainGroup> idGroups = FXCollections.observableArrayList(idGroupList);
 
-    private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS40", "BS60", "BS80/17", "BS80/33");
+    private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS-40", "BS-60", "BS-80/17", "BS-80/33");
     private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
     private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 48, 72);
     private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
@@ -161,6 +162,7 @@ public class ModalAddSpoolController implements Serializable {
         selectionMode(cbMode.getValue());
         cbCode.setItems(codes);
         cbSelectMain.setItems(idGroups);
+        cbSelectMain.getSelectionModel().select(0);
         newNumberSpool.setText(Constants.SPOOL_NUMBER);
     }
 
@@ -450,13 +452,27 @@ public class ModalAddSpoolController implements Serializable {
             lotDTO.setIdHead(11692L);
             lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
 
+            //установить значение для поля "Протокол":
+            MainValueDTO protocolDTO = new MainValueDTO();
+            protocolDTO.setIdGroup(mainGroup.getIdGroup());
+            protocolDTO.setIdHead(1889350L);
+            String lastProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
+            lastProtocol = lastProtocol.replaceAll("\\[", "").replaceAll("\\]", "");
+            double result = Double.parseDouble(lastProtocol);
+            result++;
+            protocolDTO.setNumberValue(result);
+
 
             mainValueDTOs.add(typeSpoolDTO);
             mainValueDTOs.add(lrDTO);
             mainValueDTOs.add(partDTO);
             mainValueDTOs.add(lotDTO);
+            mainValueDTOs.add(protocolDTO);
             MainGroupRepository.addIdMain(mainValueDTOs);
 
+            modalAddSpoolCancel();
+            MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
+            System.out.println(valueMainDTOs);
         }
     }
 
