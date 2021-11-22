@@ -456,12 +456,15 @@ public class ModalAddSpoolController implements Serializable {
             MainValueDTO protocolDTO = new MainValueDTO();
             protocolDTO.setIdGroup(mainGroup.getIdGroup());
             protocolDTO.setIdHead(1889350L);
-            String lastProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
-            lastProtocol = lastProtocol.replaceAll("\\[", "").replaceAll("\\]", "");
-            double result = Double.parseDouble(lastProtocol);
-            result++;
-            protocolDTO.setNumberValue(result);
-
+            String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
+            if (lastCurrentProtocol.equals("[null]")) {
+                protocolDTO.setNumberValue(1.0);
+            } else {
+                lastCurrentProtocol = lastCurrentProtocol.replaceAll("\\[", "").replaceAll("\\]", "");
+                double result = Double.parseDouble(lastCurrentProtocol);
+                result++;
+                protocolDTO.setNumberValue(result);
+            }
 
             mainValueDTOs.add(typeSpoolDTO);
             mainValueDTOs.add(lrDTO);
