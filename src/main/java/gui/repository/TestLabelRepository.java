@@ -19,6 +19,7 @@ public class TestLabelRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static final String SPOOLS_ENDPOINT = "http://" + AppProperties.getHost() + "/api/label/spool";
+    public static final String SPOOLS_ENDPOINT_lAST_DAY = "http://" + AppProperties.getHost() + "/api/allSpool/forTheLastDay";
 
     public static List<TestLabel> getAllSpools() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -33,6 +34,22 @@ public class TestLabelRepository {
         }
         return Collections.emptyList();
     }
+
+    public static List<TestLabel> getAllSpoolsForTheLastDay() {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(SPOOLS_ENDPOINT_lAST_DAY);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<TestLabel>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+
 
     public static List<TestLabel> findByNumberSpool(String numberSpool) {
         String url = "http://" + AppProperties.getHost() + "/api/label/spool/" + numberSpool;
