@@ -10,11 +10,10 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import gui.application.AppProperties;
 import gui.application.Main;
-import gui.model.CellStyleOption;
-import gui.model.Constants;
-import gui.model.FieldModel;
-import gui.model.TestLabel;
+import gui.model.*;
+import gui.repository.PersonalsRepository;
 import gui.repository.TestLabelRepository;
 import gui.service.*;
 import gui.service.DateUtil;
@@ -55,6 +54,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.text.DateFormatter;
 import java.awt.*;
 import java.io.*;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -314,6 +314,8 @@ public class ScanController {
     @FXML
     private Label lblSpool;
 
+    public ScanController scanController;
+
     @FXML
     private Label lblDateTime;
 
@@ -335,12 +337,38 @@ public class ScanController {
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
     @FXML
     private JFXComboBox<String> cb_consumer;
+    @FXML
+    private Label lblFio;
+    private Stage stage;
 
 //    @FXML
 //    private Button btnLab2;
 
+//    @FXML
+//    public void initialize(URL location, ResourceBundle resources) {
+//
+//
+//
+//    }
+
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scan_spool.fxml"));
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        scanController = fxmlLoader.getController();
+    }
+
     @FXML
     public void initialize() {
+
+        lblFio.setText(Constants.FIO);
+
         /**для наведения фокуса на определенное поле*/
         Platform.runLater(new Runnable() {
             @Override
@@ -448,6 +476,15 @@ public class ScanController {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
+
+//    public void show() {
+//        stage = new Stage();
+//        stage.setScene(new Scene(anchorPaneMain));
+//        stage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ");
+//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+////        stage.showAndWait();
+//        stage.show();
+//    }
 
     @FXML
     public void addSpool() {

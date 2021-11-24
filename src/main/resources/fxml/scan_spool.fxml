@@ -20,16 +20,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="662.0" prefWidth="900.0" style="-fx-background-color: #1bd8fa;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="677.0"
+            prefWidth="900.0" style="-fx-background-color: #1bd8fa;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="gui.controller.ScanController">
     <children>
-        <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+        <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="3.0" prefHeight="62.0" prefWidth="284.0" text="SCAN SPOOL" textAlignment="CENTER" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="3.0" prefHeight="62.0"
+                       prefWidth="284.0" text="SCAN SPOOL" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Times New Roman Bold" size="43.0" />
+                        <Font name="Times New Roman Bold" size="43.0"/>
                     </font>
                 </Label>
-                <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="614.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="614.0" layoutY="9.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
                         <Image url="@../icon/logo_spool.png" />
                     </image>
@@ -63,22 +69,26 @@
             <tabs>
                 <Tab fx:id="tabInfoSpool" text="Информация о катушке">
                     <content>
-                        <VBox prefHeight="471.0" prefWidth="900.0">
+                        <VBox prefHeight="490.0" prefWidth="900.0">
                             <children>
                                 <VBox>
                                     <children>
                                         <VBox>
                                             <children>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="482.0" prefWidth="900.0" stylesheets="@../css/button.css">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0"
+                                                            prefWidth="900.0" stylesheets="@../css/button.css">
                                                     <children>
-                                                        <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0">
+                                                        <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0"
+                                                              prefWidth="150.0" spacing="9.0">
                                                             <children>
-                                                                <Label fx:id="lbl_type" prefHeight="0.0" prefWidth="149.0" text="Тип катушки">
+                                                                <Label fx:id="lbl_type" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Тип катушки">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_construct" prefHeight="0.0" prefWidth="149.0" text="Конструкция">
+                                                                <Label fx:id="lbl_construct" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Конструкция">
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0" />
                                                                     </font>
@@ -374,23 +384,41 @@
                                                                 <Font name="System Bold" size="12.0" />
                                                             </font>
                                                         </TextField>
-                                                        <Label fx:id="lbl_torsRope" layoutX="678.0" layoutY="391.0" prefHeight="32.0" prefWidth="136.0" text="Кручен. кан.">
+                                                        <Label fx:id="lbl_torsRope" layoutX="678.0" layoutY="391.0"
+                                                               prefHeight="32.0" prefWidth="136.0" text="Кручен. кан.">
                                                             <font>
-                                                                <Font name="System Bold" size="22.0" />
+                                                                <Font name="System Bold" size="22.0"/>
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="torsRope" layoutX="817.0" layoutY="396.0" prefHeight="25.0" prefWidth="55.0" stylesheets="@../css/style.css">
+                                                        <TextField fx:id="torsRope" layoutX="817.0" layoutY="396.0"
+                                                                   prefHeight="25.0" prefWidth="55.0"
+                                                                   stylesheets="@../css/style.css">
                                                             <font>
-                                                                <Font name="System Bold" size="12.0" />
+                                                                <Font name="System Bold" size="12.0"/>
                                                             </font>
                                                         </TextField>
+                                                        <Separator focusTraversable="false" layoutX="-3.0"
+                                                                   layoutY="480.0" prefHeight="6.0" prefWidth="922.0"
+                                                                   style="-fx-background-color: #000000;"/>
+                                                        <Label fx:id="lblFio" layoutX="308.0" layoutY="492.0"
+                                                               prefHeight="20.0" prefWidth="520.0">
+                                                            <font>
+                                                                <Font name="System Bold" size="15.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0"
+                                                                   layoutY="486.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
+                                                            <image>
+                                                                <Image url="@../icon/user.png"/>
+                                                            </image>
+                                                        </ImageView>
                                                     </children>
                                                 </AnchorPane>
                                             </children>
                                         </VBox>
                                     </children>
                                 </VBox>
-                                <Separator focusTraversable="false" prefHeight="6.0" prefWidth="900.0" style="-fx-background-color: #000000;" />
                             </children>
                         </VBox>
                     </content>

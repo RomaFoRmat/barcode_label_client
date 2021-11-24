@@ -476,6 +476,7 @@ public class ModalAddSpoolController implements Serializable {
             modalAddSpoolCancel();
             MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
             System.out.println(valueMainDTOs);
+
         }
     }
 
