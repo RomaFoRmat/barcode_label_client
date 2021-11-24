@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,11 +30,11 @@ public class Main extends Application {
 
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
-        primaryStage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ");
+        primaryStage.setTitle("Вход в SCAN SPOOL");
         primaryStage.setScene(new Scene(root, 500, 304));
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         primaryStage.setResizable(false);
-        primaryStage.requestFocus();
+//        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
 
     }

@@ -20,22 +20,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="677.0"
-            prefWidth="900.0" style="-fx-background-color: #1bd8fa;" xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="gui.controller.ScanController">
+<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="680.0" prefWidth="900.0" style="-fx-background-color: #1bd8fa;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
     <children>
-        <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+        <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
             <children>
-                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="3.0" prefHeight="62.0"
-                       prefWidth="284.0" text="SCAN SPOOL" textAlignment="CENTER" textFill="WHITE">
+                <Label alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="3.0" prefHeight="62.0" prefWidth="284.0" text="SCAN SPOOL" textAlignment="CENTER" textFill="WHITE">
                     <font>
-                        <Font name="Times New Roman Bold" size="43.0"/>
+                        <Font name="Times New Roman Bold" size="43.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="614.0" layoutY="9.0" pickOnBounds="true"
-                           preserveRatio="true">
+                <ImageView fitHeight="53.0" fitWidth="53.0" layoutX="614.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../icon/logo_spool.png" />
                     </image>
@@ -47,7 +41,7 @@
                 </ImageView>
                 <Label fx:id="lblDateTime" layoutX="2.0" prefHeight="25.0" prefWidth="147.0" textFill="WHITE">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                 </Label>
             </children>
@@ -75,20 +69,16 @@
                                     <children>
                                         <VBox>
                                             <children>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0"
-                                                            prefWidth="900.0" stylesheets="@../css/button.css">
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="900.0" stylesheets="@../css/button.css">
                                                     <children>
-                                                        <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0"
-                                                              prefWidth="150.0" spacing="9.0">
+                                                        <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0">
                                                             <children>
-                                                                <Label fx:id="lbl_type" prefHeight="0.0"
-                                                                       prefWidth="149.0" text="Тип катушки">
+                                                                <Label fx:id="lbl_type" prefHeight="0.0" prefWidth="149.0" text="Тип катушки">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0"/>
+                                                                        <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_construct" prefHeight="0.0"
-                                                                       prefWidth="149.0" text="Конструкция">
+                                                                <Label fx:id="lbl_construct" prefHeight="0.0" prefWidth="149.0" text="Конструкция">
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0" />
                                                                     </font>
@@ -180,11 +170,9 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="dateCreate" prefHeight="32.0"
-                                                                           prefWidth="149.0"
-                                                                           stylesheets="@../css/style.css">
+                                                                <TextField fx:id="dateCreate" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0"/>
+                                                                        <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
                                                                 <TextField fx:id="torsion" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
@@ -294,38 +282,29 @@
                                                         </VBox>
                                                         <VBox layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cbTypeSpool" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbConstruct" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbCode" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbLr" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbNumberSpool"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbPart" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbLot" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbWelds" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbDate" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbTorsion" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cbTypeSpool" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbConstruct" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbCode" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbLr" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbNumberSpool" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbPart" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbLot" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbWelds" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbDate" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbTorsion" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
                                                         <VBox disable="true" layoutX="844.0" layoutY="30.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cb_straight600_0"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight600_1"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight600_2"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight600_3"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight600_4"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight600_5"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight600Avg"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbStraight300"
-                                                                          mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbLength" mnemonicParsing="false"/>
+                                                                <CheckBox fx:id="cb_straight600_0" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_1" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_2" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_3" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_4" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_5" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600Avg" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight300" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbLength" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
                                                         <JFXButton fx:id="btn_labelForm" buttonType="RAISED" layoutX="481.0" layoutY="440.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">
@@ -384,35 +363,29 @@
                                                                 <Font name="System Bold" size="12.0" />
                                                             </font>
                                                         </TextField>
-                                                        <Label fx:id="lbl_torsRope" layoutX="678.0" layoutY="391.0"
-                                                               prefHeight="32.0" prefWidth="136.0" text="Кручен. кан.">
+                                                        <Label fx:id="lbl_torsRope" layoutX="678.0" layoutY="391.0" prefHeight="32.0" prefWidth="136.0" text="Кручен. кан.">
                                                             <font>
-                                                                <Font name="System Bold" size="22.0"/>
+                                                                <Font name="System Bold" size="22.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="torsRope" layoutX="817.0" layoutY="396.0"
-                                                                   prefHeight="25.0" prefWidth="55.0"
-                                                                   stylesheets="@../css/style.css">
+                                                        <TextField fx:id="torsRope" layoutX="817.0" layoutY="396.0" prefHeight="25.0" prefWidth="55.0" stylesheets="@../css/style.css">
                                                             <font>
-                                                                <Font name="System Bold" size="12.0"/>
+                                                                <Font name="System Bold" size="12.0" />
                                                             </font>
                                                         </TextField>
-                                                        <Separator focusTraversable="false" layoutX="-3.0"
-                                                                   layoutY="480.0" prefHeight="6.0" prefWidth="922.0"
-                                                                   style="-fx-background-color: #000000;"/>
-                                                        <Label fx:id="lblFio" layoutX="308.0" layoutY="492.0"
-                                                               prefHeight="20.0" prefWidth="520.0">
+                                                        <Separator focusTraversable="false" layoutX="-3.0" layoutY="480.0" prefHeight="6.0" prefWidth="922.0" style="-fx-background-color: #000000;" />
+                                                        <Label fx:id="lblFio" layoutX="307.0" layoutY="487.0" prefHeight="25.0" prefWidth="520.0">
                                                             <font>
-                                                                <Font name="System Bold" size="15.0"/>
+                                                                <Font name="Comic Sans MS Bold" size="16.0" />
                                                             </font>
                                                         </Label>
-                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0"
-                                                                   layoutY="486.0" pickOnBounds="true"
-                                                                   preserveRatio="true">
+                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../icon/user.png"/>
+                                                                <Image url="@../icon/user.png" />
                                                             </image>
                                                         </ImageView>
+                                          <Pane layoutX="-3.0" layoutY="485.0" prefHeight="115.0" prefWidth="200.0" />
+                                          <Pane layoutX="-21.0" layoutY="514.0" prefHeight="14.0" prefWidth="921.0" style="-fx-background-color: black;" />
                                                     </children>
                                                 </AnchorPane>
                                             </children>
@@ -427,38 +400,36 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="900.0">
                             <children>
-                                <TableView fx:id="tableView" prefHeight="462.0" prefWidth="900.0"
-                                           stylesheets="@../css/tableView.css">
+                                <TableView fx:id="tableView" prefHeight="477.0" prefWidth="900.0" stylesheets="@../css/tableView.css">
                                     <columns>
-                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки"/>
-                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
-                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код"/>
-                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция"/>
-                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания"/>
-                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R"/>
-                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии"/>
-                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT"/>
-                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ"/>
-                                        <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна"/>
-                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок"/>
-                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор"/>
-                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="79.0"
-                                                     text="№ канат машины"/>
-                                        <TableColumn fx:id="tcNumbWeldingMachine" prefWidth="78.0" text="№ сварочного"/>
-                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300"/>
-                                        <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600"/>
-                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение"/>
-                                        <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1"/>
-                                        <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2"/>
-                                        <TableColumn fx:id="tcStraight600_3" prefWidth="75.0" text="Прям.600_3"/>
-                                        <TableColumn fx:id="tcStraight600_4" prefWidth="75.0" text="Прям.600_4"/>
-                                        <TableColumn fx:id="tcStraight600_5" prefWidth="75.0" text="Прям.600_5"/>
-                                        <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред."/>
-                                        <TableColumn fx:id="tcTorsionRope" prefWidth="95.0" text="Кручение кан."/>
-                                        <TableColumn fx:id="tcStraightRope" prefWidth="75.0" text="Прям.кан."/>
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки" />
+                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки" />
+                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код" />
+                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция" />
+                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания" />
+                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R" />
+                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии" />
+                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT" />
+                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ" />
+                                        <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна" />
+                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />
+                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
+                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="79.0" text="№ канат машины" />
+                                        <TableColumn fx:id="tcNumbWeldingMachine" prefWidth="78.0" text="№ сварочного" />
+                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300" />
+                                        <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600" />
+                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение" />
+                                        <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1" />
+                                        <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2" />
+                                        <TableColumn fx:id="tcStraight600_3" prefWidth="75.0" text="Прям.600_3" />
+                                        <TableColumn fx:id="tcStraight600_4" prefWidth="75.0" text="Прям.600_4" />
+                                        <TableColumn fx:id="tcStraight600_5" prefWidth="75.0" text="Прям.600_5" />
+                                        <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред." />
+                                        <TableColumn fx:id="tcTorsionRope" prefWidth="95.0" text="Кручение кан." />
+                                        <TableColumn fx:id="tcStraightRope" prefWidth="75.0" text="Прям.кан." />
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="filterField" layoutX="7.0" layoutY="468.0" prefHeight="25.0" prefWidth="126.0" promptText="Поиск катушки..." stylesheets="@../css/searchTab2.css" />
+                                <TextField fx:id="filterField" layoutX="8.0" layoutY="486.0" prefHeight="16.0" prefWidth="126.0" promptText="Поиск катушки..." stylesheets="@../css/searchTab2.css" />
                             </children>
                         </AnchorPane>
                     </content>
