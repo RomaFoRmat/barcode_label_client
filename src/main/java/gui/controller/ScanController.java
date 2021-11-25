@@ -368,6 +368,7 @@ public class ScanController {
     public void initialize() {
 
         lblFio.setText(Constants.FIO);
+        TextFieldService.setTextFieldNumeric(barcodeSpool, 12);
 
         /**для наведения фокуса на определенное поле*/
         Platform.runLater(new Runnable() {

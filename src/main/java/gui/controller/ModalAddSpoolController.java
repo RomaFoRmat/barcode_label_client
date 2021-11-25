@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import gui.application.AppProperties;
 import gui.model.dto.MainValueDTO;
 import gui.model.dto.TestValueDTO;
+import gui.service.TextFieldService;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
@@ -150,13 +151,31 @@ public class ModalAddSpoolController implements Serializable {
 
     @FXML
     public void initialize() {
+        //Ограничение ввода символов и длинны в соответствующие поля для TestValue:
+        TextFieldService.setTextFieldNumeric(numberPart, 10);
+        TextFieldService.setTextFieldNumeric(newNumberRopeMachine, 3);
+        TextFieldService.setTextFieldNumeric(newNumberSpool, 12);
+        TextFieldService.setTextFieldNumeric(newLength, 10);
+        TextFieldService.setTextFieldNumeric(newPersonalRope, 7);
+        TextFieldService.setTextFieldNumeric(newNumberWeldingMachine, 7);
+        TextFieldService.setTextFieldNumeric(newCountOfWelds, 3);
+        TextFieldService.setFieldForStraight(newTorsionRope, 7);
+        TextFieldService.setFieldForStraight(newTorsion, 7);
+        TextFieldService.setFieldForStraight(newStraight300, 7);
+        TextFieldService.setFieldForStraight(newStraightRope, 7);
+        TextFieldService.setFieldForStraight(newStraight600, 7);
+        TextFieldService.setFieldForStraight(newStraight600_1, 7);
+        TextFieldService.setFieldForStraight(newStraight600_2, 7);
+        TextFieldService.setFieldForStraight(newStraight600_3, 7);
+        TextFieldService.setFieldForStraight(newStraight600_4, 7);
+        TextFieldService.setFieldForStraight(newStraight600_5, 7);
+
         cbLr.setItems(data);
         cbLr.getSelectionModel().select(0);
         cbCountSpool.setItems(countSpool);
         cbCountSpool.getSelectionModel().select(0);
         cbTypeSpool.setItems(typeSpool);
         cbTypeSpool.getSelectionModel().select(1);
-//        dateCreateMain.setValue(LocalDate.now());
         cbMode.setItems(mode);
         cbMode.getSelectionModel().select(1);
         selectionMode(cbMode.getValue());

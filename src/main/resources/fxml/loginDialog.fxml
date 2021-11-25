@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="304.0" prefWidth="500.0" style="-fx-background-color: #1bd8fa;"
-            stylesheets="@../css/jfxLogin.css" xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="gui.controller.LoginDialogController">
+            minWidth="-Infinity" onKeyPressed="#loginByKey" prefHeight="304.0" prefWidth="500.0"
+            style="-fx-background-color: #1bd8fa;" stylesheets="@../css/jfxLogin.css"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.controller.LoginDialogController">
     <children>
         <ImageView fitHeight="142.0" fitWidth="142.0" layoutX="178.0" pickOnBounds="true" preserveRatio="true">
             <image>

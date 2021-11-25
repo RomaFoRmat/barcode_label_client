@@ -68,7 +68,7 @@
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="cbTypeSpool" editable="true" prefHeight="25.0" prefWidth="188.0" />
+                <ComboBox fx:id="cbTypeSpool" prefHeight="25.0" prefWidth="188.0"/>
                 <Label fx:id="lblCountSpool" prefHeight="2.0" prefWidth="168.0" text="L/R:" wrapText="true">
                     <font>
                         <Font size="13.0" />
@@ -96,7 +96,7 @@
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newNumberRopeMachine" />
+                <TextField fx:id="newNumberRopeMachine" promptText="№: 1-720"/>
                 <Label text="Табельный № канатчика:">
                     <font>
                         <Font size="13.0" />

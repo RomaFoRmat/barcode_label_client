@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class LoginDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        PackService.setTextFieldNumeric(loginUserTextField, 10);
+        TextFieldService.setTextFieldNumeric(loginUserTextField, 12);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scan_spool.fxml"));
         try {
             loader.load();
@@ -51,16 +53,20 @@ public class LoginDialogController implements Initializable {
             Personals personals = PersonalsRepository.findByPassword(password);
             System.out.println(personals);
             Constants.FIO = personals.getFio() + " (№:" + personals.getPersonnelNumber() + ")";
+
+//            if (personals == null) {
+//                loginUserTextField.clear();
+//                TextFieldService.alert("Неверный табельный номер!");
+//            }
+
             AppProperties.personals = personals;
-            loginButton.setDisable(true);
-            if (personals == null) {
-                loginButton.setDisable(false);
-                TextFieldService.alert("Неверный табельный номер!");
-            } else {
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-                stage.close();
-                show();
-            }
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            stage.close();
+            show();
+
+        } else if (loginUserTextField.getText().isEmpty()) {
+            TextFieldService.alert("Введите пароль!");
+
         }
     }
 
@@ -83,6 +89,12 @@ public class LoginDialogController implements Initializable {
         stage.setResizable(false);
         stage.requestFocus();
         stage.show();
+    }
+
+    public void loginByKey(KeyEvent keyEvent) throws UnknownHostException {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            login();
+        }
     }
 
 
