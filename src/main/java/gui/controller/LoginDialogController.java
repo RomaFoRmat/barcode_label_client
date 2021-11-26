@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginDialogController implements Initializable {
@@ -47,26 +48,27 @@ public class LoginDialogController implements Initializable {
 
     @FXML
     public void login() {
-//        long startTime = System.currentTimeMillis();
         if (!loginUserTextField.getText().equals("")) {
             String password = loginUserTextField.getText();
-            Personals personals = PersonalsRepository.findByPassword(password);
-            System.out.println(personals);
-            Constants.FIO = personals.getFio() + " (№:" + personals.getPersonnelNumber() + ")";
+            List<Personals> personalsList = PersonalsRepository.findByPassword(password);
 
-//            if (personals == null) {
-//                loginUserTextField.clear();
-//                TextFieldService.alert("Неверный табельный номер!");
-//            }
+            if (personalsList != null && personalsList.isEmpty()) {
+                loginUserTextField.clear();
+                TextFieldService.alert("Неверный пароль!");
+                return;
+            }
 
-            AppProperties.personals = personals;
+            Personals personal = personalsList.get(0);
+            System.out.println(personal);
+            Constants.FIO = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
+            AppProperties.personals = personal;
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
             show();
 
+
         } else if (loginUserTextField.getText().isEmpty()) {
             TextFieldService.alert("Введите пароль!");
-
         }
     }
 

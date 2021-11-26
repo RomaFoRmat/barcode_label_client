@@ -2,6 +2,7 @@
     -fx-font-size: 22px;
     -fx-alignment: center;
     -fx-font-weight: 500;
+    -fx-text-fill: black;
     /*-fx-font-family: 'Comic Sans MS';*/
 }
 

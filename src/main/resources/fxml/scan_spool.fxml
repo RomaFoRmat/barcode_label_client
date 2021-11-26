@@ -39,9 +39,10 @@
                         <Image url="@../icon/logo_barcode.png" />
                     </image>
                 </ImageView>
-                <Label fx:id="lblDateTime" layoutX="2.0" prefHeight="25.0" prefWidth="147.0" textFill="WHITE">
+                <Label fx:id="lblDateTime" layoutX="3.0" layoutY="3.0" prefHeight="21.0" prefWidth="166.0"
+                       textFill="WHITE">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="14.0"/>
                     </font>
                 </Label>
             </children>
@@ -400,17 +401,18 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="900.0">
                             <children>
-                                <TableView fx:id="tableView" prefHeight="477.0" prefWidth="900.0" stylesheets="@../css/tableView.css">
+                                <TableView fx:id="tableView" prefHeight="482.0" prefWidth="900.0"
+                                           stylesheets="@../css/tableView.css">
                                     <columns>
-                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки" />
-                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки" />
-                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код" />
-                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция" />
-                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания" />
-                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R" />
-                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии" />
-                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT" />
-                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ" />
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки"/>
+                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
+                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код"/>
+                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция"/>
+                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания"/>
+                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R"/>
+                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии"/>
+                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT"/>
+                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ"/>
                                         <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна" />
                                         <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />
                                         <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
@@ -429,7 +431,9 @@
                                         <TableColumn fx:id="tcStraightRope" prefWidth="75.0" text="Прям.кан." />
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="filterField" layoutX="8.0" layoutY="486.0" prefHeight="16.0" prefWidth="126.0" promptText="Поиск катушки..." stylesheets="@../css/searchTab2.css" />
+                                <TextField fx:id="filterField" layoutX="8.0" layoutY="487.0" prefHeight="21.0"
+                                           prefWidth="126.0" promptText="Поиск катушки..."
+                                           stylesheets="@../css/searchTab2.css"/>
                             </children>
                         </AnchorPane>
                     </content>

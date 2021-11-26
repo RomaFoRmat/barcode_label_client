@@ -151,7 +151,7 @@ public class ModalAddSpoolController implements Serializable {
 
     @FXML
     public void initialize() {
-        //Ограничение ввода символов и длинны в соответствующие поля для TestValue:
+        //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
         TextFieldService.setTextFieldNumeric(numberPart, 10);
         TextFieldService.setTextFieldNumeric(newNumberRopeMachine, 3);
         TextFieldService.setTextFieldNumeric(newNumberSpool, 12);

@@ -16,7 +16,6 @@ public class Personals {
 
     private Laboratory laboratory;
 
-    private String ipAddress;
 
     @Override
     public String toString() {
