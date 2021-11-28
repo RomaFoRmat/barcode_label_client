@@ -13,15 +13,11 @@ public class MainGroup {
     private Conversion idConversion;
     private LocalDateTime dateCreate;
 
-
-//    @Override
-//    public String toString() {
-//        return  idGroup + " / " + "ДАТА: " + dateCreate;
-//    }
-
     @Override
     public String toString() throws NullPointerException {
-        return idGroup + " / " + "ДАТА: "
-                + dateCreate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+        if (dateCreate != null) {
+            return idGroup + " / " + "ДАТА: "
+                    + dateCreate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+        } else return idGroup.toString();
     }
 }
