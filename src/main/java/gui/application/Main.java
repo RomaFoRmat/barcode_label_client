@@ -25,12 +25,12 @@ public class Main extends Application {
 //        primaryStage.setScene(new Scene(root, 900, 662));
 //        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
 //        primaryStage.setResizable(false);
-//        primaryStage.requestFocus();
+//        primaryStage.requestFocus();21922
 //        primaryStage.show();
 
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
-        primaryStage.setTitle("Вход в SCAN SPOOL");
+        primaryStage.setTitle("Вход в SCAN SPOOLS");
         primaryStage.setScene(new Scene(root, 500, 304));
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         primaryStage.setResizable(false);

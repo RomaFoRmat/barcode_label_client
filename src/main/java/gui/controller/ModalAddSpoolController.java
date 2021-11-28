@@ -266,6 +266,8 @@ public class ModalAddSpoolController implements Serializable {
             protocolDTO.setNumberValue(result);
         }
 
+
+
         mainValueDTOs.add(typeSpoolDTO);
         mainValueDTOs.add(lrDTO);
         mainValueDTOs.add(partDTO);
@@ -529,9 +531,9 @@ public class ModalAddSpoolController implements Serializable {
             vBoxMain2.setDisable(false);
             vBoxMain3.setDisable(false);
             vBoxMain4.setDisable(false);
-            okBtn.setDisable(false);
-            cancelBtn.setDisable(false);
-            btnCreate.setDisable(true);
+            okBtn.setVisible(true);
+            cancelBtn.setVisible(true);
+            btnCreate.setVisible(false);
             System.out.println("Select mode ВЫБОР");
         } else if (mode.equals("СОЗДАНИЕ")) {
             cbSelectMain.setDisable(true);
@@ -542,9 +544,9 @@ public class ModalAddSpoolController implements Serializable {
             vBoxMain2.setDisable(true);
             vBoxMain3.setDisable(true);
             vBoxMain4.setDisable(true);
-            okBtn.setDisable(true);
-            cancelBtn.setDisable(true);
-            btnCreate.setDisable(false);
+            okBtn.setVisible(false);
+            cancelBtn.setVisible(false);
+            btnCreate.setVisible(true);
             System.out.println("Select mode СОЗДАНИЕ");
         }
     }
