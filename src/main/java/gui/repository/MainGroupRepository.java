@@ -28,7 +28,7 @@ public class MainGroupRepository {
     public static ObjectMapper mapper = new ObjectMapper();
     public static final String MAIN_ID_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllIdGroup";
 
-    public static Long addIdMain(List<MainValueDTO> mainValueDTOs) {
+    public static MainGroup addIdMain(List<MainValueDTO> mainValueDTOs) {
         String url = "http://" + AppProperties.getHost() + "/api/addIdGroup";
         return getResponseEntity(url, mainValueDTOs);
     }
@@ -66,7 +66,7 @@ public class MainGroupRepository {
         return Collections.emptyList();
     }
 
-    public static Long getResponseEntity(String url, List<MainValueDTO> mainValueDTOs) {
+    public static MainGroup getResponseEntity(String url, List<MainValueDTO> mainValueDTOs) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             Gson gson = new GsonBuilder()
@@ -76,7 +76,7 @@ public class MainGroupRepository {
             mapper.registerModule(new JavaTimeModule());
             httpPost.setEntity(new StringEntity(gson.toJson(mainValueDTOs), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(), Long.class));
+                    mapper.readValue(httpResponse.getEntity().getContent(), MainGroup.class));
         } catch (IOException e) {
             e.printStackTrace();
         }

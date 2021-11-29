@@ -220,69 +220,78 @@ public class ModalAddSpoolController implements Serializable {
 
         List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
-        //установить значение для поля "КОД":
-        MainValueDTO codeDTO = new MainValueDTO();
-        codeDTO.setIdHead(11691L);
-        codeDTO.setValue(String.valueOf(cbCode.getItems().get(cbCode.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode()));
-        codeDTO.setIdGroup(mainGroup.getIdGroup());
 
-        mainValueDTOs.add(codeDTO);
+        if(!cbCode.getSelectionModel().isEmpty()) {
 
-        //установить значение для поля "Тип катушки":
-        MainValueDTO typeSpoolDTO = new MainValueDTO();
-        typeSpoolDTO.setIdGroup(mainGroup.getIdGroup());
-        typeSpoolDTO.setIdHead(12507L);
-        typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
+            //установить значение для поля "КОД":
+            MainValueDTO codeDTO = new MainValueDTO();
+            codeDTO.setIdHead(11691L);
+            codeDTO.setValue(String.valueOf(cbCode.getItems().get(cbCode.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode()));
+            codeDTO.setIdGroup(mainGroup.getIdGroup());
+            mainValueDTOs.add(codeDTO);
 
-        //установить значение для поля "L/R":
-        MainValueDTO lrDTO = new MainValueDTO();
-        lrDTO.setIdGroup(mainGroup.getIdGroup());
-        lrDTO.setIdHead(11694L);
-        lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
+            //установить значение для поля "Тип катушки":
+            MainValueDTO typeSpoolDTO = new MainValueDTO();
+            typeSpoolDTO.setIdGroup(mainGroup.getIdGroup());
+            typeSpoolDTO.setIdHead(12507L);
+            typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
 
-        //установить значение для поля "№ партии:"
-        MainValueDTO partDTO = new MainValueDTO();
-        partDTO.setIdGroup(mainGroup.getIdGroup());
-        partDTO.setIdHead(11693L);
-        partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
+            //установить значение для поля "L/R":
+            MainValueDTO lrDTO = new MainValueDTO();
+            lrDTO.setIdGroup(mainGroup.getIdGroup());
+            lrDTO.setIdHead(11694L);
+            lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
 
-        //установить значение для поля "№ лота:"
-        MainValueDTO lotDTO = new MainValueDTO();
-        lotDTO.setIdGroup(mainGroup.getIdGroup());
-        lotDTO.setIdHead(11692L);
-        lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
+            //установить значение для поля "№ партии:"
+            MainValueDTO partDTO = new MainValueDTO();
+            partDTO.setIdGroup(mainGroup.getIdGroup());
+            partDTO.setIdHead(11693L);
+            partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
 
-        //установить значение для поля "Протокол":
-        MainValueDTO protocolDTO = new MainValueDTO();
-        protocolDTO.setIdGroup(mainGroup.getIdGroup());
-        protocolDTO.setIdHead(1889350L);
-        String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
-        if (lastCurrentProtocol.equals("[null]")) {
-            protocolDTO.setNumberValue(1.0);
+            //установить значение для поля "№ лота:"
+            MainValueDTO lotDTO = new MainValueDTO();
+            lotDTO.setIdGroup(mainGroup.getIdGroup());
+            lotDTO.setIdHead(11692L);
+            lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
+
+            //установить значение для поля "Протокол":
+            MainValueDTO protocolDTO = new MainValueDTO();
+            protocolDTO.setIdGroup(mainGroup.getIdGroup());
+            protocolDTO.setIdHead(1889350L);
+            String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
+            if (lastCurrentProtocol.equals("[null]")) {
+                protocolDTO.setNumberValue(1.0);
+            } else {
+                lastCurrentProtocol = lastCurrentProtocol.replaceAll("\\[", "").replaceAll("\\]", "");
+                double result = Double.parseDouble(lastCurrentProtocol);
+                result++;
+                protocolDTO.setNumberValue(result);
+            }
+
+            mainValueDTOs.add(typeSpoolDTO);
+            mainValueDTOs.add(lrDTO);
+            mainValueDTOs.add(partDTO);
+            mainValueDTOs.add(lotDTO);
+            mainValueDTOs.add(protocolDTO);
+            MainGroup newGroup = MainGroupRepository.addIdMain(mainValueDTOs);
+            cbSelectMain.getItems().add(0,newGroup);
+            cbSelectMain.getSelectionModel().select(0);
+
+
+//            cbSelectMain.getItems().addAll(idGroups);
+//            cbSelectMain.getSelectionModel().select(0);
+
+
+            cbMode.getSelectionModel().select(1);
+
+            MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
+            System.out.println(valueMainDTOs);
+
         } else {
-            lastCurrentProtocol = lastCurrentProtocol.replaceAll("\\[", "").replaceAll("\\]", "");
-            double result = Double.parseDouble(lastCurrentProtocol);
-            result++;
-            protocolDTO.setNumberValue(result);
+
+            TextFieldService.alert("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
+
         }
-
-
-
-        mainValueDTOs.add(typeSpoolDTO);
-        mainValueDTOs.add(lrDTO);
-        mainValueDTOs.add(partDTO);
-        mainValueDTOs.add(lotDTO);
-        mainValueDTOs.add(protocolDTO);
-        MainGroupRepository.addIdMain(mainValueDTOs);
-
-
-        cbSelectMain.setItems(idGroups);
-        cbSelectMain.getSelectionModel().select(0);
-
-        cbMode.getSelectionModel().select(1);
-
-        MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
-        System.out.println(valueMainDTOs);
 
     }
 
@@ -534,6 +543,10 @@ public class ModalAddSpoolController implements Serializable {
             okBtn.setVisible(true);
             cancelBtn.setVisible(true);
             btnCreate.setVisible(false);
+//            cbSelectMain.getItems().clear();
+//            cbSelectMain.getItems().addAll(idGroups);
+//            cbSelectMain.setItems(idGroups);
+//            cbSelectMain.getSelectionModel().select(0);
             System.out.println("Select mode ВЫБОР");
         } else if (mode.equals("СОЗДАНИЕ")) {
             cbSelectMain.setDisable(true);
@@ -547,6 +560,9 @@ public class ModalAddSpoolController implements Serializable {
             okBtn.setVisible(false);
             cancelBtn.setVisible(false);
             btnCreate.setVisible(true);
+//            cbSelectMain.getItems().clear();
+//            cbSelectMain.setItems(idGroups);
+//            cbSelectMain.getSelectionModel().select(0);
             System.out.println("Select mode СОЗДАНИЕ");
         }
     }
