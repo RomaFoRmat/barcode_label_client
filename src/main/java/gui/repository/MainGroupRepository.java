@@ -1,6 +1,7 @@
 package gui.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
@@ -74,6 +75,7 @@ public class MainGroupRepository {
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapterUtil())
                     .create();
             mapper.registerModule(new JavaTimeModule());
+//            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             httpPost.setEntity(new StringEntity(gson.toJson(mainValueDTOs), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(), MainGroup.class));

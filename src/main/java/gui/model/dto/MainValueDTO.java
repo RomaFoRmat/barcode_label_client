@@ -4,6 +4,8 @@ import gui.model.Code;
 import gui.model.DateTable;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class MainValueDTO {
     private Long idGroup;
@@ -11,7 +13,7 @@ public class MainValueDTO {
     private String value;
     private Double numberValue;
     private Code code;
-    private DateTable.DateTableForeignKey dateTableForeignKey;
-    private DateTable dateTable;
+    private LocalDateTime dateCreate;
     private String whoCreate;
+    private Long laboratory;
 }

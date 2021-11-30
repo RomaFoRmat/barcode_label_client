@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
@@ -44,6 +46,8 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
+                <JFXHamburger fx:id="hamburgerMenu" layoutX="858.0" layoutY="27.0" prefHeight="20.0" prefWidth="34.0"
+                              stylesheets="@../css/jfxHamburger.css"/>
             </children>
         </Pane>
         <Button fx:id="btn_getInfo" alignment="CENTER" layoutX="591.0" layoutY="76.0" mnemonicParsing="false" onAction="#getInfoAction" prefHeight="30.0" prefWidth="41.0" style="-fx-background-radius: 27; -fx-padding: 4;" stylesheets="@../css/button.css">
@@ -400,17 +404,18 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="900.0">
                             <children>
-                                <TableView fx:id="tableView" prefHeight="482.0" prefWidth="900.0" stylesheets="@../css/tableView.css">
+                                <TableView fx:id="tableView" prefHeight="482.0" prefWidth="946.0"
+                                           stylesheets="@../css/tableView.css">
                                     <columns>
-                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки" />
-                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки" />
-                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код" />
-                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция" />
-                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания" />
-                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R" />
-                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии" />
-                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT" />
-                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ" />
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки"/>
+                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
+                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код"/>
+                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция"/>
+                                        <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания"/>
+                                        <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R"/>
+                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии"/>
+                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT"/>
+                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ"/>
                                         <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна" />
                                         <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />
                                         <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
@@ -451,5 +456,7 @@
                 <Font name="Times New Roman" size="22.0" />
             </font>
         </JFXTextField>
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="208.0" direction="RIGHT" layoutX="699.0" layoutY="73.0"
+                   prefHeight="175.0" prefWidth="208.0"/>
     </children>
 </AnchorPane>

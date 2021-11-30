@@ -7,9 +7,11 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
+import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
 import gui.application.Main;
 import gui.model.*;
@@ -40,7 +42,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -314,8 +318,6 @@ public class ScanController {
     @FXML
     private Label lblSpool;
 
-    public ScanController scanController;
-
     @FXML
     private Label lblDateTime;
 
@@ -325,11 +327,13 @@ public class ScanController {
     @FXML
     public Tab tabSpoolList;
 
+    public ScanController scanController;
+    @FXML
+    private JFXHamburger hamburgerMenu;
+
     private TestLabel testLabel;
 
     private ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
-
-//    private List<FieldModel> fieldModelsList;
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
@@ -337,35 +341,32 @@ public class ScanController {
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
     @FXML
     private JFXComboBox<String> cb_consumer;
+
     @FXML
     private Label lblFio;
+    @FXML
+    private JFXDrawer drawer;
     private Stage stage;
-
-//    @FXML
-//    private Button btnLab2;
-
-//    @FXML
-//    public void initialize(URL location, ResourceBundle resources) {
-//
-//
-//
-//    }
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scan_spool.fxml"));
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scan_spool.fxml"));
         try {
             fxmlLoader.load();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         scanController = fxmlLoader.getController();
+
     }
 
     @FXML
     public void initialize() {
+
+        initJFXDrawer();
 
         lblFio.setText(Constants.FIO);
         TextFieldService.setTextFieldNumeric(barcodeSpool, 12);
@@ -426,9 +427,31 @@ public class ScanController {
 
         UpdaterUtil updaterUtil = new UpdaterUtil(this);
         Timer timer = new Timer();
-        timer.schedule(updaterUtil, 0, 20000);
+        timer.schedule(updaterUtil, 0, 50000);
 
 
+    }
+
+    public void initJFXDrawer() {
+        try {
+            VBox vBox = FXMLLoader.load(getClass().getResource("/fxml/slideMenu.fxml"));
+            drawer.setSidePane(vBox);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        HamburgerSlideCloseTransition transitionTask = new HamburgerSlideCloseTransition(hamburgerMenu);
+        transitionTask.setRate(-1);
+        hamburgerMenu.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+            transitionTask.setRate(transitionTask.getRate() * -1);
+            transitionTask.play();
+
+            if (drawer.isOpened()) {
+                drawer.close();
+            } else {
+                drawer.open();
+            }
+        });
     }
 
     public void filterTable() {

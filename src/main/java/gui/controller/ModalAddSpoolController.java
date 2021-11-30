@@ -130,6 +130,8 @@ public class ModalAddSpoolController implements Serializable {
     @FXML
     private Label lblCreateMainGroup;
     @FXML
+    private Label lblAddNewSpool;
+    @FXML
     private JFXButton btnCreate;
 
 
@@ -273,15 +275,10 @@ public class ModalAddSpoolController implements Serializable {
             mainValueDTOs.add(partDTO);
             mainValueDTOs.add(lotDTO);
             mainValueDTOs.add(protocolDTO);
-            MainGroup newGroup = MainGroupRepository.addIdMain(mainValueDTOs);
-            cbSelectMain.getItems().add(0,newGroup);
+            MainGroup newIdGroup = MainGroupRepository.addIdMain(mainValueDTOs);
+
+            cbSelectMain.getItems().add(0, newIdGroup);
             cbSelectMain.getSelectionModel().select(0);
-
-
-//            cbSelectMain.getItems().addAll(idGroups);
-//            cbSelectMain.getSelectionModel().select(0);
-
-
             cbMode.getSelectionModel().select(1);
 
             MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
@@ -479,6 +476,7 @@ public class ModalAddSpoolController implements Serializable {
                 double average = sum / strAVGList.size();
                 double resultAVG = Math.round(average);
                 System.out.println("Average = " + resultAVG);
+
                 //установить значение для поля "Прямолинейность 600 среднее":
                 TestValueDTO straight600AvgDTO = new TestValueDTO();
                 straight600AvgDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
@@ -543,10 +541,8 @@ public class ModalAddSpoolController implements Serializable {
             okBtn.setVisible(true);
             cancelBtn.setVisible(true);
             btnCreate.setVisible(false);
-//            cbSelectMain.getItems().clear();
-//            cbSelectMain.getItems().addAll(idGroups);
-//            cbSelectMain.setItems(idGroups);
-//            cbSelectMain.getSelectionModel().select(0);
+            lblAddNewSpool.setDisable(false);
+
             System.out.println("Select mode ВЫБОР");
         } else if (mode.equals("СОЗДАНИЕ")) {
             cbSelectMain.setDisable(true);
@@ -560,9 +556,7 @@ public class ModalAddSpoolController implements Serializable {
             okBtn.setVisible(false);
             cancelBtn.setVisible(false);
             btnCreate.setVisible(true);
-//            cbSelectMain.getItems().clear();
-//            cbSelectMain.setItems(idGroups);
-//            cbSelectMain.getSelectionModel().select(0);
+            lblAddNewSpool.setDisable(true);
             System.out.println("Select mode СОЗДАНИЕ");
         }
     }
