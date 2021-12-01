@@ -19,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -37,7 +36,7 @@ public class LoginDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TextFieldService.setTextFieldNumeric(loginUserTextField, 12);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scan_spool.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scanSpool.fxml"));
         try {
             loader.load();
         } catch (IOException e) {
@@ -75,7 +74,7 @@ public class LoginDialogController implements Initializable {
     public void show() {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/scan_spool.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/scanSpool.fxml"));
 
         try {
             loader.load();

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="175.0" prefWidth="208.0"
+      stylesheets="@../css/jfxButtonSlideMenu.css" xmlns="http://javafx.com/javafx/8.0.171"
+      fx:controller="gui.controller.SideMenuController">
+    <children>
+        <Pane prefHeight="175.0" prefWidth="208.0" style="-fx-background-color: black;">
+            <children>
+                <JFXButton fx:id="btnAbout" layoutY="92.0" prefHeight="45.0" prefWidth="208.0"
+                           text="О программе           ">
+                    <font>
+                        <Font name="Baskerville Old Face" size="14.0"/>
+                    </font>
+                </JFXButton>
+                <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="15.0" layoutY="103.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/about.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton fx:id="btnExit" layoutY="137.0" onAction="#exitAction" prefHeight="38.0" prefWidth="208.0"
+                           text=" Выход                        ">
+                    <font>
+                        <Font name="Baskerville Old Face" size="14.0"/>
+                    </font>
+                </JFXButton>
+                <ImageView fitHeight="24.0" fitWidth="26.0" layoutX="14.0" layoutY="144.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/exit.png"/>
+                    </image>
+                </ImageView>
+                <JFXButton fx:id="btnLab2" onAction="#openProjectStart2" prefHeight="45.0" prefWidth="208.0"
+                           text=" Лаб. испытания СтПЦ-2">
+                    <font>
+                        <Font name="Baskerville Old Face" size="14.0"/>
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../icon/labIcon.jpg"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+            </JFXButton>
+                <JFXButton fx:id="btnChangeUser" layoutY="45.0" onAction="#changeUserAction" prefHeight="47.0"
+                           prefWidth="208.0" text="      Сменить пользователя">
+                    <font>
+                        <Font name="Baskerville Old Face" size="14.0"/>
+                    </font>
+                </JFXButton>
+                <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="16.0" layoutY="60.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../icon/change.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
+    <cursor>
+        <Cursor fx:constant="HAND"/>
+    </cursor>
+</VBox>

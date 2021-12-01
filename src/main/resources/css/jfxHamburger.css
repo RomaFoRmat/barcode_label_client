@@ -2,4 +2,9 @@
     /*-fx-pref-width: 43px;*/
     /*-fx-pref-height: 7px;*/
     -fx-background-color: whitesmoke;
+    -fx-background-radius: 5px;
+}
+
+.jfx-hamburger-icon {
+    -fx-spacing: 4px;
 }

@@ -8,14 +8,9 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.*;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
-import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import gui.application.AppProperties;
 import gui.application.Main;
 import gui.model.*;
-import gui.repository.PersonalsRepository;
 import gui.repository.TestLabelRepository;
 import gui.service.*;
 import gui.service.DateUtil;
@@ -55,11 +50,9 @@ import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import javax.swing.text.DateFormatter;
 import java.awt.*;
 import java.io.*;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -347,12 +340,13 @@ public class ScanController {
     @FXML
     private JFXDrawer drawer;
     private Stage stage;
+    public static AnchorPane temporaryPane;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scan_spool.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scanSpool.fxml"));
         try {
             fxmlLoader.load();
 
@@ -366,6 +360,7 @@ public class ScanController {
     @FXML
     public void initialize() {
 
+        temporaryPane = anchorPaneMain;
         initJFXDrawer();
 
         lblFio.setText(Constants.FIO);
@@ -434,7 +429,7 @@ public class ScanController {
 
     public void initJFXDrawer() {
         try {
-            VBox vBox = FXMLLoader.load(getClass().getResource("/fxml/slideMenu.fxml"));
+            VBox vBox = FXMLLoader.load(getClass().getResource(Constants.SIDE_MENU));
             drawer.setSidePane(vBox);
         } catch (IOException e) {
             e.printStackTrace();
@@ -939,12 +934,12 @@ public class ScanController {
         }
     }
 
-    //Запуск лаб испытаний:
-    @FXML
-    public void openProjectStart2() throws IOException {
-        Runtime.getRuntime().exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
-        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
-    }
+//    //Запуск лаб испытаний:
+//    @FXML
+//    public void openProjectStart2() throws IOException {
+//        Runtime.getRuntime().exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
+//        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
+//    }
 
 }
 

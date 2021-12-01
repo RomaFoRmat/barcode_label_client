@@ -184,12 +184,12 @@
                     </font>
                 </Label>
                 <TextField fx:id="newStraight600_5" />
-                <Label text="Код дефекта" wrapText="true">
+                <Label disable="true" text="Код дефекта" wrapText="true">
                     <font>
-                        <Font size="13.0" />
+                        <Font size="13.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="newDefectCode" />
+                <TextField fx:id="newDefectCode" disable="true"/>
                 <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0" text="Образец" />
             </children>
         </VBox>
