@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import gui.application.AppProperties;
+import gui.model.dto.MainGroupRequestDTO;
+import gui.model.dto.MainGroupResponseDTO;
 import gui.model.dto.MainValueDTO;
 import gui.model.dto.TestValueDTO;
 import gui.service.TextFieldService;
@@ -216,49 +218,57 @@ public class ModalAddSpoolController implements Serializable {
         }
     }
 
-    public void addMainGroup(){
-
+    public void addMainGroup() {
         MainGroup mainGroup = new MainGroup();
+//        List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
-        List<MainValueDTO> mainValueDTOs = new ArrayList<>();
+
+        MainGroupResponseDTO mainGroupResponseDTO = new MainGroupResponseDTO();
+        mainGroupResponseDTO.setMainGroup(mainGroup);
+
+        //set DateTable:
+        MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
+        mainGroupRequestDTO.setWhoCreate(Constants.FIO);
+        mainGroupRequestDTO.setLaboratory(12968L);
 
 
-        if(!cbCode.getSelectionModel().isEmpty()) {
+        List<MainValueDTO> mainValueDTOs = new MainGroupRequestDTO().getMainValueDTOList();
 
+        if (!cbCode.getSelectionModel().isEmpty()) {
             //установить значение для поля "КОД":
             MainValueDTO codeDTO = new MainValueDTO();
             codeDTO.setIdHead(11691L);
             codeDTO.setValue(String.valueOf(cbCode.getItems().get(cbCode.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode()));
-            codeDTO.setIdGroup(mainGroup.getIdGroup());
-            mainValueDTOs.add(codeDTO);
+            codeDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+
 
             //установить значение для поля "Тип катушки":
             MainValueDTO typeSpoolDTO = new MainValueDTO();
-            typeSpoolDTO.setIdGroup(mainGroup.getIdGroup());
+            typeSpoolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             typeSpoolDTO.setIdHead(12507L);
             typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
 
             //установить значение для поля "L/R":
             MainValueDTO lrDTO = new MainValueDTO();
-            lrDTO.setIdGroup(mainGroup.getIdGroup());
+            lrDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             lrDTO.setIdHead(11694L);
             lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
 
             //установить значение для поля "№ партии:"
             MainValueDTO partDTO = new MainValueDTO();
-            partDTO.setIdGroup(mainGroup.getIdGroup());
+            partDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             partDTO.setIdHead(11693L);
             partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
 
             //установить значение для поля "№ лота:"
             MainValueDTO lotDTO = new MainValueDTO();
-            lotDTO.setIdGroup(mainGroup.getIdGroup());
+            lotDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             lotDTO.setIdHead(11692L);
             lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
 
             //установить значение для поля "Протокол":
             MainValueDTO protocolDTO = new MainValueDTO();
-            protocolDTO.setIdGroup(mainGroup.getIdGroup());
+            protocolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             protocolDTO.setIdHead(1889350L);
             String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
             if (lastCurrentProtocol.equals("[null]")) {
@@ -270,14 +280,17 @@ public class ModalAddSpoolController implements Serializable {
                 protocolDTO.setNumberValue(result);
             }
 
+            mainValueDTOs.add(codeDTO);
             mainValueDTOs.add(typeSpoolDTO);
             mainValueDTOs.add(lrDTO);
             mainValueDTOs.add(partDTO);
             mainValueDTOs.add(lotDTO);
             mainValueDTOs.add(protocolDTO);
-            MainGroup newIdGroup = MainGroupRepository.addIdMain(mainValueDTOs);
+            mainGroupRequestDTO.setMainValueDTOList(mainValueDTOs);
 
-            cbSelectMain.getItems().add(0, newIdGroup);
+            MainGroupResponseDTO newIdGroup = MainGroupRepository.addIdMain(mainGroupRequestDTO);
+
+            cbSelectMain.getItems().add(0, newIdGroup.getMainGroup());
             cbSelectMain.getSelectionModel().select(0);
             cbMode.getSelectionModel().select(1);
 

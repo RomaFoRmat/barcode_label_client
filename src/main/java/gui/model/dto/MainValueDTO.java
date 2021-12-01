@@ -13,7 +13,4 @@ public class MainValueDTO {
     private String value;
     private Double numberValue;
     private Code code;
-    private LocalDateTime dateCreate;
-    private String whoCreate;
-    private Long laboratory;
 }

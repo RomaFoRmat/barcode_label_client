@@ -9,6 +9,8 @@ import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.MainGroup;
 import gui.model.TestLabel;
+import gui.model.dto.MainGroupRequestDTO;
+import gui.model.dto.MainGroupResponseDTO;
 import gui.model.dto.MainValueDTO;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
@@ -29,9 +31,9 @@ public class MainGroupRepository {
     public static ObjectMapper mapper = new ObjectMapper();
     public static final String MAIN_ID_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllIdGroup";
 
-    public static MainGroup addIdMain(List<MainValueDTO> mainValueDTOs) {
+    public static MainGroupResponseDTO addIdMain(MainGroupRequestDTO mainGroupRequestDTO) {
         String url = "http://" + AppProperties.getHost() + "/api/addIdGroup";
-        return getResponseEntity(url, mainValueDTOs);
+        return getResponseEntity(url, mainGroupRequestDTO);
     }
 
     public static List<MainGroup> findByIdGroup(Long idGroup) {
@@ -67,7 +69,7 @@ public class MainGroupRepository {
         return Collections.emptyList();
     }
 
-    public static MainGroup getResponseEntity(String url, List<MainValueDTO> mainValueDTOs) {
+    public static MainGroupResponseDTO getResponseEntity(String url, MainGroupRequestDTO mainGroupRequestDTO) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             Gson gson = new GsonBuilder()
@@ -76,9 +78,9 @@ public class MainGroupRepository {
                     .create();
             mapper.registerModule(new JavaTimeModule());
 //            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            httpPost.setEntity(new StringEntity(gson.toJson(mainValueDTOs), StandardCharsets.UTF_8));
+            httpPost.setEntity(new StringEntity(gson.toJson(mainGroupRequestDTO), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(), MainGroup.class));
+                    mapper.readValue(httpResponse.getEntity().getContent(), MainGroupResponseDTO.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
