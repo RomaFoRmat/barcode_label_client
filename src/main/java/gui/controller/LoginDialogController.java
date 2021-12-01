@@ -53,7 +53,7 @@ public class LoginDialogController implements Initializable {
 
             if (personalsList != null && personalsList.isEmpty()) {
                 loginUserTextField.clear();
-                TextFieldService.alert("Неверный пароль!");
+                TextFieldService.alertWarning("Неверный пароль!");
                 return;
             }
 
@@ -67,7 +67,7 @@ public class LoginDialogController implements Initializable {
 
 
         } else if (loginUserTextField.getText().isEmpty()) {
-            TextFieldService.alert("Введите пароль!");
+            TextFieldService.alertWarning("Введите пароль!");
         }
     }
 

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.IntStream;
 
 import gui.model.*;
 import gui.repository.*;
@@ -27,7 +26,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -299,7 +297,7 @@ public class ModalAddSpoolController implements Serializable {
 
         } else {
 
-            TextFieldService.alert("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
+            TextFieldService.alertWarning("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
 
         }
 

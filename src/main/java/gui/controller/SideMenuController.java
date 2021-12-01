@@ -2,22 +2,16 @@ package gui.controller;
 
 import com.jfoenix.controls.JFXButton;
 import gui.application.Main;
-import javafx.collections.ObservableList;
+import gui.service.TextFieldService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import lombok.SneakyThrows;
-import org.bouncycastle.util.encoders.UrlBase64;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -42,6 +36,7 @@ public class SideMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
     }
 
     @FXML
@@ -61,15 +56,22 @@ public class SideMenuController implements Initializable {
 
     @FXML
     private void exitAction() {
-        stage = (Stage) btnExit.getScene().getWindow();
-        stage.close();
+        TextFieldService.alertConfirmation("Вы действительно хотите выйти из программы?",btnExit);
+
     }
 
     @FXML
-    private void openProjectStart2() throws IOException {
-        Runtime.getRuntime().exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
+    private void openProjectStart2()  {
+        try {
+            Runtime r = Runtime.getRuntime();
+            r.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
+        } catch (IOException e) {
+            System.out.println( e.getMessage() + " либо данная программа не установлена на данном ПК");
+            TextFieldService.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
+        }
         System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
     }
+
 
 //    private void switchPane(String pane) {
 //        ScanController.temporaryPane.getChildren().clear();

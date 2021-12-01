@@ -750,7 +750,7 @@ public class ScanController {
             Desktop.getDesktop().open(toFormQrCode());
 
         } else {
-            TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
         }
     }
 
@@ -763,7 +763,7 @@ public class ScanController {
                 cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
             Desktop.getDesktop().print(toFormQrCode());
         } else {
-            TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
         }
     }
 
@@ -779,7 +779,7 @@ public class ScanController {
             Desktop.getDesktop().print(exportToExcel());
 
         } else {
-            TextFieldService.alert("Выберите нужные параметры для формирования QR-CODE!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
         }
 //            clearFields();
     }
@@ -798,7 +798,7 @@ public class ScanController {
 
         } else {
 
-            TextFieldService.alert("Выберите нужные параметры для формирования этикетки!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования этикетки!");
         }
     }
 
@@ -921,7 +921,7 @@ public class ScanController {
             barcodeSpool.getStylesheets().add("/css/jfx_error.css");
             clearFields();
             unselectCheckBox();
-            TextFieldService.alert("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
+            TextFieldService.alertWarning("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
 
 //            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
         }
