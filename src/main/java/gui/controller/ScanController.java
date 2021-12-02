@@ -363,7 +363,7 @@ public class ScanController {
         temporaryPane = anchorPaneMain;
         initJFXDrawer();
 
-        lblFio.setText(Constants.FIO);
+        lblFio.setText(Constants.FIO_VIEW);
         TextFieldService.setTextFieldNumeric(barcodeSpool, 12);
 
         /**для наведения фокуса на определенное поле*/

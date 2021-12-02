@@ -52,7 +52,7 @@ public class SideMenuController implements Initializable {
         stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
 
-        System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + Constants.FIO);
+        System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + Constants.FIO_VIEW);
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         stage.setTitle("Вход в SCAN SPOOLS");

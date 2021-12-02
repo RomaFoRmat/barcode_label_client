@@ -59,7 +59,9 @@ public class LoginDialogController implements Initializable {
 
             Personals personal = personalsList.get(0);
             System.out.println(personal);
-            Constants.FIO = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
+            Constants.FIO_VIEW = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
+            Constants.FIO = personal.getFio();
+            Constants.PERSONALS = personal.getGroupsOfPersonal().getIdGroup();
             AppProperties.personals = personal;
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();

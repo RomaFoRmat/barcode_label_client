@@ -217,18 +217,9 @@ public class ModalAddSpoolController implements Serializable {
     }
 
     public void addMainGroup() {
-//        MainGroup mainGroup = new MainGroup();
-//        List<MainValueDTO> mainValueDTOs = new ArrayList<>();
-
 
         MainGroupResponseDTO mainGroupResponseDTO = new MainGroupResponseDTO();
 
-
-//        //set DateTable:
-
-
-
-//        List<MainValueDTO> mainValueDTOs = new MainGroupRequestDTO().getMainValueDTOList();
         List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
         if (!cbCode.getSelectionModel().isEmpty()) {
@@ -241,31 +232,26 @@ public class ModalAddSpoolController implements Serializable {
 
             //установить значение для поля "Тип катушки":
             MainValueDTO typeSpoolDTO = new MainValueDTO();
-//            typeSpoolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             typeSpoolDTO.setIdHead(12507L);
             typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
 
             //установить значение для поля "L/R":
             MainValueDTO lrDTO = new MainValueDTO();
-//            lrDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             lrDTO.setIdHead(11694L);
             lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
 
             //установить значение для поля "№ партии:"
             MainValueDTO partDTO = new MainValueDTO();
-//            partDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             partDTO.setIdHead(11693L);
             partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
 
             //установить значение для поля "№ лота:"
             MainValueDTO lotDTO = new MainValueDTO();
-//            lotDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             lotDTO.setIdHead(11692L);
             lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
 
             //установить значение для поля "Протокол":
             MainValueDTO protocolDTO = new MainValueDTO();
-//            protocolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             protocolDTO.setIdHead(1889350L);
             String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
             if (lastCurrentProtocol.equals("[null]")) {
@@ -285,16 +271,13 @@ public class ModalAddSpoolController implements Serializable {
             mainValueDTOs.add(protocolDTO);
 
             MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
-//            mainGroupRequestDTO.setWhoCreate(Constants.FIO);
-//            mainGroupRequestDTO.setLaboratory(12968L);
+            mainGroupRequestDTO.setWhoCreate(Constants.FIO);
+            String namePersonal = String.valueOf(GroupsOfPersonalRepository.getGroupsOfPersonal("http://" + AppProperties.getHost() + "/api/getGroupsOfPersonal/" + Constants.PERSONALS));
+            namePersonal = namePersonal.replaceAll("\\[", "").replaceAll("\\]", "");
+//            System.out.println(namePersonal);
+            Long idGroupPersonal = Long.valueOf(namePersonal);
+            mainGroupRequestDTO.setLaboratory(idGroupPersonal);
             mainGroupRequestDTO.setMainValueDTOList(mainValueDTOs);
-
-            DateTable dateTable = new DateTable();
-            dateTable.setLaboratory(12968L);
-            dateTable.setWhoCreate(Constants.FIO);
-
-            MainGroupResponseDTO createDateTable = new MainGroupResponseDTO();
-            createDateTable.setDateTable(dateTable);
 
             MainGroupResponseDTO newIdGroup = MainGroupRepository.addIdMain(mainGroupRequestDTO);
 

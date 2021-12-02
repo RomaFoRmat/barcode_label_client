@@ -44,7 +44,7 @@ public class TextFieldService {
         if (option.get() == ok){
             stage = (Stage) button.getScene().getWindow();
             stage.close();
-            System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " " + Constants.FIO);
+            System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " " + Constants.FIO_VIEW);
         }
         if (alert.getResult() == ButtonType.YES) {
             System.out.println(confirmation);

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Laboratory {
 
-    private Integer idLaboratory;
+    private Long idLaboratory;
     private String nameLaboratory;
 }

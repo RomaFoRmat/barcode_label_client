@@ -5,6 +5,11 @@ import lombok.Data;
 @Data
 public class GroupsOfPersonal {
 
-    private Integer idGroup;
+    private Long idGroup;
     private String nameGroup;
+
+    @Override
+    public String toString() {
+        return String.valueOf(idGroup);
+    }
 }
