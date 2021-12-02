@@ -13,5 +13,4 @@ public class FieldModel {
     private CheckBox checkBox;
     private String type;
     private CellStyleOption cellStyleOption;
-
 }

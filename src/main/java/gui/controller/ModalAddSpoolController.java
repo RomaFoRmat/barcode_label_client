@@ -222,15 +222,14 @@ public class ModalAddSpoolController implements Serializable {
 
 
         MainGroupResponseDTO mainGroupResponseDTO = new MainGroupResponseDTO();
-        Long createMain = mainGroupResponseDTO.getMainGroup().getIdGroup();
-
-        //set DateTable:
-        MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
-        mainGroupRequestDTO.setWhoCreate(Constants.FIO);
-        mainGroupRequestDTO.setLaboratory(12968L);
 
 
-        List<MainValueDTO> mainValueDTOs = new MainGroupRequestDTO().getMainValueDTOList();
+//        //set DateTable:
+
+
+
+//        List<MainValueDTO> mainValueDTOs = new MainGroupRequestDTO().getMainValueDTOList();
+        List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
         if (!cbCode.getSelectionModel().isEmpty()) {
             //установить значение для поля "КОД":
@@ -284,7 +283,18 @@ public class ModalAddSpoolController implements Serializable {
             mainValueDTOs.add(partDTO);
             mainValueDTOs.add(lotDTO);
             mainValueDTOs.add(protocolDTO);
+
+            MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
+//            mainGroupRequestDTO.setWhoCreate(Constants.FIO);
+//            mainGroupRequestDTO.setLaboratory(12968L);
             mainGroupRequestDTO.setMainValueDTOList(mainValueDTOs);
+
+            DateTable dateTable = new DateTable();
+            dateTable.setLaboratory(12968L);
+            dateTable.setWhoCreate(Constants.FIO);
+
+            MainGroupResponseDTO createDateTable = new MainGroupResponseDTO();
+            createDateTable.setDateTable(dateTable);
 
             MainGroupResponseDTO newIdGroup = MainGroupRepository.addIdMain(mainGroupRequestDTO);
 

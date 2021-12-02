@@ -496,14 +496,6 @@ public class ScanController {
         clock.play();
     }
 
-//    public void show() {
-//        stage = new Stage();
-//        stage.setScene(new Scene(anchorPaneMain));
-//        stage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ");
-//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-////        stage.showAndWait();
-//        stage.show();
-//    }
 
     @FXML
     public void addSpool() {

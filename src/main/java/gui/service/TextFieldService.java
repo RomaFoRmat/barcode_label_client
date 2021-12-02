@@ -1,6 +1,7 @@
 package gui.service;
 
 import gui.application.Main;
+import gui.model.Constants;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -9,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -26,7 +29,7 @@ public class TextFieldService {
         }
     }
 
-    public static void alertConfirmation(String confirmation, Button button) {
+    public static void exitConfirmationAlert(String confirmation, Button button) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, confirmation);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
@@ -41,6 +44,7 @@ public class TextFieldService {
         if (option.get() == ok){
             stage = (Stage) button.getScene().getWindow();
             stage.close();
+            System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " " + Constants.FIO);
         }
         if (alert.getResult() == ButtonType.YES) {
             System.out.println(confirmation);

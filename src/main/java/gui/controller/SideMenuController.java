@@ -2,6 +2,7 @@ package gui.controller;
 
 import com.jfoenix.controls.JFXButton;
 import gui.application.Main;
+import gui.model.Constants;
 import gui.service.TextFieldService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +52,7 @@ public class SideMenuController implements Initializable {
         stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
 
-        System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+        System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + Constants.FIO);
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         stage.setTitle("Вход в SCAN SPOOLS");
@@ -63,15 +64,14 @@ public class SideMenuController implements Initializable {
 
     @FXML
     private void exitAction() {
-        TextFieldService.alertConfirmation("Вы действительно хотите выйти из программы?",btnExit);
-
+        TextFieldService.exitConfirmationAlert("Вы действительно хотите выйти из программы?",btnExit);
     }
 
     @FXML
     private void openProjectStart2() {
         try {
-            Runtime r = Runtime.getRuntime();
-            r.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
+            Runtime run = Runtime.getRuntime();
+            run.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
         } catch (IOException e) {
             System.out.println(e.getMessage() + " либо данная программа не установлена на данном ПК");
             TextFieldService.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
@@ -81,12 +81,6 @@ public class SideMenuController implements Initializable {
 
     @FXML
     private void aboutAction() {
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/about.fxml"));
-////        stage.setTitle("Вход в SCAN SPOOLS");
-//        stage.setScene(new Scene(root, 450, 283));
-//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-//        stage.setResizable(false);
-//        stage.show();
         aboutDialogController.show();
 
     }
