@@ -217,12 +217,12 @@ public class ModalAddSpoolController implements Serializable {
     }
 
     public void addMainGroup() {
-        MainGroup mainGroup = new MainGroup();
+//        MainGroup mainGroup = new MainGroup();
 //        List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
 
         MainGroupResponseDTO mainGroupResponseDTO = new MainGroupResponseDTO();
-        mainGroupResponseDTO.setMainGroup(mainGroup);
+        Long createMain = mainGroupResponseDTO.getMainGroup().getIdGroup();
 
         //set DateTable:
         MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
@@ -237,36 +237,36 @@ public class ModalAddSpoolController implements Serializable {
             MainValueDTO codeDTO = new MainValueDTO();
             codeDTO.setIdHead(11691L);
             codeDTO.setValue(String.valueOf(cbCode.getItems().get(cbCode.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode()));
-            codeDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+//            codeDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
 
 
             //установить значение для поля "Тип катушки":
             MainValueDTO typeSpoolDTO = new MainValueDTO();
-            typeSpoolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+//            typeSpoolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             typeSpoolDTO.setIdHead(12507L);
             typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
 
             //установить значение для поля "L/R":
             MainValueDTO lrDTO = new MainValueDTO();
-            lrDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+//            lrDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             lrDTO.setIdHead(11694L);
             lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
 
             //установить значение для поля "№ партии:"
             MainValueDTO partDTO = new MainValueDTO();
-            partDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+//            partDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             partDTO.setIdHead(11693L);
             partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
 
             //установить значение для поля "№ лота:"
             MainValueDTO lotDTO = new MainValueDTO();
-            lotDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+//            lotDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             lotDTO.setIdHead(11692L);
             lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
 
             //установить значение для поля "Протокол":
             MainValueDTO protocolDTO = new MainValueDTO();
-            protocolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+//            protocolDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
             protocolDTO.setIdHead(1889350L);
             String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
             if (lastCurrentProtocol.equals("[null]")) {

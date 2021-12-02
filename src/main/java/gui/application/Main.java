@@ -58,6 +58,7 @@ public class Main extends Application {
             String host = property.getProperty("pack.host");
             if (host.isEmpty()) throw new IllegalArgumentException("Set host address in application.properties");
             AppProperties.setHost(property.getProperty("pack.host", ""));
+            AppProperties.setVersion(property.getProperty("pack.version", "unknown"));
         } catch (IOException io) {
             io.printStackTrace();
         }

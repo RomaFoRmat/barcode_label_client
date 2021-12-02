@@ -6,6 +6,7 @@ import gui.model.Personals;
 public class AppProperties {
     public static Personals personals;
     public static String host;
+    public static String version;
 
     public static String getHost() {
         return host;
@@ -17,5 +18,13 @@ public class AppProperties {
 
     public static void setHost(String host) {
         AppProperties.host = host;
+    }
+
+    public static String getVersion() {
+        return version;
+    }
+
+    public static void setVersion(String version) {
+        AppProperties.version = version;
     }
 }

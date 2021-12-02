@@ -14,7 +14,7 @@
     <children>
         <Pane prefHeight="175.0" prefWidth="208.0" style="-fx-background-color: black;">
             <children>
-                <JFXButton fx:id="btnAbout" layoutY="92.0" prefHeight="45.0" prefWidth="208.0"
+                <JFXButton fx:id="btnAbout" layoutY="92.0" onAction="#aboutAction" prefHeight="45.0" prefWidth="208.0"
                            text="О программе           ">
                     <font>
                         <Font name="Baskerville Old Face" size="14.0"/>

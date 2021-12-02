@@ -18,7 +18,7 @@ public class TextFieldService {
         Alert alert = new Alert(Alert.AlertType.WARNING, warning, ButtonType.OK);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-        alert.setTitle("ВНИМАНИЕ");
+        alert.setTitle("Внимание");
         alert.setHeaderText(null);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {

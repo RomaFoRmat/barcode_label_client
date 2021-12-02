@@ -32,11 +32,18 @@ public class SideMenuController implements Initializable {
     @FXML
     private JFXButton btnExit;
     private Stage stage;
+    public AboutDialogController aboutDialogController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
+            aboutLoader.load();
+            aboutDialogController = aboutLoader.getController();
+        } catch (IOException e) {
+            e.printStackTrace();
 
-
+        }
     }
 
     @FXML
@@ -61,15 +68,27 @@ public class SideMenuController implements Initializable {
     }
 
     @FXML
-    private void openProjectStart2()  {
+    private void openProjectStart2() {
         try {
             Runtime r = Runtime.getRuntime();
             r.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
         } catch (IOException e) {
-            System.out.println( e.getMessage() + " либо данная программа не установлена на данном ПК");
+            System.out.println(e.getMessage() + " либо данная программа не установлена на данном ПК");
             TextFieldService.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
         }
         System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
+    }
+
+    @FXML
+    private void aboutAction() {
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/about.fxml"));
+////        stage.setTitle("Вход в SCAN SPOOLS");
+//        stage.setScene(new Scene(root, 450, 283));
+//        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+//        stage.setResizable(false);
+//        stage.show();
+        aboutDialogController.show();
+
     }
 
 
