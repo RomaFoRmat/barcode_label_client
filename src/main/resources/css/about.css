@@ -1,0 +1,13 @@
+.label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-font-family: "Agency FB";
+}
+
+.label2 {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-font-family: "Comic Sans MS";
+}

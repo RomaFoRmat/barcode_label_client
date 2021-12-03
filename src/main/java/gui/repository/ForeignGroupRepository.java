@@ -7,6 +7,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.ForeignGroup;
+import gui.model.dto.ForeignGroupRequestDTO;
+import gui.model.dto.ForeignGroupResponseDTO;
 import gui.model.dto.TestValueDTO;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
@@ -26,9 +28,9 @@ public class ForeignGroupRepository {
     public static final String FOREIGN_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllByIdForeignGroup";
     public static ObjectMapper mapper = new ObjectMapper();
 
-    public static Long addIdForeign(List<TestValueDTO> testValueDTOs) {
+    public static ForeignGroupResponseDTO addIdForeign(ForeignGroupRequestDTO foreignGroupRequestDTO) {
         String url = "http://" + AppProperties.getHost() + "/api/create/foreignGroup";
-        return getResponseEntity(url, testValueDTOs);
+        return getResponseEntity(url, foreignGroupRequestDTO);
     }
 
     public static List<ForeignGroup> findByMainGroupIdConversionAndIdForeignGroup(Long idForeignGroup) {
@@ -36,7 +38,7 @@ public class ForeignGroupRepository {
         return getForeignGroup(url);
     }
 
-    public static Long getResponseEntity(String url, List<TestValueDTO> testValueDTOs) {
+    public static ForeignGroupResponseDTO getResponseEntity(String url, ForeignGroupRequestDTO foreignGroupRequestDTO) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
             Gson gson = new GsonBuilder()
@@ -44,9 +46,9 @@ public class ForeignGroupRepository {
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapterUtil())
                     .create();
             mapper.registerModule(new JavaTimeModule());
-            httpPost.setEntity(new StringEntity(gson.toJson(testValueDTOs), StandardCharsets.UTF_8));
+            httpPost.setEntity(new StringEntity(gson.toJson(foreignGroupRequestDTO), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(), Long.class));
+                    mapper.readValue(httpResponse.getEntity().getContent(), ForeignGroupResponseDTO.class));
         } catch (IOException e) {
             e.printStackTrace();
         }

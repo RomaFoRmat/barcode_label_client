@@ -4,10 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import gui.application.AppProperties;
-import gui.model.dto.MainGroupRequestDTO;
-import gui.model.dto.MainGroupResponseDTO;
-import gui.model.dto.MainValueDTO;
-import gui.model.dto.TestValueDTO;
+import gui.model.dto.*;
 import gui.service.TextFieldService;
 import javafx.event.ActionEvent;
 
@@ -218,7 +215,7 @@ public class ModalAddSpoolController implements Serializable {
 
     public void addMainGroup() {
 
-        MainGroupResponseDTO mainGroupResponseDTO = new MainGroupResponseDTO();
+        MainGroup mainGroup = new MainGroup();
 
         List<MainValueDTO> mainValueDTOs = new ArrayList<>();
 
@@ -227,31 +224,37 @@ public class ModalAddSpoolController implements Serializable {
             MainValueDTO codeDTO = new MainValueDTO();
             codeDTO.setIdHead(11691L);
             codeDTO.setValue(String.valueOf(cbCode.getItems().get(cbCode.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode()));
-//            codeDTO.setIdGroup(mainGroupResponseDTO.getMainGroup().getIdGroup());
+            codeDTO.setIdGroup(mainGroup.getIdGroup());
 
 
             //установить значение для поля "Тип катушки":
             MainValueDTO typeSpoolDTO = new MainValueDTO();
+            typeSpoolDTO.setIdGroup(mainGroup.getIdGroup());
             typeSpoolDTO.setIdHead(12507L);
             typeSpoolDTO.setValue(cbTypeSpool.getValue() != null ? cbTypeSpool.getValue() : "");
 
             //установить значение для поля "L/R":
             MainValueDTO lrDTO = new MainValueDTO();
+            lrDTO.setIdGroup(mainGroup.getIdGroup());
             lrDTO.setIdHead(11694L);
             lrDTO.setValue(cbLr.getValue() != null ? cbLr.getValue() : "");
 
             //установить значение для поля "№ партии:"
             MainValueDTO partDTO = new MainValueDTO();
+            lrDTO.setIdGroup(mainGroup.getIdGroup());
+            partDTO.setIdGroup(mainGroup.getIdGroup());
             partDTO.setIdHead(11693L);
             partDTO.setValue(numberPart.getText() != null ? numberPart.getText() : "");
 
             //установить значение для поля "№ лота:"
             MainValueDTO lotDTO = new MainValueDTO();
+            lotDTO.setIdGroup(mainGroup.getIdGroup());
             lotDTO.setIdHead(11692L);
             lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
 
             //установить значение для поля "Протокол":
             MainValueDTO protocolDTO = new MainValueDTO();
+            protocolDTO.setIdGroup(mainGroup.getIdGroup());
             protocolDTO.setIdHead(1889350L);
             String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
             if (lastCurrentProtocol.equals("[null]")) {
@@ -270,13 +273,16 @@ public class ModalAddSpoolController implements Serializable {
             mainValueDTOs.add(lotDTO);
             mainValueDTOs.add(protocolDTO);
 
+            //заполнение таблички DATE_TABLE(Дата создания)
             MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
             mainGroupRequestDTO.setWhoCreate(Constants.FIO);
-            String namePersonal = String.valueOf(GroupsOfPersonalRepository.getGroupsOfPersonal("http://" + AppProperties.getHost() + "/api/getGroupsOfPersonal/" + Constants.PERSONALS));
+            String namePersonal = String.valueOf(AccessPersonalRepository.
+                    getAccessPersonal("http://" + AppProperties.getHost() +
+                            "/api/getAccessPersonal/" + Constants.ID_PERSONALS));
             namePersonal = namePersonal.replaceAll("\\[", "").replaceAll("\\]", "");
-//            System.out.println(namePersonal);
-            Long idGroupPersonal = Long.valueOf(namePersonal);
-            mainGroupRequestDTO.setLaboratory(idGroupPersonal);
+            System.out.println(namePersonal);
+            Long idLaboratory = Long.valueOf(namePersonal);
+            mainGroupRequestDTO.setLaboratory(idLaboratory);
             mainGroupRequestDTO.setMainValueDTOList(mainValueDTOs);
 
             MainGroupResponseDTO newIdGroup = MainGroupRepository.addIdMain(mainGroupRequestDTO);
@@ -297,12 +303,14 @@ public class ModalAddSpoolController implements Serializable {
     }
 
     public void okBtnAction() {
+
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
-//            mainGroup.setIdGroup(Long.valueOf(cbSelectMain.getValue()));
             mainGroup.setIdGroup(Long.valueOf(String.valueOf(cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup())));
             ForeignGroup foreignGroup = new ForeignGroup();
             foreignGroup.setMainGroup(mainGroup);
+
+            ForeignGroupResponseDTO foreignGroupResponseDTO = new ForeignGroupResponseDTO();
 
             List<TestValueDTO> testValueDTOs = new ArrayList<>();
 
@@ -520,7 +528,20 @@ public class ModalAddSpoolController implements Serializable {
 //            testValueDTOs.add(straight600AvgDTO);
             testValueDTOs.add(sampleDTO);
 
-            ForeignGroupRepository.addIdForeign(testValueDTOs);
+            ForeignGroupRequestDTO foreignGroupRequestDTO = new ForeignGroupRequestDTO();
+            foreignGroupRequestDTO.setWhoCreate(Constants.FIO);
+            String namePersonal = String.valueOf(AccessPersonalRepository.
+                    getAccessPersonal("http://" + AppProperties.getHost() +
+                            "/api/getAccessPersonal/" + Constants.ID_PERSONALS));
+            namePersonal = namePersonal.replaceAll("\\[", "").replaceAll("\\]", "");
+            System.out.println(namePersonal);
+            Long idLaboratory = Long.valueOf(namePersonal);
+            foreignGroupRequestDTO.setLaboratory(idLaboratory);
+            foreignGroupRequestDTO.setTestValueDTOList(testValueDTOs);
+
+            ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
+
+//            ForeignGroupRepository.addIdForeign(testValueDTOs);
             modalAddSpoolCancel();
             TestValueDTO valueForeign = testValueDTOs.get(0);
             System.out.println(testValueDTOs);
