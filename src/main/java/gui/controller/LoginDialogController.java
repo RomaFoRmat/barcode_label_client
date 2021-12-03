@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -46,7 +47,7 @@ public class LoginDialogController implements Initializable {
     }
 
     @FXML
-    public void login() {
+    public void login() throws UnknownHostException {
         if (!loginUserTextField.getText().equals("")) {
             String password = loginUserTextField.getText();
             List<Personals> personalsList = PersonalsRepository.findByPassword(password);
@@ -62,6 +63,7 @@ public class LoginDialogController implements Initializable {
             Constants.FIO_VIEW = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
             Constants.FIO = personal.getFio();
             Constants.ID_PERSONALS = personal.getIdPersonal();
+            Constants.IP_ADDRESS = InetAddress.getLocalHost().getHostAddress().toString();
             AppProperties.personals = personal;
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();

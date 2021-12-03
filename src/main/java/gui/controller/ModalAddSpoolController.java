@@ -284,6 +284,7 @@ public class ModalAddSpoolController implements Serializable {
             Long idLaboratory = Long.valueOf(namePersonal);
             mainGroupRequestDTO.setLaboratory(idLaboratory);
             mainGroupRequestDTO.setMainValueDTOList(mainValueDTOs);
+            mainGroupRequestDTO.setIpAddressCreate(Constants.IP_ADDRESS);
 
             MainGroupResponseDTO newIdGroup = MainGroupRepository.addIdMain(mainGroupRequestDTO);
 
@@ -538,11 +539,12 @@ public class ModalAddSpoolController implements Serializable {
             Long idLaboratory = Long.valueOf(namePersonal);
             foreignGroupRequestDTO.setLaboratory(idLaboratory);
             foreignGroupRequestDTO.setTestValueDTOList(testValueDTOs);
+            foreignGroupRequestDTO.setIpAddressCreate(Constants.IP_ADDRESS);
 
             ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
 
-//            ForeignGroupRepository.addIdForeign(testValueDTOs);
             modalAddSpoolCancel();
+
             TestValueDTO valueForeign = testValueDTOs.get(0);
             System.out.println(testValueDTOs);
 
