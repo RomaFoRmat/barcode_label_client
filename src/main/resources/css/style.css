@@ -11,3 +11,10 @@
     -fx-background-radius: 5;
 }
 
+
+.button{
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-family: "Constantia";
+    /*-fx-font-family: "Book Antiqua";*/
+}

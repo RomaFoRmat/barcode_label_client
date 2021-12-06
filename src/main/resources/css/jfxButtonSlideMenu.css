@@ -8,6 +8,8 @@
 .button {
     /*-fx-background-color: black;*/
     -fx-background-color: linear-gradient(to left top, black, #1f0049);
+    -fx-font-size: 14px;
+    -fx-font-family: "Constantia";
     -fx-text-fill: snow;
 }
 

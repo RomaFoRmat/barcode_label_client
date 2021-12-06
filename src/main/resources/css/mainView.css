@@ -1,3 +1,6 @@
-.backgroundColor {
-    -fx-background-color: linear-gradient(to right bottom, #4ebdfa, #1bd8fa, #1bd8fa, #4ebdfa);
+/*.anchor{*/
+/*    -fx-background-color: linear-gradient(to right top, #7ed56f,#28b485,#2998ff,#5643fa) ;*/
+/*}*/
+.backgroundColor{
+    -fx-background-color: linear-gradient(to right bottom, #1bd8fa, #21c1fa,#25bcfa,#2fcafa);
 }

@@ -415,14 +415,14 @@ public class ScanController {
             }
         });
 
-        List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
-        tableSpool.addAll(testLabelList);
-        tableView.setItems(tableSpool);
+//        List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
+//        tableSpool.addAll(testLabelList);
+//        tableView.setItems(tableSpool);
 
 
         UpdaterUtil updaterUtil = new UpdaterUtil(this);
         Timer timer = new Timer();
-        timer.schedule(updaterUtil, 0, 50000);
+        timer.schedule(updaterUtil, 0, 20000);
 
 
     }
@@ -479,10 +479,11 @@ public class ScanController {
 
     public void refreshTable() {
         tableSpool.clear();
-        List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
+        List<TestLabel> testLabelList = TestLabelRepository.getAllSpoolsForTheLastDay();
         tableSpool.addAll(testLabelList);
         tableView.setItems(tableSpool);
         filterTable();
+        tabSpoolList.setText("Cписок катушек за: " + LocalDate.now());
     }
 
 

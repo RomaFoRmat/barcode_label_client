@@ -14,5 +14,5 @@
 }
 
 .backgroundColor {
-    -fx-background-color: linear-gradient(to right bottom, #4f92fa, #1bd8fa, #4d81fa, #1bd8fa);
+    -fx-background-color: linear-gradient(to right bottom, #4f92fa, #35c1fa, #35c1fa, #558bfa);
 }
