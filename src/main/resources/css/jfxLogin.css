@@ -11,5 +11,8 @@
     -jfx-button-type: RAISED;
     -fx-background-color: #00ff00;
     -fx-text-fill: black;
+}
 
+.backgroundColor {
+    -fx-background-color: linear-gradient(to right bottom, #4f92fa, #1bd8fa, #4d81fa, #1bd8fa);
 }

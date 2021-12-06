@@ -5,7 +5,7 @@
 .tab {
     -fx-font-family: Times New Roman;
     -fx-font-size: 27;
-    -fx-background-color: #14d8fa;
+   /* -fx-background-color: #14d8fa;*/
     -fx-padding: 2 3 2 3;
     -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
     /*-fx-background-radius: 3;*/
@@ -21,7 +21,9 @@
 }
 
 .tab-header-background{
-   -fx-background-color:  #1bd8fa;
+ /*  -fx-background-color:  #1bd8fa; */
+    -fx-background-color: linear-gradient(to right bottom, #4dcffa, #1bd8fa, #4dcffa, #1bd8fa);
+
 }
 
 .tab-pane {

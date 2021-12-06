@@ -97,22 +97,6 @@ public class SideMenuController implements Initializable {
 //        }
 //    }
 
-//    @FXML
-//    void aboutTheProgramAction() {
-//
-//    }
-//
-//    @FXML
-//    void changeUserAction() {
-//
-//
-//    }
 
-//    @FXML
-//    void exitAction() {
-//        stage = (Stage) btnExit.getScene().getWindow();
-//        stage.close();
-//    }
-//
 
 }

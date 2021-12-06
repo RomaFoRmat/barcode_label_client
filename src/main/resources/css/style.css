@@ -1,10 +1,13 @@
 .text-input {
     -fx-border-color: #3b3d3c;
-    -fx-border-radius: 5
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
 
 }
 
 .text-input:focused {
     -fx-border-color: #8800ff;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
 }
 

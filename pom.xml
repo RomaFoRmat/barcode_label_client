@@ -100,6 +100,12 @@
             <version>3.4.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>no.tornado</groupId>
+            <artifactId>tornadofx-controls</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.google.code.gson</groupId>

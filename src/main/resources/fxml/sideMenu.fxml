@@ -8,50 +8,59 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" prefHeight="153.0" prefWidth="208.0" stylesheets="@../css/jfxButtonSlideMenu.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.SideMenuController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbox" prefHeight="112.0" prefWidth="208.0"
+      stylesheets="@../css/jfxButtonSlideMenu.css" xmlns="http://javafx.com/javafx/8.0.171"
+      fx:controller="gui.controller.SideMenuController">
     <children>
-        <Pane prefHeight="153.0" prefWidth="208.0" style="-fx-background-color: black;">
+        <Pane prefHeight="112.0" prefWidth="208.0" styleClass="pane">
             <children>
-                <JFXButton fx:id="btnAbout" layoutY="76.0" onAction="#aboutAction" prefHeight="38.0" prefWidth="208.0" text="О программе           ">
+                <JFXButton fx:id="btnAbout" layoutY="56.0" onAction="#aboutAction" prefHeight="28.0" prefWidth="208.0"
+                           text="О программе           ">
                     <font>
-                        <Font name="Baskerville Old Face" size="14.0" />
+                        <Font name="Baskerville Old Face" size="14.0"/>
                     </font>
                 </JFXButton>
-                <ImageView fitHeight="28.0" fitWidth="24.0" layoutX="15.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="38.0" fitWidth="24.0" layoutX="15.0" layoutY="58.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@../icon/about.png" />
+                        <Image url="@../icon/about.png"/>
                     </image>
                 </ImageView>
-                <JFXButton fx:id="btnExit" layoutY="114.0" onAction="#exitAction" prefHeight="39.0" prefWidth="208.0" text=" Выход                        ">
+                <JFXButton fx:id="btnExit" layoutY="84.0" onAction="#exitAction" prefHeight="28.0" prefWidth="208.0"
+                           text=" Выход                        ">
                     <font>
-                        <Font name="Baskerville Old Face" size="14.0" />
+                        <Font name="Baskerville Old Face" size="14.0"/>
                     </font>
                 </JFXButton>
-                <ImageView fitHeight="24.0" fitWidth="27.0" layoutX="14.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="47.0" fitWidth="24.0" layoutX="14.0" layoutY="86.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@../icon/exit.png" />
+                        <Image url="@../icon/exit.png"/>
                     </image>
                 </ImageView>
-                <JFXButton fx:id="btnLab2" onAction="#openProjectStart2" prefHeight="38.0" prefWidth="208.0" text=" Лаб. испытания СтПЦ-2">
+                <JFXButton fx:id="btnLab2" onAction="#openProjectStart2" prefHeight="28.0" prefWidth="208.0"
+                           text=" Лаб. испытания СтПЦ-2">
                     <font>
-                        <Font name="Baskerville Old Face" size="14.0" />
+                        <Font name="Baskerville Old Face" size="14.0"/>
                     </font>
                     <graphic>
                         <ImageView fitHeight="21.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../icon/labIcon.jpg" />
+                                <Image url="@../icon/labIcon.jpg"/>
                             </image>
                         </ImageView>
                     </graphic>
             </JFXButton>
-                <JFXButton fx:id="btnChangeUser" layoutY="38.0" onAction="#changeUserAction" prefHeight="38.0" prefWidth="208.0" text="      Сменить пользователя">
+                <JFXButton fx:id="btnChangeUser" layoutY="28.0" onAction="#changeUserAction" prefHeight="28.0"
+                           prefWidth="208.0" text="      Сменить пользователя">
                     <font>
-                        <Font name="Baskerville Old Face" size="14.0" />
+                        <Font name="Baskerville Old Face" size="14.0"/>
                     </font>
                 </JFXButton>
-                <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="16.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="22.0" fitWidth="20.0" layoutX="16.0" layoutY="33.0" pickOnBounds="true"
+                           preserveRatio="true">
                     <image>
-                        <Image url="@../icon/change.png" />
+                        <Image url="@../icon/change.png"/>
                     </image>
                 </ImageView>
             </children>

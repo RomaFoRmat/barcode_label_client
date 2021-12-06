@@ -1,15 +1,16 @@
 .button:hover {
-    -fx-background-color: #00C853;
+    -fx-background-color: springgreen;
     /*-fx-background-color: mediumseagreen;*/
-    -fx-text-fill: whitesmoke;
+    -fx-text-fill: black;
     -fx-text-alignment: left;
 }
 
 .button {
-    -fx-background-color: black;
+    /*-fx-background-color: black;*/
+    -fx-background-color: linear-gradient(to left top, black, #1f0049);
     -fx-text-fill: snow;
 }
 
 .pane {
-
+    -fx-background-color: linear-gradient(to left top, black, #1f0049)
 }
