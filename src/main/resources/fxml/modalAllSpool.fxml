@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import java.net.URL?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -12,12 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#cancelModalKey" prefHeight="754.0" prefWidth="717.0" style="-fx-background-color: #FFF;" stylesheets="@../css/button.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ModalAddSpoolController">
+<AnchorPane fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#cancelModalKey" prefHeight="754.0" prefWidth="717.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ModalAddSpoolController">
     <children>
-        <Label fx:id="lblAddNewSpool" layoutX="14.0" layoutY="296.0" prefHeight="32.0" prefWidth="171.0"
-               text="Ввод новой катушки:">
+        <Label fx:id="lblAddNewSpool" layoutX="14.0" layoutY="296.0" prefHeight="32.0" prefWidth="171.0" text="Ввод новой катушки:">
             <font>
-                <Font name="System Bold" size="16.0"/>
+                <Font name="System Bold" size="16.0" />
             </font>
         </Label>
         <Label fx:id="lblSelectMainGroup" layoutX="473.0" layoutY="128.0" prefHeight="25.0" prefWidth="191.0" text="Выбор главной записи:">
@@ -41,13 +41,12 @@
                     </font>
                 </Label>
                 <TextField fx:id="numberLot" />
-                <Label fx:id="lblCountSpool" disable="true" prefHeight="19.0" prefWidth="177.0"
-                       text="Кол-во катушек в партии:" wrapText="true">
+                <Label fx:id="lblCountSpool" disable="true" prefHeight="19.0" prefWidth="177.0" text="Кол-во катушек в партии:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="cbCountSpool" disable="true" prefHeight="25.0" prefWidth="210.0"/>
+                <ComboBox fx:id="cbCountSpool" disable="true" prefHeight="25.0" prefWidth="210.0" />
             </children>
         </VBox>
         <VBox fx:id="vBoxMain0" layoutX="14.0" layoutY="91.0" prefHeight="180.0" prefWidth="188.0" spacing="7.0" stylesheets="@../css/textFieldModal.css">
@@ -186,10 +185,10 @@
                 <TextField fx:id="newStraight600_5" />
                 <Label disable="true" text="Код дефекта" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newDefectCode" disable="true"/>
+                <TextField fx:id="newDefectCode" disable="true" />
                 <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0" text="Образец" />
             </children>
         </VBox>
@@ -207,4 +206,8 @@
       <JFXButton fx:id="okBtn" layoutX="535.0" layoutY="714.0" onAction="#okBtnAction" prefHeight="27.0" prefWidth="61.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="OK" />
       <JFXButton fx:id="cancelBtn" layoutX="603.0" layoutY="714.0" onAction="#modalAddSpoolCancel" prefHeight="27.0" prefWidth="61.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Отмена" />
     </children>
+   <stylesheets>
+      <URL value="@../css/button.css" />
+      <URL value="@../css/buttonTabList.css" />
+   </stylesheets>
 </AnchorPane>

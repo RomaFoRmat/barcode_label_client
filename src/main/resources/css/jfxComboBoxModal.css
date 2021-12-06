@@ -9,12 +9,12 @@
 }
 
 .combo-box .list-cell:selected {
-    -fx-background-color: lawngreen;
+    -fx-background-color: #8800ff;
     -fx-text-fill: #0a0a0a;
 }
 
 .combo-box .list-cell:hover {
-    -fx-background-color: #8800ff;
+    -fx-background-color: springgreen;
 }
 
 .combo-box .list-cell:disabled {
