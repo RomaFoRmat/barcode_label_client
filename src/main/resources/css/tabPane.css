@@ -1,5 +1,6 @@
 .jfx-tab-pane .tab-selected-line{
-    -fx-border-color: #02fa17 ;
+   /* -fx-border-color: #02fa17 ; */
+    -fx-border-color: springgreen;
 }
 
 .tab {
@@ -22,7 +23,7 @@
 
 .tab-header-background{
  /*  -fx-background-color:  #1bd8fa; */
-    -fx-background-color: linear-gradient(to right bottom, #1bd8fa, #21c1fa,#25bcfa,#2fcafa);
+    -fx-background-color: linear-gradient(to right bottom, #1bd8fa, #21c1fa,#2cd1fa,#2fcafa);
 
 }
 

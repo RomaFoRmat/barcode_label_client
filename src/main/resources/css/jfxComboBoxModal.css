@@ -20,3 +20,7 @@
 .combo-box .list-cell:disabled {
     -fx-background-color: whitesmoke;
 }
+
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #8800ff;
+}
