@@ -414,16 +414,17 @@
                                         <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R" />
                                         <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии" />
                                         <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT" />
-                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ" />
-                                        <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна" />
-                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />
-                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
-                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="79.0" text="№ канат машины" />
-                                        <TableColumn fx:id="tcNumbWeldingMachine" prefWidth="78.0" text="№ сварочного" />
-                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300" />
-                                        <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600" />
-                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение" />
-                                        <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1" />
+                                        <TableColumn fx:id="tcDateRope" prefWidth="75.0" text="Дата КУ"/>
+                                        <TableColumn fx:id="tcLength" prefWidth="56.0" text="Длинна"/>
+                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок"/>
+                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор"/>
+                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="79.0"
+                                                     text="№ канат машины"/>
+                                        <TableColumn fx:id="tcNumbWeldingMachine" prefWidth="78.0" text="№ сварочного"/>
+                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300"/>
+                                        <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600"/>
+                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение"/>
+                                        <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1"/>
                                         <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2"/>
                                         <TableColumn fx:id="tcStraight600_3" prefWidth="75.0" text="Прям.600_3"/>
                                         <TableColumn fx:id="tcStraight600_4" prefWidth="75.0" text="Прям.600_4"/>
@@ -481,9 +482,11 @@
                 <Font name="Comic Sans MS" size="20.0" />
             </font>
         </Label>
-        <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#55fa00" labelFloat="true" layoutX="331.0" layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код" unFocusColor="BLACK">
+        <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#5ff85f" labelFloat="true" layoutX="331.0"
+                      layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код"
+                      unFocusColor="BLACK">
             <font>
-                <Font name="Times New Roman" size="22.0" />
+                <Font name="Times New Roman" size="22.0"/>
             </font>
         </JFXTextField>
         <JFXDrawer fx:id="drawer" defaultDrawerSize="208.0" direction="RIGHT" layoutX="699.0" layoutY="73.0" prefHeight="112.0" prefWidth="208.0" />

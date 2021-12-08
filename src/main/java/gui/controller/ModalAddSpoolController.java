@@ -54,32 +54,28 @@ public class ModalAddSpoolController implements Serializable {
     private TextField numberLot;
     @FXML
     private ComboBox<String> cbLr;
-    @FXML
-    private ComboBox<Integer> cbCountSpool;
+    //    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 48, 72);
+    private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
+    //    @FXML
+//    private ComboBox<Integer> cbCountSpool;
     //    @FXML
 //    private DatePicker dateCreateMain;
     @FXML
     private ComboBox<String> cbTypeSpool;
     @FXML
-    private Label lblCountSpool;
-    @FXML
-    private TextField newNumberSpool;
-    @FXML
     private TextField newNumberRopeMachine;
     @FXML
     private TextField newPersonalRope;
+    //    @FXML
+//    private Label lblCountSpool;
     @FXML
-    private TextField newNumberWeldingMachine;
-    @FXML
-    private TextField newCountOfWelds;
+    private TextField newNumberSpool;
     @FXML
     private TextField newLength;
+    //    @FXML
+//    private TextField newNumberWeldingMachine;
     @FXML
-    private TextField newTorsionRope;
-    @FXML
-    private TextField newStraightRope;
-    @FXML
-    private TextField newTorsion;
+    private TextField newCountOfWelds;
     @FXML
     private TextField newStraight300;
     @FXML
@@ -98,18 +94,20 @@ public class ModalAddSpoolController implements Serializable {
     private TextField newStraight600Avg;
     @FXML
     private TextField newAvgResidualTorsion;
+    //    @FXML
+//    private TextField newTorsionRope;
+//    @FXML
+//    private TextField newStraightRope;
     @FXML
-    private TextField newDefectCode;
-    @FXML
-    private CheckBox newSample;
+    private TextField newTorsion;
 
     public ModalAddSpoolController modalAddSpoolController;
     @FXML
     private ComboBox<Code> cbCode;
+    //    @FXML
+//    private TextField newDefectCode;
     @FXML
-    private DatePicker newDateRope;
-    @FXML
-    private JFXComboBox<String> cbMode;
+    private CheckBox newSample;
     @FXML
     private Label lblSelectMainGroup;
     @FXML
@@ -141,8 +139,10 @@ public class ModalAddSpoolController implements Serializable {
 
     private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS-40", "BS-60", "BS-80/17", "BS-80/33");
     private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
-    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 48, 72);
-    private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
+    //    @FXML
+//    private DatePicker newDateRope;
+    @FXML
+    private JFXComboBox<String> cbMode;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -166,12 +166,12 @@ public class ModalAddSpoolController implements Serializable {
         TextFieldService.setTextFieldNumeric(newNumberSpool, 12);
         TextFieldService.setTextFieldNumeric(newLength, 10);
         TextFieldService.setTextFieldNumeric(newPersonalRope, 7);
-        TextFieldService.setTextFieldNumeric(newNumberWeldingMachine, 7);
+//        TextFieldService.setTextFieldNumeric(newNumberWeldingMachine, 7);
         TextFieldService.setTextFieldNumeric(newCountOfWelds, 3);
-        TextFieldService.setFieldForStraight(newTorsionRope, 7);
+//        TextFieldService.setFieldForStraight(newTorsionRope, 7);
         TextFieldService.setFieldForStraight(newTorsion, 7);
         TextFieldService.setFieldForStraight(newStraight300, 7);
-        TextFieldService.setFieldForStraight(newStraightRope, 7);
+//        TextFieldService.setFieldForStraight(newStraightRope, 7);
         TextFieldService.setFieldForStraight(newStraight600, 7);
         TextFieldService.setFieldForStraight(newStraight600_1, 7);
         TextFieldService.setFieldForStraight(newStraight600_2, 7);
@@ -181,8 +181,6 @@ public class ModalAddSpoolController implements Serializable {
 
         cbLr.setItems(data);
         cbLr.getSelectionModel().select(0);
-        cbCountSpool.setItems(countSpool);
-        cbCountSpool.getSelectionModel().select(0);
         cbTypeSpool.setItems(typeSpool);
         cbTypeSpool.getSelectionModel().select(1);
         cbMode.setItems(mode);
@@ -323,13 +321,17 @@ public class ModalAddSpoolController implements Serializable {
             numberSpoolDTO.setIdConversion(11690L);
             numberSpoolDTO.setMainGroup(mainGroup);
 
+            /**
+             * 08.12.2021 Канатным участком было решено убрать такие параметры с ввода данных ,как: "Дата КУ",
+             * "№ сварочного аппарата", "Длина","Кручение канатное", "Прямолинейность канатное".
+             */
             //установить значение для поля "Дата КУ":
-            TestValueDTO dataRopeDTO = new TestValueDTO();
-            dataRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            dataRopeDTO.setIdTestHead(11727L);
-            dataRopeDTO.setDateValue(newDateRope.getValue() != null ? newDateRope.getValue() : LocalDate.parse(""));
-            dataRopeDTO.setIdConversion(11690L);
-            dataRopeDTO.setMainGroup(mainGroup);
+//            TestValueDTO dataRopeDTO = new TestValueDTO();
+//            dataRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            dataRopeDTO.setIdTestHead(11727L);
+//            dataRopeDTO.setDateValue(newDateRope.getValue() != null ? newDateRope.getValue() : LocalDate.parse(""));
+//            dataRopeDTO.setIdConversion(11690L);
+//            dataRopeDTO.setMainGroup(mainGroup);
 
             //установить значение для поля "№ канатной машины":
             TestValueDTO numberRopeMachineDTO = new TestValueDTO();
@@ -347,13 +349,13 @@ public class ModalAddSpoolController implements Serializable {
             personalRopeDTO.setIdConversion(11690L);
             personalRopeDTO.setMainGroup(mainGroup);
 
-            //установить значение для поля "№ сварочного аппарата":
-            TestValueDTO numbWeldingMachineDTO = new TestValueDTO();
-            numbWeldingMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            numbWeldingMachineDTO.setIdTestHead(1875350L);
-            numbWeldingMachineDTO.setValue(!newNumberWeldingMachine.getText().equals("") ? Double.valueOf(newNumberWeldingMachine.getText()) : null);
-            numbWeldingMachineDTO.setIdConversion(11690L);
-            numbWeldingMachineDTO.setMainGroup(mainGroup);
+//            //установить значение для поля "№ сварочного аппарата":
+//            TestValueDTO numbWeldingMachineDTO = new TestValueDTO();
+//            numbWeldingMachineDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            numbWeldingMachineDTO.setIdTestHead(1875350L);
+//            numbWeldingMachineDTO.setValue(!newNumberWeldingMachine.getText().equals("") ? Double.valueOf(newNumberWeldingMachine.getText()) : null);
+//            numbWeldingMachineDTO.setIdConversion(11690L);
+//            numbWeldingMachineDTO.setMainGroup(mainGroup);
 
             //установить значение для поля "кол-во сварок":
             TestValueDTO numbOfWeldsDTO = new TestValueDTO();
@@ -363,29 +365,29 @@ public class ModalAddSpoolController implements Serializable {
             numbOfWeldsDTO.setIdConversion(11690L);
             numbOfWeldsDTO.setMainGroup(mainGroup);
 
-            //установить значение для поля "Длина":
-            TestValueDTO lengthDTO = new TestValueDTO();
-            lengthDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            lengthDTO.setIdTestHead(11701L);
-            lengthDTO.setValue(!newLength.getText().equals("") ? Double.valueOf(newLength.getText()) : null);
-            lengthDTO.setIdConversion(11690L);
-            lengthDTO.setMainGroup(mainGroup);
+//            //установить значение для поля "Длина":
+//            TestValueDTO lengthDTO = new TestValueDTO();
+//            lengthDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            lengthDTO.setIdTestHead(11701L);
+//            lengthDTO.setValue(!newLength.getText().equals("") ? Double.valueOf(newLength.getText()) : null);
+//            lengthDTO.setIdConversion(11690L);
+//            lengthDTO.setMainGroup(mainGroup);
 
-            //установить значение для поля "Кручение канатное":
-            TestValueDTO torsionRopeDTO = new TestValueDTO();
-            torsionRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            torsionRopeDTO.setIdTestHead(11703L);
-            torsionRopeDTO.setValue(!newTorsionRope.getText().equals("") ? Double.valueOf(newTorsionRope.getText()) : null);
-            torsionRopeDTO.setIdConversion(11690L);
-            torsionRopeDTO.setMainGroup(mainGroup);
-
-            //установить значение для поля "Прямолинейность канатное":
-            TestValueDTO straightRopeDTO = new TestValueDTO();
-            straightRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
-            straightRopeDTO.setIdTestHead(11702L);
-            straightRopeDTO.setValue(!newStraightRope.getText().equals("") ? Double.valueOf(newStraightRope.getText()) : null);
-            straightRopeDTO.setIdConversion(11690L);
-            straightRopeDTO.setMainGroup(mainGroup);
+//            //установить значение для поля "Кручение канатное":
+//            TestValueDTO torsionRopeDTO = new TestValueDTO();
+//            torsionRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            torsionRopeDTO.setIdTestHead(11703L);
+//            torsionRopeDTO.setValue(!newTorsionRope.getText().equals("") ? Double.valueOf(newTorsionRope.getText()) : null);
+//            torsionRopeDTO.setIdConversion(11690L);
+//            torsionRopeDTO.setMainGroup(mainGroup);
+//
+//            //установить значение для поля "Прямолинейность канатное":
+//            TestValueDTO straightRopeDTO = new TestValueDTO();
+//            straightRopeDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+//            straightRopeDTO.setIdTestHead(11702L);
+//            straightRopeDTO.setValue(!newStraightRope.getText().equals("") ? Double.valueOf(newStraightRope.getText()) : null);
+//            straightRopeDTO.setIdConversion(11690L);
+//            straightRopeDTO.setMainGroup(mainGroup);
 
             //установить значение для поля "Кручение":
             TestValueDTO torsionDTO = new TestValueDTO();
@@ -510,14 +512,14 @@ public class ModalAddSpoolController implements Serializable {
 
 
             testValueDTOs.add(numberSpoolDTO);
-            testValueDTOs.add(dataRopeDTO);
+//            testValueDTOs.add(dataRopeDTO);
             testValueDTOs.add(numberRopeMachineDTO);
             testValueDTOs.add(personalRopeDTO);
-            testValueDTOs.add(numbWeldingMachineDTO);
+//            testValueDTOs.add(numbWeldingMachineDTO);
             testValueDTOs.add(numbOfWeldsDTO);
-            testValueDTOs.add(lengthDTO);
-            testValueDTOs.add(torsionRopeDTO);
-            testValueDTOs.add(straightRopeDTO);
+//            testValueDTOs.add(lengthDTO);
+//            testValueDTOs.add(torsionRopeDTO);
+//            testValueDTOs.add(straightRopeDTO);
             testValueDTOs.add(torsionDTO);
             testValueDTOs.add(straight300DTO);
             testValueDTOs.add(straight600DTO);

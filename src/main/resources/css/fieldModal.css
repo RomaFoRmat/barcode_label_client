@@ -22,33 +22,17 @@
     -fx-text-fill: whitesmoke;
 }
 
-/*.combo-box .list-cell:disabled {*/
-/*    -fx-background-color: black;*/
-/*}*/
-
 .combo-box .arrow-button:hover {
     -fx-background-color: springgreen;
-
 }
 
 .combo-box .arrow-button .arrow {
     -fx-background-color: #8800ff;
 }
 
-.combo-box .list-view :hover {
+.combo-box .list-cell:hover {
     -fx-background-color: springgreen;
     -fx-text-fill: black;
 }
 
-.combo-box .scroll-bar:hover {
-    -fx-background-color: whitesmoke;
-}
-
-.combo-box .scroll-pane:hover {
-    -fx-background-color: whitesmoke;
-}
-
-.combo-box .scroll-bar {
-    -fx-background-color: whitesmoke;
-}
 
