@@ -4,12 +4,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import gui.application.AppProperties;
+import gui.model.MainGroup;
 import gui.model.TestLabel;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,6 +51,25 @@ public class TestLabelRepository {
         return Collections.emptyList();
     }
 
+    public static List<TestLabel> getAllSpoolsBetween(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<TestLabel>>() {
+                            }));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public List<TestLabel> findAllByDateCreateBetween(LocalDateTime dateCreateStart, LocalDateTime dateCreateEnd) {
+        String url = "http://" + AppProperties.getHost() + "/api/allSpool/" + dateCreateStart + "/" + dateCreateEnd;
+        return getAllSpoolsBetween(url);
+    }
 
 
     public static List<TestLabel> findByNumberSpool(String numberSpool) {

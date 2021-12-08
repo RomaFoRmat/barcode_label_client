@@ -424,28 +424,39 @@
                                         <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600" />
                                         <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение" />
                                         <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1" />
-                                        <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2" />
-                                        <TableColumn fx:id="tcStraight600_3" prefWidth="75.0" text="Прям.600_3" />
-                                        <TableColumn fx:id="tcStraight600_4" prefWidth="75.0" text="Прям.600_4" />
-                                        <TableColumn fx:id="tcStraight600_5" prefWidth="75.0" text="Прям.600_5" />
-                                        <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред." />
-                                        <TableColumn fx:id="tcTorsionRope" prefWidth="95.0" text="Кручение кан." />
-                                        <TableColumn fx:id="tcStraightRope" prefWidth="75.0" text="Прям.кан." />
+                                        <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2"/>
+                                        <TableColumn fx:id="tcStraight600_3" prefWidth="75.0" text="Прям.600_3"/>
+                                        <TableColumn fx:id="tcStraight600_4" prefWidth="75.0" text="Прям.600_4"/>
+                                        <TableColumn fx:id="tcStraight600_5" prefWidth="75.0" text="Прям.600_5"/>
+                                        <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред."/>
+                                        <TableColumn fx:id="tcTorsionRope" prefWidth="95.0" text="Кручение кан."/>
+                                        <TableColumn fx:id="tcStraightRope" prefWidth="75.0" text="Прям.кан."/>
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="filterField" layoutX="15.0" layoutY="485.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
-                                <DateTimePicker fx:id="dateStart" format="yyyy-MM-dd HH:mm:ss" layoutX="443.0" layoutY="485.0" prefHeight="25.0" prefWidth="150.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <DateTimePicker fx:id="dateEnd" format="yyyy-MM-dd HH:mm:ss" layoutX="600.0" layoutY="485.0" prefHeight="25.0" prefWidth="150.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <Label layoutX="162.0" layoutY="484.0" prefHeight="28.0" prefWidth="280.0" text="Выборка данных за период времени:">
+                                <TextField fx:id="filterField" layoutX="15.0" layoutY="485.0" prefHeight="27.0"
+                                           prefWidth="106.0" promptText="Поиск катушки"
+                                           stylesheets="@../css/searchTab2.css"/>
+                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy HH:mm:ss" layoutX="443.0"
+                                                layoutY="485.0" prefHeight="25.0" prefWidth="150.0" promptText="НАЧАЛО:"
+                                                showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css"/>
+                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy HH:mm:ss" layoutX="600.0"
+                                                layoutY="485.0" prefHeight="25.0" prefWidth="150.0" promptText="КОНЕЦ:"
+                                                showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css"/>
+                                <Label layoutX="162.0" layoutY="484.0" prefHeight="28.0" prefWidth="280.0"
+                                       text="Выборка данных за период времени:">
                                     <font>
-                                        <Font name="Comic Sans MS Bold" size="15.0" />
+                                        <Font name="Comic Sans MS Bold" size="15.0"/>
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="btnSelect" layoutX="806.0" layoutY="485.0" prefHeight="25.0" prefWidth="81.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Выбрать">
+                                <JFXButton fx:id="btnDateBetween" layoutX="806.0" layoutY="485.0"
+                                           onAction="#dateBetweenAction" prefHeight="25.0" prefWidth="81.0"
+                                           style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css"
+                                           text="Выбрать">
                                     <graphic>
-                                        <ImageView fitHeight="133.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="133.0" fitWidth="11.0" pickOnBounds="true"
+                                                   preserveRatio="true">
                                             <image>
-                                                <Image url="@../icon/check.png" />
+                                                <Image url="@../icon/check.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>

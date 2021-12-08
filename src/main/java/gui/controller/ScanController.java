@@ -9,6 +9,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import gui.application.AppProperties;
 import gui.application.Main;
 import gui.model.*;
 import gui.repository.TestLabelRepository;
@@ -49,6 +50,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
 import java.io.*;
@@ -323,6 +325,18 @@ public class ScanController {
     public ScanController scanController;
     @FXML
     private JFXHamburger hamburgerMenu;
+    @FXML
+    private JFXComboBox<String> cb_consumer;
+    @FXML
+    private Label lblFio;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private DateTimePicker dateStart;
+    @FXML
+    private DateTimePicker dateEnd;
+    @FXML
+    private JFXButton btnDateBetween;
 
     private TestLabel testLabel;
 
@@ -332,15 +346,12 @@ public class ScanController {
     private final List<FieldModel> fieldModelRusList = new ArrayList();
 
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
-    @FXML
-    private JFXComboBox<String> cb_consumer;
 
-    @FXML
-    private Label lblFio;
-    @FXML
-    private JFXDrawer drawer;
     private Stage stage;
     public static AnchorPane temporaryPane;
+
+//    @FXML
+//    private DatePicker dateSample;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -425,6 +436,21 @@ public class ScanController {
         timer.schedule(updaterUtil, 0, 10000);
 
 
+    }
+
+    public void dateBetweenAction() {
+        tableSpool.clear();
+
+        List<TestLabel> testLabelListForDate = TestLabelRepository.getAllSpoolsBetween(
+                "http://" + AppProperties.getHost() + "/api/allSpool/"
+                        + dateStart.getDateTimeValue() + "/"
+                        + dateEnd.getDateTimeValue());
+        tableSpool.addAll(testLabelListForDate);
+        tableView.setItems(tableSpool);
+        filterTable();
+        tabSpoolList.setText("Cписок катушек c: " + dateStart.getDateTimeValue()
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " по: " + dateEnd.getDateTimeValue()
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
     }
 
     public void initJFXDrawer() {
@@ -795,17 +821,6 @@ public class ScanController {
         }
     }
 
-//    public static File createTemporaryLabel() {
-//        try {
-//            FileUtils.cleanDirectory(new File("src\\main\\resources\\template\\temp\\"));
-//        } catch (IOException e) {
-//            e.getMessage();
-//        }
-//        DateTimeFormatter formatForDate = DateTimeFormatter.ofPattern("dd.MM.yyyy-HH.mm.ss");
-//        String id = String.valueOf(LocalDateTime.now().format(formatForDate));
-//        System.out.println(id);
-//        return new File("src\\main\\resources\\template\\temp\\" + "label -" + id + ".xlsx");
-//    }
 
     public void initializeTableColumns() {
         tcNumberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
@@ -833,8 +848,6 @@ public class ScanController {
         tcTorsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
         tcTorsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
         tcStraightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
-
-
     }
 
 
