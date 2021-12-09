@@ -10,10 +10,11 @@
 }
 .combo-box .list-cell:selected{
     -fx-background-color: #8800ff;
-    -fx-text-fill: #0a0a0a;
+    -fx-text-fill: white;
 }
 .combo-box .list-cell:hover {
     -fx-background-color: springgreen;
+    -fx-text-fill: black;
 }
 .combo-box .list-cell:disabled{
     -fx-background-color: whitesmoke;

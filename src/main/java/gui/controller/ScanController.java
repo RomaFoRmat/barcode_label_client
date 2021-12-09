@@ -145,10 +145,11 @@ public class ScanController {
     private Label lbl_torsion;
 
     @FXML
-    private Label lbl_torsRope;
+    private Label lblPersonalRope;
 
     @FXML
     private Label lbl_prRope;
+
     @FXML
 //    private TextField personalRope;
 
@@ -178,11 +179,20 @@ public class ScanController {
     @FXML
     private TextField torsion;
 
-    @FXML
+/*    @FXML
     private TextField torsRope;
 
     @FXML
-    private TextField straightforwardnessRope;
+    private Label lbl_torsRope;
+
+    @FXML
+    private TextField straightforwardnessRope;*/
+
+    @FXML
+    private TextField personalRope;
+    @FXML
+    private TextField numberRopeMachine;
+
 
     @FXML
     private TextField straightforwardness300;
@@ -215,7 +225,6 @@ public class ScanController {
     private CheckBox cbWelds;
 
     @FXML
-//    private CheckBox cb_persRope;
     private CheckBox cbNumberSpool;
 
     @FXML
@@ -270,18 +279,28 @@ public class ScanController {
     private TableColumn<TestLabel, String> tcPart;
     @FXML
     private TableColumn<TestLabel, Integer> tcLot;
+
+
+/*  //08.12.2021 - Закомментировано, т.к. часть данных убраны с пользовательского ввода для ЛИ м/к
     @FXML
     private TableColumn<TestLabel, LocalDate> tcDateRope;
     @FXML
     private TableColumn<TestLabel, Integer> tcLength;
+    @FXML
+    private TableColumn<TestLabel, Double> tcNumbWeldingMachine;
+    @FXML
+    private TableColumn<TestLabel, Double> tcTorsionRope;
+    @FXML
+    private TableColumn<TestLabel, Double> tcStraightRope;
+*/
+
     @FXML
     private TableColumn<TestLabel, Integer> tcWelds;
     @FXML
     private TableColumn<TestLabel, String> tcPersonalRope;
     @FXML
     private TableColumn<TestLabel, Double> tcNumberRopeMachine;
-    @FXML
-    private TableColumn<TestLabel, Double> tcNumbWeldingMachine;
+
     @FXML
     private TableColumn<TestLabel, Double> tcStraight300;
     @FXML
@@ -300,10 +319,7 @@ public class ScanController {
     private TableColumn<TestLabel, Double> tcStraight600Avg;
     @FXML
     private TableColumn<TestLabel, Double> tcTorsion;
-    @FXML
-    private TableColumn<TestLabel, Double> tcTorsionRope;
-    @FXML
-    private TableColumn<TestLabel, Double> tcStraightRope;
+
     @FXML
     private TextField filterField;
 
@@ -348,10 +364,7 @@ public class ScanController {
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
 
     private Stage stage;
-    public static AnchorPane temporaryPane;
 
-//    @FXML
-//    private DatePicker dateSample;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -371,7 +384,6 @@ public class ScanController {
     @FXML
     public void initialize() {
 
-        temporaryPane = anchorPaneMain;
         initJFXDrawer();
 
         lblFio.setText(Constants.FIO_VIEW);
@@ -528,7 +540,7 @@ public class ScanController {
     public void addSpool() {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/modalAllSpool.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/modalAddSpool.fxml"));
 
         try {
             loader.load();
@@ -589,8 +601,8 @@ public class ScanController {
         straightforwardness600_5.clear();
         straightforwardness600Avg.clear();
         torsion.clear();
-        torsRope.clear();
-        straightforwardnessRope.clear();
+        personalRope.clear();
+        numberRopeMachine.clear();
         barcodeSpool.setText("");
         tabInfoSpool.setText("Информация о катушке");
 
@@ -831,12 +843,9 @@ public class ScanController {
         tcLR.setCellValueFactory(new PropertyValueFactory<>("rl"));
         tcPart.setCellValueFactory(new PropertyValueFactory<>("part"));
         tcLot.setCellValueFactory(new PropertyValueFactory<>("lot"));
-        tcLength.setCellValueFactory(new PropertyValueFactory<>("length"));
         tcWelds.setCellValueFactory(new PropertyValueFactory<>("welds"));
         tcPersonalRope.setCellValueFactory(new PropertyValueFactory<>("personalRope"));
         tcNumberRopeMachine.setCellValueFactory(new PropertyValueFactory<>("numberRopeMachine"));
-        tcNumbWeldingMachine.setCellValueFactory(new PropertyValueFactory<>("numberWeldingMachine"));
-        tcDateRope.setCellValueFactory(new PropertyValueFactory<>("dateRope"));
         tcStraight300.setCellValueFactory(new PropertyValueFactory<>("straightforwardness300"));
         tcStraight600_0.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_0"));
         tcStraight600_1.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_1"));
@@ -846,8 +855,14 @@ public class ScanController {
         tcStraight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_5"));
         tcStraight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600Avg"));
         tcTorsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
+
+/*        //08.12.2021 - Закомментировано, т.к. часть данных убраны с пользовательского ввода для ЛИ м/к
+        tcLength.setCellValueFactory(new PropertyValueFactory<>("length"));
+        tcNumbWeldingMachine.setCellValueFactory(new PropertyValueFactory<>("numberWeldingMachine"));
+        tcDateRope.setCellValueFactory(new PropertyValueFactory<>("dateRope"));
         tcTorsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
         tcStraightRope.setCellValueFactory(new PropertyValueFactory<>("straightforwardnessRope"));
+*/
     }
 
 
@@ -903,9 +918,11 @@ public class ScanController {
             straightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
                     String.valueOf(label.getStraightforwardness600Avg()) : "");
             torsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
-            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
-            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
-                    String.valueOf(label.getStraightforwardnessRope()) : "");
+            numberRopeMachine.setText(label.getNumberRopeMachine() != null ? String.valueOf(label.getNumberRopeMachine()) : "");
+            personalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
+//            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
+//            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
+//                    String.valueOf(label.getStraightforwardnessRope()) : "");
 //            if (label.getStraightforwardnessRope() != null) {
 //                straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
 //            } else {

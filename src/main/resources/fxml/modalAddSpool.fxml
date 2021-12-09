@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#cancelModalKey" prefHeight="650.0"
+            minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#cancelModalKey" prefHeight="637.0"
             prefWidth="717.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="gui.controller.ModalAddSpoolController">
     <children>
@@ -166,9 +166,9 @@
                 <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0" text="Образец"/>
             </children>
         </VBox>
-        <Separator layoutX="231.0" layoutY="320.0" orientation="VERTICAL" prefHeight="330.0" prefWidth="4.0"
+        <Separator layoutX="231.0" layoutY="320.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="4.0"
                    style="-fx-background-color: #3573dd;"/>
-        <Separator layoutX="467.0" layoutY="319.0" orientation="VERTICAL" prefHeight="331.0" prefWidth="4.0"
+        <Separator layoutX="467.0" layoutY="319.0" orientation="VERTICAL" prefHeight="318.0" prefWidth="4.0"
                    style="-fx-background-color: #3573dd;"/>
         <JFXComboBox fx:id="cbMode" focusColor="#8800ff" labelFloat="true" layoutX="222.0" layoutY="13.0"
                      onAction="#selectionAction" prefHeight="32.0" prefWidth="297.0"

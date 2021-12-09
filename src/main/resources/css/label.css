@@ -1,0 +1,11 @@
+.label {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+}
+
+.label2 {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}

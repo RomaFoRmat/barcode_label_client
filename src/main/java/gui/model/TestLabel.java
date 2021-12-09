@@ -29,7 +29,7 @@ public class TestLabel {
     private Integer length;
     private String numberSpool;
     private Integer welds;
-    private Double numberRopeMachine;
+    private Integer numberRopeMachine;
     private Double numberWeldingMachine;
     private Double straightforwardness600_0;
     private Double straightforwardness600_1;
