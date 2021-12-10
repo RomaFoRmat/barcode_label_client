@@ -447,12 +447,10 @@ public class ScanController {
         Timer timer = new Timer();
         timer.schedule(updaterUtil, 0, 10000);
 
-
     }
 
     public void dateBetweenAction() {
         tableSpool.clear();
-
         List<TestLabel> testLabelListForDate = TestLabelRepository.getAllSpoolsBetween(
                 "http://" + AppProperties.getHost() + "/api/allSpool/"
                         + dateStart.getDateTimeValue() + "/"
@@ -463,6 +461,8 @@ public class ScanController {
         tabSpoolList.setText("Cписок катушек c: " + dateStart.getDateTimeValue()
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " по: " + dateEnd.getDateTimeValue()
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+        dateStart.getEditor().clear();
+        dateEnd.getEditor().clear();
     }
 
     public void initJFXDrawer() {
@@ -900,7 +900,6 @@ public class ScanController {
             lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
             length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
             welds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
-//            personalRope.setText(label.getPersonal_rope() != null ? label.getPersonal_rope() : "");
             straightforwardness300.setText(label.getStraightforwardness300() != null ?
                     String.valueOf((label.getStraightforwardness300())) : "");
             straightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
@@ -957,12 +956,6 @@ public class ScanController {
         }
     }
 
-//    //Запуск лаб испытаний:
-//    @FXML
-//    public void openProjectStart2() throws IOException {
-//        Runtime.getRuntime().exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
-//        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
-//    }
 
 }
 

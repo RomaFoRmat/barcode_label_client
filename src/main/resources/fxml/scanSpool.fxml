@@ -411,7 +411,7 @@
                                                         <Separator focusTraversable="false" layoutX="-3.0" layoutY="480.0" prefHeight="6.0" prefWidth="922.0" style="-fx-background-color: #000000;" />
                                                         <Label fx:id="lblFio" layoutX="307.0" layoutY="487.0" prefHeight="25.0" prefWidth="520.0">
                                                             <font>
-                                                                <Font name="Comic Sans MS Bold" size="16.0" />
+                                                                <Font name="Comic Sans MS Bold" size="17.0"/>
                                                             </font>
                                                         </Label>
                                                         <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
@@ -434,9 +434,17 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="1350.0">
                             <children>
-                                <TableView fx:id="tableView" prefHeight="479.0" prefWidth="900.0" stylesheets="@../css/tableView.css">
+                                <TableView fx:id="tableView" prefHeight="479.0" prefWidth="900.0"
+                                           stylesheets="@../css/tableView.css">
+                                    <placeholder>
+                                        <Label text="За текущий период катушек не обнаружено"/>
+                                        <font>
+                                            <Font name="Comic Sans MS Bold" size="16.0"/>
+                                        </font>
+                                    </placeholder>
                                     <columns>
-                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" text="№ катушки"/>
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0"
+                                                     style="-fx-alignment: center-left;" text="№ катушки"/>
                                         <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
                                         <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код"/>
                                         <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция"/>

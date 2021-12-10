@@ -1,6 +1,8 @@
 package gui.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,6 +18,7 @@ public class TestLabel {
 
     private Long idGroup;
     private Long idForeignGroup;
+    @JsonProperty("timestamp")
     private LocalDateTime dateCreate;
     private LocalDate dateRope;
     private String code;
