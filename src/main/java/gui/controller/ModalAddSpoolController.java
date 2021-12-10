@@ -545,6 +545,7 @@ public class ModalAddSpoolController implements Serializable {
             TestValueDTO valueForeign = testValueDTOs.get(0);
             System.out.println(testValueDTOs);
 
+
         } else {
 
             addMainGroup();

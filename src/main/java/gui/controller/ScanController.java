@@ -950,7 +950,7 @@ public class ScanController {
     }
 
 
-    public void scanByKey(KeyEvent keyEvent) {
+    public  void scanByKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             getInfoAction();
         }

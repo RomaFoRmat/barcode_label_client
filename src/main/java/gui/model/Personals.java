@@ -19,12 +19,13 @@ public class Personals {
 
     @Override
     public String toString() {
-        return "Personals:" +
+        return "Вход в систему :" +
                 "idPersonal=" + idPersonal +
-                ", ФИО='" + fio + '\'' +
+                ", ФИО=" + fio +
                 ", Персональный=" + personnelNumber +
-                ", пароль='" + password + '\'' +
-                ", groupsOfPersonal=" + groupsOfPersonal +
-                ", laboratory=" + laboratory;
+                ", Пароль= " + password +
+                ", groupsOfPersonal=" + groupsOfPersonal.getNameGroup() +
+                " (idGroups=" + groupsOfPersonal.getIdGroup() + ")" +
+                ", laboratory= " + laboratory;
     }
 }
