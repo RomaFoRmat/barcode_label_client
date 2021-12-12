@@ -3,6 +3,9 @@
     -fx-border-radius: 4px;
     -fx-background-color: black;
 }
+.date-picker > .text-field  {
+    -fx-alignment: center;
+}
 
 /*.date-picker:focused {*/
 /*    -fx-border-color: #8800ff;*/

@@ -53,10 +53,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
@@ -451,19 +453,30 @@ public class ScanController {
 
     public void dateBetweenAction() {
         tableSpool.clear();
+
         List<TestLabel> testLabelListForDate = TestLabelRepository.getAllSpoolsBetween(
                 "http://" + AppProperties.getHost() + "/api/allSpool/"
-                        + dateStart.getDateTimeValue() + "/"
-                        + dateEnd.getDateTimeValue());
+                        + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
+                        + dateEnd.getDateTimeValue().with(LocalTime.MAX));
         tableSpool.addAll(testLabelListForDate);
         tableView.setItems(tableSpool);
         filterTable();
-        tabSpoolList.setText("Cписок катушек c: " + dateStart.getDateTimeValue()
-                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " по: " + dateEnd.getDateTimeValue()
-                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
-        dateStart.getEditor().clear();
-        dateEnd.getEditor().clear();
+        tabSpoolList.setText("Cписок катушек c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
+                .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+//        dateStart.getEditor().clear();
+//        dateEnd.getEditor().clear();
     }
+
+
+    public void clearTableAndDatePicker() {
+        tableSpool.clear();
+        dateStart.setDateTimeValue(null);
+        dateEnd.setDateTimeValue(null);
+        tabSpoolList.setText("Cписок катушек");
+    }
+
+
 
     public void initJFXDrawer() {
         try {
@@ -516,12 +529,7 @@ public class ScanController {
     }
 
     public void refreshTable() {
-        tableSpool.clear();
-        List<TestLabel> testLabelList = TestLabelRepository.getAllSpoolsForTheLastDay();
-        tableSpool.addAll(testLabelList);
-        tableView.setItems(tableSpool);
-        filterTable();
-        tabSpoolList.setText("Cписок катушек за: " + LocalDate.now());
+        dateBetweenAction();
     }
 
 

@@ -434,27 +434,36 @@
                                         <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред." />
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="filterField" layoutX="15.0" layoutY="485.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
-                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy HH:mm:ss" layoutX="443.0" layoutY="485.0" prefHeight="25.0" prefWidth="150.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy HH:mm:ss" layoutX="600.0" layoutY="485.0" prefHeight="25.0" prefWidth="150.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <Label layoutX="162.0" layoutY="484.0" prefHeight="28.0" prefWidth="280.0" text="Выборка данных за период времени:">
+                                <TextField fx:id="filterField" layoutX="15.0" layoutY="484.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
+                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy" layoutX="463.0" layoutY="485.0" prefHeight="25.0" prefWidth="115.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
+                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy" layoutX="584.0" layoutY="485.0" prefHeight="25.0" prefWidth="115.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
+                                <Label layoutX="165.0" layoutY="482.0" prefHeight="28.0" prefWidth="298.0" text="Выборка данных за период времени:">
                                     <font>
-                                        <Font name="Comic Sans MS Bold" size="15.0" />
+                                        <Font name="Comic Sans MS Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <JFXButton fx:id="btnDateBetween" layoutX="806.0" layoutY="485.0" onAction="#dateBetweenAction" prefHeight="25.0" prefWidth="81.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Выбрать">
-                                    <graphic>
-                                        <ImageView fitHeight="133.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../icon/check.png" />
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                </JFXButton>
-                                <Line endX="-11.0" endY="-5.0" layoutX="767.0" layoutY="520.0" startX="28.5" startY="-39.0" strokeWidth="2.0" />
+                                <Line endX="-11.0" endY="-5.0" layoutX="777.0" layoutY="520.0" startX="28.5" startY="-39.0" strokeWidth="2.0" />
                                 <Line endX="-18.75" layoutX="145.0" layoutY="515.0" startX="21.5" startY="-34.0" strokeWidth="2.0" />
                                 <Line endX="829.0" layoutX="71.0" layoutY="480.0" startX="-71.0" strokeWidth="2.0" />
                                 <Line endX="819.0" layoutX="81.0" layoutY="516.0" startX="-81.0" strokeWidth="2.0" />
+                        <JFXButton fx:id="btnDateBetween" layoutX="713.0" layoutY="484.0" onAction="#dateBetweenAction" prefHeight="27.0" prefWidth="50.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="OK">
+                           <graphic>
+                              <ImageView fitHeight="133.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icon/check.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton layoutX="806.0" layoutY="484.0" onAction="#clearTableAndDatePicker" prefHeight="27.0" prefWidth="89.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Очистить">
+                           <graphic>
+                              <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icon/delete.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
                             </children>
                         </AnchorPane>
                     </content>
