@@ -477,7 +477,7 @@ public class ScanController {
         tableSpool.clear();
         dateStart.setDateTimeValue(null);
         dateEnd.setDateTimeValue(null);
-        tabSpoolList.setText("Cписок катушек:");
+        tabSpoolList.setText("Cписок катушек");
     }
 
 
