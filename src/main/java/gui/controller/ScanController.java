@@ -454,6 +454,10 @@ public class ScanController {
     public void dateBetweenAction() {
         tableSpool.clear();
 
+        if (dateStart.getDateTimeValue() == null && dateEnd.getDateTimeValue() == null) {
+            dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
+            dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
+        }
         List<TestLabel> testLabelListForDate = TestLabelRepository.getAllSpoolsBetween(
                 "http://" + AppProperties.getHost() + "/api/allSpool/"
                         + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
@@ -466,14 +470,14 @@ public class ScanController {
                 .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
 //        dateStart.getEditor().clear();
 //        dateEnd.getEditor().clear();
-    }
 
+    }
 
     public void clearTableAndDatePicker() {
         tableSpool.clear();
         dateStart.setDateTimeValue(null);
         dateEnd.setDateTimeValue(null);
-        tabSpoolList.setText("Cписок катушек");
+        tabSpoolList.setText("Cписок катушек:");
     }
 
 
@@ -718,16 +722,18 @@ public class ScanController {
                 fieldModels = fieldModelRusList;
                 lastCellValue = "Сделано в Беларуси";
                 System.out.println("Выбрана LabelRus");
+                codeBuilder.append("Конструкция:");
             } else {
                 fieldModels = fieldModelEngList;
                 lastCellValue = "Made in Belarus";
                 System.out.println("Выбрана LabelEng");
+                codeBuilder.append("Construct:");
             }
 
             for (FieldModel field : fieldModels) {
                 if (field.getCheckBox().isSelected()) {
                     if (field.getCheckBox().equals(cbConstruct)) {
-                        codeBuilder.append("Construct:").append(field.getTextField().getText()).append("\n");
+                        codeBuilder.append(field.getTextField().getText()).append("\n");
                     } else {
                         codeBuilder.append(field.getType()).append(field.getTextField().getText()).append("\n");
                     }
