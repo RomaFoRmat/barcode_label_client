@@ -44,6 +44,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -358,6 +360,8 @@ public class ScanController {
 
     private TestLabel testLabel;
 
+    public static final Logger LOGGER = LogManager.getLogger(ScanController.class.getName());
+
     private ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
@@ -366,6 +370,7 @@ public class ScanController {
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
 
     private Stage stage;
+    DateTimeFormatter localDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 
     @FXML
@@ -721,12 +726,14 @@ public class ScanController {
             if (cb_consumer.getValue().equals("РЯДОВОЙ")) {
                 fieldModels = fieldModelRusList;
                 lastCellValue = "Сделано в Беларуси";
+                LOGGER.info("Selected Russian-language label:");
                 System.out.println("Выбрана LabelRus");
                 codeBuilder.append("Конструкция:");
             } else {
                 fieldModels = fieldModelEngList;
                 lastCellValue = "Made in Belarus";
-                System.out.println("Выбрана LabelEng");
+                LOGGER.info("Select LabelEng");
+                System.out.println("Selected English-language label");
                 codeBuilder.append("Construct:");
             }
 
@@ -746,7 +753,9 @@ public class ScanController {
             BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 125, 125, hints);
             FileOutputStream outputStreamQr = new FileOutputStream(new File(String.valueOf(imageQrCode)));
             MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, outputStreamQr);
-            System.out.println(codeBuilder);
+            LOGGER.info("Print/View QR-CODE " + LocalDateTime.now().format(localDateFormat) + ":"
+                    + Arrays.toString(codeBuilder.toString().split("\n")));
+//            System.out.println(codeBuilder);
             outputStreamQr.close();
             InputStream inputStream = new FileInputStream(imageQrCode);
 
@@ -791,9 +800,7 @@ public class ScanController {
                 cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
                 cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
                 cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
-
             Desktop.getDesktop().open(toFormQrCode());
-
         } else {
             TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
         }
@@ -897,6 +904,7 @@ public class ScanController {
                 addSpool();
                 return ;
             }
+            LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
             TestLabel label = testLabelList.get(0);
             System.out.println(label);

@@ -12,9 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -35,6 +39,8 @@ public class SideMenuController implements Initializable {
     private Stage stage;
     public AboutDialogController aboutDialogController;
 
+    public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class.getName());
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -51,8 +57,7 @@ public class SideMenuController implements Initializable {
     private void changeUserAction() throws IOException {
         stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
-
-        System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + Constants.FIO_VIEW);
+        LOGGER.info("User change: " + Constants.FIO_VIEW + InetAddress.getLocalHost());
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         stage.setTitle("Вход в SCAN SPOOLS");
@@ -63,12 +68,14 @@ public class SideMenuController implements Initializable {
     }
 
     @FXML
-    private void exitAction() {
-        TextFieldService.exitConfirmationAlert("Вы действительно хотите выйти из программы?",btnExit);
+    private void exitAction() throws UnknownHostException {
+
+        TextFieldService.exitConfirmationAlert("Вы действительно хотите выйти из программы?", btnExit);
+
     }
 
     @FXML
-    private void openProjectStart2() {
+    private void openProjectStart2() throws UnknownHostException {
         try {
             Runtime run = Runtime.getRuntime();
             run.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
@@ -76,12 +83,14 @@ public class SideMenuController implements Initializable {
             System.out.println(e.getMessage() + " либо данная программа не установлена на данном ПК");
             TextFieldService.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
         }
-        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
+        LOGGER.info("Open Lab STPC-2: " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
+//        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
     }
 
     @FXML
-    private void aboutAction() {
+    private void aboutAction() throws UnknownHostException {
         aboutDialogController.show();
+        LOGGER.info("About the program: " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
 
     }
 

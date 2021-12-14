@@ -31,6 +31,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ModalAddSpoolController implements Serializable {
 
@@ -122,8 +124,7 @@ public class ModalAddSpoolController implements Serializable {
     private Label lblAddNewSpool;
     @FXML
     private JFXButton btnCreate;
-
-
+    public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
     private Stage stage;
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);

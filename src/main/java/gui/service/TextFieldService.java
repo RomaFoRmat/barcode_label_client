@@ -1,6 +1,7 @@
 package gui.service;
 
 import gui.application.Main;
+import gui.controller.SideMenuController;
 import gui.model.Constants;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,10 +11,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
+
+
+
 
 
 public class TextFieldService {
@@ -29,7 +35,7 @@ public class TextFieldService {
         }
     }
 
-    public static void exitConfirmationAlert(String confirmation, Button button) {
+    public static void exitConfirmationAlert(String confirmation, Button button) throws UnknownHostException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, confirmation);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
@@ -38,13 +44,14 @@ public class TextFieldService {
         ButtonType ok = new ButtonType("ДА");
         ButtonType cancel = new ButtonType("НЕТ");
         alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll(ok,cancel);
+        alert.getButtonTypes().addAll(ok, cancel);
         Optional<ButtonType> option = alert.showAndWait();
 
-        if (option.get() == ok){
+        if (option.get() == ok) {
             stage = (Stage) button.getScene().getWindow();
             stage.close();
-            System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " " + Constants.FIO_VIEW);
+            SideMenuController.LOGGER.info("Sign Out:" + " " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
+//            System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " " + Constants.FIO_VIEW);
         }
         if (alert.getResult() == ButtonType.YES) {
             System.out.println(confirmation);

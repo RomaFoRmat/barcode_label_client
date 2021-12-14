@@ -17,7 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -27,7 +29,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginDialogController implements Initializable {
-    public static final Logger LOGGER = Logger.getLogger(LoginDialogController.class.getName());
+    //    public static final Logger LOGGER = Logger.getLogger(LoginDialogController.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(LoginDialogController.class.getName());
+
     public Stage stage;
     @FXML
     public JFXPasswordField loginUserTextField;
@@ -57,7 +61,7 @@ public class LoginDialogController implements Initializable {
             if (personalsList != null && personalsList.isEmpty()) {
                 loginUserTextField.clear();
                 TextFieldService.alertWarning("Неверный пароль!");
-                LOGGER.error("Fatal user : " +InetAddress.getLocalHost().getHostAddress());
+                LOGGER.error("Login failed: " + InetAddress.getLocalHost());
                 return;
             }
 
@@ -71,7 +75,7 @@ public class LoginDialogController implements Initializable {
             LOGGER.info("User logged in: " + Constants.FIO_VIEW + " "
                     + personal.getGroupsOfPersonal().getNameGroup() + "("
                     + personal.getGroupsOfPersonal().getIdGroup()
-                    + ")" + " " + Constants.IP_ADDRESS);
+                    + ")" + " " + InetAddress.getLocalHost());
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
             show();
