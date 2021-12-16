@@ -10,7 +10,9 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -206,7 +208,7 @@ public class ModalAddSpoolController implements Serializable {
         }
     }
 
-    public void addMainGroup() {
+    public void addMainGroup() throws UnknownHostException {
 
         MainGroup mainGroup = new MainGroup();
 
@@ -285,8 +287,14 @@ public class ModalAddSpoolController implements Serializable {
             cbSelectMain.getSelectionModel().select(0);
             cbMode.getSelectionModel().select(1);
 
+
             MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
             System.out.println(valueMainDTOs);
+//            String addedMainGroup = String.valueOf(valueMainDTOs).replaceAll("[^ ]*", ".*");
+            String idGroup = String.valueOf(newIdGroup.getMainGroup()).replaceAll("[\\s].*", "");
+//            idGroup = idGroup.replaceAll("[\\s].*","");
+            LOGGER.info("Created MainGroup entry: {}, Hostname/Ip:{} - idGroup:{}",
+                    Constants.FIO_VIEW, InetAddress.getLocalHost(), idGroup);
 
         } else {
 
@@ -296,7 +304,7 @@ public class ModalAddSpoolController implements Serializable {
 
     }
 
-    public void okBtnAction() {
+    public void okBtnAction() throws UnknownHostException {
 
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             MainGroup mainGroup = new MainGroup();
@@ -539,8 +547,13 @@ public class ModalAddSpoolController implements Serializable {
             foreignGroupRequestDTO.setTestValueDTOList(testValueDTOs);
             foreignGroupRequestDTO.setIpAddressCreate(Constants.IP_ADDRESS);
 
-            ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
+//            ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
+            ForeignGroupResponseDTO newIdForeign = ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
 
+            String idForeign = String.valueOf(newIdForeign.getForeignGroup())
+                    .replaceAll(".*\\=\b", "");
+            LOGGER.info("Created ForeignGroup entry: {},Hostname/Ip:{} - idForeign:{}",
+                    Constants.FIO_VIEW, InetAddress.getLocalHost(), idForeign);
             modalAddSpoolCancel();
 
             TestValueDTO valueForeign = testValueDTOs.get(0);
@@ -568,7 +581,7 @@ public class ModalAddSpoolController implements Serializable {
             btnCreate.setVisible(false);
             lblAddNewSpool.setDisable(false);
 
-            System.out.println("Select mode ВЫБОР");
+            LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
             cbSelectMain.setDisable(true);
             lblSelectMainGroup.setDisable(true);
@@ -582,7 +595,8 @@ public class ModalAddSpoolController implements Serializable {
             cancelBtn.setVisible(false);
             btnCreate.setVisible(true);
             lblAddNewSpool.setDisable(true);
-            System.out.println("Select mode СОЗДАНИЕ");
+
+            LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
     }
 
