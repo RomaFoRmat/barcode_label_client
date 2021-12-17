@@ -19,8 +19,7 @@ public class Personals {
 
     @Override
     public String toString() {
-        return "Вход в систему :" +
-                "idPersonal=" + idPersonal +
+        return "idPersonal=" + idPersonal +
                 ", ФИО=" + fio +
                 ", Персональный=" + personnelNumber +
                 ", Пароль= " + password +

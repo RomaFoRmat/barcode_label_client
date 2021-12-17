@@ -2,7 +2,8 @@
 /*    -fx-background-color: linear-gradient(to right top, #7ed56f,#28b485,#2998ff,#5643fa) ;*/
 /*}*/
 .backgroundColor {
-    -fx-background-color: linear-gradient(to right top, #1bd8fa, #22ccfa, #2cd1fa, #2fcafa, #1bd8fa, #22ccfa, #1bd8fa, #22ccfa);
+    -fx-background-color: linear-gradient(to right top, #1bd8fa, #22ccfa, #1bd8fa, #22ccfa);
+    /*-fx-background-color: #1bd8fa;*/
 }
 
 .table-row-cell:selected {

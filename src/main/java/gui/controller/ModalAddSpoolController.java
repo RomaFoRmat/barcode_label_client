@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gui.model.*;
 import gui.repository.*;
@@ -287,21 +289,16 @@ public class ModalAddSpoolController implements Serializable {
             cbSelectMain.getSelectionModel().select(0);
             cbMode.getSelectionModel().select(1);
 
+            String idGroup = String.valueOf(newIdGroup.getMainGroup()).replaceAll("[\\s].*", "");
+            LOGGER.info("Created idMainGroup entry:{} - {}; Hostname/Ip:{}",
+                    idGroup, Constants.FIO_VIEW, InetAddress.getLocalHost());
 
             MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
             System.out.println(valueMainDTOs);
-//            String addedMainGroup = String.valueOf(valueMainDTOs).replaceAll("[^ ]*", ".*");
-            String idGroup = String.valueOf(newIdGroup.getMainGroup()).replaceAll("[\\s].*", "");
-//            idGroup = idGroup.replaceAll("[\\s].*","");
-            LOGGER.info("Created MainGroup entry: {}, Hostname/Ip:{} - idGroup:{}",
-                    Constants.FIO_VIEW, InetAddress.getLocalHost(), idGroup);
 
         } else {
-
             TextFieldService.alertWarning("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
-
         }
-
     }
 
     public void okBtnAction() throws UnknownHostException {
@@ -541,7 +538,7 @@ public class ModalAddSpoolController implements Serializable {
                     getAccessPersonal("http://" + AppProperties.getHost() +
                             "/api/getAccessPersonal/" + Constants.ID_PERSONALS));
             namePersonal = namePersonal.replaceAll("\\[", "").replaceAll("\\]", "");
-            System.out.println(namePersonal);
+//            System.out.println(namePersonal);
             Long idLaboratory = Long.valueOf(namePersonal);
             foreignGroupRequestDTO.setLaboratory(idLaboratory);
             foreignGroupRequestDTO.setTestValueDTOList(testValueDTOs);
@@ -550,10 +547,14 @@ public class ModalAddSpoolController implements Serializable {
 //            ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
             ForeignGroupResponseDTO newIdForeign = ForeignGroupRepository.addIdForeign(foreignGroupRequestDTO);
 
-            String idForeign = String.valueOf(newIdForeign.getForeignGroup())
-                    .replaceAll(".*\\=\b", "");
-            LOGGER.info("Created ForeignGroup entry: {},Hostname/Ip:{} - idForeign:{}",
-                    Constants.FIO_VIEW, InetAddress.getLocalHost(), idForeign);
+            String createdIdForeign = String.valueOf(newIdForeign.getForeignGroup());
+            Pattern pattern = Pattern.compile("\\=([^=,]+)\\,");
+            Matcher matcher = pattern.matcher(createdIdForeign);
+            if (matcher.find()) {
+                LOGGER.info("Created idForeignGroup entry:{} in idMainGroup:{} - {}; {}",
+                        matcher.group(1), newIdForeign.getForeignGroup().getMainGroup().getIdGroup(),
+                        Constants.FIO_VIEW, InetAddress.getLocalHost());
+            }
             modalAddSpoolCancel();
 
             TestValueDTO valueForeign = testValueDTOs.get(0);
@@ -599,6 +600,4 @@ public class ModalAddSpoolController implements Serializable {
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
     }
-
-
 }

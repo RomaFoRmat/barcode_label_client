@@ -39,7 +39,7 @@ public class SideMenuController implements Initializable {
     private Stage stage;
     public AboutDialogController aboutDialogController;
 
-    public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,7 +57,7 @@ public class SideMenuController implements Initializable {
     private void changeUserAction() throws IOException {
         stage = (Stage) btnExit.getScene().getWindow();
         stage.close();
-        LOGGER.info("User change: " + Constants.FIO_VIEW + InetAddress.getLocalHost());
+        LOGGER.info("User change: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         stage.setTitle("Вход в SCAN SPOOLS");
@@ -69,9 +69,7 @@ public class SideMenuController implements Initializable {
 
     @FXML
     private void exitAction() throws UnknownHostException {
-
         TextFieldService.exitConfirmationAlert("Вы действительно хотите выйти из программы?", btnExit);
-
     }
 
     @FXML
@@ -80,32 +78,16 @@ public class SideMenuController implements Initializable {
             Runtime run = Runtime.getRuntime();
             run.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
         } catch (IOException e) {
-            System.out.println(e.getMessage() + " либо данная программа не установлена на данном ПК");
+//            System.out.println(e.getMessage() + " либо данная программа не установлена на данном ПК");
+            LOGGER.error("{} либо данная программа не установлена на данном ПК", e.getMessage());
             TextFieldService.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
         }
-        LOGGER.info("Open Lab STPC-2: " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
-//        System.out.println("Открыть: Лабораторные испытания СтПЦ-2");
+        LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
     }
 
     @FXML
     private void aboutAction() throws UnknownHostException {
         aboutDialogController.show();
         LOGGER.info("About the program: " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
-
     }
-
-
-//    private void switchPane(String pane) {
-//        ScanController.temporaryPane.getChildren().clear();
-//        try {
-//            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource(pane));
-//            ObservableList<Node> elements = anchorPane.getChildren();
-//            ScanController.temporaryPane.getChildren().setAll(elements);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-
 }

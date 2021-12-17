@@ -13,13 +13,8 @@ import javafx.stage.Stage;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
-
-
-
 
 
 public class TextFieldService {
@@ -50,8 +45,7 @@ public class TextFieldService {
         if (option.get() == ok) {
             stage = (Stage) button.getScene().getWindow();
             stage.close();
-            SideMenuController.LOGGER.info("Sign Out:" + " " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
-//            System.out.println("Выход из системы: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " " + Constants.FIO_VIEW);
+            SideMenuController.LOGGER.info("Sign Out: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
         }
         if (alert.getResult() == ButtonType.YES) {
             System.out.println(confirmation);

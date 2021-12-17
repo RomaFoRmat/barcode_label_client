@@ -360,7 +360,7 @@ public class ScanController {
 
     private TestLabel testLabel;
 
-    public static final Logger LOGGER = LogManager.getLogger(ScanController.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(ScanController.class);
 
     private ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
 
@@ -706,7 +706,6 @@ public class ScanController {
             e.printStackTrace();
             return null;
         }
-
     }
 
     public File toFormQrCode() throws WriterException, IOException {
@@ -727,13 +726,11 @@ public class ScanController {
                 fieldModels = fieldModelRusList;
                 lastCellValue = "Сделано в Беларуси";
                 LOGGER.info("Selected Russian-language label:");
-                System.out.println("Выбрана LabelRus");
                 codeBuilder.append("Конструкция:");
             } else {
                 fieldModels = fieldModelEngList;
                 lastCellValue = "Made in Belarus";
-                LOGGER.info("Select LabelEng");
-                System.out.println("Selected English-language label");
+                LOGGER.info("Selected English-language label");
                 codeBuilder.append("Construct:");
             }
 
@@ -753,8 +750,9 @@ public class ScanController {
             BitMatrix bitMatrix = new QRCodeWriter().encode(codeBuilder.toString(), BarcodeFormat.QR_CODE, 125, 125, hints);
             FileOutputStream outputStreamQr = new FileOutputStream(new File(String.valueOf(imageQrCode)));
             MatrixToImageWriter.writeToStream(bitMatrix, imageFormat, outputStreamQr);
-            LOGGER.info("Print/View QR-CODE " + LocalDateTime.now().format(localDateFormat) + ":"
-                    + Arrays.toString(codeBuilder.toString().split("\n")));
+            LOGGER.info("Print/View QR-CODE:{} - {}",
+                    Arrays.toString(codeBuilder.toString().split("\n")),
+                    Constants.FIO_VIEW);
 //            System.out.println(codeBuilder);
             outputStreamQr.close();
             InputStream inputStream = new FileInputStream(imageQrCode);
@@ -907,7 +905,7 @@ public class ScanController {
             LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
             TestLabel label = testLabelList.get(0);
-            System.out.println(label);
+//            System.out.println(label);
 
             LocalDate datePrintLabel = LocalDate.now();
 

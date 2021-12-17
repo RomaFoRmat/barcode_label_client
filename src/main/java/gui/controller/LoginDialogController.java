@@ -19,8 +19,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//import org.apache.log4j.Logger;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
@@ -29,15 +27,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class LoginDialogController implements Initializable {
-    //    public static final Logger LOGGER = Logger.getLogger(LoginDialogController.class.getName());
-    public static final Logger LOGGER = LogManager.getLogger(LoginDialogController.class.getName());
 
+    public static final Logger LOGGER = LogManager.getLogger(LoginDialogController.class);
     public Stage stage;
     @FXML
     public JFXPasswordField loginUserTextField;
     @FXML
     public JFXButton loginButton;
-
     public ScanController scanController;
 
     @Override
@@ -61,21 +57,19 @@ public class LoginDialogController implements Initializable {
             if (personalsList != null && personalsList.isEmpty()) {
                 loginUserTextField.clear();
                 TextFieldService.alertWarning("Неверный пароль!");
-                LOGGER.error("Login failed: " + InetAddress.getLocalHost());
+                LOGGER.error("Login failed: {}", InetAddress.getLocalHost());
                 return;
             }
 
             Personals personal = personalsList.get(0);
-            System.out.println(personal);
             Constants.FIO_VIEW = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
             Constants.FIO = personal.getFio();
             Constants.ID_PERSONALS = personal.getIdPersonal();
             Constants.IP_ADDRESS = InetAddress.getLocalHost().getHostAddress().toString();
             AppProperties.personals = personal;
-            LOGGER.info("User logged in: " + Constants.FIO_VIEW + " "
-                    + personal.getGroupsOfPersonal().getNameGroup() + "("
-                    + personal.getGroupsOfPersonal().getIdGroup()
-                    + ")" + " " + InetAddress.getLocalHost());
+            LOGGER.info("User logged in: {}/{}({}); {}",
+                    Constants.FIO_VIEW, personal.getGroupsOfPersonal().getNameGroup(),
+                    personal.getGroupsOfPersonal().getIdGroup(), InetAddress.getLocalHost());
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
             show();
@@ -112,6 +106,5 @@ public class LoginDialogController implements Initializable {
             login();
         }
     }
-
 
 }
