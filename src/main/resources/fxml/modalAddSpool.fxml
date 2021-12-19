@@ -9,58 +9,51 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#cancelModalKey" prefHeight="637.0"
-            prefWidth="717.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="gui.controller.ModalAddSpoolController">
+<AnchorPane fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#cancelModalKey" prefHeight="637.0" prefWidth="717.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ModalAddSpoolController">
     <children>
-        <Label fx:id="lblAddNewSpool" layoutX="14.0" layoutY="289.0" prefHeight="29.0" prefWidth="172.0"
-               text="Ввод новой катушки:">
+        <Label fx:id="lblAddNewSpool" layoutX="14.0" layoutY="289.0" prefHeight="29.0" prefWidth="172.0" text="Ввод новой катушки:">
             <font>
-                <Font name="System Bold" size="16.0"/>
+                <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <Label fx:id="lblSelectMainGroup" layoutX="473.0" layoutY="128.0" prefHeight="25.0" prefWidth="191.0"
-               text="Выбор главной записи:">
+        <Label fx:id="lblSelectMainGroup" layoutX="473.0" layoutY="128.0" prefHeight="25.0" prefWidth="191.0" text="Выбор главной записи:">
             <font>
-                <Font name="System Bold" size="16.0"/>
+                <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <JFXComboBox fx:id="cbSelectMain" layoutX="450.0" layoutY="153.0" prefHeight="25.0" prefWidth="252.0"
-                     stylesheets="@../css/jfxCbSelectMain.css"/>
-        <VBox fx:id="vBoxMain1" layoutX="215.0" layoutY="91.0" prefHeight="118.0" prefWidth="179.0" spacing="7.0"
-              stylesheets="@../css/fieldModal.css">
+        <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="450.0" layoutY="153.0" prefHeight="25.0" prefWidth="252.0" stylesheets="@../css/jfxCbSelectMain.css" />
+        <VBox fx:id="vBoxMain1" layoutX="215.0" layoutY="91.0" prefHeight="118.0" prefWidth="179.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label prefHeight="19.0" prefWidth="94.0" text="№ партии:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="numberPart"/>
+                <TextField fx:id="numberPart" />
                 <Label prefHeight="19.0" prefWidth="94.0" text="№ лота:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <TextField fx:id="numberLot" />
             </children>
         </VBox>
-        <VBox fx:id="vBoxMain0" layoutX="14.0" layoutY="91.0" prefHeight="180.0" prefWidth="188.0" spacing="7.0"
-              stylesheets="@../css/fieldModal.css">
+        <VBox fx:id="vBoxMain0" layoutX="14.0" layoutY="91.0" prefHeight="180.0" prefWidth="188.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label text="Код:">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="cbCode" editable="true" prefHeight="25.0" prefWidth="210.0"/>
+                <ComboBox fx:id="cbCode" editable="true" prefHeight="25.0" prefWidth="210.0" />
                 <Label prefHeight="19.0" prefWidth="94.0" text="Тип катушки:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="cbTypeSpool" prefHeight="25.0" prefWidth="188.0" />
@@ -72,18 +65,17 @@
                 <ComboBox fx:id="cbLr" prefHeight="25.0" prefWidth="210.0" />
             </children>
         </VBox>
-        <VBox fx:id="vBoxMain2" layoutX="14.0" layoutY="322.0" prefHeight="310.0" prefWidth="207.0" spacing="7.0"
-              stylesheets="@../css/fieldModal.css">
+        <VBox fx:id="vBoxMain2" layoutX="14.0" layoutY="322.0" prefHeight="310.0" prefWidth="207.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label text="№ катушки:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newNumberSpool"/>
+                <TextField fx:id="newNumberSpool" />
                 <Label text="№ канатной машины:">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <TextField fx:id="newNumberRopeMachine" promptText="№: 1-720" />
@@ -101,24 +93,23 @@
                 <TextField fx:id="newCountOfWelds" />
                 <Label disable="true" text="Длина:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newLength" disable="true"/>
+                <TextField fx:id="newLength" disable="true" />
             </children>
         </VBox>
-        <VBox fx:id="vBoxMain3" layoutX="247.0" layoutY="322.0" prefHeight="310.0" prefWidth="210.0" spacing="7.0"
-              stylesheets="@../css/fieldModal.css">
+        <VBox fx:id="vBoxMain3" layoutX="247.0" layoutY="322.0" prefHeight="310.0" prefWidth="210.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label text="Кручение:">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newTorsion"/>
+                <TextField fx:id="newTorsion" />
                 <Label text="Прямолинейность 300:">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
                 <TextField fx:id="newStraight300" />
@@ -142,54 +133,51 @@
                 <TextField fx:id="newStraight600_2" />
             </children>
         </VBox>
-        <VBox fx:id="vBoxMain4" layoutX="482.0" layoutY="318.0" prefHeight="225.0" prefWidth="206.0" spacing="7.0"
-              stylesheets="@../css/fieldModal.css">
+        <VBox fx:id="vBoxMain4" layoutX="482.0" layoutY="318.0" prefHeight="212.0" prefWidth="206.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label text="Прямолинейность 600_3:" wrapText="true">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newStraight600_3"/>
+                <TextField fx:id="newStraight600_3" />
                 <Label text="Прямолинейность 600_4:">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newStraight600_4"/>
+                <TextField fx:id="newStraight600_4" />
                 <Label text="Прямолинейность 600_5:">
                     <font>
-                        <Font size="13.0"/>
+                        <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newStraight600_5"/>
-                <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0" text="Образец"/>
+                <TextField fx:id="newStraight600_5" />
+                <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="69.0" text="Образец" />
             </children>
         </VBox>
-        <Separator layoutX="231.0" layoutY="320.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="4.0"
-                   style="-fx-background-color: #3573dd;"/>
-        <Separator layoutX="467.0" layoutY="319.0" orientation="VERTICAL" prefHeight="318.0" prefWidth="4.0"
-                   style="-fx-background-color: #3573dd;"/>
-        <JFXComboBox fx:id="cbMode" focusColor="#8800ff" labelFloat="true" layoutX="222.0" layoutY="13.0"
-                     onAction="#selectionAction" prefHeight="32.0" prefWidth="297.0"
-                     promptText="СОЗДАТЬ / ВЫБРАТЬ главную запись " stylesheets="@../css/jfxComboBoxModal.css"/>
-        <Separator layoutX="431.0" layoutY="56.0" orientation="VERTICAL" prefHeight="225.0" prefWidth="6.0"
-                   style="-fx-background-color: #3573dd;"/>
-        <Label fx:id="lblCreateMainGroup" layoutX="15.0" layoutY="63.0" prefHeight="25.0" prefWidth="207.0"
-               text="Создание главной записи:">
+        <Separator layoutX="231.0" layoutY="320.0" orientation="VERTICAL" prefHeight="317.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
+        <Separator layoutX="467.0" layoutY="319.0" orientation="VERTICAL" prefHeight="318.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
+        <JFXComboBox fx:id="cbMode" focusColor="#8800ff" labelFloat="true" layoutX="222.0" layoutY="13.0" onAction="#selectionAction" prefHeight="32.0" prefWidth="297.0" promptText="СОЗДАТЬ / ВЫБРАТЬ главную запись " stylesheets="@../css/jfxComboBoxModal.css" />
+        <Separator layoutX="431.0" layoutY="56.0" orientation="VERTICAL" prefHeight="225.0" prefWidth="6.0" style="-fx-background-color: #3573dd;" />
+        <Label fx:id="lblCreateMainGroup" layoutX="15.0" layoutY="63.0" prefHeight="25.0" prefWidth="207.0" text="Создание главной записи:">
             <font>
-                <Font name="System Bold" size="16.0"/>
+                <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <JFXButton fx:id="btnCreate" layoutX="283.0" layoutY="237.0" onAction="#addMainGroup" prefHeight="28.0"
-                   prefWidth="69.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Создать"/>
-        <JFXButton fx:id="okBtn" layoutX="535.0" layoutY="564.0" onAction="#okBtnAction" prefHeight="27.0"
-                   prefWidth="61.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="OK"/>
-        <JFXButton fx:id="cancelBtn" layoutX="603.0" layoutY="564.0" onAction="#modalAddSpoolCancel" prefHeight="27.0"
-                   prefWidth="61.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Отмена"/>
-        <Line endX="633.5" endY="-7.62939453125E-6" layoutX="82.0" layoutY="57.0" startX="-81.99999237060547"
-              startY="-1.1444091796875E-5" stroke="#3573dd" strokeWidth="2.0"/>
-        <Line endX="638.0" layoutX="78.0" layoutY="282.0" startX="-79.0" stroke="#3573dd" strokeWidth="2.0"/>
+        <JFXButton fx:id="okBtn" layoutX="528.0" layoutY="564.0" onAction="#okBtnAction" prefHeight="27.0" prefWidth="71.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Добавить" />
+        <JFXButton fx:id="cancelBtn" layoutX="603.0" layoutY="564.0" onAction="#modalAddSpoolCancel" prefHeight="27.0" prefWidth="71.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Отмена" />
+        <Line endX="633.5" endY="-7.62939453125E-6" layoutX="82.0" layoutY="57.0" startX="-81.99999237060547" startY="-1.1444091796875E-5" stroke="#3573dd" strokeWidth="2.0" />
+        <Line endX="638.0" layoutX="78.0" layoutY="282.0" startX="-79.0" stroke="#3573dd" strokeWidth="2.0" />
+      <StackPane fx:id="stackPaneMain" layoutX="202.0" layoutY="210.0" prefHeight="97.0" prefWidth="259.0">
+         <children>
+            <AnchorPane prefHeight="92.0" prefWidth="259.0">
+               <children>
+                    <JFXButton fx:id="btnCreate" layoutX="129.0" layoutY="25.0" onAction="#addMainGroup" prefHeight="27.0" prefWidth="63.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Создать" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
     </children>
    <stylesheets>
       <URL value="@../css/button.css" />

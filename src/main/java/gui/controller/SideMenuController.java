@@ -77,17 +77,17 @@ public class SideMenuController implements Initializable {
         try {
             Runtime run = Runtime.getRuntime();
             run.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
+            LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
         } catch (IOException e) {
-//            System.out.println(e.getMessage() + " либо данная программа не установлена на данном ПК");
-            LOGGER.error("{} либо данная программа не установлена на данном ПК", e.getMessage());
+            LOGGER.error("{} - {}; {}", e.getMessage(),Constants.FIO_VIEW,InetAddress.getLocalHost());
             TextFieldService.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
         }
-        LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
+
     }
 
     @FXML
     private void aboutAction() throws UnknownHostException {
         aboutDialogController.show();
-        LOGGER.info("About the program: " + Constants.FIO_VIEW + " " + InetAddress.getLocalHost());
+        LOGGER.info("About the program: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
     }
 }

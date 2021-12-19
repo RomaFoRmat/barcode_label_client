@@ -3,6 +3,8 @@ package gui.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import gui.application.AppProperties;
 import gui.model.dto.*;
 import gui.service.TextFieldService;
@@ -24,6 +26,7 @@ import gui.model.*;
 import gui.repository.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
@@ -33,7 +36,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -142,6 +147,8 @@ public class ModalAddSpoolController implements Serializable {
 //    private DatePicker newDateRope;
     @FXML
     private JFXComboBox<String> cbMode;
+    @FXML
+    private StackPane stackPaneMain;
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
@@ -293,12 +300,38 @@ public class ModalAddSpoolController implements Serializable {
             LOGGER.info("Created idMainGroup entry:{} - {}; Hostname/Ip:{}",
                     idGroup, Constants.FIO_VIEW, InetAddress.getLocalHost());
 
+            okDialogSuccess();
+
             MainValueDTO valueMainDTOs = mainValueDTOs.get(0);
             System.out.println(valueMainDTOs);
 
         } else {
             TextFieldService.alertWarning("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
         }
+    }
+
+    public void okDialogSuccess(){
+        JFXDialogLayout message = new JFXDialogLayout();
+        message.setHeading(new Text("УСПЕХ!"));
+        message.setBody(new Text("Главная запись успешно создана"));
+        message.setStyle("-fx-font-size: 15; -fx-font-family: 'Comic Sans MS';");
+        JFXDialog dialog = new  JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
+        JFXButton btnDialog = new JFXButton("OK");
+
+        btnDialog.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialog.close();
+            }
+        });
+        message.addEventHandler(KeyEvent.KEY_PRESSED, event2 -> {
+            if(event2.getCode() == KeyCode.ENTER) {
+                btnDialog.fire();
+                event2.consume();
+            }
+        });
+        message.setActions(btnDialog);
+        dialog.show();
     }
 
     public void okBtnAction() throws UnknownHostException {
@@ -555,6 +588,7 @@ public class ModalAddSpoolController implements Serializable {
                         matcher.group(1), newIdForeign.getForeignGroup().getMainGroup().getIdGroup(),
                         Constants.FIO_VIEW, InetAddress.getLocalHost());
             }
+
             modalAddSpoolCancel();
 
             TestValueDTO valueForeign = testValueDTOs.get(0);
@@ -562,7 +596,6 @@ public class ModalAddSpoolController implements Serializable {
 
 
         } else {
-
             addMainGroup();
         }
     }

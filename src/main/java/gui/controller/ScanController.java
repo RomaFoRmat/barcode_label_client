@@ -906,15 +906,14 @@ public class ScanController {
 
             TestLabel label = testLabelList.get(0);
 //            System.out.println(label);
-
-            LocalDate datePrintLabel = LocalDate.now();
+            LocalDate dateCurrentPrintLabel = LocalDate.now();
 
             typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
             code.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
             construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
             numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
 //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
-            dateCreate.setText(DateUtil.format(datePrintLabel));
+            dateCreate.setText(DateUtil.format(dateCurrentPrintLabel));
             rl.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
             lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
