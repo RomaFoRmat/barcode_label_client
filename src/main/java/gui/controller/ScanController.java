@@ -328,12 +328,6 @@ public class ScanController {
     private TextField filterField;
 
     @FXML
-    private Label lblNumbSpool;
-
-    @FXML
-    private Label lblSpool;
-
-    @FXML
     private Label lblDateTime;
 
     @FXML
@@ -370,7 +364,6 @@ public class ScanController {
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
 
     private Stage stage;
-    DateTimeFormatter localDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 
     @FXML
@@ -486,7 +479,6 @@ public class ScanController {
     }
 
 
-
     public void initJFXDrawer() {
         try {
             VBox vBox = FXMLLoader.load(getClass().getResource(Constants.SIDE_MENU));
@@ -573,6 +565,17 @@ public class ScanController {
         stage.setResizable(false);
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         stage.showAndWait();
+
+        List<TestLabel> labelList = TestLabelRepository.getTestLabel
+                        ("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
+
+        if (labelList != null && labelList.isEmpty()) {
+            stage.close();
+            barcodeSpool.clear();
+            barcodeSpool.requestFocus();
+        } else {
+            getInfoAction();
+        }
     }
 
     public void unselectCheckBox() {
@@ -620,11 +623,10 @@ public class ScanController {
         torsion.clear();
         personalRope.clear();
         numberRopeMachine.clear();
-        barcodeSpool.setText("");
+        barcodeSpool.clear();
         tabInfoSpool.setText("Информация о катушке");
 
-        lblNumbSpool.setText("");
-        lblSpool.setText("");
+        barcodeSpool.requestFocus();
     }
 
     public File exportToExcel() {
@@ -891,7 +893,7 @@ public class ScanController {
     }
 
 
-    public void  getInfoAction() {
+    public void getInfoAction() {
 
         if (!barcodeSpool.getText().isEmpty()) {
             List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
@@ -900,7 +902,7 @@ public class ScanController {
             if (testLabelList != null && testLabelList.isEmpty()) {
                 Constants.SPOOL_NUMBER = barcodeSpool.getText();
                 addSpool();
-                return ;
+                return;
             }
             LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
@@ -964,18 +966,15 @@ public class ScanController {
             unselectCheckBox();
             TextFieldService.alertWarning("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
 
-//            barcodeSpool.setFocusColor(Paint.valueOf("#ff0000"));
         }
     }
 
 
-    public  void scanByKey(KeyEvent keyEvent) {
+    public void scanByKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             getInfoAction();
         }
     }
-
-
 }
 
 
