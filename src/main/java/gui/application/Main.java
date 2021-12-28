@@ -51,7 +51,7 @@ public class Main extends Application {
 
 
     private void setProperties() {
-        try (InputStream inputStream = new FileInputStream("src/main/resources/application.properties")) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties")) {
             Properties property = new Properties();
             // set the properties value
             property.load(inputStream);

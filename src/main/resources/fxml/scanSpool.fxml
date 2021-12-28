@@ -51,14 +51,16 @@
                 <JFXHamburger fx:id="hamburgerMenu" layoutX="858.0" layoutY="27.0" prefHeight="20.0" prefWidth="34.0" stylesheets="@../css/jfxHamburger.css" />
             </children>
         </Pane>
-        <Button fx:id="btn_getInfo" alignment="CENTER" layoutX="591.0" layoutY="76.0" mnemonicParsing="false" onAction="#getInfoAction" prefHeight="30.0" prefWidth="41.0" style="-fx-background-radius: 27; -fx-padding: 4;" stylesheets="@../css/button.css">
+        <Button fx:id="btnGetInfo" alignment="CENTER" layoutX="591.0" layoutY="76.0" mnemonicParsing="false"
+                onAction="#getInfoAction" prefHeight="30.0" prefWidth="41.0"
+                style="-fx-background-radius: 27; -fx-padding: 4;" stylesheets="@../css/button.css">
             <graphic>
                 <ImageView fitHeight="33.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../icon/findSpool.gif" />
+                        <Image url="@../icon/findSpool.gif"/>
                     </image>
                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
+                        <Cursor fx:constant="DEFAULT"/>
                     </cursor>
                 </ImageView>
             </graphic>
@@ -78,54 +80,64 @@
                                                     <children>
                                                         <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0" stylesheets="@../css/label.css">
                                                             <children>
-                                                                <Label fx:id="lbl_type" prefHeight="32.0" prefWidth="158.0" text="Тип катушки">
+                                                                <Label fx:id="lblType" prefHeight="32.0"
+                                                                       prefWidth="158.0" text="Тип катушки">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_construct" prefHeight="0.0" prefWidth="149.0" text="Конструкция">
+                                                                <Label fx:id="lblConstruct" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Конструкция">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_code" prefHeight="0.0" prefWidth="149.0" text="Код">
+                                                                <Label fx:id="lblCode" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Код">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_LR" prefHeight="0.0" prefWidth="149.0" text="L/R">
+                                                                <Label fx:id="lblLR" prefHeight="0.0" prefWidth="149.0"
+                                                                       text="L/R">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_numberSpool" prefHeight="0.0" prefWidth="149.0" text="№ катушки">
+                                                                <Label fx:id="lblNumberSpool" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="№ катушки">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_part" prefHeight="0.0" prefWidth="149.0" text="№ партии">
+                                                                <Label fx:id="lblPart" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="№ партии">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_lot" prefHeight="0.0" prefWidth="149.0" text="LOT">
+                                                                <Label fx:id="lblLot" prefHeight="0.0" prefWidth="149.0"
+                                                                       text="LOT">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_welds" prefHeight="0.0" prefWidth="149.0" text="Сварка">
+                                                                <Label fx:id="lblWelds" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Сварка">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_date" prefHeight="0.0" prefWidth="149.0" text="Дата">
+                                                                <Label fx:id="lblDate" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Дата">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_torsion" prefHeight="0.0" prefWidth="149.0" text="Кручение">
+                                                                <Label fx:id="lblTorsion" prefHeight="0.0"
+                                                                       prefWidth="149.0" text="Кручение">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
                                                             </children>
@@ -189,49 +201,50 @@
                                                         </VBox>
                                                         <VBox layoutX="491.0" layoutY="23.0" prefHeight="363.0" prefWidth="205.0" spacing="9.0" stylesheets="@../css/label.css">
                                                             <children>
-                                                                <Label fx:id="lbl_pr600" text="Прямолин. 600">
+                                                                <Label fx:id="lblPr600" text="Прямолин. 600">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr1" prefHeight="32.0" prefWidth="212.0" text="Прямолин. 600_1">
+                                                                <Label fx:id="lblPr1" prefHeight="32.0"
+                                                                       prefWidth="212.0" text="Прямолин. 600_1">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr2" text="Прямолин. 600_2">
+                                                                <Label fx:id="lblPr2" text="Прямолин. 600_2">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr3" text="Прямолин. 600_3">
+                                                                <Label fx:id="lblPr3" text="Прямолин. 600_3">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr4" text="Прямолин. 600_4">
+                                                                <Label fx:id="lblPr4" text="Прямолин. 600_4">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr5" text="Прямолин. 600_5">
+                                                                <Label fx:id="lblPr5" text="Прямолин. 600_5">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr_avg" text="Прям. 600_сред.">
+                                                                <Label fx:id="lblPrAvg" text="Прям. 600_сред.">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_pr300" text="Прямолин. 300">
+                                                                <Label fx:id="lblPr300" text="Прямолин. 300">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lbl_length" text="Длинна">
+                                                                <Label fx:id="lblLength" text="Длинна">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
                                                             </children>
@@ -312,29 +325,48 @@
                                                                 <CheckBox fx:id="cbLength" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
-                                                        <JFXButton fx:id="btn_labelForm" buttonType="RAISED" layoutX="481.0" layoutY="440.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">
+                                                        <JFXButton fx:id="btnLabelForm" buttonType="RAISED"
+                                                                   layoutX="481.0" layoutY="440.0"
+                                                                   onAction="#toFormLabel" prefHeight="25.0"
+                                                                   prefWidth="153.0"
+                                                                   style="-fx-border-radius: 4; -fx-border-color: #090000;"
+                                                                   stylesheets="@../css/button.css"
+                                                                   text="Просмотр этикетки">
                                                             <graphic>
-                                                                <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                <ImageView fitHeight="25.0" fitWidth="24.0"
+                                                                           pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@../icon/excel_logo.png" />
+                                                                        <Image url="@../icon/excel_logo.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btn_printLabel" buttonType="RAISED" layoutX="641.0" layoutY="440.0" onAction="#printLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Печать этикетки">
+                                                        <JFXButton fx:id="btnPrintLabel" buttonType="RAISED"
+                                                                   layoutX="641.0" layoutY="440.0"
+                                                                   onAction="#printLabel" prefHeight="25.0"
+                                                                   prefWidth="153.0"
+                                                                   style="-fx-border-radius: 4; -fx-border-color: #090000;"
+                                                                   stylesheets="@../css/button.css"
+                                                                   text="Печать этикетки">
                                                             <graphic>
-                                                                <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                <ImageView fitHeight="25.0" fitWidth="24.0"
+                                                                           pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@../icon/logo_print.png" />
+                                                                        <Image url="@../icon/logo_print.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btn_clear" layoutX="390.0" layoutY="442.0" onAction="#clearAction" prefHeight="29.0" prefWidth="79.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Сброс">
+                                                        <JFXButton fx:id="btnClear" layoutX="390.0" layoutY="442.0"
+                                                                   onAction="#clearAction" prefHeight="29.0"
+                                                                   prefWidth="79.0"
+                                                                   style="-fx-border-radius: 4; -fx-border-color: #090000;"
+                                                                   stylesheets="@../css/button.css" text="Сброс">
                                                             <graphic>
-                                                                <ImageView fitHeight="19.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                                <ImageView fitHeight="19.0" fitWidth="23.0"
+                                                                           pickOnBounds="true" preserveRatio="true">
                                                                     <image>
-                                                                        <Image url="@../icon/undelete.png" />
+                                                                        <Image url="@../icon/undelete.png"/>
                                                                     </image>
                                                                 </ImageView>
                                                             </graphic>
@@ -357,7 +389,12 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXComboBox fx:id="cb_consumer" focusColor="#7c0ed0" labelFloat="true" layoutX="363.0" layoutY="16.0" prefHeight="31.0" prefWidth="122.0" promptText="ТИП:" stylesheets="@../css/jfx_comboBox.css" unFocusColor="#7c0ed0" />
+                                                        <JFXComboBox fx:id="cbConsumer" focusColor="#7c0ed0"
+                                                                     labelFloat="true" layoutX="363.0" layoutY="16.0"
+                                                                     onAction="#choiceLabelAction" prefHeight="31.0"
+                                                                     prefWidth="122.0" promptText="ТИП:"
+                                                                     stylesheets="@../css/jfx_comboBox.css"
+                                                                     unFocusColor="#7c0ed0"/>
                                                         <Label fx:id="lblPersonalRope" layoutX="491.0" layoutY="391.0" prefHeight="29.0" prefWidth="135.0" styleClass="label2" stylesheets="@../css/label.css" text="№ оператора">
                                                             <font>
                                                                 <Font name="Comic Sans MS Bold" size="21.0" />

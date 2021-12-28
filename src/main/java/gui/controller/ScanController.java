@@ -3,7 +3,6 @@ package gui.controller;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
@@ -23,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
@@ -55,7 +55,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
@@ -71,37 +70,37 @@ public class ScanController {
     @FXML
     private AnchorPane anchorPaneMain;
     @FXML
-    private JFXButton btn_labelForm;
+    private JFXButton btnLabelForm;
     @FXML
-    private JFXButton btn_printLabel;
+    private JFXButton btnPrintLabel;
     @FXML
-    private JFXButton btn_clear;
+    private JFXButton btnClear;
     @FXML
-    private Label lbl_barcodeSpool;
+    private Label lblBarcodeSpool;
     @FXML
     private JFXTextField barcodeSpool;
     @FXML
-    private Button btn_getInfo;
+    private Button btnGetInfo;
     @FXML
-    private Label lbl_type;
+    private Label lblType;
     @FXML
-    private Label lbl_code;
+    private Label lblCode;
     @FXML
-    private Label lbl_construct;
+    private Label lblConstruct;
     @FXML
-    private Label lbl_date;
+    private Label lblDate;
     @FXML
-    private Label lbl_LR;
+    private Label lblLR;
     @FXML
-    private Label lbl_part;
+    private Label lblPart;
     @FXML
-    private Label lbl_lot;
+    private Label lblLot;
     @FXML
-    private Label lbl_length;
+    private Label lblLength;
     @FXML
-    private Label lbl_welds;
+    private Label lblWelds;
     @FXML
-    private Label lbl_numberSpool;
+    private Label lblNumberSpool;
     @FXML
     private TextField typeSpool;
     @FXML
@@ -122,37 +121,37 @@ public class ScanController {
     private TextField welds;
 
     @FXML
-    private Label lbl_pr300;
+    private Label lblPr300;
 
     @FXML
-    private Label lbl_pr600;
+    private Label lblPr600;
 
     @FXML
-    private Label lbl_pr1;
+    private Label lblPr1;
 
     @FXML
-    private Label lbl_pr2;
+    private Label lblPr2;
 
     @FXML
-    private Label lbl_pr3;
+    private Label lblPr3;
 
     @FXML
-    private Label lbl_pr4;
+    private Label lblPr4;
 
     @FXML
-    private Label lbl_pr5;
+    private Label lblPr5;
 
     @FXML
-    private Label lbl_pr_avg;
+    private Label lblPrAvg;
 
     @FXML
-    private Label lbl_torsion;
+    private Label lblTorsion;
 
     @FXML
     private Label lblPersonalRope;
 
     @FXML
-    private Label lbl_prRope;
+    private Label lblPrRope;
 
     @FXML
 //    private TextField personalRope;
@@ -340,7 +339,7 @@ public class ScanController {
     @FXML
     private JFXHamburger hamburgerMenu;
     @FXML
-    private JFXComboBox<String> cb_consumer;
+    private JFXComboBox<String> cbConsumer;
     @FXML
     private Label lblFio;
     @FXML
@@ -390,17 +389,12 @@ public class ScanController {
         TextFieldService.setTextFieldNumeric(barcodeSpool, 12);
 
         /**для наведения фокуса на определенное поле*/
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                barcodeSpool.requestFocus();
-            }
-        });
+        Platform.runLater(() -> barcodeSpool.requestFocus());
 
         initClock();
 
-        cb_consumer.setItems(data);
-        cb_consumer.getSelectionModel().select(0);
+        cbConsumer.setItems(data);
+        cbConsumer.getSelectionModel().select(0);
 
 
         fieldModelEngList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
@@ -409,7 +403,7 @@ public class ScanController {
         fieldModelEngList.add(new FieldModel(numberSpool, cbNumberSpool, "Bob.№:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(part, cbPart, "Part №:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(lot, cbLot, "Lot №:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(typeSpool, cbTypeSpool, "", CellStyleOption.BASE));
+//        fieldModelEngList.add(new FieldModel(typeSpool, cbTypeSpool, "", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(welds, cbWelds, "Welds:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(dateCreate, cbDate, "Date:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(torsion, cbTorsion, "Torsion:", CellStyleOption.BASE));
@@ -419,7 +413,7 @@ public class ScanController {
         fieldModelRusList.add(new FieldModel(code, cbCode, "Код:", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(rl, cbLr, "", CellStyleOption.ENLARGED));
         fieldModelRusList.add(new FieldModel(numberSpool, cbNumberSpool, "№ кат.", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(welds, cbWelds, "Welds:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(welds, cbWelds, "Cварка:", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(dateCreate, cbDate, "Дата:", CellStyleOption.BASE));
 
 
@@ -438,10 +432,7 @@ public class ScanController {
             }
         });
 
-//        List<TestLabel> testLabelList = TestLabelRepository.getAllSpools();
-//        tableSpool.addAll(testLabelList);
-//        tableView.setItems(tableSpool);
-
+        choiceLabelType(cbConsumer.getValue());
 
         UpdaterUtil updaterUtil = new UpdaterUtil(this);
         Timer timer = new Timer();
@@ -546,6 +537,23 @@ public class ScanController {
 
 
     @FXML
+    public void choiceLabelAction(ActionEvent event) {
+        choiceLabelType(cbConsumer.getValue());
+    }
+
+    public void choiceLabelType(String mode) {
+        if (mode.equals("РЯДОВОЙ")) {
+            cbTorsion.setDisable(true);
+            cbPart.setDisable(true);
+            cbLot.setDisable(true);
+        } else {
+            cbTorsion.setDisable(false);
+            cbPart.setDisable(false);
+            cbLot.setDisable(false);
+        }
+    }
+
+    @FXML
     public void addSpool() {
 
         FXMLLoader loader = new FXMLLoader();
@@ -632,9 +640,7 @@ public class ScanController {
     public File exportToExcel() {
 
         try {
-
-            File fileTemp = new File("src\\main\\resources\\template\\Export.xlsx");
-            FileInputStream file = new FileInputStream(new File(String.valueOf(fileTemp)));
+            InputStream file = getClass().getClassLoader().getResourceAsStream("template/Export.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
 
@@ -643,7 +649,7 @@ public class ScanController {
             List<FieldModel> fieldModels;
             String lastCellValue;
 
-            if (cb_consumer.getValue().equals("РЯДОВОЙ")) {
+            if (cbConsumer.getValue().equals("РЯДОВОЙ")) {
                 fieldModels = fieldModelRusList;
                 lastCellValue = "Сделано в Беларуси";
                 System.out.println("Выбрана LabelRus");
@@ -698,7 +704,6 @@ public class ScanController {
             FileOutputStream outFile = new FileOutputStream(newLabelFile);
             workbook.write(outFile);
             outFile.close();
-
 //            clearFields();
 //            unselectCheckBox();
             barcodeSpool.requestFocus();
@@ -710,10 +715,13 @@ public class ScanController {
         }
     }
 
-    public File toFormQrCode() throws WriterException, IOException {
+    public File toFormQrCode() {
         try {
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            Sheet sheet = workbook.createSheet("QR-Code");
+            InputStream file = getClass().getClassLoader().getResourceAsStream("template/QR-Code.xlsx");
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            Sheet sheet = workbook.getSheetAt(0);
+//            XSSFWorkbook workbook = new XSSFWorkbook();
+//            Sheet sheet = workbook.createSheet("QR-Code");
 
             StringBuilder codeBuilder = new StringBuilder();
             String imageFormat = "png";
@@ -724,7 +732,7 @@ public class ScanController {
             List<FieldModel> fieldModels;
             String lastCellValue;
 
-            if (cb_consumer.getValue().equals("РЯДОВОЙ")) {
+            if (cbConsumer.getValue().equals("РЯДОВОЙ")) {
                 fieldModels = fieldModelRusList;
                 lastCellValue = "Сделано в Беларуси";
                 LOGGER.info("Selected Russian-language label:");
@@ -780,12 +788,16 @@ public class ScanController {
             //Восстанавливаем исходный размер изображения
             pict.resize();
 
+            file.close();
+
             File newQrCode = TempFileUtil.createTemporaryLabel();
             FileOutputStream fileOut = new FileOutputStream(newQrCode);
             workbook.write(fileOut);
             fileOut.close();
+
             barcodeSpool.requestFocus();
             return newQrCode;
+
 
         } catch (Exception e) {
             System.out.println(e);
@@ -793,7 +805,7 @@ public class ScanController {
         }
     }
 
-    public void generateQrCode() throws IOException, WriterException {
+    public void generateQrCode() throws IOException {
         if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
                 cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
                 cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
@@ -806,7 +818,7 @@ public class ScanController {
         }
     }
 
-    public void printQR_Code() throws IOException, WriterException {
+    public void printQR_Code() throws IOException {
         if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
                 cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
                 cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
@@ -968,7 +980,6 @@ public class ScanController {
 
         }
     }
-
 
     public void scanByKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
