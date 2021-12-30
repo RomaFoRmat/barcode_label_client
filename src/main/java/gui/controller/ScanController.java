@@ -727,6 +727,7 @@ public class ScanController {
             String imageFormat = "png";
             Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+//            hints.put(EncodeHintType.CHARACTER_SET, "windows-1251");
             hints.put(EncodeHintType.MARGIN, 0);
 
             List<FieldModel> fieldModels;
@@ -987,6 +988,3 @@ public class ScanController {
         }
     }
 }
-
-
-

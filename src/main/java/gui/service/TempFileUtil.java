@@ -4,8 +4,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +19,7 @@ public class TempFileUtil {
         String id = String.valueOf(LocalDateTime.now().format(formatForDate));
         System.out.println(id);
 //        return new File("src\\main\\resources\\template\\temp\\" + "label -" + id + ".xlsx");
-        return new File("template\\temp\\" + "label -" + id + ".xlsx");
+        return new File("template\\temp\\" + "label_" + id + ".xlsx");
     }
 
     public static File createQrCodePng(){

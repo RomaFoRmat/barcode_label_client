@@ -6,7 +6,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
-import gui.model.MainGroup;
 import gui.model.MainValue;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;

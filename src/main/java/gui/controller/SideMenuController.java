@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 
 public class SideMenuController implements Initializable {
 
-    LoginDialogController loginDialogController;
     @FXML
     private VBox vbox;
     @FXML

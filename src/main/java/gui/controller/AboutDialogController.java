@@ -37,11 +37,11 @@ public class AboutDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
-        Image springImage = new Image("File:src\\main\\resources\\icon\\springBootLogo.png");
-        Image javaImage = new Image("File:src\\main\\resources\\icon\\java8.png");
-        Image aboutImage = new Image("File:src\\main\\resources\\icon\\aboutLogo.png");
-        Image sceneBuilderImage = new Image("File:src\\main\\resources\\icon\\SceneBuilderLogo.png");
-        Image spoolImage = new Image("File:src\\main\\resources\\icon\\spool.png");
+        Image springImage = new Image(Main.class.getResourceAsStream("/icon/springBootLogo.png"));
+        Image javaImage = new Image(Main.class.getResourceAsStream("/icon/java8.png"));
+        Image aboutImage = new Image(Main.class.getResourceAsStream("/icon/aboutLogo.png"));
+        Image sceneBuilderImage = new Image(Main.class.getResourceAsStream("/icon/SceneBuilderLogo.png"));
+        Image spoolImage = new Image(Main.class.getResourceAsStream("/icon/spool.png"));
         springImageView.setImage(springImage);
         javaImageView.setImage(javaImage);
         aboutImageView.setImage(aboutImage);
