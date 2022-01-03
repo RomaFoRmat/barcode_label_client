@@ -300,7 +300,8 @@
                                                         </VBox>
                                                         <VBox layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cbTypeSpool" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbTypeSpool" disable="true"
+                                                                          mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cbConstruct" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbCode" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbLr" mnemonicParsing="false" />

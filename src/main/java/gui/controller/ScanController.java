@@ -6,6 +6,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
@@ -442,7 +443,6 @@ public class ScanController {
 
     public void dateBetweenAction() {
         tableSpool.clear();
-
         if (dateStart.getDateTimeValue() == null && dateEnd.getDateTimeValue() == null) {
             dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
             dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
@@ -537,7 +537,7 @@ public class ScanController {
 
 
     @FXML
-    public void choiceLabelAction(ActionEvent event) {
+    public void choiceLabelAction() {
         choiceLabelType(cbConsumer.getValue());
     }
 
@@ -726,9 +726,11 @@ public class ScanController {
             StringBuilder codeBuilder = new StringBuilder();
             String imageFormat = "png";
             Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+//            hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.Q);
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 //            hints.put(EncodeHintType.CHARACTER_SET, "windows-1251");
             hints.put(EncodeHintType.MARGIN, 0);
+//            hints.put(EncodeHintType.MARGIN, -1);
 
             List<FieldModel> fieldModels;
             String lastCellValue;
@@ -779,7 +781,7 @@ public class ScanController {
             Drawing drawing = sheet.createDrawingPatriarch();
             //Returns an object that handles instantiating concrete classes()
             CreationHelper helper = workbook.getCreationHelper();
-            //Create an anchor that is attached to the worksheet (Создаем привязку, прикрепленную к листу)
+            //Create an anchor that is attached to the worksheet(создаем привязку, прикрепленную к листу)
             ClientAnchor anchor = helper.createClientAnchor();
             //устанавливаем верхний левый угол для изображения
             anchor.setCol1(0);
@@ -788,6 +790,15 @@ public class ScanController {
             Picture pict = drawing.createPicture(anchor, pictureIdx);
             //Восстанавливаем исходный размер изображения
             pict.resize();
+
+            //для подгонки нужного размера 43х30:
+            Row firstRow = sheet.getRow(0);
+            Row secondRow = sheet.getRow(1);
+            firstRow.setHeightInPoints(9);
+            secondRow.setHeightInPoints(9);
+
+            //2230
+            sheet.setColumnWidth(1, 2300);
 
             file.close();
 
@@ -965,7 +976,7 @@ public class ScanController {
             barcodeSpool.getStylesheets().clear();
             barcodeSpool.getStylesheets().add("/css/jfx_success.css");
             cbConstruct.setSelected(true);
-            cbCode.setSelected(true);
+            cbCode.setSelected(label.getConsumerCode() != null);
             cbLr.setSelected(true);
             cbNumberSpool.setSelected(true);
             cbDate.setSelected(true);

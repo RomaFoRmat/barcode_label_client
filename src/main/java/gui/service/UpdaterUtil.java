@@ -9,22 +9,19 @@ import java.util.TimerTask;
 
 public class UpdaterUtil extends TimerTask {
     //    Date now = new Date();
-    ScanController scanController;
+    ScanController scanContr;
 
-    public UpdaterUtil(ScanController scanController) {
-        this.scanController = scanController;
+    public UpdaterUtil(ScanController scanContr) {
+        this.scanContr = scanContr;
     }
 
     @Override
     public void run() {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                if (!scanController.tabSpoolList.isSelected()) {
-                    scanController.refreshTable();
-                    System.out.println("UPDATED: " + LocalDateTime.now()
-                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
-                }
+        Platform.runLater(() -> {
+            if (!scanContr.tabSpoolList.isSelected()) {
+                scanContr.refreshTable();
+                System.out.println("UPDATED: " + LocalDateTime.now()
+                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
             }
         });
     }
