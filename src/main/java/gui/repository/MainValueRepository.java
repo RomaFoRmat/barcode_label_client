@@ -33,7 +33,7 @@ public class MainValueRepository {
         return getMainValue(url);
     }
 
-    public static List<String> findFirstByMainValuePrimaryKeyIdHeadOrderByNumberValueDesc() {
+    public static List<String> findFirstByMainValuePrimaryKeyIdHead() {
         String url = "http://" + AppProperties.getHost() + "/api/lastProtocol";
         return getLastProtocol(url);
     }

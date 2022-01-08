@@ -6,7 +6,6 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
@@ -23,7 +22,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
@@ -109,9 +107,9 @@ public class ScanController {
     @FXML
     private TextField construct;
     @FXML
-    private TextField dateCreate;
+    private TextField datePrint;
     @FXML
-    private TextField rl;
+    private TextField lr;
     @FXML
     private TextField part;
     @FXML
@@ -235,7 +233,7 @@ public class ScanController {
     private CheckBox cbStraight300;
 
     @FXML
-    private CheckBox cb_straight600_0;
+    private CheckBox cbStraight600_0;
 
     @FXML
     private CheckBox cbStraight600_1;
@@ -361,7 +359,8 @@ public class ScanController {
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
 
-    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ");
+    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ","ЭКСПОРТ","AS 50452",
+            "MJY","MP","SB-B LO");
 
     private Stage stage;
 
@@ -400,22 +399,23 @@ public class ScanController {
 
         fieldModelEngList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
         fieldModelEngList.add(new FieldModel(code, cbCode, "Code:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(rl, cbLr, "", CellStyleOption.ENLARGED));
+        fieldModelEngList.add(new FieldModel(lr, cbLr, "", CellStyleOption.ENLARGED));
         fieldModelEngList.add(new FieldModel(numberSpool, cbNumberSpool, "Bob.№:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(length, cbLength, "Length:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(part, cbPart, "Part №:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(lot, cbLot, "Lot №:", CellStyleOption.BASE));
 //        fieldModelEngList.add(new FieldModel(typeSpool, cbTypeSpool, "", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(welds, cbWelds, "Welds:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(dateCreate, cbDate, "Date:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(datePrint, cbDate, "Date:", CellStyleOption.BASE));
         fieldModelEngList.add(new FieldModel(torsion, cbTorsion, "Torsion:", CellStyleOption.BASE));
 
 
         fieldModelRusList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
         fieldModelRusList.add(new FieldModel(code, cbCode, "Код:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(rl, cbLr, "", CellStyleOption.ENLARGED));
+        fieldModelRusList.add(new FieldModel(lr, cbLr, "", CellStyleOption.ENLARGED));
         fieldModelRusList.add(new FieldModel(numberSpool, cbNumberSpool, "№ кат.", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(welds, cbWelds, "Cварка:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(dateCreate, cbDate, "Дата:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(datePrint, cbDate, "Дата:", CellStyleOption.BASE));
 
 
         initializeTableColumns();
@@ -433,7 +433,7 @@ public class ScanController {
             }
         });
 
-        choiceLabelType(cbConsumer.getValue());
+//        choiceLabelType(cbConsumer.getValue());
 
         UpdaterUtil updaterUtil = new UpdaterUtil(this);
         Timer timer = new Timer();
@@ -456,10 +456,9 @@ public class ScanController {
         filterTable();
         tabSpoolList.setText("Cписок катушек c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
-                .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+                .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 //        dateStart.getEditor().clear();
 //        dateEnd.getEditor().clear();
-
     }
 
     public void clearTableAndDatePicker() {
@@ -524,7 +523,6 @@ public class ScanController {
         dateBetweenAction();
     }
 
-
     private void initClock() {
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -535,27 +533,95 @@ public class ScanController {
         clock.play();
     }
 
-
     @FXML
     public void choiceLabelAction() {
         choiceLabelType(cbConsumer.getValue());
+        barcodeSpool.requestFocus();
     }
 
-    public void choiceLabelType(String mode) {
-        if (mode.equals("РЯДОВОЙ")) {
-            cbTorsion.setDisable(true);
-            cbPart.setDisable(true);
-            cbLot.setDisable(true);
-        } else {
-            cbTorsion.setDisable(false);
-            cbPart.setDisable(false);
-            cbLot.setDisable(false);
+    //тип этикетки
+    public void choiceLabelType(String typeLabel) {
+        switch (typeLabel) {
+            case ("РЯДОВОЙ"):
+                unselectCheckBox();
+                unDisabledCheckBox();
+                cbConstruct.setSelected(true);
+                cbLr.setSelected(true);
+                cbNumberSpool.setSelected(true);
+                cbDate.setSelected(true);
+                cbPart.setDisable(true);
+                cbLot.setDisable(true);
+                cbTorsion.setDisable(true);
+                cbWelds.setDisable(true);
+                cbLength.setDisable(true);
+                break;
+            case ("ЭКСПОРТ"):
+                unselectCheckBox();
+                unDisabledCheckBox();
+                cbConstruct.setSelected(true);
+                cbLr.setSelected(true);
+                cbNumberSpool.setSelected(true);
+                cbDate.setSelected(true);
+                break;
+            case ("AS 50452"):
+                unselectCheckBox();
+                unDisabledCheckBox();
+                cbConstruct.setSelected(true);
+                cbCode.setSelected(true);
+                cbLr.setSelected(true);
+                cbNumberSpool.setSelected(true);
+                cbDate.setSelected(true);
+                cbWelds.setSelected(true);
+                cbTorsion.setDisable(true);
+                cbPart.setDisable(true);
+                cbLot.setDisable(true);
+                cbTorsion.setDisable(true);
+                break;
+            case ("MJY"):
+                unselectCheckBox();
+                unDisabledCheckBox();
+                cbConstruct.setSelected(true);
+                cbCode.setSelected(true);
+                cbLr.setSelected(true);
+                cbNumberSpool.setSelected(true);
+                cbDate.setSelected(true);
+                cbLot.setSelected(true);
+                cbPart.setDisable(true);
+                cbWelds.setDisable(true);
+                cbTorsion.setDisable(true);
+                cbLength.setDisable(true);
+                break;
+            case ("MP"):
+                unselectCheckBox();
+                unDisabledCheckBox();
+                cbConstruct.setSelected(true);
+                cbCode.setSelected(true);
+                cbLr.setSelected(true);
+                cbNumberSpool.setSelected(true);
+                cbDate.setSelected(true);
+                cbPart.setSelected(true);
+                cbLot.setSelected(true);
+                cbTorsion.setDisable(true);
+                cbLength.setDisable(true);
+                break;
+            case ("SB-B LO"):
+                unselectCheckBox();
+                unDisabledCheckBox();
+                cbConstruct.setSelected(true);
+                cbCode.setSelected(true);
+                cbLr.setSelected(true);
+                cbNumberSpool.setSelected(true);
+                cbDate.setSelected(true);
+                cbLength.setSelected(true);
+                cbPart.setSelected(true);
+                cbLot.setSelected(true);
+                cbWelds.setDisable(true);
+                cbTorsion.setDisable(true);
         }
     }
 
     @FXML
     public void addSpool() {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/modalAddSpool.fxml"));
 
@@ -609,12 +675,25 @@ public class ScanController {
 //        cb_straightRope.setSelected(false);
     }
 
+    public void unDisabledCheckBox(){
+        cbCode.setDisable(false);
+        cbConstruct.setDisable(false);
+        cbDate.setDisable(false);
+        cbLr.setDisable(false);
+        cbPart.setDisable(false);
+        cbLot.setDisable(false);
+        cbLength.setDisable(false);
+        cbWelds.setDisable(false);
+        cbNumberSpool.setDisable(false);
+        cbTorsion.setDisable(false);
+    }
+
     public void clearFields() {
         typeSpool.clear();
         code.clear();
         construct.clear();
-        dateCreate.clear();
-        rl.clear();
+        datePrint.clear();
+        lr.clear();
         part.clear();
         lot.clear();
         length.clear();
@@ -818,66 +897,108 @@ public class ScanController {
     }
 
     public void generateQrCode() throws IOException {
-        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
-                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
-                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
-                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
-                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
-                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
+                !code.getText().isEmpty() && cbCode.isSelected() ||
+                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
+                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
+                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
+                !length.getText().isEmpty() && cbLength.isSelected() ||
+                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
+                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
+                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
+                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
+                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
+                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
+                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
+                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
+                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
+                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
+                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
             Desktop.getDesktop().open(toFormQrCode());
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!\n" +
+                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
         }
     }
-
     public void printQR_Code() throws IOException {
-        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
-                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
-                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
-                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
-                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
-                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
+                !code.getText().isEmpty() && cbCode.isSelected() ||
+                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
+                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
+                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
+                !length.getText().isEmpty() && cbLength.isSelected() ||
+                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
+                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
+                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
+                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
+                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
+                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
+                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
+                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
+                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
+                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
+                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
             Desktop.getDesktop().print(toFormQrCode());
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!\n" +
+                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
         }
     }
 
-
     public void printLabel() throws IOException {
-        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
-                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
-                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
-                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
-                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
-                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
+                !code.getText().isEmpty() && cbCode.isSelected() ||
+                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
+                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
+                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
+                !length.getText().isEmpty() && cbLength.isSelected() ||
+                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
+                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
+                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
+                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
+                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
+                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
+                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
+                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
+                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
+                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
+                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
 //            exportToExcel();
             Desktop.getDesktop().print(exportToExcel());
 
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования этикетки!\n" +
+                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
         }
-//            clearFields();
     }
 
     public void toFormLabel() throws IOException {
-
-        if (cbTypeSpool.isSelected() || cbCode.isSelected() || cbConstruct.isSelected() || cbDate.isSelected() ||
-                cbLr.isSelected() || cbPart.isSelected() || cbLength.isSelected() || cbLot.isSelected() ||
-                cbWelds.isSelected() || cbNumberSpool.isSelected() || cbStraight300.isSelected() ||
-                cbStraight600_1.isSelected() || cbStraight600_2.isSelected() || cbStraight600_3.isSelected() ||
-                cbStraight600_4.isSelected() || cbStraight600_5.isSelected() || cbStraight600Avg.isSelected() ||
-                cbTorsion.isSelected() || cb_straight600_0.isSelected()) {
+        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
+                !code.getText().isEmpty() && cbCode.isSelected() ||
+                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
+                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
+                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
+                !length.getText().isEmpty() && cbLength.isSelected() ||
+                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
+                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
+                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
+                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
+                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
+                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
+                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
+                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
+                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
+                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
+                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
 //            exportToExcel();
 
             Desktop.getDesktop().open(exportToExcel());
 
         } else {
-
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования этикетки!");
+            TextFieldService.alertWarning("Выберите нужные параметры для формирования этикетки!\n" +
+                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
         }
     }
-
 
     public void initializeTableColumns() {
         tcNumberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
@@ -910,7 +1031,6 @@ public class ScanController {
 */
     }
 
-
     public void clearAction() {
         unselectCheckBox();
         clearFields();
@@ -939,8 +1059,8 @@ public class ScanController {
             construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
             numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
 //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
-            dateCreate.setText(DateUtil.format(dateCurrentPrintLabel));
-            rl.setText(label.getRl() != null ? label.getRl() : "");
+            datePrint.setText(DateUtil.format(dateCurrentPrintLabel));
+            lr.setText(label.getRl() != null ? label.getRl() : "");
             part.setText(label.getPart() != null ? label.getPart() : "");
             lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
             length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");

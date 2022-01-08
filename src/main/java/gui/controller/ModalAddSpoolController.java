@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +44,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 
 public class ModalAddSpoolController implements Serializable {
 
@@ -260,8 +264,10 @@ public class ModalAddSpoolController implements Serializable {
             MainValueDTO protocolDTO = new MainValueDTO();
             protocolDTO.setIdGroup(mainGroup.getIdGroup());
             protocolDTO.setIdHead(1889350L);
+
             String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
-            if (lastCurrentProtocol.equals("[null]")) {
+
+            if (lastCurrentProtocol.equals("[]")) {
                 protocolDTO.setNumberValue(1.0);
             } else {
                 lastCurrentProtocol = lastCurrentProtocol.replaceAll("\\[", "").replaceAll("\\]", "");
