@@ -39,6 +39,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -358,6 +359,19 @@ public class ScanController {
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
+    private final List<Pane> paneList = new ArrayList();
+
+    private final UpdaterUtil updaterUtil = new UpdaterUtil(this);
+    private static Timer timer = new Timer();
+
+    @FXML
+    private VBox vBoxTfList;
+    @FXML
+    private VBox vBoxTfList1;
+    @FXML
+    private VBox vBoxCbList;
+    @FXML
+    private VBox vBoxCbList1;
 
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ","ЭКСПОРТ","AS 50452",
             "MJY","MP","SB-B LO");
@@ -368,7 +382,6 @@ public class ScanController {
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
 
-
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scanSpool.fxml"));
         try {
             fxmlLoader.load();
@@ -377,11 +390,11 @@ public class ScanController {
             e.printStackTrace();
         }
         scanController = fxmlLoader.getController();
-
     }
 
     @FXML
     public void initialize() {
+
 
         initJFXDrawer();
 
@@ -396,6 +409,8 @@ public class ScanController {
         cbConsumer.setItems(data);
         cbConsumer.getSelectionModel().select(0);
 
+
+//        paneList.add(new Pane(vBoxCbList,vBoxCbList1,vBoxTfList,vBoxTfList1));
 
         fieldModelEngList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
         fieldModelEngList.add(new FieldModel(code, cbCode, "Code:", CellStyleOption.BASE));
@@ -417,7 +432,6 @@ public class ScanController {
         fieldModelRusList.add(new FieldModel(welds, cbWelds, "Cварка:", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(datePrint, cbDate, "Дата:", CellStyleOption.BASE));
 
-
         initializeTableColumns();
 
         //Для отображения корректного времени в tableColumn dateCreate:
@@ -433,11 +447,11 @@ public class ScanController {
             }
         });
 
-//        choiceLabelType(cbConsumer.getValue());
-
-        UpdaterUtil updaterUtil = new UpdaterUtil(this);
-        Timer timer = new Timer();
-        timer.schedule(updaterUtil, 0, 10000);
+        if(timer != null){
+            timer.cancel();
+            timer = new Timer();
+            timer.schedule(updaterUtil,0,10000);
+        }
 
     }
 
@@ -467,7 +481,6 @@ public class ScanController {
         dateEnd.setDateTimeValue(null);
         tabSpoolList.setText("Cписок катушек");
     }
-
 
     public void initJFXDrawer() {
         try {
@@ -547,6 +560,9 @@ public class ScanController {
                 unDisabledCheckBox();
                 cbConstruct.setSelected(true);
                 cbLr.setSelected(true);
+                if(!code.getText().trim().isEmpty()){
+                    cbCode.setSelected(true);
+                }
                 cbNumberSpool.setSelected(true);
                 cbDate.setSelected(true);
                 cbPart.setDisable(true);
@@ -576,6 +592,7 @@ public class ScanController {
                 cbPart.setDisable(true);
                 cbLot.setDisable(true);
                 cbTorsion.setDisable(true);
+                cbLength.setDisable(true);
                 break;
             case ("MJY"):
                 unselectCheckBox();
@@ -590,6 +607,7 @@ public class ScanController {
                 cbWelds.setDisable(true);
                 cbTorsion.setDisable(true);
                 cbLength.setDisable(true);
+                cbLength.setDisable(true);
                 break;
             case ("MP"):
                 unselectCheckBox();
@@ -602,6 +620,7 @@ public class ScanController {
                 cbPart.setSelected(true);
                 cbLot.setSelected(true);
                 cbTorsion.setDisable(true);
+                cbLength.setDisable(true);
                 cbLength.setDisable(true);
                 break;
             case ("SB-B LO"):
@@ -897,23 +916,7 @@ public class ScanController {
     }
 
     public void generateQrCode() throws IOException {
-        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
-                !code.getText().isEmpty() && cbCode.isSelected() ||
-                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
-                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
-                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
-                !length.getText().isEmpty() && cbLength.isSelected() ||
-                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
-                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
-                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
-                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
-                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
-                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
-                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
-                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
-                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
-                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
-                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
+        if (Utils.checkSelectedFields(paneList)) {
             Desktop.getDesktop().open(toFormQrCode());
         } else {
             TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!\n" +
@@ -1087,19 +1090,13 @@ public class ScanController {
 //            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
 //            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
 //                    String.valueOf(label.getStraightforwardnessRope()) : "");
-//            if (label.getStraightforwardnessRope() != null) {
-//                straightforwardnessRope.setText(String.valueOf(label.getStraightforwardnessRope()));
-//            } else {
-//                straightforwardnessRope.setText("");
-//            }
 
             barcodeSpool.getStylesheets().clear();
             barcodeSpool.getStylesheets().add("/css/jfx_success.css");
-            cbConstruct.setSelected(true);
-            cbCode.setSelected(label.getConsumerCode() != null);
-            cbLr.setSelected(true);
-            cbNumberSpool.setSelected(true);
-            cbDate.setSelected(true);
+
+            choiceLabelAction();
+//            cbCode.setSelected(label.getConsumerCode() != null);
+
             tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
             barcodeSpool.setText("");
 
@@ -1109,7 +1106,6 @@ public class ScanController {
             clearFields();
             unselectCheckBox();
             TextFieldService.alertWarning("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
-
         }
     }
 

@@ -19,15 +19,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        setProperties();
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/scanSpool.fxml"));
-//        primaryStage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ");
-//        primaryStage.setScene(new Scene(root, 900, 662));
-//        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-//        primaryStage.setResizable(false);
-//        primaryStage.requestFocus();21922
-//        primaryStage.show();
-
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         primaryStage.setTitle("Вход в SCAN SPOOLS");

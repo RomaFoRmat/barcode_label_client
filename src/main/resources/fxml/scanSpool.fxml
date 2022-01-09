@@ -133,7 +133,7 @@
                                                                 <Cursor fx:constant="DEFAULT" />
                                                             </cursor>
                                                         </VBox>
-                                                        <VBox layoutX="178.0" layoutY="22.0" spacing="9.0">
+                                                        <VBox fx:id="vBoxTfList" layoutX="178.0" layoutY="22.0" spacing="9.0">
                                                             <children>
                                                                 <TextField fx:id="typeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                                     <font>
@@ -236,7 +236,7 @@
                                                                 </Label>
                                                             </children>
                                                         </VBox>
-                                                        <VBox layoutX="697.0" layoutY="22.0" prefHeight="364.0" prefWidth="149.0" spacing="9.0">
+                                                        <VBox fx:id="vBoxTfList1" layoutX="697.0" layoutY="22.0" prefHeight="364.0" prefWidth="149.0" spacing="9.0">
                                                             <children>
                                                                 <TextField fx:id="straightforwardness600_0" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
@@ -285,7 +285,7 @@
                                                                 </TextField>
                                                             </children>
                                                         </VBox>
-                                                        <VBox layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox fx:id="vBoxCbList" layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
                                                                 <CheckBox fx:id="cbTypeSpool" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbConstruct" mnemonicParsing="false" />
@@ -299,16 +299,16 @@
                                                                 <CheckBox fx:id="cbTorsion" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
-                                                        <VBox disable="true" layoutX="855.0" layoutY="30.0" prefHeight="345.0" prefWidth="19.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox fx:id="vBoxCbList1" layoutX="855.0" layoutY="30.0" prefHeight="345.0" prefWidth="19.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
-                                                                <CheckBox fx:id="cbStraight600_0" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight600_1" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight600_2" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight600_3" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight600_4" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight600_5" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight600Avg" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbStraight300" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_0" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_1" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_2" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_3" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_4" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600_5" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight600Avg" disable="true" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbStraight300" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbLength" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
