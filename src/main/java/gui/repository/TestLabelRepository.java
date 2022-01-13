@@ -76,6 +76,26 @@ public class TestLabelRepository {
         return getTestLabel(url);
     }
 
+    public static List<TestLabel> getFirstValues(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<TestLabel>>() {
+                            }));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public List<TestLabel> findFirstValuesByRowNum(String rowNum) {
+        String url = "http://" + AppProperties.getHost() + "/api/allSpool/" + rowNum;
+        return getFirstValues(url);
+    }
+
     public static List<TestLabel> getTestLabel(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);

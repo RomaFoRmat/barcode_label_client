@@ -11,16 +11,13 @@ import gui.service.TextFieldService;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.InetAddress;
-import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -30,7 +27,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -45,14 +41,8 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
+public class ModalAddSpoolController {
 
-public class ModalAddSpoolController implements Serializable {
-
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
     @FXML
     private AnchorPane dialogPane;
     @FXML
@@ -137,6 +127,7 @@ public class ModalAddSpoolController implements Serializable {
     private Label lblAddNewSpool;
     @FXML
     private JFXButton btnCreate;
+
     public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
     private Stage stage;
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
@@ -153,20 +144,6 @@ public class ModalAddSpoolController implements Serializable {
     private JFXComboBox<String> cbMode;
     @FXML
     private StackPane stackPaneMain;
-
-    @FXML
-    public void initialize(URL location, ResourceBundle resources) {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/modalAddSpool.fxml"));
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        modalAddSpoolController = fxmlLoader.getController();
-
-    }
 
     @FXML
     public void initialize() {
@@ -213,7 +190,6 @@ public class ModalAddSpoolController implements Serializable {
         stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
     }
-
 
     public void cancelModalKey(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ESCAPE) {

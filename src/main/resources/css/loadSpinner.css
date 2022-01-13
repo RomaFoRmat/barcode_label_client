@@ -1,0 +1,8 @@
+.jfx-spinner .arc {
+    -fx-stroke: #6c5ebb;
+    -fx-stroke-width: 4;
+}
+
+.jfx-spinner .percentage {
+    -fx-fill: black;
+}

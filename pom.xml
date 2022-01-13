@@ -148,7 +148,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>scanSpools-app</finalName>
+        <finalName>spools-scan-app</finalName>
     </build>
 
 </project>

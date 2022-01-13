@@ -16,6 +16,7 @@ import gui.service.*;
 import gui.service.DateUtil;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -56,7 +57,6 @@ import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -69,6 +69,8 @@ public class ScanController {
 
     @FXML
     private AnchorPane anchorPaneMain;
+    private final ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
+    private final List<String> listAlert = new ArrayList<>();
     @FXML
     private JFXButton btnLabelForm;
     @FXML
@@ -79,8 +81,6 @@ public class ScanController {
     private Label lblBarcodeSpool;
     @FXML
     private JFXTextField barcodeSpool;
-    @FXML
-    private Button btnGetInfo;
     @FXML
     private Label lblType;
     @FXML
@@ -195,68 +195,46 @@ public class ScanController {
     private TextField personalRope;
     @FXML
     private TextField numberRopeMachine;
-
-
     @FXML
     private TextField straightforwardness300;
-
     @FXML
     private CheckBox cbTypeSpool;
-
     @FXML
     private CheckBox cbCode;
-
     @FXML
     private CheckBox cbConstruct;
-
     @FXML
     private CheckBox cbDate;
-
     @FXML
     private CheckBox cbLr;
-
     @FXML
     private CheckBox cbPart;
-
     @FXML
     private CheckBox cbLot;
-
     @FXML
     private CheckBox cbLength;
-
     @FXML
     private CheckBox cbWelds;
-
     @FXML
     private CheckBox cbNumberSpool;
-
     @FXML
     private CheckBox cbStraight300;
-
     @FXML
     private CheckBox cbStraight600_0;
-
     @FXML
     private CheckBox cbStraight600_1;
-
     @FXML
     private CheckBox cbStraight600_2;
-
     @FXML
     private CheckBox cbStraight600_3;
-
     @FXML
     private CheckBox cbStraight600_4;
-
     @FXML
     private CheckBox cbStraight600_5;
-
     @FXML
     private CheckBox cbStraight600Avg;
-
     @FXML
     private CheckBox cbTorsion;
-
 
 //    @FXML
 //    private CheckBox cb_torsRope;
@@ -303,7 +281,6 @@ public class ScanController {
     private TableColumn<TestLabel, String> tcPersonalRope;
     @FXML
     private TableColumn<TestLabel, Double> tcNumberRopeMachine;
-
     @FXML
     private TableColumn<TestLabel, Double> tcStraight300;
     @FXML
@@ -322,20 +299,14 @@ public class ScanController {
     private TableColumn<TestLabel, Double> tcStraight600Avg;
     @FXML
     private TableColumn<TestLabel, Double> tcTorsion;
-
     @FXML
     private TextField filterField;
-
     @FXML
     private Label lblDateTime;
-
     @FXML
     private Tab tabInfoSpool;
-
     @FXML
     public Tab tabSpoolList;
-
-    public ScanController scanController;
     @FXML
     private JFXHamburger hamburgerMenu;
     @FXML
@@ -350,51 +321,36 @@ public class ScanController {
     private DateTimePicker dateEnd;
     @FXML
     private JFXButton btnDateBetween;
-
-    private TestLabel testLabel;
+    @FXML
+    private JFXButton btnQrCode;
+    @FXML
+    private JFXButton btnPrintQr;
+    @FXML
+    private VBox vBoxTfList0;
+    @FXML
+    private VBox vBoxTfList1;
 
     public static final Logger LOGGER = LogManager.getLogger(ScanController.class);
-
-    private ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
+    @FXML
+    private VBox vBoxCbList0;
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
-    private final List<Pane> paneList = new ArrayList();
 
     private final UpdaterUtil updaterUtil = new UpdaterUtil(this);
     private static Timer timer = new Timer();
 
-    @FXML
-    private VBox vBoxTfList;
-    @FXML
-    private VBox vBoxTfList1;
-    @FXML
-    private VBox vBoxCbList;
+    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ", "AS 50452",
+            "MJY", "MP", "SB-B LO");
     @FXML
     private VBox vBoxCbList1;
 
-    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ","ЭКСПОРТ","AS 50452",
-            "MJY","MP","SB-B LO");
-
     private Stage stage;
-
-
     @FXML
-    public void initialize(URL location, ResourceBundle resources) {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/scanSpool.fxml"));
-        try {
-            fxmlLoader.load();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        scanController = fxmlLoader.getController();
-    }
+    private JFXSpinner loadSpinner;
 
     @FXML
     public void initialize() {
-
 
         initJFXDrawer();
 
@@ -409,8 +365,10 @@ public class ScanController {
         cbConsumer.setItems(data);
         cbConsumer.getSelectionModel().select(0);
 
-
-//        paneList.add(new Pane(vBoxCbList,vBoxCbList1,vBoxTfList,vBoxTfList1));
+        listAlert.add("Выберите нужные параметры для формирования QR-CODE!\n" +
+                "Удостоверьтесь,что отмеченные поля не пустые!");
+        listAlert.add("Выберите нужные параметры для формирования этикетки!\n" +
+                "Удостоверьтесь,что отмеченные поля не пустые!");
 
         fieldModelEngList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
         fieldModelEngList.add(new FieldModel(code, cbCode, "Code:", CellStyleOption.BASE));
@@ -447,10 +405,12 @@ public class ScanController {
             }
         });
 
-        if(timer != null){
+//        loadSpinner();
+        //check timer:
+        if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil,0,10000);
+            timer.schedule(updaterUtil, 0, 10000);
         }
 
     }
@@ -468,18 +428,36 @@ public class ScanController {
         tableSpool.addAll(testLabelListForDate);
         tableView.setItems(tableSpool);
         filterTable();
-        tabSpoolList.setText("Cписок катушек c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
+        tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
                 .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
-//        dateStart.getEditor().clear();
-//        dateEnd.getEditor().clear();
+
+    }
+
+    public void loadSpinner() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.ZERO,
+                        new KeyValue(loadSpinner.progressProperty(), 0)
+                ),
+                new KeyFrame(
+                        Duration.seconds(0.7),
+                        new KeyValue(loadSpinner.progressProperty(), 0.7)
+                ),
+                new KeyFrame(
+                        Duration.seconds(2),
+                        new KeyValue(loadSpinner.progressProperty(), 1)
+                )
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     public void clearTableAndDatePicker() {
         tableSpool.clear();
         dateStart.setDateTimeValue(null);
         dateEnd.setDateTimeValue(null);
-        tabSpoolList.setText("Cписок катушек");
+        tabSpoolList.setText("Катушки");
     }
 
     public void initJFXDrawer() {
@@ -736,7 +714,6 @@ public class ScanController {
     }
 
     public File exportToExcel() {
-
         try {
             InputStream file = getClass().getClassLoader().getResourceAsStream("template/Export.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(file);
@@ -889,11 +866,11 @@ public class ScanController {
             //Восстанавливаем исходный размер изображения
             pict.resize();
 
-            //для подгонки нужного размера 43х30:
-            Row firstRow = sheet.getRow(0);
-            Row secondRow = sheet.getRow(1);
-            firstRow.setHeightInPoints(9);
-            secondRow.setHeightInPoints(9);
+            //для подгонки нужного размера 40х30:
+            Row thirdRow = sheet.getRow(2);
+            Row fourthRow = sheet.getRow(3);
+            thirdRow.setHeightInPoints(9);
+            fourthRow.setHeightInPoints(8);
 
             //2230
             sheet.setColumnWidth(1, 2300);
@@ -908,7 +885,6 @@ public class ScanController {
             barcodeSpool.requestFocus();
             return newQrCode;
 
-
         } catch (Exception e) {
             System.out.println(e);
             return null;
@@ -916,90 +892,38 @@ public class ScanController {
     }
 
     public void generateQrCode() throws IOException {
-        if (Utils.checkSelectedFields(paneList)) {
+        if (NodeUtils.checkSelectedFields(vBoxCbList0, vBoxCbList1) &&
+                NodeUtils.checkEmptyFields(vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().open(toFormQrCode());
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!\n" +
-                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
+            TextFieldService.alertWarning(listAlert.get(0));
         }
     }
-    public void printQR_Code() throws IOException {
-        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
-                !code.getText().isEmpty() && cbCode.isSelected() ||
-                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
-                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
-                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
-                !length.getText().isEmpty() && cbLength.isSelected() ||
-                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
-                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
-                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
-                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
-                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
-                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
-                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
-                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
-                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
-                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
-                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
+
+    public void printQrCode() throws IOException {
+        if (NodeUtils.checkSelectedFields(vBoxCbList0, vBoxCbList1) &&
+                NodeUtils.checkEmptyFields(vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(toFormQrCode());
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования QR-CODE!\n" +
-                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
+            TextFieldService.alertWarning(listAlert.get(0));
         }
     }
 
     public void printLabel() throws IOException {
-        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
-                !code.getText().isEmpty() && cbCode.isSelected() ||
-                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
-                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
-                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
-                !length.getText().isEmpty() && cbLength.isSelected() ||
-                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
-                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
-                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
-                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
-                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
-                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
-                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
-                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
-                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
-                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
-                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
-//            exportToExcel();
+        if (NodeUtils.checkSelectedFields(vBoxCbList0, vBoxCbList1) &&
+                NodeUtils.checkEmptyFields(vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(exportToExcel());
-
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования этикетки!\n" +
-                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
+            TextFieldService.alertWarning(listAlert.get(1));
         }
     }
 
     public void toFormLabel() throws IOException {
-        if (!typeSpool.getText().isEmpty() && cbTypeSpool.isSelected() ||
-                !code.getText().isEmpty() && cbCode.isSelected() ||
-                !construct.getText().isEmpty() && cbConstruct.isSelected() ||
-                !datePrint.getText().isEmpty() && cbDate.isSelected() ||
-                !lr.getText().isEmpty() && cbLr.isSelected() || part.getText().isEmpty() && cbPart.isSelected() ||
-                !length.getText().isEmpty() && cbLength.isSelected() ||
-                !lot.getText().isEmpty() && cbLot.isSelected() || !welds.getText().isEmpty() && cbWelds.isSelected() ||
-                !numberSpool.getText().isEmpty() && cbNumberSpool.isSelected() ||
-                !straightforwardness300.getText().isEmpty() && cbStraight300.isSelected() ||
-                !straightforwardness600_0.getText().isEmpty() && cbStraight600_0.isSelected() ||
-                !straightforwardness600_1.getText().isEmpty() && cbStraight600_1.isSelected() ||
-                !straightforwardness600_2.getText().isEmpty() && cbStraight600_2.isSelected() ||
-                !straightforwardness600_3.getText().isEmpty() && cbStraight600_3.isSelected() ||
-                !straightforwardness600_4.getText().isEmpty() && cbStraight600_4.isSelected() ||
-                !straightforwardness600_5.getText().isEmpty() && cbStraight600_5.isSelected() ||
-                !straightforwardness600Avg.getText().isEmpty() && cbStraight600Avg.isSelected() ||
-                !torsion.getText().isEmpty() && cbTorsion.isSelected()) {
-//            exportToExcel();
-
+        if (NodeUtils.checkSelectedFields(vBoxCbList0, vBoxCbList1) &&
+                NodeUtils.checkEmptyFields(vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().open(exportToExcel());
-
         } else {
-            TextFieldService.alertWarning("Выберите нужные параметры для формирования этикетки!\n" +
-                    "Удостоверьтесь,что отмеченные поля не содержат пустоту!");
+            TextFieldService.alertWarning(listAlert.get(1));
         }
     }
 
@@ -1038,7 +962,6 @@ public class ScanController {
         unselectCheckBox();
         clearFields();
     }
-
 
     public void getInfoAction() {
 

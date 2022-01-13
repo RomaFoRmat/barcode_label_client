@@ -1,21 +1,34 @@
-.combo-box
-{
+.combo-box {
+    -fx-alignment: center;
     -fx-font-size: 14px;
     -fx-font-weight: 500;
-    -fx-font-family:'Comic Sans MS' ;
+    -fx-font-family: 'Comic Sans MS';
 }
 
 .combo-box .list-cell{
     -fx-text-fill: #0a0a0a;
 }
-.combo-box .list-cell:selected{
-    -fx-background-color: #8800ff;
-    -fx-text-fill: white;
+
+.combo-box .list-cell:selected {
+    -fx-background-color: #7c0ed0;
+    -fx-text-fill: whitesmoke;
 }
+
 .combo-box .list-cell:hover {
     -fx-background-color: springgreen;
     -fx-text-fill: black;
 }
-.combo-box .list-cell:disabled{
-    -fx-background-color: whitesmoke;
+
+.combo-box .list-cell:disabled {
+    -fx-background-color: red;
+}
+
+/*.jfx-autocomplete-popup .list-cell:filled:selected {*/
+/*    -fx-background-color: #7c0ed0;*/
+/*}*/
+/*.jfx-autocomplete-popup .list-cell {*/
+/*    -fx-background-color: #whitesmoke;*/
+/*}*/
+.combo-box .arrow-button .arrow {
+    -fx-background-color: black;
 }

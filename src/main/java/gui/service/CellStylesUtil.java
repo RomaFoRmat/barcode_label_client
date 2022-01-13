@@ -72,7 +72,7 @@ public class CellStylesUtil {
         style.setAlignment(HorizontalAlignment.CENTER);
         XSSFFont font = workbook.createFont();
         font.setBold(true);
-        font.setFontHeightInPoints((short) 11);
+        font.setFontHeightInPoints((short) 10);
         font.setFontName("Times New Roman");
         style.setFont(font);
 
