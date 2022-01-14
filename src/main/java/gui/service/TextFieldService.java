@@ -77,6 +77,19 @@ public class TextFieldService {
         });
     }
 
+    public static void setLimitingFields(TextField textField, int maxNumber) {
+        textField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue.matches("[0-9]+$")) {
+                        int number = Integer.parseInt(newValue);
+                        if (number < maxNumber) {
+                            return;
+                        }
+                        textField.setText(oldValue);
+                    }
+                });
+    }
+
     public static void setFieldForStraight(TextField textField, int maxLength) {
         Pattern pattern = Pattern.compile("-?(\\d+\\.?\\d*)?");
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -87,19 +100,7 @@ public class TextFieldService {
                 textField.setText(s);
             }
         });
-    }
 
-    public static void setLimitingFields(TextField textField, int maxNumber) {
-        textField.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue.matches("[0-9]+$")) {
-                        double number = Double.parseDouble(newValue);
-                        if (number < maxNumber) {
-                            return;
-                        }
-                        textField.setText(oldValue);
-                    }
-                });
     }
 
 
