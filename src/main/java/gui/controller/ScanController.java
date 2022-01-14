@@ -410,7 +410,7 @@ public class ScanController {
         if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil, 0, 10000);
+            timer.schedule(updaterUtil, 0, 20000);
         }
 
     }

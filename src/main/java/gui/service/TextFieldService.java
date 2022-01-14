@@ -65,7 +65,6 @@ public class TextFieldService {
         }
     }
 
-
     public static void setTextFieldNumeric(TextField textField, int maxLength) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (textField.getText() != null && !newValue.matches("\\d*")) {
@@ -88,6 +87,19 @@ public class TextFieldService {
                 textField.setText(s);
             }
         });
+    }
+
+    public static void setLimitingFields(TextField textField, int maxNumber) {
+        textField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue.matches("[0-9]+$")) {
+                        double number = Double.parseDouble(newValue);
+                        if (number < maxNumber) {
+                            return;
+                        }
+                        textField.setText(oldValue);
+                    }
+                });
     }
 
 

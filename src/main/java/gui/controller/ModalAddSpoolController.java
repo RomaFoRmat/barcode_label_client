@@ -150,6 +150,7 @@ public class ModalAddSpoolController {
         //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
         TextFieldService.setTextFieldNumeric(numberPart, 10);
         TextFieldService.setTextFieldNumeric(newNumberRopeMachine, 3);
+        TextFieldService.setLimitingFields(newNumberRopeMachine, 721);
         TextFieldService.setTextFieldNumeric(newNumberSpool, 12);
         TextFieldService.setTextFieldNumeric(newLength, 10);
         TextFieldService.setTextFieldNumeric(newPersonalRope, 7);
