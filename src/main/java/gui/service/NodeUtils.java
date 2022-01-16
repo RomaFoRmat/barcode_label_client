@@ -28,4 +28,27 @@ public class NodeUtils {
         }
         return false;
     }
+
+    public static boolean checkSelectedAndEmptyFields(Pane checkBoxPane0, Pane checkBoxPane1,
+                                                      Pane textFieldPane0, Pane textFieldPane1) {
+        if(checkBoxPane0.getChildren().size() != textFieldPane0.getChildren().size() ||
+                checkBoxPane1.getChildren().size() != textFieldPane1.getChildren().size()){
+            throw new IllegalArgumentException("Panes are not of the same size");
+        }
+        for(int i = 0; i < checkBoxPane0.getChildren().size(); i++){
+            CheckBox checkBox = (CheckBox) checkBoxPane0.getChildren().get(i);
+            TextField textField = (TextField) textFieldPane0.getChildren().get(i);
+            if (checkBox.isSelected() && !textField.getText().isEmpty()){
+                return true;
+            }
+        }
+        for(int i = 0; i < checkBoxPane1.getChildren().size(); i++){
+            CheckBox checkBox = (CheckBox) checkBoxPane1.getChildren().get(i);
+            TextField textField = (TextField) textFieldPane1.getChildren().get(i);
+            if (checkBox.isSelected() && !textField.getText().isEmpty()){
+                return true;
+            }
+        }
+        return false;
+    }
 }
