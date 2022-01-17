@@ -1,7 +1,6 @@
 package gui.controller;
 
 
-import com.ctc.wstx.shaded.msv_core.reader.xmlschema.AnyAttributeOwner;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -17,14 +16,12 @@ import gui.service.*;
 import gui.service.DateUtil;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 
 
@@ -329,10 +326,15 @@ public class ScanController {
     private VBox vBoxTfList0;
     @FXML
     private VBox vBoxTfList1;
-
-    public static final Logger LOGGER = LogManager.getLogger(ScanController.class);
     @FXML
     private VBox vBoxCbList0;
+    public static final Logger LOGGER = LogManager.getLogger(ScanController.class);
+    @FXML
+    private VBox vBoxCbList1;
+    @FXML
+    private Label lblLoad;
+    @FXML
+    private Label lblWait;
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
@@ -342,8 +344,6 @@ public class ScanController {
 
     private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ", "AS 50452",
             "MJY", "MP", "SB-B LO");
-    @FXML
-    private VBox vBoxCbList1;
 
     private Stage stage;
     @FXML
@@ -406,7 +406,6 @@ public class ScanController {
             }
         });
 
-//        loadSpinner();
         //check timer:
         if (timer != null) {
             timer.cancel();
@@ -435,25 +434,6 @@ public class ScanController {
 
     }
 
-    public void loadSpinner() {
-        Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.ZERO,
-                        new KeyValue(loadSpinner.progressProperty(), 0)
-                ),
-                new KeyFrame(
-                        Duration.seconds(0.7),
-                        new KeyValue(loadSpinner.progressProperty(), 0.7)
-                ),
-                new KeyFrame(
-                        Duration.seconds(2),
-                        new KeyValue(loadSpinner.progressProperty(), 1)
-                )
-        );
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
-
     public void clearTableAndDatePicker() {
         tableSpool.clear();
         dateStart.setDateTimeValue(null);
@@ -477,6 +457,7 @@ public class ScanController {
 
             if (drawer.isOpened()) {
                 drawer.close();
+                barcodeSpool.requestFocus();
             } else {
                 drawer.open();
             }
@@ -638,16 +619,34 @@ public class ScanController {
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         stage.showAndWait();
 
-        List<TestLabel> labelList = TestLabelRepository.getTestLabel
+        new Thread(() -> {
+            try {
+                loadSpinner.setVisible(true);
+                lblWait.setVisible(true);
+                lblLoad.setVisible(true);
+                barcodeSpool.setDisable(true);
+                List<TestLabel> labelList = TestLabelRepository.getTestLabel
                         ("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
 
-        if (labelList != null && labelList.isEmpty()) {
-            stage.close();
-            barcodeSpool.clear();
-            barcodeSpool.requestFocus();
-        } else {
-            getInfoAction();
-        }
+                if (labelList != null && labelList.isEmpty()) {
+                    Platform.runLater(() -> {
+                        stage.close();
+                        barcodeSpool.clear();
+                        barcodeSpool.requestFocus();
+                    });
+
+                } else {
+                    Platform.runLater(this::getInfoAction);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                loadSpinner.setVisible(false);
+                lblWait.setVisible(false);
+                lblLoad.setVisible(false);
+                barcodeSpool.setDisable(false);
+            }
+        }).start();
     }
 
     public void unselectCheckBox() {
@@ -874,7 +873,8 @@ public class ScanController {
             fourthRow.setHeightInPoints(8);
 
             //2230
-            sheet.setColumnWidth(1, 2300);
+            sheet.setColumnWidth(0, 2280);
+            sheet.setColumnWidth(1, 2200);
 
             file.close();
 
@@ -922,6 +922,7 @@ public class ScanController {
         } else {
             TextFieldService.alertWarning(listAlert.get(1));
         }
+
     }
 
     public void initializeTableColumns() {
@@ -946,7 +947,7 @@ public class ScanController {
         tcStraight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600Avg"));
         tcTorsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
 
-/*        //08.12.2021 - Закомментировано, т.к. часть данных убраны с пользовательского ввода для ЛИ м/к
+/*        //08.12.2021 -  часть данных убраны с пользовательского ввода для ЛИ м/к:
         tcLength.setCellValueFactory(new PropertyValueFactory<>("length"));
         tcNumbWeldingMachine.setCellValueFactory(new PropertyValueFactory<>("numberWeldingMachine"));
         tcDateRope.setCellValueFactory(new PropertyValueFactory<>("dateRope"));
@@ -964,10 +965,12 @@ public class ScanController {
         new Thread(()-> {
             try {
                 loadSpinner.setVisible(true);
+                lblWait.setVisible(true);
+                lblLoad.setVisible(true);
+                barcodeSpool.setDisable(true);
                 if (!barcodeSpool.getText().isEmpty()) {
-                    List<TestLabel> testLabelList = TestLabelRepository.getTestLabel("http://localhost:8097/api/label/spool/"
-                            + barcodeSpool.getText());
-
+                    List<TestLabel> testLabelList = TestLabelRepository.
+                            getTestLabel("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
                     if (testLabelList != null && testLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
                         Platform.runLater(this::addSpool);
@@ -975,44 +978,46 @@ public class ScanController {
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
-                    TestLabel label = testLabelList.get(0);
+                    Platform.runLater(() -> {
+                        TestLabel label = testLabelList.get(0);
 //            System.out.println(label);
-                    LocalDate dateCurrentPrintLabel = LocalDate.now();
+                        LocalDate dateCurrentPrintLabel = LocalDate.now();
 
-                    typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
-                    code.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
-                    construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
-                    numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
-                    //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
-                    datePrint.setText(DateUtil.format(dateCurrentPrintLabel));
-                    lr.setText(label.getRl() != null ? label.getRl() : "");
-                    part.setText(label.getPart() != null ? label.getPart() : "");
-                    lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
-                    length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
-                    welds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
-                    straightforwardness300.setText(label.getStraightforwardness300() != null ?
-                            String.valueOf((label.getStraightforwardness300())) : "");
-                    straightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
-                            String.valueOf((label.getStraightforwardness600_0())) : "");
-                    straightforwardness600_1.setText(label.getStraightforwardness600_1() != null ?
-                            String.valueOf(label.getStraightforwardness600_1()) : "");
-                    straightforwardness600_2.setText(label.getStraightforwardness600_2() != null ?
-                            String.valueOf(label.getStraightforwardness600_2()) : "");
-                    straightforwardness600_3.setText(label.getStraightforwardness600_3() != null ?
-                            String.valueOf(label.getStraightforwardness600_3()) : "");
-                    straightforwardness600_4.setText(label.getStraightforwardness600_4() != null ?
-                            String.valueOf(label.getStraightforwardness600_4()) : "");
-                    straightforwardness600_5.setText(label.getStraightforwardness600_5() != null ?
-                            String.valueOf(label.getStraightforwardness600_5()) : "");
-                    straightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
-                            String.valueOf(label.getStraightforwardness600Avg()) : "");
-                    torsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
-                    numberRopeMachine.setText(label.getNumberRopeMachine() != null ? String.valueOf(label.getNumberRopeMachine()) : "");
-                    personalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
-                    //            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
-                    //            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
-                    //                    String.valueOf(label.getStraightforwardnessRope()) : "");
-
+                        typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
+                        code.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
+                        construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
+                        numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
+                        //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
+                        datePrint.setText(DateUtil.format(dateCurrentPrintLabel));
+                        lr.setText(label.getRl() != null ? label.getRl() : "");
+                        part.setText(label.getPart() != null ? label.getPart() : "");
+                        lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
+                        length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
+                        welds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
+                        straightforwardness300.setText(label.getStraightforwardness300() != null ?
+                                String.valueOf((label.getStraightforwardness300())) : "");
+                        straightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
+                                String.valueOf((label.getStraightforwardness600_0())) : "");
+                        straightforwardness600_1.setText(label.getStraightforwardness600_1() != null ?
+                                String.valueOf(label.getStraightforwardness600_1()) : "");
+                        straightforwardness600_2.setText(label.getStraightforwardness600_2() != null ?
+                                String.valueOf(label.getStraightforwardness600_2()) : "");
+                        straightforwardness600_3.setText(label.getStraightforwardness600_3() != null ?
+                                String.valueOf(label.getStraightforwardness600_3()) : "");
+                        straightforwardness600_4.setText(label.getStraightforwardness600_4() != null ?
+                                String.valueOf(label.getStraightforwardness600_4()) : "");
+                        straightforwardness600_5.setText(label.getStraightforwardness600_5() != null ?
+                                String.valueOf(label.getStraightforwardness600_5()) : "");
+                        straightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
+                                String.valueOf(label.getStraightforwardness600Avg()) : "");
+                        torsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
+                        numberRopeMachine.setText(label.getNumberRopeMachine() != null ?
+                                String.valueOf(label.getNumberRopeMachine()) : "");
+                        personalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
+                        //            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
+                        //            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
+                        //                    String.valueOf(label.getStraightforwardnessRope()) : "");
+                    });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
                     Platform.runLater(() -> {
@@ -1021,13 +1026,17 @@ public class ScanController {
                         tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
                     });
                     barcodeSpool.setText("");
-
+                    System.out.println(LocalDateTime.now() + " Method ended");
                 } else if (barcodeSpool.getText().isEmpty()) {
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_error.css");
-                    clearFields();
-                    unselectCheckBox();
-                    TextFieldService.alertWarning("Поле ввода пустое!\nОтсканируйте штрих-код катушки");
+                    barcodeSpool.getStylesheets().add("/css/jfx_success.css");
+                    Platform.runLater(() -> {
+                        clearFields();
+                        unselectCheckBox();
+                        TextFieldService.alertWarning("Поле для cчитывания штрих-кода пустое!" +
+                                "\nПожалуйста, отсканируйте штрих-код катушки!");
+                    });
                 }
                 System.out.println(LocalDateTime.now() + " Task succeeded. Setting spinner false");
                 loadSpinner.setVisible(false);
@@ -1035,8 +1044,12 @@ public class ScanController {
                 e.printStackTrace();
             } finally {
                 loadSpinner.setVisible(false);
+                lblWait.setVisible(false);
+                lblLoad.setVisible(false);
+                barcodeSpool.setDisable(false);
             }
         }).start();
+        barcodeSpool.requestFocus();
     }
 
     public void scanByKey(KeyEvent keyEvent) {

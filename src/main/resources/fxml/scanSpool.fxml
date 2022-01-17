@@ -25,9 +25,13 @@
 <?import javafx.scene.text.Font?>
 <?import tornadofx.control.DateTimePicker?>
 
-<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="678.0" prefWidth="900.0" styleClass="backgroundColor" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="678.0"
+            prefWidth="900.0" styleClass="root" stylesheets="@../css/mainView.css"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.controller.ScanController">
     <children>
-        <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+        <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="314.0" prefHeight="62.0" prefWidth="299.0"
                        text="SPOOLS SCAN" textAlignment="CENTER" textFill="WHITE">
@@ -95,7 +99,7 @@
                                                                 <Label fx:id="lblConstruct" prefHeight="0.0"
                                                                        prefWidth="149.0" text="Конструкция">
                                                                     <font>
-                                                                        <Font name="System Bold" size="22.0" />
+                                                                        <Font name="System Bold" size="22.0"/>
                                                                     </font>
                                                                 </Label>
                                                                 <Label fx:id="lblCode" prefHeight="0.0" prefWidth="149.0" text="Код">
@@ -315,7 +319,7 @@
                                                                 <CheckBox fx:id="cbLot" mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cbWelds" mnemonicParsing="false"/>
                                                                 <CheckBox fx:id="cbDate" mnemonicParsing="false"/>
-                                                                <CheckBox fx:id="cbTorsion" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbTorsion" mnemonicParsing="false"/>
                                                             </children>
                                                         </VBox>
                                                         <VBox fx:id="vBoxCbList1" layoutX="855.0" layoutY="30.0" prefHeight="345.0" prefWidth="19.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
@@ -412,19 +416,33 @@
                                                         <Separator focusTraversable="false" layoutX="-3.0" layoutY="480.0" prefHeight="6.0" prefWidth="922.0" style="-fx-background-color: #000000;" />
                                                         <Label fx:id="lblFio" layoutX="307.0" layoutY="487.0" prefHeight="25.0" prefWidth="520.0">
                                                             <font>
-                                                                <Font name="Comic Sans MS Bold" size="17.0" />
+                                                                <Font name="Comic Sans MS Bold" size="17.0"/>
                                                             </font>
                                                         </Label>
-                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0"
+                                                                   layoutY="486.0" pickOnBounds="true"
+                                                                   preserveRatio="true">
                                                             <image>
-                                                                <Image url="@../icon/user.png" />
+                                                                <Image url="@../icon/user.png"/>
                                                             </image>
                                                         </ImageView>
-                                          <Pane layoutX="-21.0" layoutY="514.0" prefHeight="14.0" prefWidth="921.0" style="-fx-background-color: black;" />
-                                                        <JFXSpinner fx:id="loadSpinner" layoutX="390.0" layoutY="118.0"
-                                                                    prefHeight="57.0" prefWidth="63.0" progress="0.0"
-                                                                    stylesheets="@../css/loadSpinner.css"
-                                                                    visible="false"/>
+                                                        <Pane layoutX="-21.0" layoutY="514.0" prefHeight="14.0"
+                                                              prefWidth="921.0" style="-fx-background-color: black;"/>
+                                                        <JFXSpinner fx:id="loadSpinner" layoutX="386.0" layoutY="173.0"
+                                                                    prefHeight="57.0" prefWidth="63.0" visible="false"/>
+                                                        <Label fx:id="lblLoad" layoutX="367.0" layoutY="147.0"
+                                                               prefHeight="22.0" prefWidth="130.0"
+                                                               text="идёт, загрузка..." visible="false">
+                                                            <font>
+                                                                <Font name="Comic Sans MS" size="15.0"/>
+                                                            </font>
+                                                        </Label>
+                                                        <Label fx:id="lblWait" layoutX="383.0" layoutY="130.0"
+                                                               text="Ожидайте" visible="false">
+                                                            <font>
+                                                                <Font name="Comic Sans MS" size="15.0"/>
+                                                            </font>
+                                                        </Label>
                                                     </children>
                                                 </AnchorPane>
                                             </children>
@@ -448,9 +466,10 @@
                                         </font>
                                     </placeholder>
                                     <columns>
-                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" style="-fx-alignment: center-left;" text="№ катушки" />
-                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки" />
-                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код" />
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0"
+                                                     style="-fx-alignment: center-left;" text="№ катушки"/>
+                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
+                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код"/>
                                         <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция" />
                                         <TableColumn fx:id="tcDateCreate" prefWidth="114.0" text="Дата создания" />
                                         <TableColumn fx:id="tcLR" prefWidth="33.0" text="L/R" />

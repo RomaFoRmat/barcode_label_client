@@ -1,15 +1,16 @@
 /*.anchor{*/
 /*    -fx-background-color: linear-gradient(to right top, #7ed56f,#28b485,#2998ff,#5643fa) ;*/
 /*}*/
-.backgroundColor {
-    -fx-background-color: linear-gradient(to right top, #1bd8fa, #22ccfa, #1bd8fa);
-    /*-fx-background-color: #1bd8fa;*/
+/*.backgroundColor {*/
+/*    -fx-background-color: linear-gradient(to right top, #1bd8fa, #22ccfa, #1bd8fa);*/
+/*    !*-fx-background-color: #1bd8fa;*!*/
+/*}*/
+
+.root {
+    -fx-background-image: url("19.jpg");
+    -fx-background-size: 100% 100%;
 }
 
-/*.root{*/
-/*    -fx-background-image: url("53.jpg");*/
-/*    -fx-background-size: 100% 100%;*/
-/*}*/
 .table-row-cell:selected {
     -fx-background-color: #8800ff;
     -fx-background-insets: 0;

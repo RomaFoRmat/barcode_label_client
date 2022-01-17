@@ -34,7 +34,7 @@
        <VBox layoutX="280.0" prefHeight="117.0" prefWidth="112.0" spacing="15.0" styleClass="label"
              stylesheets="@../css/about.css">
            <children>
-               <Label text="Scan Spools">
+               <Label text="Spools Scan">
                    <font>
                        <Font name="Agency FB Bold" size="24.0"/>
                    </font>
