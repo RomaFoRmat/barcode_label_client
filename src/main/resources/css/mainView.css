@@ -1,6 +1,6 @@
-/*.anchor{*/
-/*    -fx-background-color: linear-gradient(to right top, #7ed56f,#28b485,#2998ff,#5643fa) ;*/
-/*}*/
+.background-pane {
+    -fx-background-color: linear-gradient(to right top, snow, #1bd8fa, #22ccfa, snow);
+}
 /*.backgroundColor {*/
 /*    -fx-background-color: linear-gradient(to right top, #1bd8fa, #22ccfa, #1bd8fa);*/
 /*    !*-fx-background-color: #1bd8fa;*!*/

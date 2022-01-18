@@ -335,6 +335,8 @@ public class ScanController {
     private Label lblLoad;
     @FXML
     private Label lblWait;
+    @FXML
+    private Label lblDataProcessing;
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
@@ -624,7 +626,8 @@ public class ScanController {
                 loadSpinner.setVisible(true);
                 lblWait.setVisible(true);
                 lblLoad.setVisible(true);
-                barcodeSpool.setDisable(true);
+                barcodeSpool.setVisible(false);
+                lblDataProcessing.setVisible(true);
                 List<TestLabel> labelList = TestLabelRepository.getTestLabel
                         ("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
 
@@ -644,7 +647,8 @@ public class ScanController {
                 loadSpinner.setVisible(false);
                 lblWait.setVisible(false);
                 lblLoad.setVisible(false);
-                barcodeSpool.setDisable(false);
+                barcodeSpool.setVisible(true);
+                lblDataProcessing.setVisible(false);
             }
         }).start();
     }
@@ -967,7 +971,8 @@ public class ScanController {
                 loadSpinner.setVisible(true);
                 lblWait.setVisible(true);
                 lblLoad.setVisible(true);
-                barcodeSpool.setDisable(true);
+                barcodeSpool.setVisible(false);
+                lblDataProcessing.setVisible(true);
                 if (!barcodeSpool.getText().isEmpty()) {
                     List<TestLabel> testLabelList = TestLabelRepository.
                             getTestLabel("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
@@ -1046,7 +1051,8 @@ public class ScanController {
                 loadSpinner.setVisible(false);
                 lblWait.setVisible(false);
                 lblLoad.setVisible(false);
-                barcodeSpool.setDisable(false);
+                lblDataProcessing.setVisible(false);
+                barcodeSpool.setVisible(true);
             }
         }).start();
         barcodeSpool.requestFocus();

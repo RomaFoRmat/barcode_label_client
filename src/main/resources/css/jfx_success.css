@@ -1,14 +1,13 @@
-.jfx-text-field
-{
-    -jfx-focus-color: lawngreen;
+.jfx-text-field {
+    -jfx-focus-color: springgreen;
 }
 
-.text-field
-{
+.text-field {
     /*-fx-prompt-text-fill: lime;*/
     -fx-text-fill: #000000;
 }
 
 .text-field .input-line {
-    -fx-background-color: lawngreen;
+    -fx-background-color: green;
 }
+
