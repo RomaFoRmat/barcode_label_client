@@ -1,5 +1,5 @@
 .background-pane {
-    -fx-background-color: linear-gradient(to right top, snow, #1bd8fa, #22ccfa, snow);
+    -fx-background-color: linear-gradient(to right top, snow, #1bd8fa,lightskyblue,snow);
 }
 /*.backgroundColor {*/
 /*    -fx-background-color: linear-gradient(to right top, #1bd8fa, #22ccfa, #1bd8fa);*/
@@ -7,7 +7,7 @@
 /*}*/
 
 .root {
-    -fx-background-image: url("19.jpg");
+    -fx-background-image: url("backgroundPane.jpg");
     -fx-background-size: 100% 100%;
 }
 

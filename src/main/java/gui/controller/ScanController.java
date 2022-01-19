@@ -344,8 +344,8 @@ public class ScanController {
     private final UpdaterUtil updaterUtil = new UpdaterUtil(this);
     private static Timer timer = new Timer();
 
-    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ", "AS 50452",
-            "MJY", "MP", "SB-B LO");
+    private ObservableList<String> data = FXCollections.observableArrayList("РЯДОВОЙ", "ЭКСПОРТ", "AS 50452/AS 50367",
+            "MKC/MJY", "MP", "SB-B LO");
 
     private Stage stage;
     @FXML
@@ -541,7 +541,7 @@ public class ScanController {
                 cbNumberSpool.setSelected(true);
                 cbDate.setSelected(true);
                 break;
-            case ("AS 50452"):
+            case ("AS 50452/AS 50367"):
                 unselectCheckBox();
                 unDisabledCheckBox();
                 cbConstruct.setSelected(true);
@@ -556,7 +556,7 @@ public class ScanController {
                 cbTorsion.setDisable(true);
                 cbLength.setDisable(true);
                 break;
-            case ("MJY"):
+            case ("MKC/MJY"):
                 unselectCheckBox();
                 unDisabledCheckBox();
                 cbConstruct.setSelected(true);
