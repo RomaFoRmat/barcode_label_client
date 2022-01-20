@@ -412,19 +412,21 @@
                                         </font>
                                     </placeholder>
                                     <columns>
-                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0" style="-fx-alignment: center-left;" text="№ катушки" />
-                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки" />
-                                        <TableColumn fx:id="tcCode" prefWidth="50.0" text="Код" />
-                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция" />
-                                        <TableColumn fx:id="tcDateCreate" prefWidth="127.0" text="Дата главной записи" />
-                                        <TableColumn fx:id="tcLR" minWidth="3.0" prefWidth="34.0" text="L/R" />
-                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии" />
-                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT" />
-                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="110.0" text="№ машины КУ" />
-                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
-                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />
-                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение" />
-                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300" />
+                                        <TableColumn fx:id="tcNumberSpool" prefWidth="75.0"
+                                                     style="-fx-alignment: center-left;" text="№ катушки"/>
+                                        <TableColumn fx:id="tcTypeSpool" prefWidth="83.0" text="Тип катушки"/>
+                                        <TableColumn fx:id="tcCodeProvider" prefWidth="75.0" text="Внутр. код"/>
+                                        <TableColumn fx:id="tcCodeConsumer" prefWidth="53.0" text="Код"/>
+                                        <TableColumn fx:id="tcConstruct" prefWidth="90.0" text="Конструкция"/>
+                                        <TableColumn fx:id="tcDateCreate" prefWidth="127.0" text="Дата главной записи"/>
+                                        <TableColumn fx:id="tcLR" minWidth="3.0" prefWidth="34.0" text="L/R"/>
+                                        <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии"/>
+                                        <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT"/>
+                                        <TableColumn fx:id="tcNumberRopeMachine" prefWidth="110.0" text="№ машины КУ"/>
+                                        <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор"/>
+                                        <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок"/>
+                                        <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение"/>
+                                        <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300"/>
                                         <TableColumn fx:id="tcStraight600_0" prefWidth="78.0" text="Прям.600" />
                                         <TableColumn fx:id="tcStraight600_1" prefWidth="78.0" text="Прям.600_1" />
                                         <TableColumn fx:id="tcStraight600_2" prefWidth="73.0" text="Прям.600_2" />
@@ -484,10 +486,11 @@
                   </ImageView>
               </graphic>
           </Button>
-          <Label fx:id="lblDataProcessing" layoutX="350.0" layoutY="80.0" prefHeight="25.0" prefWidth="200.0" text="Обрабатываю данные..." textFill="#948e8e" visible="false">
-              <font>
-                  <Font name="Comic Sans MS Italic" size="17.0" />
-              </font>
-          </Label>
+        <Label fx:id="lblDataProcessing" layoutX="351.0" layoutY="80.0" prefHeight="25.0" prefWidth="200.0"
+               text="Обрабатываю данные..." textFill="GREY" visible="false">
+            <font>
+                <Font name="Comic Sans MS Italic" size="17.0"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

@@ -246,7 +246,9 @@ public class ScanController {
     @FXML
     private TableColumn<TestLabel, String> tcTypeSpool;
     @FXML
-    private TableColumn<TestLabel, String> tcCode;
+    private TableColumn<TestLabel, String> tcCodeConsumer;
+    @FXML
+    private TableColumn<TestLabel, String> tcCodeProvider;
     @FXML
     private TableColumn<TestLabel, String> tcConstruct;
     @FXML
@@ -876,7 +878,7 @@ public class ScanController {
             thirdRow.setHeightInPoints(9);
             fourthRow.setHeightInPoints(8);
 
-            //2230
+            //size 40x30:
             sheet.setColumnWidth(0, 2280);
             sheet.setColumnWidth(1, 2200);
 
@@ -931,8 +933,9 @@ public class ScanController {
 
     public void initializeTableColumns() {
         tcNumberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
+        tcCodeProvider.setCellValueFactory(new PropertyValueFactory<>("code"));
         tcTypeSpool.setCellValueFactory(new PropertyValueFactory<>("typeSpool"));
-        tcCode.setCellValueFactory(new PropertyValueFactory<>("consumerCode"));
+        tcCodeConsumer.setCellValueFactory(new PropertyValueFactory<>("consumerCode"));
         tcConstruct.setCellValueFactory(new PropertyValueFactory<>("construct"));
         tcDateCreate.setCellValueFactory(new PropertyValueFactory<>("dateCreate"));
         tcLR.setCellValueFactory(new PropertyValueFactory<>("rl"));

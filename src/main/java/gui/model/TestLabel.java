@@ -42,5 +42,4 @@ public class TestLabel {
     private Double torsion;
     private String codeDefect;
 
-
 }

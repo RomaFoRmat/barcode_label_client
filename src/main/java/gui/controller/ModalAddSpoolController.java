@@ -147,6 +147,7 @@ public class ModalAddSpoolController {
 
     @FXML
     public void initialize() {
+        System.out.println(codes);
         //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
         TextFieldService.setTextFieldNumeric(numberPart, 10);
         TextFieldService.setTextFieldNumeric(newNumberRopeMachine, 3);
