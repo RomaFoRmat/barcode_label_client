@@ -49,7 +49,8 @@
                         <Font size="14.0" />
                     </font>
                 </Label>
-                <JFXHamburger fx:id="hamburgerMenu" layoutX="858.0" layoutY="27.0" prefHeight="20.0" prefWidth="34.0" stylesheets="@../css/jfxHamburger.css" />
+                <JFXHamburger fx:id="hamburgerMenu" layoutX="858.0" layoutY="18.0" prefHeight="20.0" prefWidth="34.0"
+                              stylesheets="@../css/jfxHamburger.css"/>
             </children>
         </Pane>
         <Separator focusTraversable="false" layoutY="116.0" prefHeight="7.0" prefWidth="900.0" style="-fx-background-color: #000000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -124,54 +125,74 @@
                                                         </VBox>
                                                         <VBox fx:id="vBoxTfList0" layoutX="178.0" layoutY="22.0" spacing="9.0">
                                                             <children>
-                                                                <TextField fx:id="typeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfTypeSpool" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="construct" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfConstruct" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="code" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfCode" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="lr" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfLR" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="numberSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfNumberSpool" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="part" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfPart" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="lot" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfLot" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="welds" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfWelds" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="datePrint" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfDatePrint" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="torsion" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfTorsion" prefHeight="32.0"
+                                                                           prefWidth="149.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
                                                             </children>
@@ -227,49 +248,66 @@
                                                         </VBox>
                                                         <VBox fx:id="vBoxTfList1" layoutX="697.0" layoutY="22.0" prefHeight="364.0" prefWidth="149.0" spacing="9.0">
                                                             <children>
-                                                                <TextField fx:id="straightforwardness600_0" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600_0"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_1" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600_1"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_2" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600_2"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_3" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600_3"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_4" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600_4"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600_5" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600_5"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness600Avg" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness600Avg"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="straightforwardness300" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfStraightforwardness300"
+                                                                           prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="length" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                <TextField fx:id="tfLength" prefHeight="32.0"
+                                                                           stylesheets="@../css/style.css">
                                                                     <font>
-                                                                        <Font name="System Bold" size="12.0" />
+                                                                        <Font name="System Bold" size="12.0"/>
                                                                     </font>
                                                                 </TextField>
                                                             </children>
@@ -352,9 +390,11 @@
                                                                 <Font name="Comic Sans MS Bold" size="21.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="personalRope" layoutX="630.0" layoutY="394.0" prefHeight="27.0" prefWidth="57.0" stylesheets="@../css/style.css">
+                                                        <TextField fx:id="tfPersonalRope" layoutX="630.0"
+                                                                   layoutY="394.0" prefHeight="27.0" prefWidth="57.0"
+                                                                   stylesheets="@../css/style.css">
                                                             <font>
-                                                                <Font name="System Bold" size="12.0" />
+                                                                <Font name="System Bold" size="12.0"/>
                                                             </font>
                                                         </TextField>
                                                         <Label layoutX="696.0" layoutY="390.0" prefHeight="32.0" prefWidth="148.0" styleClass="label2" stylesheets="@../css/label.css" text="№ машины КУ">
@@ -362,9 +402,11 @@
                                                                 <Font name="Comic Sans MS Bold" size="21.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField fx:id="numberRopeMachine" layoutX="848.0" layoutY="394.0" prefHeight="27.0" prefWidth="44.0" stylesheets="@../css/style.css">
+                                                        <TextField fx:id="tfNumberRopeMachine" layoutX="848.0"
+                                                                   layoutY="394.0" prefHeight="27.0" prefWidth="44.0"
+                                                                   stylesheets="@../css/style.css">
                                                             <font>
-                                                                <Font name="System Bold" size="12.0" />
+                                                                <Font name="System Bold" size="12.0"/>
                                                             </font>
                                                         </TextField>
                                                         <Separator focusTraversable="false" layoutX="-3.0" layoutY="480.0" prefHeight="6.0" prefWidth="922.0" style="-fx-background-color: #000000;" />
@@ -435,7 +477,9 @@
                                         <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред." />
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="filterField" layoutX="15.0" layoutY="484.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
+                                <TextField fx:id="tfFilterField" layoutX="15.0" layoutY="484.0" prefHeight="27.0"
+                                           prefWidth="106.0" promptText="Поиск катушки"
+                                           stylesheets="@../css/searchTab2.css"/>
                                 <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy" layoutX="467.0" layoutY="485.0" prefHeight="25.0" prefWidth="120.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
                                 <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy" layoutX="598.0" layoutY="485.0" prefHeight="25.0" prefWidth="120.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
                                 <Label layoutX="165.0" layoutY="482.0" prefHeight="28.0" prefWidth="298.0" text="Выборка данных за период времени:">
@@ -467,7 +511,8 @@
                 </Tab>
             </tabs>
         </JFXTabPane>
-        <JFXDrawer fx:id="drawer" defaultDrawerSize="208.0" direction="RIGHT" layoutX="699.0" layoutY="73.0" prefHeight="112.0" prefWidth="208.0" />
+        <JFXDrawer fx:id="drawer" defaultDrawerSize="208.0" direction="RIGHT" layoutX="699.0" layoutY="43.0"
+                   prefHeight="138.0" prefWidth="208.0"/>
           <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#5ff85f" labelFloat="true" layoutX="330.0" layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код" stylesheets="@../css/jfx_success.css" unFocusColor="BLACK">
               <font>
                   <Font name="Times New Roman" size="22.0" />

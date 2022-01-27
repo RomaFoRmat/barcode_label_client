@@ -33,23 +33,28 @@ public class SideMenuController implements Initializable {
     private JFXButton btnChangeUser;
     @FXML
     private JFXButton btnAbout;
+    public TemplatesLabelsController templatesLabelsController;
     @FXML
-    private JFXButton btnExit;
+    private JFXButton btnTemplates;
     private Stage stage;
     public AboutDialogController aboutDialogController;
+    @FXML
+    private JFXButton btnExit;
 
     public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
+        FXMLLoader templatesLoader = new FXMLLoader(getClass().getResource("/fxml/templatesLabels.fxml"));
         try {
-            FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
             aboutLoader.load();
-            aboutDialogController = aboutLoader.getController();
+            templatesLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
-
         }
+        aboutDialogController = aboutLoader.getController();
+        templatesLabelsController = templatesLoader.getController();
     }
 
     @FXML
@@ -88,5 +93,11 @@ public class SideMenuController implements Initializable {
     private void aboutAction() throws UnknownHostException {
         aboutDialogController.show();
         LOGGER.info("About the program: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
+    }
+
+    @FXML
+    private void templatesAction() throws UnknownHostException {
+        templatesLabelsController.show();
+        LOGGER.info("Open templates: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
     }
 }

@@ -99,23 +99,23 @@ public class ScanController {
     @FXML
     private Label lblNumberSpool;
     @FXML
-    private TextField typeSpool;
+    private TextField tfTypeSpool;
     @FXML
-    private TextField code;
+    private TextField tfCode;
     @FXML
-    private TextField construct;
+    private TextField tfConstruct;
     @FXML
-    private TextField datePrint;
+    private TextField tfDatePrint;
     @FXML
-    private TextField lr;
+    private TextField tfLR;
     @FXML
-    private TextField part;
+    private TextField tfPart;
     @FXML
-    private TextField lot;
+    private TextField tfLot;
     @FXML
-    private TextField length;
+    private TextField tfLength;
     @FXML
-    private TextField welds;
+    private TextField tfWelds;
 
     @FXML
     private Label lblPr300;
@@ -153,31 +153,31 @@ public class ScanController {
     @FXML
 //    private TextField personalRope;
 
-    private TextField numberSpool;
+    private TextField tfNumberSpool;
 
     @FXML
-    private TextField straightforwardness600_0;
+    private TextField tfStraightforwardness600_0;
 
     @FXML
-    private TextField straightforwardness600_1;
+    private TextField tfStraightforwardness600_1;
 
     @FXML
-    private TextField straightforwardness600_2;
+    private TextField tfStraightforwardness600_2;
 
     @FXML
-    private TextField straightforwardness600_3;
+    private TextField tfStraightforwardness600_3;
 
     @FXML
-    private TextField straightforwardness600_4;
+    private TextField tfStraightforwardness600_4;
 
     @FXML
-    private TextField straightforwardness600_5;
+    private TextField tfStraightforwardness600_5;
 
     @FXML
-    private TextField straightforwardness600Avg;
+    private TextField tfStraightforwardness600Avg;
 
     @FXML
-    private TextField torsion;
+    private TextField tfTorsion;
 
 /*    @FXML
     private TextField torsRope;
@@ -189,11 +189,11 @@ public class ScanController {
     private TextField straightforwardnessRope;*/
 
     @FXML
-    private TextField personalRope;
+    private TextField tfPersonalRope;
     @FXML
-    private TextField numberRopeMachine;
+    private TextField tfNumberRopeMachine;
     @FXML
-    private TextField straightforwardness300;
+    private TextField tfStraightforwardness300;
     @FXML
     private CheckBox cbTypeSpool;
     @FXML
@@ -299,7 +299,7 @@ public class ScanController {
     @FXML
     private TableColumn<TestLabel, Double> tcTorsion;
     @FXML
-    private TextField filterField;
+    private TextField tfFilterField;
     @FXML
     private Label lblDateTime;
     @FXML
@@ -375,25 +375,25 @@ public class ScanController {
         listAlert.add("Выберите нужные параметры для формирования этикетки!\n" +
                 "Удостоверьтесь,что отмеченные поля не пустые!");
 
-        fieldModelEngList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
-        fieldModelEngList.add(new FieldModel(code, cbCode, "Code:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(lr, cbLr, "", CellStyleOption.ENLARGED));
-        fieldModelEngList.add(new FieldModel(numberSpool, cbNumberSpool, "Bob.№:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(length, cbLength, "Length:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(part, cbPart, "Part №:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(lot, cbLot, "Lot №:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfConstruct, cbConstruct, "", CellStyleOption.ENLARGED2));
+        fieldModelEngList.add(new FieldModel(tfCode, cbCode, "Code:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfLR, cbLr, "", CellStyleOption.ENLARGED));
+        fieldModelEngList.add(new FieldModel(tfNumberSpool, cbNumberSpool, "Bob.№:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfLength, cbLength, "Length:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfPart, cbPart, "Part №:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfLot, cbLot, "Lot №:", CellStyleOption.BASE));
 //        fieldModelEngList.add(new FieldModel(typeSpool, cbTypeSpool, "", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(welds, cbWelds, "Welds:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(datePrint, cbDate, "Date:", CellStyleOption.BASE));
-        fieldModelEngList.add(new FieldModel(torsion, cbTorsion, "Torsion:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfWelds, cbWelds, "Welds:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfDatePrint, cbDate, "Date:", CellStyleOption.BASE));
+        fieldModelEngList.add(new FieldModel(tfTorsion, cbTorsion, "Torsion:", CellStyleOption.BASE));
 
 
-        fieldModelRusList.add(new FieldModel(construct, cbConstruct, "", CellStyleOption.ENLARGED2));
-        fieldModelRusList.add(new FieldModel(code, cbCode, "Код:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(lr, cbLr, "", CellStyleOption.ENLARGED));
-        fieldModelRusList.add(new FieldModel(numberSpool, cbNumberSpool, "№ кат.", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(welds, cbWelds, "Cварка:", CellStyleOption.BASE));
-        fieldModelRusList.add(new FieldModel(datePrint, cbDate, "Дата:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(tfConstruct, cbConstruct, "", CellStyleOption.ENLARGED2));
+        fieldModelRusList.add(new FieldModel(tfCode, cbCode, "Код:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(tfLR, cbLr, "", CellStyleOption.ENLARGED));
+        fieldModelRusList.add(new FieldModel(tfNumberSpool, cbNumberSpool, "№ кат.", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(tfWelds, cbWelds, "Cварка:", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(tfDatePrint, cbDate, "Дата:", CellStyleOption.BASE));
 
         initializeTableColumns();
 
@@ -414,7 +414,7 @@ public class ScanController {
         if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil, 0, 20000);
+            timer.schedule(updaterUtil, 0, 10000);
         }
 
     }
@@ -473,7 +473,7 @@ public class ScanController {
         FilteredList<TestLabel> filteredData = new FilteredList<>(tableSpool, b -> true);
 
         /** Устанавливаем предикат фильтра всякий раз, когда фильтр изменяется: */
-        filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+        tfFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(testLabel -> {
                 // If filter text is empty, display all spools.
                 if (newValue == null || newValue.isEmpty()) {
@@ -524,7 +524,7 @@ public class ScanController {
                 unDisabledCheckBox();
                 cbConstruct.setSelected(true);
                 cbLr.setSelected(true);
-                if(!code.getText().trim().isEmpty()){
+                if (!tfCode.getText().trim().isEmpty()) {
                     cbCode.setSelected(true);
                 }
                 cbNumberSpool.setSelected(true);
@@ -692,27 +692,27 @@ public class ScanController {
     }
 
     public void clearFields() {
-        typeSpool.clear();
-        code.clear();
-        construct.clear();
-        datePrint.clear();
-        lr.clear();
-        part.clear();
-        lot.clear();
-        length.clear();
-        welds.clear();
-        numberSpool.clear();
-        straightforwardness300.clear();
-        straightforwardness600_0.clear();
-        straightforwardness600_1.clear();
-        straightforwardness600_2.clear();
-        straightforwardness600_3.clear();
-        straightforwardness600_4.clear();
-        straightforwardness600_5.clear();
-        straightforwardness600Avg.clear();
-        torsion.clear();
-        personalRope.clear();
-        numberRopeMachine.clear();
+        tfTypeSpool.clear();
+        tfCode.clear();
+        tfConstruct.clear();
+        tfDatePrint.clear();
+        tfLR.clear();
+        tfPart.clear();
+        tfLot.clear();
+        tfLength.clear();
+        tfWelds.clear();
+        tfNumberSpool.clear();
+        tfStraightforwardness300.clear();
+        tfStraightforwardness600_0.clear();
+        tfStraightforwardness600_1.clear();
+        tfStraightforwardness600_2.clear();
+        tfStraightforwardness600_3.clear();
+        tfStraightforwardness600_4.clear();
+        tfStraightforwardness600_5.clear();
+        tfStraightforwardness600Avg.clear();
+        tfTorsion.clear();
+        tfPersonalRope.clear();
+        tfNumberRopeMachine.clear();
         barcodeSpool.clear();
         tabInfoSpool.setText("Информация о катушке");
 
@@ -991,37 +991,37 @@ public class ScanController {
 //            System.out.println(label);
                         LocalDate dateCurrentPrintLabel = LocalDate.now();
 
-                        typeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
-                        code.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
-                        construct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
-                        numberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
+                        tfTypeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
+                        tfCode.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
+                        tfConstruct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
+                        tfNumberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
                         //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
-                        datePrint.setText(DateUtil.format(dateCurrentPrintLabel));
-                        lr.setText(label.getRl() != null ? label.getRl() : "");
-                        part.setText(label.getPart() != null ? label.getPart() : "");
-                        lot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
-                        length.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
-                        welds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
-                        straightforwardness300.setText(label.getStraightforwardness300() != null ?
+                        tfDatePrint.setText(DateUtil.format(dateCurrentPrintLabel));
+                        tfLR.setText(label.getRl() != null ? label.getRl() : "");
+                        tfPart.setText(label.getPart() != null ? label.getPart() : "");
+                        tfLot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
+                        tfLength.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
+                        tfWelds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
+                        tfStraightforwardness300.setText(label.getStraightforwardness300() != null ?
                                 String.valueOf((label.getStraightforwardness300())) : "");
-                        straightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
+                        tfStraightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
                                 String.valueOf((label.getStraightforwardness600_0())) : "");
-                        straightforwardness600_1.setText(label.getStraightforwardness600_1() != null ?
+                        tfStraightforwardness600_1.setText(label.getStraightforwardness600_1() != null ?
                                 String.valueOf(label.getStraightforwardness600_1()) : "");
-                        straightforwardness600_2.setText(label.getStraightforwardness600_2() != null ?
+                        tfStraightforwardness600_2.setText(label.getStraightforwardness600_2() != null ?
                                 String.valueOf(label.getStraightforwardness600_2()) : "");
-                        straightforwardness600_3.setText(label.getStraightforwardness600_3() != null ?
+                        tfStraightforwardness600_3.setText(label.getStraightforwardness600_3() != null ?
                                 String.valueOf(label.getStraightforwardness600_3()) : "");
-                        straightforwardness600_4.setText(label.getStraightforwardness600_4() != null ?
+                        tfStraightforwardness600_4.setText(label.getStraightforwardness600_4() != null ?
                                 String.valueOf(label.getStraightforwardness600_4()) : "");
-                        straightforwardness600_5.setText(label.getStraightforwardness600_5() != null ?
+                        tfStraightforwardness600_5.setText(label.getStraightforwardness600_5() != null ?
                                 String.valueOf(label.getStraightforwardness600_5()) : "");
-                        straightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
+                        tfStraightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
                                 String.valueOf(label.getStraightforwardness600Avg()) : "");
-                        torsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
-                        numberRopeMachine.setText(label.getNumberRopeMachine() != null ?
+                        tfTorsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
+                        tfNumberRopeMachine.setText(label.getNumberRopeMachine() != null ?
                                 String.valueOf(label.getNumberRopeMachine()) : "");
-                        personalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
+                        tfPersonalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
                         //            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
                         //            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
                         //                    String.valueOf(label.getStraightforwardnessRope()) : "");
@@ -1031,7 +1031,7 @@ public class ScanController {
                     Platform.runLater(() -> {
                         choiceLabelAction();
 //                        cbCode.setSelected(label.getConsumerCode() != null);
-                        tabInfoSpool.setText("Информация о катушке: №" + numberSpool.getText());
+                        tabInfoSpool.setText("Информация о катушке: №" + tfNumberSpool.getText());
                     });
                     barcodeSpool.setText("");
                     System.out.println(LocalDateTime.now() + " Method ended");
