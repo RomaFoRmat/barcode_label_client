@@ -6,9 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
-import gui.model.MainValue;
 import gui.model.TemplatesLabels;
-import gui.model.TestLabel;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -27,7 +25,7 @@ public class TemplatesLabelsRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 //    public static final String TEMPLATES_ID_CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/templates + ";
 
-    public static List<TemplatesLabels> getAllTemplates() {
+    public static List<TemplatesLabels> getAllTemplates(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(TEMPLATES_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());

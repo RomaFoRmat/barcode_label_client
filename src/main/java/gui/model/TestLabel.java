@@ -41,5 +41,4 @@ public class TestLabel {
     private Double straightforwardness300;
     private Double torsion;
     private String codeDefect;
-
 }
