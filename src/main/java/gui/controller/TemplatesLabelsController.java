@@ -8,6 +8,7 @@ import gui.application.Main;
 import gui.model.Code;
 import gui.model.TemplatesLabels;
 import gui.model.TestLabel;
+import gui.model.dto.MainValueDTO;
 import gui.repository.CodeRepository;
 import gui.repository.TemplatesLabelsRepository;
 import gui.repository.TestLabelRepository;
@@ -19,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -27,9 +29,11 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static gui.repository.CodeRepository.CODE_ENDPOINT;
 import static gui.repository.TemplatesLabelsRepository.TEMPLATES_ENDPOINT;
 
 public class TemplatesLabelsController implements Initializable {
@@ -42,6 +46,9 @@ public class TemplatesLabelsController implements Initializable {
 
     @FXML
     private JFXCheckBox cbConstruct;
+
+    @FXML
+    private JFXCheckBox cbLanguage;
 
     @FXML
     private JFXCheckBox cbCode;
@@ -63,6 +70,8 @@ public class TemplatesLabelsController implements Initializable {
 
     @FXML
     private JFXCheckBox cbLength;
+    @FXML
+    private JFXCheckBox cbDatePrint;
 
     @FXML
     private TableColumn<Code, String> tcInsideCodes;
@@ -107,6 +116,7 @@ public class TemplatesLabelsController implements Initializable {
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
+    List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.getAllTemplates(TEMPLATES_ENDPOINT);
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
@@ -136,9 +146,27 @@ public class TemplatesLabelsController implements Initializable {
         tcDatePrint.setCellValueFactory(new PropertyValueFactory<>("datePrint"));
         tcLength.setCellValueFactory(new PropertyValueFactory<>("lengthSpool"));
 
-        List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.getAllTemplates(TEMPLATES_ENDPOINT);
+
         table.addAll(templatesLabelsList);
         tableTemplates.setItems(table);
+    }
+
+
+    public void addTemplate() {
+    TemplatesLabels templatesLabels = new TemplatesLabels();
+
+    templatesLabels.setIdCode(cbCodeSelection.getItems().
+            get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
+
+    templatesLabels.setLanguageLabel(cbLanguage.isSelected());
+    templatesLabels.setConstruct(cbConstruct.isSelected());
+    templatesLabels.setCode(cbCode.isSelected());
+    templatesLabels.setLot(cbLot.isSelected());
+    templatesLabels.setLengthSpool(cbLength.isSelected());
+    templatesLabels.setNumberSpool(cbNumbSpool.isSelected());
+    templatesLabels.setDatePrint(cbDatePrint.isSelected());
+    TemplatesLabelsRepository.saveAndFlush(templatesLabels);
+
     }
 
 
