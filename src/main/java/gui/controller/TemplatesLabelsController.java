@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
@@ -45,33 +46,36 @@ public class TemplatesLabelsController implements Initializable {
     private JFXComboBox<Code> cbCodeSelection;
 
     @FXML
-    private JFXCheckBox cbConstruct;
+    private CheckBox cbConstruct;
 
     @FXML
-    private JFXCheckBox cbLanguage;
+    private CheckBox cbLanguage;
 
     @FXML
-    private JFXCheckBox cbCode;
+    private CheckBox cbCode;
 
     @FXML
-    private JFXCheckBox cbLR;
+    private CheckBox cbLR;
 
     @FXML
-    private JFXCheckBox cbNumbSpool;
+    private CheckBox cbNumbSpool;
 
     @FXML
-    private JFXCheckBox cbPart;
+    private CheckBox cbPart;
 
     @FXML
-    private JFXCheckBox cbLot;
+    private CheckBox cbLot;
 
     @FXML
-    private JFXCheckBox cbWelds;
+    private CheckBox cbWelds;
 
     @FXML
-    private JFXCheckBox cbLength;
+    private CheckBox cbLength;
     @FXML
-    private JFXCheckBox cbDatePrint;
+    private CheckBox cbDatePrint;
+
+    @FXML
+    private Label lblLanguage;
 
     @FXML
     private TableColumn<Code, String> tcInsideCodes;
@@ -108,7 +112,6 @@ public class TemplatesLabelsController implements Initializable {
 
     @FXML
     private TableColumn<TemplatesLabels, Boolean> tcWelds;
-    private CheckBox select;
 
     private Stage stage;
 
@@ -117,6 +120,7 @@ public class TemplatesLabelsController implements Initializable {
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
     List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.getAllTemplates(TEMPLATES_ENDPOINT);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
@@ -128,6 +132,7 @@ public class TemplatesLabelsController implements Initializable {
 
         cbCodeSelection.setItems(codes);
         initializeTableColumns();
+        languageAction();
 
 
     }
@@ -168,7 +173,14 @@ public class TemplatesLabelsController implements Initializable {
     TemplatesLabelsRepository.saveAndFlush(templatesLabels);
 
     }
-
+    @FXML
+    public void languageAction(){
+        if (!cbLanguage.isSelected()){
+            lblLanguage.setText("выбран РУС язык");
+        } else {
+            lblLanguage.setText("выбран ENG язык");
+        }
+    }
 
     public void show() {
         stage.showAndWait();

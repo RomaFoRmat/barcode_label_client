@@ -12,7 +12,7 @@
 }
 
 .rootTemplates {
-    -fx-background-image: url("28.jpg");
+    -fx-background-image: url("backgroundTemplate.jpg");
     -fx-background-size: 100% 100%;
 }
 

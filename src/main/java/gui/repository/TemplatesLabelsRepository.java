@@ -40,7 +40,7 @@ public class TemplatesLabelsRepository {
     }
 
     public static List<TemplatesLabels> findByIdCode(Long idCode) {
-        String url = "http://" + AppProperties.getHost() + "/api/label/spool/" + idCode;
+        String url = "http://" + AppProperties.getHost() + "/api/templates/" + idCode;
         return getTemplate(url);
     }
 
@@ -60,7 +60,7 @@ public class TemplatesLabelsRepository {
     }
 
     public static TemplatesLabels saveAndFlush(TemplatesLabels templatesLabels) {
-        String url = "http://" + AppProperties.getHost() + "/api/label/spool/create";
+        String url = "http://" + AppProperties.getHost() + "/api/templates/create";
         return getResponseEntity(url, templatesLabels);
     }
 
