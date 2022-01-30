@@ -4,6 +4,7 @@
 
 .combo-box .list-cell:selected {
     -fx-background-color: #8800ff;
+    /*-fx-background-image: url("backgroundPane.jpg");*/
     -fx-text-fill: whitesmoke;
 }
 

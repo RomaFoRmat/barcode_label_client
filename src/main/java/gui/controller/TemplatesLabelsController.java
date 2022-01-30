@@ -17,10 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -154,6 +151,7 @@ public class TemplatesLabelsController implements Initializable {
 
         table.addAll(templatesLabelsList);
         tableTemplates.setItems(table);
+        
     }
 
 
@@ -167,9 +165,12 @@ public class TemplatesLabelsController implements Initializable {
     templatesLabels.setConstruct(cbConstruct.isSelected());
     templatesLabels.setCode(cbCode.isSelected());
     templatesLabels.setLot(cbLot.isSelected());
+    templatesLabels.setLr(cbLR.isSelected());
     templatesLabels.setLengthSpool(cbLength.isSelected());
     templatesLabels.setNumberSpool(cbNumbSpool.isSelected());
     templatesLabels.setDatePrint(cbDatePrint.isSelected());
+    templatesLabels.setPart(cbPart.isSelected());
+    templatesLabels.setWelds(cbWelds.isSelected());
     TemplatesLabelsRepository.saveAndFlush(templatesLabels);
 
     }
