@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.TemplatesLabels;
+import gui.model.dto.TemplateLabelDTO;
 import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -25,13 +26,13 @@ public class TemplatesLabelsRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 //    public static final String TEMPLATES_ID_CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/templates + ";
 
-    public static List<TemplatesLabels> getAllTemplates(String url) {
+    public static List<TemplateLabelDTO> getAllTemplates(String templatesEndpoint) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(TEMPLATES_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
-                            new TypeReference<List<TemplatesLabels>>() {
+                            new TypeReference<List<TemplateLabelDTO>>() {
                             }));
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,4 +81,5 @@ public class TemplatesLabelsRepository {
         }
         return null;
     }
+
 }

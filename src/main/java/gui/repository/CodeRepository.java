@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import gui.application.AppProperties;
 import gui.model.Code;
+import gui.model.TestLabel;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -16,6 +17,8 @@ import java.util.List;
 public class CodeRepository {
 
     public static final String CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllCodes";
+    private static Long code;
+    public static final String ID_CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/codeDTO/" + code;
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static List<Code> findAllByConversionIdConversion() {
@@ -31,4 +34,24 @@ public class CodeRepository {
         }
         return Collections.emptyList();
     }
+
+//    public static Code findByIdKod(Long code) {
+//        String url = "http://" + AppProperties.getHost() + "/api/codeDTO/" + code;
+//        return getIdKod(url);
+//    }
+    public static Code getIdKod(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(ID_CODE_ENDPOINT);
+            mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<Code>() {
+                            }));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
