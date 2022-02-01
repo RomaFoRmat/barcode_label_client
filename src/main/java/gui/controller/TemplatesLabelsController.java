@@ -1,13 +1,19 @@
 package gui.controller;
 
 import com.jfoenix.controls.*;
+import gui.application.AppProperties;
 import gui.application.Main;
 
 import gui.model.Code;
+import gui.model.Constants;
 import gui.model.TemplatesLabels;
+import gui.model.TestLabel;
 import gui.model.dto.TemplateLabelDTO;
 import gui.repository.CodeRepository;
 import gui.repository.TemplatesLabelsRepository;
+import gui.repository.TestLabelRepository;
+import gui.service.TextFieldService;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -109,7 +115,7 @@ public class TemplatesLabelsController implements Initializable {
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
-    List<TemplateLabelDTO> templateLabelDTOList = TemplatesLabelsRepository.getAllTemplates(TEMPLATES_ENDPOINT);
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -128,8 +134,9 @@ public class TemplatesLabelsController implements Initializable {
     }
 
     public void initializeTableColumns() {
-
         table.clear();
+
+        List<TemplateLabelDTO> templateLabelDTOList = TemplatesLabelsRepository.getAllTemplates(TEMPLATES_ENDPOINT);
 
         tcInsideCodes.setCellValueFactory(new PropertyValueFactory<>("kod"));
         tcLanguage.setCellValueFactory(new PropertyValueFactory<>("languageLabel"));
@@ -150,10 +157,10 @@ public class TemplatesLabelsController implements Initializable {
 
 
     public void addTemplate() {
-    TemplatesLabels templatesLabels = new TemplatesLabels();
+        TemplatesLabels templatesLabels = new TemplatesLabels();
 
-    templatesLabels.setIdCode(cbCodeSelection.getItems().
-            get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
+        templatesLabels.setIdCode(cbCodeSelection.getItems().
+                get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
         templatesLabels.setLanguageLabel(cbLanguage.isSelected());
         templatesLabels.setConstruct(cbConstruct.isSelected());
         templatesLabels.setCode(cbCode.isSelected());
@@ -165,9 +172,15 @@ public class TemplatesLabelsController implements Initializable {
         templatesLabels.setPart(cbPart.isSelected());
         templatesLabels.setWelds(cbWelds.isSelected());
 
-    TemplatesLabelsRepository.saveAndFlush(templatesLabels);
+        TemplatesLabelsRepository.saveAndFlush(templatesLabels);
 
-    initializeTableColumns();
+        initializeTableColumns();
+
+        Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
+                                                        "/api/codeDTO/" + templatesLabels.getIdCode());
+
+        TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!" );
+
 
     }
     @FXML

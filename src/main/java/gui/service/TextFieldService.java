@@ -31,6 +31,18 @@ public class TextFieldService {
         }
     }
 
+    public static void alertInformation(String information) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, information, ButtonType.OK);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+        alert.setTitle(null);
+        alert.setHeaderText(null);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            System.out.println(information);
+        }
+    }
+
     public static void exitConfirmationAlert(String confirmation, Button button) throws UnknownHostException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, confirmation);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();

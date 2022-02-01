@@ -17,8 +17,6 @@ import java.util.List;
 public class CodeRepository {
 
     public static final String CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllCodes";
-    private static Long code;
-    public static final String ID_CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/codeDTO/" + code;
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static List<Code> findAllByConversionIdConversion() {
@@ -35,13 +33,14 @@ public class CodeRepository {
         return Collections.emptyList();
     }
 
-//    public static Code findByIdKod(Long code) {
-//        String url = "http://" + AppProperties.getHost() + "/api/codeDTO/" + code;
-//        return getIdKod(url);
-//    }
+    public static Code findByIdKod(Long code) {
+        String url = "http://" + AppProperties.getHost() + "/api/codeDTO/" + code;
+        return getIdKod(url);
+    }
+
     public static Code getIdKod(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpGet request = new HttpGet(ID_CODE_ENDPOINT);
+            HttpGet request = new HttpGet(url);
             mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
