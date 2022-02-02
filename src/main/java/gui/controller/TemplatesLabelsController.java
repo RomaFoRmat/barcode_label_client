@@ -117,7 +117,6 @@ public class TemplatesLabelsController implements Initializable {
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
@@ -157,44 +156,38 @@ public class TemplatesLabelsController implements Initializable {
     }
 
     @FXML
-    public void addTemplate() { //ПРАВИЛЬНО СОСТАВИТЬ УСЛОВИЕ ДЛЯ ПРОВЕРКИ,ЕСТЬ ЛИ ДЛЯ КОДА УЖЕ ШАБЛОН В БД
-        TemplatesLabels templatesLabels = new TemplatesLabels();
-        if (!tableTemplates.getItems().isEmpty()) {
+    public void addTemplate() {
+        if (cbCodeSelection.getValue() != null) {
+
+            TemplatesLabels templatesLabels = new TemplatesLabels();
+            Long id = cbCodeSelection.getItems().
+                    get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode();
             List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
-                    getTemplate("http://" + AppProperties.getHost() + "/api/templates/" +
-                            cbCodeSelection.getItems().get(cbCodeSelection.
-                                    getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
+                    getTemplate("http://" + AppProperties.getHost() + "/api/templates/" + id);
 
-                if (templatesLabelsList != null && templatesLabelsList.isEmpty()) {
+            if (templatesLabelsList != null && templatesLabelsList.isEmpty()) {
+                templatesLabels.setIdCode(id);
+                templatesLabels.setLanguageLabel(cbLanguage.isSelected());
+                templatesLabels.setConstruct(cbConstruct.isSelected());
+                templatesLabels.setCode(cbCode.isSelected());
+                templatesLabels.setLot(cbLot.isSelected());
+                templatesLabels.setLr(cbLR.isSelected());
+                templatesLabels.setLengthSpool(cbLength.isSelected());
+                templatesLabels.setNumberSpool(cbNumbSpool.isSelected());
+                templatesLabels.setDatePrint(cbDatePrint.isSelected());
+                templatesLabels.setPart(cbPart.isSelected());
+                templatesLabels.setWelds(cbWelds.isSelected());
 
-                    templatesLabels.setIdCode(cbCodeSelection.getItems().
-                            get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
-                    templatesLabels.setLanguageLabel(cbLanguage.isSelected());
-                    templatesLabels.setConstruct(cbConstruct.isSelected());
-                    templatesLabels.setCode(cbCode.isSelected());
-                    templatesLabels.setLot(cbLot.isSelected());
-                    templatesLabels.setLr(cbLR.isSelected());
-                    templatesLabels.setLengthSpool(cbLength.isSelected());
-                    templatesLabels.setNumberSpool(cbNumbSpool.isSelected());
-                    templatesLabels.setDatePrint(cbDatePrint.isSelected());
-                    templatesLabels.setPart(cbPart.isSelected());
-                    templatesLabels.setWelds(cbWelds.isSelected());
+                TemplatesLabelsRepository.saveAndFlush(templatesLabels);
+                initializeTableColumns();
+                Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
+                        "/api/codeDTO/" + templatesLabels.getIdCode());
+                TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
 
-                    TemplatesLabelsRepository.saveAndFlush(templatesLabels);
-
-                    initializeTableColumns();
-
-                    Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
-                            "/api/codeDTO/" + templatesLabels.getIdCode());
-
-                    TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!" );
-
-                }   else if () {
-                        TextFieldService.alertWarning("Шаблон для данного кода уже существует");
-                }
-        }
-
+            }else { TextFieldService.alertWarning("Шаблон для данного кода уже существует!"); }
+        } else { TextFieldService.alertWarning("Выберете КОД для создания шаблона!"); }
     }
+
     @FXML
     public void updateTemplate() {
 
