@@ -30,7 +30,7 @@
          </children>
       </VBox>
       <JFXComboBox fx:id="cbCodeSelection" focusColor="#8800ff" labelFloat="true" layoutX="7.0" layoutY="67.0" prefHeight="25.0" prefWidth="245.0" promptText="Выберите код" stylesheets="@../css/jfxSelectTemplates.css" />
-      <TableView fx:id="tableTemplates" layoutX="259.0" layoutY="40.0" prefHeight="410.0" prefWidth="579.0">
+      <TableView fx:id="tableTemplates" layoutX="259.0" layoutY="40.0" onMouseClicked="#getSelected" prefHeight="410.0" prefWidth="579.0">
          <columns>
             <TableColumn fx:id="tcInsideCodes" prefWidth="53.0" text="Коды" />
             <TableColumn prefWidth="614.0" text="Параметры этикетки">
@@ -55,8 +55,8 @@
          </font>
       </Label>
       <JFXButton layoutX="39.0" layoutY="378.0" onAction="#addTemplate" text="Добавить" />
-      <JFXButton layoutX="126.0" layoutY="378.0" text="Редактировать" />
-      <JFXButton layoutX="96.0" layoutY="410.0" text="Удалить" />
+      <JFXButton layoutX="126.0" layoutY="378.0" onAction="#updateTemplate" text="Редактировать" />
+      <JFXButton layoutX="96.0" layoutY="410.0" onAction="#deleteAction" text="Удалить" />
       <CheckBox fx:id="cbLanguage" layoutX="80.0" layoutY="150.0" onAction="#languageAction" stylesheets="@../css/cheсkBox.css" text="РУC/ENG" />
       <CheckBox fx:id="cbDatePrint" layoutX="95.0" layoutY="330.0" selected="true" stylesheets="@../css/cheсkBox.css" text="ДАТА" />
       <Label fx:id="lblLanguage" layoutX="127.0" layoutY="120.0">

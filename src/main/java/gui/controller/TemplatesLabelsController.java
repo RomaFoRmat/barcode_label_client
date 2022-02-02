@@ -26,6 +26,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -155,34 +156,62 @@ public class TemplatesLabelsController implements Initializable {
         
     }
 
+    @FXML
+    public void addTemplate() { //ПРАВИЛЬНО СОСТАВИТЬ УСЛОВИЕ ДЛЯ ПРОВЕРКИ,ЕСТЬ ЛИ ДЛЯ КОДА УЖЕ ШАБЛОН В БД
+        TemplatesLabels templatesLabels = new TemplatesLabels();
+        if (!tableTemplates.getItems().isEmpty()) {
+            List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
+                    getTemplate("http://" + AppProperties.getHost() + "/api/templates/" +
+                            cbCodeSelection.getItems().get(cbCodeSelection.
+                                    getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
 
-    public void addTemplate() {
+                if (templatesLabelsList != null && templatesLabelsList.isEmpty()) {
+
+                    templatesLabels.setIdCode(cbCodeSelection.getItems().
+                            get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
+                    templatesLabels.setLanguageLabel(cbLanguage.isSelected());
+                    templatesLabels.setConstruct(cbConstruct.isSelected());
+                    templatesLabels.setCode(cbCode.isSelected());
+                    templatesLabels.setLot(cbLot.isSelected());
+                    templatesLabels.setLr(cbLR.isSelected());
+                    templatesLabels.setLengthSpool(cbLength.isSelected());
+                    templatesLabels.setNumberSpool(cbNumbSpool.isSelected());
+                    templatesLabels.setDatePrint(cbDatePrint.isSelected());
+                    templatesLabels.setPart(cbPart.isSelected());
+                    templatesLabels.setWelds(cbWelds.isSelected());
+
+                    TemplatesLabelsRepository.saveAndFlush(templatesLabels);
+
+                    initializeTableColumns();
+
+                    Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
+                            "/api/codeDTO/" + templatesLabels.getIdCode());
+
+                    TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!" );
+
+                }   else if () {
+                        TextFieldService.alertWarning("Шаблон для данного кода уже существует");
+                }
+        }
+
+    }
+    @FXML
+    public void updateTemplate() {
+
+    }
+
+    @FXML
+    public void deleteAction() {
+
         TemplatesLabels templatesLabels = new TemplatesLabels();
 
         templatesLabels.setIdCode(cbCodeSelection.getItems().
                 get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
-        templatesLabels.setLanguageLabel(cbLanguage.isSelected());
-        templatesLabels.setConstruct(cbConstruct.isSelected());
-        templatesLabels.setCode(cbCode.isSelected());
-        templatesLabels.setLot(cbLot.isSelected());
-        templatesLabels.setLr(cbLR.isSelected());
-        templatesLabels.setLengthSpool(cbLength.isSelected());
-        templatesLabels.setNumberSpool(cbNumbSpool.isSelected());
-        templatesLabels.setDatePrint(cbDatePrint.isSelected());
-        templatesLabels.setPart(cbPart.isSelected());
-        templatesLabels.setWelds(cbWelds.isSelected());
 
-        TemplatesLabelsRepository.saveAndFlush(templatesLabels);
-
-        initializeTableColumns();
-
-        Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
-                                                        "/api/codeDTO/" + templatesLabels.getIdCode());
-
-        TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!" );
-
+        TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" + templatesLabels.getIdCode());
 
     }
+
     @FXML
     public void languageAction(){
         if (!cbLanguage.isSelected()){
@@ -192,32 +221,30 @@ public class TemplatesLabelsController implements Initializable {
         }
     }
 
-    //    public void okDialogSuccess(){
-//        JFXDialogLayout message = new JFXDialogLayout();
-//        message.setHeading(new Text("УСПЕХ!"));
-//        message.setBody(new Text("Главная запись успешно создана"));
-//        message.setStyle("-fx-font-size: 15; -fx-font-family: 'Comic Sans MS';");
-//        JFXDialog dialog = new  JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
-//        JFXButton btnDialog = new JFXButton("OK");
-//
-//        btnDialog.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                dialog.close();
-//            }
-//        });
-//        message.addEventHandler(KeyEvent.KEY_PRESSED, event2 -> {
-//            if(event2.getCode() == KeyCode.ENTER) {
-//                btnDialog.fire();
-//                event2.consume();
-//            }
-//        });
-//        message.setActions(btnDialog);
-//        dialog.show();
-//    }
 
     public void show() {
         stage.showAndWait();
     }
 
+    @FXML
+    public void getSelected() {
+        int index ;
+        index = tableTemplates.getSelectionModel().getSelectedIndex();
+        if(index <= -1){
+            return;
+        }
+        cbCodeSelection.getItems().get(cbCodeSelection.getSelectionModel().
+                getSelectedIndex()).setCode(tcInsideCodes.getCellData(index));
+//        cbCodeSelection.setValue(tcInsideCodes.getCellData(index));
+        cbLanguage.setSelected(tcLanguage.getCellData(index));
+        cbConstruct.setSelected(tcConstruct.getCellData(index));
+        cbCode.setSelected(tcConstruct.getCellData(index));
+        cbLR.setSelected(tcLR.getCellData(index));
+        cbNumbSpool.setSelected(tcNumbSpool.getCellData(index));
+        cbPart.setSelected(tcPart.getCellData(index));
+        cbLot.setSelected(tcLot.getCellData(index));
+        cbWelds.setSelected(tcWelds.getCellData(index));
+        cbLength.setSelected(tcWelds.getCellData(index));
+        cbDatePrint.setSelected(tcDatePrint.getCellData(index));
+    }
 }

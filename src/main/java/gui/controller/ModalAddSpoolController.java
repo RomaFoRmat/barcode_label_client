@@ -300,12 +300,7 @@ public class ModalAddSpoolController {
         JFXDialog dialog = new  JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
         JFXButton btnDialog = new JFXButton("OK");
 
-        btnDialog.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                dialog.close();
-            }
-        });
+        btnDialog.setOnAction(event -> dialog.close());
         message.addEventHandler(KeyEvent.KEY_PRESSED, event2 -> {
             if(event2.getCode() == KeyCode.ENTER) {
                 btnDialog.fire();
