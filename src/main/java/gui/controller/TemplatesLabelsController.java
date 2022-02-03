@@ -5,15 +5,11 @@ import gui.application.AppProperties;
 import gui.application.Main;
 
 import gui.model.Code;
-import gui.model.Constants;
 import gui.model.TemplatesLabels;
-import gui.model.TestLabel;
 import gui.model.dto.TemplateLabelDTO;
 import gui.repository.CodeRepository;
 import gui.repository.TemplatesLabelsRepository;
-import gui.repository.TestLabelRepository;
 import gui.service.TextFieldService;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,9 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -110,6 +104,15 @@ public class TemplatesLabelsController implements Initializable {
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcWelds;
 
+    @FXML
+    private JFXButton btnAdd;
+
+    @FXML
+    private JFXButton btnEdit;
+
+    @FXML
+    private JFXButton btnDelete;
+
     private Stage stage;
 
     private final ObservableList<TemplateLabelDTO> table = FXCollections.observableArrayList();
@@ -163,7 +166,7 @@ public class TemplatesLabelsController implements Initializable {
             Long id = cbCodeSelection.getItems().
                     get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode();
             List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
-                    getTemplate("http://" + AppProperties.getHost() + "/api/templates/" + id);
+                    getTemplate("http://" + AppProperties.getHost() + "/api/templates-idCode/" + id);
 
             if (templatesLabelsList != null && templatesLabelsList.isEmpty()) {
                 templatesLabels.setIdCode(id);
@@ -178,7 +181,7 @@ public class TemplatesLabelsController implements Initializable {
                 templatesLabels.setPart(cbPart.isSelected());
                 templatesLabels.setWelds(cbWelds.isSelected());
 
-                TemplatesLabelsRepository.saveAndFlush(templatesLabels);
+                TemplatesLabelsRepository.addTemplate(templatesLabels);
                 initializeTableColumns();
                 Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
                         "/api/codeDTO/" + templatesLabels.getIdCode());
@@ -191,18 +194,53 @@ public class TemplatesLabelsController implements Initializable {
     @FXML
     public void updateTemplate() {
 
+        TemplateLabelDTO selectedId = tableTemplates.getSelectionModel().getSelectedItem();
+
+        if(selectedId != null) {
+            Long idTemplate = selectedId.getTemplatesLabels().getIdTemplate();
+
+            List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
+                    getByIdTemplate("http://" + AppProperties.getHost() + "/api/templates-id/" + idTemplate);
+
+            TemplatesLabels labels = templatesLabelsList.get(0);
+
+            labels.getIdTemplate();
+            labels.setIdCode(cbCodeSelection.getItems().
+                    get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
+            labels.setLanguageLabel(cbLanguage.isSelected());
+            labels.setConstruct(cbConstruct.isSelected());
+            labels.setCode(cbCode.isSelected());
+            labels.setLot(cbLot.isSelected());
+            labels.setLr(cbLR.isSelected());
+            labels.setLengthSpool(cbLength.isSelected());
+            labels.setNumberSpool(cbNumbSpool.isSelected());
+            labels.setDatePrint(cbDatePrint.isSelected());
+            labels.setPart(cbPart.isSelected());
+            labels.setWelds(cbWelds.isSelected());
+
+            TemplatesLabelsRepository.update(labels);
+            initializeTableColumns();
+            TextFieldService.alertInformation("Шаблон для кода " + selectedId.getKod() + " успешно отредактирован!");
+        }else{
+            TextFieldService.alertWarning("Для редактирования необходимо выбрать нужный КОД в таблице шаблонов!");
+        }
     }
 
     @FXML
     public void deleteAction() {
 
+        TemplateLabelDTO selectedId = tableTemplates.getSelectionModel().getSelectedItem();
+        if(selectedId != null){
         TemplatesLabels templatesLabels = new TemplatesLabels();
-
-        templatesLabels.setIdCode(cbCodeSelection.getItems().
-                get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode());
-
-        TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" + templatesLabels.getIdCode());
-
+        templatesLabels.setIdTemplate(tableTemplates.getSelectionModel().getSelectedItem().
+                                        getTemplatesLabels().getIdTemplate());
+        TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
+                                        templatesLabels.getIdTemplate());
+        TextFieldService.alertInformation("Шаблон для кода " + selectedId.getKod() + " успешно удалён!");
+        initializeTableColumns();
+        } else {
+            TextFieldService.alertWarning("Выберите в таблице нужный КОД для удаления!");
+        }
     }
 
     @FXML
@@ -214,30 +252,34 @@ public class TemplatesLabelsController implements Initializable {
         }
     }
 
-
     public void show() {
         stage.showAndWait();
     }
 
     @FXML
     public void getSelected() {
-        int index ;
-        index = tableTemplates.getSelectionModel().getSelectedIndex();
-        if(index <= -1){
-            return;
+        TemplateLabelDTO selectedTemplate = tableTemplates.getSelectionModel().getSelectedItem();
+        cbCodeSelection.getSelectionModel().select(searchCodeIndex(selectedTemplate.getKod()));
+        cbLanguage.setSelected(selectedTemplate.getTemplatesLabels().getLanguageLabel());
+        cbConstruct.setSelected(selectedTemplate.getTemplatesLabels().getConstruct());
+        cbCode.setSelected(selectedTemplate.getTemplatesLabels().getCode());
+        cbLR.setSelected(selectedTemplate.getTemplatesLabels().getLr());
+        cbNumbSpool.setSelected(selectedTemplate.getTemplatesLabels().getNumberSpool());
+        cbPart.setSelected(selectedTemplate.getTemplatesLabels().getPart());
+        cbLot.setSelected(selectedTemplate.getTemplatesLabels().getLot());
+        cbWelds.setSelected(selectedTemplate.getTemplatesLabels().getWelds());
+        cbLength.setSelected(selectedTemplate.getTemplatesLabels().getLengthSpool());
+        cbDatePrint.setSelected(selectedTemplate.getTemplatesLabels().getDatePrint());
+        languageAction();
+    }
+
+
+    private int searchCodeIndex(String requestCode) {
+        for( int i=0;i<cbCodeSelection.getItems().size();i++){
+            if(cbCodeSelection.getItems().get(i).getCode().equals(requestCode)){
+                return i;
+            }
         }
-        cbCodeSelection.getItems().get(cbCodeSelection.getSelectionModel().
-                getSelectedIndex()).setCode(tcInsideCodes.getCellData(index));
-//        cbCodeSelection.setValue(tcInsideCodes.getCellData(index));
-        cbLanguage.setSelected(tcLanguage.getCellData(index));
-        cbConstruct.setSelected(tcConstruct.getCellData(index));
-        cbCode.setSelected(tcConstruct.getCellData(index));
-        cbLR.setSelected(tcLR.getCellData(index));
-        cbNumbSpool.setSelected(tcNumbSpool.getCellData(index));
-        cbPart.setSelected(tcPart.getCellData(index));
-        cbLot.setSelected(tcLot.getCellData(index));
-        cbWelds.setSelected(tcWelds.getCellData(index));
-        cbLength.setSelected(tcWelds.getCellData(index));
-        cbDatePrint.setSelected(tcDatePrint.getCellData(index));
+        return 0;
     }
 }

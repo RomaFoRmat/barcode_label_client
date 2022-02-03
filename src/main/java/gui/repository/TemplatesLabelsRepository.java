@@ -12,6 +12,7 @@ import gui.service.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -26,16 +27,39 @@ public class TemplatesLabelsRepository {
     public static final String TEMPLATES_ENDPOINT = "http://" + AppProperties.getHost() + "/api/templates/all";
     public static ObjectMapper mapper = new ObjectMapper();
 
-    public static TemplatesLabels deleteByIdTemplate(Long idTemplate){
+    public static void deleteByIdTemplate(Long idTemplate){
         String url = "http://" + AppProperties.getHost() + "/api/templates/" + idTemplate;
-        return delete(url);
+        delete(url);
     }
 
-    public static TemplatesLabels delete(String url) {
+    public static List<TemplatesLabels> findByIdCode(Long idCode) {
+        String url = "http://" + AppProperties.getHost() + "/api/templates-idCode/" + idCode;
+        return getTemplate(url);
+    }
+
+    public static List<TemplatesLabels> findByIdTemplate(Long idTemplate) {
+        String url = "http://" + AppProperties.getHost() + "/api/templates-id/" + idTemplate;
+        return getByIdTemplate(url);
+    }
+
+    public static TemplatesLabels addTemplate(TemplatesLabels templatesLabels) {
+        String url = "http://" + AppProperties.getHost() + "/api/templates";
+        return getResponseEntity(url, templatesLabels);
+    }
+
+    public static TemplatesLabels update(TemplatesLabels templatesLabels) {
+        String url = "http://" + AppProperties.getHost() + "/api/templates";
+        return updateTemplate(url, templatesLabels);
+    }
+
+    public static List<TemplatesLabels> getByIdTemplate(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpDelete httpDelete = new HttpDelete(url);
-            return client.execute(httpDelete, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(), TemplatesLabels.class));
+            HttpGet request = new HttpGet(url);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<TemplatesLabels>>() {
+                            }));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,31 +67,14 @@ public class TemplatesLabelsRepository {
         return null;
     }
 
-    public static List<TemplatesLabels> findByIdCode(Long idCode) {
-        String url = "http://" + AppProperties.getHost() + "/api/templates/" + idCode;
-        return getTemplate(url);
-    }
-
-    public static TemplatesLabels saveAndFlush(TemplatesLabels templatesLabels) {
-        String url = "http://" + AppProperties.getHost() + "/api/templates";
-        return getResponseEntity(url, templatesLabels);
-    }
-
-
-    public static List<TemplateLabelDTO> getAllTemplates(String templatesEndpoint) {
+    public static void delete(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpGet request = new HttpGet(TEMPLATES_ENDPOINT);
-            mapper.registerModule(new JavaTimeModule());
-            return client.execute(request, httpResponse ->
-                    mapper.readValue(httpResponse.getEntity().getContent(),
-                            new TypeReference<List<TemplateLabelDTO>>() {
-                            }));
+            HttpDelete httpDelete = new HttpDelete(url);
+            client.execute(httpDelete);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Collections.emptyList();
     }
-
 
     public static List<TemplatesLabels> getTemplate(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -84,7 +91,19 @@ public class TemplatesLabelsRepository {
         return null;
     }
 
-
+    public static List<TemplateLabelDTO> getAllTemplates(String templatesEndpoint) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(TEMPLATES_ENDPOINT);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<TemplateLabelDTO>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
 
     public static TemplatesLabels getResponseEntity(String url, TemplatesLabels templatesLabels) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -103,6 +122,21 @@ public class TemplatesLabelsRepository {
         return null;
     }
 
-
+    public static TemplatesLabels updateTemplate(String url, TemplatesLabels templatesLabels) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPut httpPut = new HttpPut(url);
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapterUtil())
+                    .create();
+            mapper.registerModule(new JavaTimeModule());
+            httpPut.setEntity(new StringEntity(gson.toJson(templatesLabels), StandardCharsets.UTF_8));
+            return client.execute(httpPut, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(), TemplatesLabels.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

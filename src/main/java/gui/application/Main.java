@@ -21,7 +21,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
-        primaryStage.setTitle("Вход в SCAN SPOOLS");
+        primaryStage.setTitle("Вход в SPOOLS SCAN");
         primaryStage.setScene(new Scene(root, 500, 304));
         primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         primaryStage.setResizable(false);

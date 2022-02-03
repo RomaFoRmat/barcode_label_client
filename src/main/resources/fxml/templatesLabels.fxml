@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="templatesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="838.0" styleClass="rootTemplates" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.TemplatesLabelsController">
+<AnchorPane fx:id="templatesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="843.0" styleClass="rootTemplates" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.TemplatesLabelsController">
    <children>
       <VBox layoutX="15.0" layoutY="216.0" prefHeight="102.0" prefWidth="98.0" spacing="10.0" stylesheets="@../css/cheсkBox.css">
          <children>
@@ -30,9 +30,9 @@
          </children>
       </VBox>
       <JFXComboBox fx:id="cbCodeSelection" focusColor="#8800ff" labelFloat="true" layoutX="7.0" layoutY="67.0" prefHeight="25.0" prefWidth="245.0" promptText="Выберите код" stylesheets="@../css/jfxSelectTemplates.css" />
-      <TableView fx:id="tableTemplates" layoutX="259.0" layoutY="40.0" onMouseClicked="#getSelected" prefHeight="410.0" prefWidth="579.0">
+      <TableView fx:id="tableTemplates" layoutX="259.0" layoutY="40.0" onMouseClicked="#getSelected" prefHeight="410.0" prefWidth="580.0" stylesheets="@../css/tableView.css">
          <columns>
-            <TableColumn fx:id="tcInsideCodes" prefWidth="53.0" text="Коды" />
+            <TableColumn fx:id="tcInsideCodes" prefWidth="50.0" text="Коды" />
             <TableColumn prefWidth="614.0" text="Параметры этикетки">
                <columns>
                   <TableColumn fx:id="tcLanguage" prefWidth="64.0" text="Рус-/Eng+" />
@@ -54,9 +54,9 @@
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
       </Label>
-      <JFXButton layoutX="39.0" layoutY="378.0" onAction="#addTemplate" text="Добавить" />
-      <JFXButton layoutX="126.0" layoutY="378.0" onAction="#updateTemplate" text="Редактировать" />
-      <JFXButton layoutX="96.0" layoutY="410.0" onAction="#deleteAction" text="Удалить" />
+      <JFXButton fx:id="btnAdd" layoutX="44.0" layoutY="377.0" onAction="#addTemplate" stylesheets="@../css/buttonTemplate.css" text="Добавить" />
+      <JFXButton fx:id="btnEdit" layoutX="132.0" layoutY="377.0" onAction="#updateTemplate" prefHeight="27.0" prefWidth="78.0" stylesheets="@../css/buttonTemplate.css" text="Изменить" />
+      <JFXButton fx:id="btnDelete" layoutX="93.0" layoutY="412.0" onAction="#deleteAction" stylesheets="@../css/buttonTemplate.css" text="Удалить" />
       <CheckBox fx:id="cbLanguage" layoutX="80.0" layoutY="150.0" onAction="#languageAction" stylesheets="@../css/cheсkBox.css" text="РУC/ENG" />
       <CheckBox fx:id="cbDatePrint" layoutX="95.0" layoutY="330.0" selected="true" stylesheets="@../css/cheсkBox.css" text="ДАТА" />
       <Label fx:id="lblLanguage" layoutX="127.0" layoutY="120.0">
