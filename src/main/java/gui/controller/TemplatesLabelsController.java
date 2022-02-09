@@ -12,6 +12,7 @@ import gui.repository.TemplatesLabelsRepository;
 import gui.service.TextFieldService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -113,6 +114,9 @@ public class TemplatesLabelsController implements Initializable {
     @FXML
     private JFXButton btnDelete;
 
+    @FXML
+    private Hyperlink linkHelp;
+
     private Stage stage;
 
     private final ObservableList<TemplateLabelDTO> table = FXCollections.observableArrayList();
@@ -133,9 +137,18 @@ public class TemplatesLabelsController implements Initializable {
         initializeTableColumns();
         languageAction();
 
-
     }
 
+    /**
+     * Получение объекта в таблице шаблонов
+     * */
+    private TemplateLabelDTO getSelectedTemplate(){
+        return tableTemplates.getSelectionModel().getSelectedItem();
+    }
+
+    /**
+     * Иниализация таблицы шаблонов
+     * */
     public void initializeTableColumns() {
         table.clear();
 
@@ -158,18 +171,17 @@ public class TemplatesLabelsController implements Initializable {
         
     }
 
+    /**
+     * Добавление шаблона
+     * */
     @FXML
     public void addTemplate() {
         if (cbCodeSelection.getValue() != null) {
-
             TemplatesLabels templatesLabels = new TemplatesLabels();
-            Long id = cbCodeSelection.getItems().
-                    get(cbCodeSelection.getSelectionModel().getSelectedIndex()).getCodePrimaryKey().getIdCode();
-            List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
-                    getTemplate("http://" + AppProperties.getHost() + "/api/templates-idCode/" + id);
+            Code selectedCode = cbCodeSelection.getItems().get(cbCodeSelection.getSelectionModel().getSelectedIndex());
 
-            if (templatesLabelsList != null && templatesLabelsList.isEmpty()) {
-                templatesLabels.setIdCode(id);
+            if (!isTemplateExists(selectedCode.getCode())) {
+                templatesLabels.setIdCode(selectedCode.getCodePrimaryKey().getIdCode());
                 templatesLabels.setLanguageLabel(cbLanguage.isSelected());
                 templatesLabels.setConstruct(cbConstruct.isSelected());
                 templatesLabels.setCode(cbCode.isSelected());
@@ -191,13 +203,13 @@ public class TemplatesLabelsController implements Initializable {
         } else { TextFieldService.alertWarning("Выберете КОД для создания шаблона!"); }
     }
 
+    /**
+     * Редактирование шаблона
+     * */
     @FXML
     public void updateTemplate() {
-
-        TemplateLabelDTO selectedId = tableTemplates.getSelectionModel().getSelectedItem();
-
-        if(selectedId != null) {
-            Long idTemplate = selectedId.getTemplatesLabels().getIdTemplate();
+        if(getSelectedTemplate() != null) {
+            Long idTemplate = getSelectedTemplate().getTemplatesLabels().getIdTemplate();
 
             List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
                     getByIdTemplate("http://" + AppProperties.getHost() + "/api/templates-id/" + idTemplate);
@@ -219,30 +231,34 @@ public class TemplatesLabelsController implements Initializable {
             labels.setWelds(cbWelds.isSelected());
 
             TemplatesLabelsRepository.update(labels);
+            TextFieldService.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно отредактирован!");
             initializeTableColumns();
-            TextFieldService.alertInformation("Шаблон для кода " + selectedId.getKod() + " успешно отредактирован!");
         }else{
             TextFieldService.alertWarning("Для редактирования необходимо выбрать нужный КОД в таблице шаблонов!");
         }
     }
 
+    /**
+     * Удаление шаблона
+     * */
     @FXML
     public void deleteAction() {
-
-        TemplateLabelDTO selectedId = tableTemplates.getSelectionModel().getSelectedItem();
-        if(selectedId != null){
+        if(getSelectedTemplate() != null){
         TemplatesLabels templatesLabels = new TemplatesLabels();
         templatesLabels.setIdTemplate(tableTemplates.getSelectionModel().getSelectedItem().
                                         getTemplatesLabels().getIdTemplate());
         TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
                                         templatesLabels.getIdTemplate());
-        TextFieldService.alertInformation("Шаблон для кода " + selectedId.getKod() + " успешно удалён!");
+        TextFieldService.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
         initializeTableColumns();
         } else {
             TextFieldService.alertWarning("Выберите в таблице нужный КОД для удаления!");
         }
     }
 
+    /**
+     * Отображение языка(lblLanguage) в зависимости от значения CheckBox(cbLanguage)
+     * */
     @FXML
     public void languageAction(){
         if (!cbLanguage.isSelected()){
@@ -256,24 +272,40 @@ public class TemplatesLabelsController implements Initializable {
         stage.showAndWait();
     }
 
+    /**
+     * Проверка на наличие шаблона в таблице
+     * */
+    private boolean isTemplateExists(String idCode){
+        for(TemplateLabelDTO template: table){
+            if(template.getKod().equals(idCode)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Инициализация компонентов(CheckBox,ComboBox) при нажатии строки из таблицы
+     * */
     @FXML
     public void getSelected() {
-        TemplateLabelDTO selectedTemplate = tableTemplates.getSelectionModel().getSelectedItem();
-        cbCodeSelection.getSelectionModel().select(searchCodeIndex(selectedTemplate.getKod()));
-        cbLanguage.setSelected(selectedTemplate.getTemplatesLabels().getLanguageLabel());
-        cbConstruct.setSelected(selectedTemplate.getTemplatesLabels().getConstruct());
-        cbCode.setSelected(selectedTemplate.getTemplatesLabels().getCode());
-        cbLR.setSelected(selectedTemplate.getTemplatesLabels().getLr());
-        cbNumbSpool.setSelected(selectedTemplate.getTemplatesLabels().getNumberSpool());
-        cbPart.setSelected(selectedTemplate.getTemplatesLabels().getPart());
-        cbLot.setSelected(selectedTemplate.getTemplatesLabels().getLot());
-        cbWelds.setSelected(selectedTemplate.getTemplatesLabels().getWelds());
-        cbLength.setSelected(selectedTemplate.getTemplatesLabels().getLengthSpool());
-        cbDatePrint.setSelected(selectedTemplate.getTemplatesLabels().getDatePrint());
+        cbCodeSelection.getSelectionModel().select(searchCodeIndex(getSelectedTemplate().getKod()));
+        cbLanguage.setSelected(getSelectedTemplate().getTemplatesLabels().getLanguageLabel());
+        cbConstruct.setSelected(getSelectedTemplate().getTemplatesLabels().getConstruct());
+        cbCode.setSelected(getSelectedTemplate().getTemplatesLabels().getCode());
+        cbLR.setSelected(getSelectedTemplate().getTemplatesLabels().getLr());
+        cbNumbSpool.setSelected(getSelectedTemplate().getTemplatesLabels().getNumberSpool());
+        cbPart.setSelected(getSelectedTemplate().getTemplatesLabels().getPart());
+        cbLot.setSelected(getSelectedTemplate().getTemplatesLabels().getLot());
+        cbWelds.setSelected(getSelectedTemplate().getTemplatesLabels().getWelds());
+        cbLength.setSelected(getSelectedTemplate().getTemplatesLabels().getLengthSpool());
+        cbDatePrint.setSelected(getSelectedTemplate().getTemplatesLabels().getDatePrint());
         languageAction();
     }
 
-
+    /**
+     * Поиск индекса кода(ComboBox)
+     * */
     private int searchCodeIndex(String requestCode) {
         for( int i=0;i<cbCodeSelection.getItems().size();i++){
             if(cbCodeSelection.getItems().get(i).getCode().equals(requestCode)){
@@ -281,5 +313,22 @@ public class TemplatesLabelsController implements Initializable {
             }
         }
         return 0;
+    }
+
+    public void helpAction() {
+        TextFieldService.alertHelp("ДЛЯ ДОБАВЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
+                "1) Выбрать код в поле со списком. \n" +
+                "2) Выбрать язык(РУС - по умолчанию, ENG - выделить).\n" +
+                "3) Выделить нужные параметры,которые вы желаете увидеть на этикетке.\n" +
+                "4) Нажать кнопку \"Добавить\".\n" +
+                "\n" +
+                "ДЛЯ РЕДАКТИРОВАНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
+                "1) Выбрать в таблице,нужный код(строку).\n" +
+                "2) Отметить или убрать нужные параметры.\n" +
+                "3) Нажать кнопку \"Изменить\".\n" +
+                "\n" +
+                "ДЛЯ УДАЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
+                "1)Выбрать в таблице нужный код.\n" +
+                "2)Нажать кнопку \"Удалить\".");
     }
 }

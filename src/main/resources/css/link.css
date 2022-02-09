@@ -1,0 +1,10 @@
+.myLink{
+    -fx-text-fill: black;
+    -fx-border-color: transparent;
+}
+.myLink:hover{
+    -fx-text-fill: #8800ff;
+}
+.myLink:selected{
+
+}

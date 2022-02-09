@@ -6,14 +6,14 @@ import lombok.Data;
 public class TemplatesLabels {
     private Long idTemplate;
     private Long idCode;
-    private Boolean languageLabel;
-    private Boolean construct;
-    private Boolean code;
-    private Boolean lr;
-    private Boolean numberSpool;
-    private Boolean datePrint;
-    private Boolean part;
-    private Boolean lot;
-    private Boolean welds;
-    private Boolean lengthSpool;
+    public Boolean languageLabel;
+    public Boolean construct;
+    public Boolean code;
+    public Boolean lr;
+    public Boolean numberSpool;
+    public Boolean datePrint;
+    public Boolean part;
+    public Boolean lot;
+    public Boolean welds;
+    public Boolean lengthSpool;
 }

@@ -78,6 +78,18 @@ public class TextFieldService {
         }
     }
 
+    public static void alertHelp(String information) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, information, ButtonType.OK);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+        alert.setTitle("Информация о добавлении/изменении/удаления шаблона");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.YES) {
+            System.out.println(information);
+        }
+    }
+
     public static void setTextFieldNumeric(TextField textField, int maxLength) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (textField.getText() != null && !newValue.matches("\\d*")) {
@@ -113,8 +125,5 @@ public class TextFieldService {
                 textField.setText(s);
             }
         });
-
     }
-
-
 }

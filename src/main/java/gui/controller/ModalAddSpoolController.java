@@ -181,7 +181,7 @@ public class ModalAddSpoolController {
 
     //для выбора активного режима
     @FXML
-    public void selectionAction(ActionEvent event) {
+    public void selectionAction() {
         selectionMode(cbMode.getValue());
     }
 

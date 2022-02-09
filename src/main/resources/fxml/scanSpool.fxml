@@ -317,7 +317,7 @@
                                                                 <CheckBox fx:id="cbTypeSpool" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbConstruct" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbCode" mnemonicParsing="false" />
-                                                                <CheckBox fx:id="cbLr" mnemonicParsing="false" />
+                                                                <CheckBox fx:id="cbLR" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbNumberSpool" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbPart" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbLot" mnemonicParsing="false" />
