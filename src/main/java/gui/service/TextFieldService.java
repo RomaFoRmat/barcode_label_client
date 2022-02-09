@@ -9,7 +9,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.net.InetAddress;
@@ -83,6 +82,7 @@ public class TextFieldService {
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         alert.setTitle("Информация о добавлении/изменении/удаления шаблона");
+        alert.getDialogPane().setGraphic(new ImageView("/icon/helpInformation.png"));
         alert.setHeaderText(null);
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {

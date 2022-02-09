@@ -79,7 +79,7 @@
       <Separator layoutY="361.0" prefHeight="4.0" prefWidth="259.0" />
       <ImageView fitHeight="34.0" fitWidth="43.0" layoutX="55.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icon/Help.png" />
+            <Image url="@../icon/help.png" />
          </image>
       </ImageView>
       <Hyperlink fx:id="linkHelp" layoutX="85.0" layoutY="6.0" onAction="#helpAction" styleClass="myLink" stylesheets="@../css/link.css" text="Нужна помощь?">

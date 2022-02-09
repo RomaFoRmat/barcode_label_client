@@ -5,6 +5,7 @@ import gui.application.AppProperties;
 import gui.application.Main;
 
 import gui.model.Code;
+import gui.model.Constants;
 import gui.model.TemplatesLabels;
 import gui.model.dto.TemplateLabelDTO;
 import gui.repository.CodeRepository;
@@ -22,6 +23,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.List;
@@ -122,6 +125,7 @@ public class TemplatesLabelsController implements Initializable {
     private final ObservableList<TemplateLabelDTO> table = FXCollections.observableArrayList();
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
+    public static final Logger LOGGER = LogManager.getLogger(TemplatesLabelsController.class);
 
 
     @Override
@@ -198,6 +202,7 @@ public class TemplatesLabelsController implements Initializable {
                 Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
                         "/api/codeDTO/" + templatesLabels.getIdCode());
                 TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
+                LOGGER.info("Added template for code:{} - {}", code.getCode(), Constants.FIO_VIEW );
 
             }else { TextFieldService.alertWarning("Шаблон для данного кода уже существует!"); }
         } else { TextFieldService.alertWarning("Выберете КОД для создания шаблона!"); }
@@ -232,6 +237,7 @@ public class TemplatesLabelsController implements Initializable {
 
             TemplatesLabelsRepository.update(labels);
             TextFieldService.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно отредактирован!");
+            LOGGER.info("Update template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW );
             initializeTableColumns();
         }else{
             TextFieldService.alertWarning("Для редактирования необходимо выбрать нужный КОД в таблице шаблонов!");
@@ -250,6 +256,7 @@ public class TemplatesLabelsController implements Initializable {
         TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
                                         templatesLabels.getIdTemplate());
         TextFieldService.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
+        LOGGER.info("Delete template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW );
         initializeTableColumns();
         } else {
             TextFieldService.alertWarning("Выберите в таблице нужный КОД для удаления!");
@@ -317,18 +324,18 @@ public class TemplatesLabelsController implements Initializable {
 
     public void helpAction() {
         TextFieldService.alertHelp("ДЛЯ ДОБАВЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
-                "1) Выбрать код в поле со списком. \n" +
+                "1) Выбрать \"КОД\" в поле со списком. \n" +
                 "2) Выбрать язык(РУС - по умолчанию, ENG - выделить).\n" +
-                "3) Выделить нужные параметры,которые вы желаете увидеть на этикетке.\n" +
+                "3) Отметить нужные параметры, которые вы желаете видеть на этикетке/QR-Code.\n" +
                 "4) Нажать кнопку \"Добавить\".\n" +
                 "\n" +
                 "ДЛЯ РЕДАКТИРОВАНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
-                "1) Выбрать в таблице,нужный код(строку).\n" +
+                "1) Выбрать в таблице,нужный \"КОД\"(строку).\n" +
                 "2) Отметить или убрать нужные параметры.\n" +
                 "3) Нажать кнопку \"Изменить\".\n" +
                 "\n" +
                 "ДЛЯ УДАЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
-                "1)Выбрать в таблице нужный код.\n" +
-                "2)Нажать кнопку \"Удалить\".");
+                "1) Выбрать в таблице нужный \"КОД\".\n" +
+                "2) Нажать кнопку \"Удалить\".");
     }
 }
