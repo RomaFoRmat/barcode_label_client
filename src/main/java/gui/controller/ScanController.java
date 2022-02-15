@@ -13,8 +13,8 @@ import gui.application.Main;
 import gui.model.*;
 import gui.repository.TemplatesLabelsRepository;
 import gui.repository.TestLabelRepository;
-import gui.service.*;
-import gui.service.DateUtil;
+import gui.util.*;
+import gui.util.DateUtil;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -361,7 +361,7 @@ public class ScanController {
         loadSpinner.setProgress(-1);
 
         lblFio.setText(Constants.FIO_VIEW);
-        TextFieldService.setTextFieldNumeric(barcodeSpool, 12);
+        TextFieldUtil.setTextFieldNumeric(barcodeSpool, 12);
 
         /**для наведения фокуса на определенное поле*/
         Platform.runLater(() -> barcodeSpool.requestFocus());
@@ -837,7 +837,7 @@ public class ScanController {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().open(toFormQrCode());
         } else {
-            TextFieldService.alertWarning(listAlert.get(0));
+            TextFieldUtil.alertWarning(listAlert.get(0));
         }
     }
 
@@ -848,7 +848,7 @@ public class ScanController {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(toFormQrCode());
         } else {
-            TextFieldService.alertWarning(listAlert.get(0));
+            TextFieldUtil.alertWarning(listAlert.get(0));
         }
     }
 
@@ -859,7 +859,7 @@ public class ScanController {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(exportToExcel());
         } else {
-            TextFieldService.alertWarning(listAlert.get(1));
+            TextFieldUtil.alertWarning(listAlert.get(1));
         }
     }
 
@@ -870,7 +870,7 @@ public class ScanController {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().open(exportToExcel());
         } else {
-            TextFieldService.alertWarning(listAlert.get(1));
+            TextFieldUtil.alertWarning(listAlert.get(1));
         }
     }
     /**
@@ -993,7 +993,7 @@ public class ScanController {
                     Platform.runLater(() -> {
                         clearFields();
                         unselectCheckBox();
-                        TextFieldService.alertWarning("Поле для cчитывания штрих-кода пустое!" +
+                        TextFieldUtil.alertWarning("Поле для cчитывания штрих-кода пустое!" +
                                 "\nПожалуйста, отсканируйте штрих-код катушки!");
                     });
                 }

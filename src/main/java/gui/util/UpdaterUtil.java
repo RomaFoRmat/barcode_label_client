@@ -1,4 +1,4 @@
-package gui.service;
+package gui.util;
 
 import gui.controller.ScanController;
 import javafx.application.Platform;

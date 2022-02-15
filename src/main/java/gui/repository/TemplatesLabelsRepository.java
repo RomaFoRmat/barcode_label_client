@@ -8,7 +8,7 @@ import com.google.gson.GsonBuilder;
 import gui.application.AppProperties;
 import gui.model.TemplatesLabels;
 import gui.model.dto.TemplateLabelDTO;
-import gui.service.LocalDateAdapterUtil;
+import gui.util.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;

@@ -1,7 +1,6 @@
 package gui.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
@@ -10,7 +9,7 @@ import gui.application.AppProperties;
 import gui.model.MainGroup;
 import gui.model.dto.MainGroupRequestDTO;
 import gui.model.dto.MainGroupResponseDTO;
-import gui.service.LocalDateAdapterUtil;
+import gui.util.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;

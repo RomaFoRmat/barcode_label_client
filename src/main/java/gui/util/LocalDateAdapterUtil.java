@@ -1,4 +1,4 @@
-package gui.service;
+package gui.util;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;

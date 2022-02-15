@@ -7,7 +7,7 @@ import gui.application.Main;
 import gui.model.Constants;
 import gui.model.Personals;
 import gui.repository.PersonalsRepository;
-import gui.service.TextFieldService;
+import gui.util.TextFieldUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,7 +38,7 @@ public class LoginDialogController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TextFieldService.setTextFieldNumeric(loginUserTextField, 12);
+        TextFieldUtil.setTextFieldNumeric(loginUserTextField, 12);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scanSpool.fxml"));
         try {
             loader.load();
@@ -56,7 +56,7 @@ public class LoginDialogController implements Initializable {
 
             if (personalsList != null && personalsList.isEmpty()) {
                 loginUserTextField.clear();
-                TextFieldService.alertWarning("Неверный пароль!");
+                TextFieldUtil.alertWarning("Неверный пароль!");
                 LOGGER.error("Login failed: {}", InetAddress.getLocalHost());
                 return;
             }
@@ -76,7 +76,7 @@ public class LoginDialogController implements Initializable {
 
 
         } else if (loginUserTextField.getText().isEmpty()) {
-            TextFieldService.alertWarning("Введите пароль!");
+            TextFieldUtil.alertWarning("Введите пароль!");
         }
     }
 

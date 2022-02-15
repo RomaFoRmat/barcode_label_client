@@ -9,7 +9,7 @@ import gui.application.AppProperties;
 import gui.model.ForeignGroup;
 import gui.model.dto.ForeignGroupRequestDTO;
 import gui.model.dto.ForeignGroupResponseDTO;
-import gui.service.LocalDateAdapterUtil;
+import gui.util.LocalDateAdapterUtil;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;

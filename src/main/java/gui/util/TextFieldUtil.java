@@ -1,12 +1,9 @@
-package gui.service;
+package gui.util;
 
 import gui.application.Main;
 import gui.controller.SideMenuController;
 import gui.model.Constants;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -17,7 +14,7 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 
-public class TextFieldService {
+public class TextFieldUtil {
     public static void alertWarning(String warning) {
         Alert alert = new Alert(Alert.AlertType.WARNING, warning, ButtonType.OK);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -126,4 +123,12 @@ public class TextFieldService {
             }
         });
     }
+
+//    public static void setComboBoxNumeric(ComboBox comboBox) {
+//        comboBox.promptTextProperty().addListener((observable, oldValue, newValue) -> {
+//            if (comboBox.getValue() != null && !newValue.matches("\\d*")) {
+//                comboBox.setValue(newValue.replaceAll("[^\\d]", ""));
+//            }
+//        });
+//    }
 }

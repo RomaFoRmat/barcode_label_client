@@ -7,14 +7,10 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import gui.application.AppProperties;
 import gui.model.dto.*;
-import gui.service.TextFieldService;
-import javafx.event.ActionEvent;
+import gui.util.TextFieldUtil;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +21,6 @@ import gui.model.*;
 import gui.repository.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -148,21 +143,21 @@ public class ModalAddSpoolController {
     @FXML
     public void initialize() {
         //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
-        TextFieldService.setTextFieldNumeric(numberPart, 10);
-        TextFieldService.setTextFieldNumeric(newNumberRopeMachine, 3);
-        TextFieldService.setLimitingFields(newNumberRopeMachine, 721);
-        TextFieldService.setTextFieldNumeric(newNumberSpool, 12);
-        TextFieldService.setTextFieldNumeric(newLength, 10);
-        TextFieldService.setTextFieldNumeric(newPersonalRope, 7);
-        TextFieldService.setTextFieldNumeric(newCountOfWelds, 3);
-        TextFieldService.setFieldForStraight(newTorsion, 7);
-        TextFieldService.setFieldForStraight(newStraight300, 7);
-        TextFieldService.setFieldForStraight(newStraight600, 7);
-        TextFieldService.setFieldForStraight(newStraight600_1, 7);
-        TextFieldService.setFieldForStraight(newStraight600_2, 7);
-        TextFieldService.setFieldForStraight(newStraight600_3, 7);
-        TextFieldService.setFieldForStraight(newStraight600_4, 7);
-        TextFieldService.setFieldForStraight(newStraight600_5, 7);
+        TextFieldUtil.setTextFieldNumeric(numberPart, 10);
+        TextFieldUtil.setTextFieldNumeric(newNumberRopeMachine, 3);
+        TextFieldUtil.setLimitingFields(newNumberRopeMachine, 721);
+        TextFieldUtil.setTextFieldNumeric(newNumberSpool, 12);
+        TextFieldUtil.setTextFieldNumeric(newLength, 10);
+        TextFieldUtil.setTextFieldNumeric(newPersonalRope, 7);
+        TextFieldUtil.setTextFieldNumeric(newCountOfWelds, 3);
+        TextFieldUtil.setFieldForStraight(newTorsion, 7);
+        TextFieldUtil.setFieldForStraight(newStraight300, 7);
+        TextFieldUtil.setFieldForStraight(newStraight600, 7);
+        TextFieldUtil.setFieldForStraight(newStraight600_1, 7);
+        TextFieldUtil.setFieldForStraight(newStraight600_2, 7);
+        TextFieldUtil.setFieldForStraight(newStraight600_3, 7);
+        TextFieldUtil.setFieldForStraight(newStraight600_4, 7);
+        TextFieldUtil.setFieldForStraight(newStraight600_5, 7);
 //        TextFieldService.setFieldForStraight(newTorsionRope, 7);
 //        TextFieldService.setFieldForStraight(newStraightRope, 7);
 //        TextFieldService.setTextFieldNumeric(newNumberWeldingMachine, 7);
@@ -288,7 +283,7 @@ public class ModalAddSpoolController {
             System.out.println(valueMainDTOs);
 
         } else {
-            TextFieldService.alertWarning("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
+            TextFieldUtil.alertWarning("Поле \"КОД\" содержит пустое значение! \nВыберите значение из выпадающего списка!");
         }
     }
 

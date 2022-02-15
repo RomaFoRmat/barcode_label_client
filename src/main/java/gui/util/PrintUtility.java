@@ -1,4 +1,4 @@
-package gui.service;
+package gui.util;
 
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;

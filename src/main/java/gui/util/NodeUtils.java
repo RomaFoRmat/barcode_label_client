@@ -1,4 +1,4 @@
-package gui.service;
+package gui.util;
 
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;

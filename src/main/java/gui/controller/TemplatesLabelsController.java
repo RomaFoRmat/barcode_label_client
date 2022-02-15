@@ -10,10 +10,10 @@ import gui.model.TemplatesLabels;
 import gui.model.dto.TemplateLabelDTO;
 import gui.repository.CodeRepository;
 import gui.repository.TemplatesLabelsRepository;
-import gui.service.TextFieldService;
+import gui.util.SearchComboBoxUtil;
+import gui.util.TextFieldUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -128,6 +128,8 @@ public class TemplatesLabelsController implements Initializable {
     public static final Logger LOGGER = LogManager.getLogger(TemplatesLabelsController.class);
 
 
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
@@ -141,6 +143,10 @@ public class TemplatesLabelsController implements Initializable {
         initializeTableColumns();
         languageAction();
 
+        SearchComboBoxUtil.autoCompleteComboBoxPlus(cbCodeSelection,
+                (typedText, itemToCompare) -> itemToCompare.getCode().toLowerCase().contains(typedText.toLowerCase())
+                        || itemToCompare.getDescription().toLowerCase().contains(typedText.toLowerCase()));
+        SearchComboBoxUtil.getComboBoxValue(cbCodeSelection);
     }
 
     /**
@@ -172,7 +178,14 @@ public class TemplatesLabelsController implements Initializable {
 
         table.addAll(templateLabelDTOList);
         tableTemplates.setItems(table);
-        
+
+    }
+
+    public void search(){
+        if (cbCodeSelection.getValue() !=null ) {
+            tableTemplates.getSelectionModel().select(searchRow(cbCodeSelection.getValue().getCode()));
+        }
+
     }
 
     /**
@@ -201,11 +214,13 @@ public class TemplatesLabelsController implements Initializable {
                 initializeTableColumns();
                 Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
                         "/api/codeDTO/" + templatesLabels.getIdCode());
-                TextFieldService.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
+                TextFieldUtil.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
+                cbCodeSelection.setValue(null);
                 LOGGER.info("Added template for code:{} - {}", code.getCode(), Constants.FIO_VIEW );
 
-            }else { TextFieldService.alertWarning("Шаблон для данного кода уже существует!"); }
-        } else { TextFieldService.alertWarning("Выберете КОД для создания шаблона!"); }
+
+            }else { TextFieldUtil.alertWarning("Шаблон для данного кода уже существует!"); }
+        } else { TextFieldUtil.alertWarning("Выберете КОД для создания шаблона!"); }
     }
 
     /**
@@ -236,11 +251,12 @@ public class TemplatesLabelsController implements Initializable {
             labels.setWelds(cbWelds.isSelected());
 
             TemplatesLabelsRepository.update(labels);
-            TextFieldService.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно отредактирован!");
+            TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно отредактирован!");
+            cbCodeSelection.setValue(null);
             LOGGER.info("Update template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW );
             initializeTableColumns();
         }else{
-            TextFieldService.alertWarning("Для редактирования необходимо выбрать нужный КОД в таблице шаблонов!");
+            TextFieldUtil.alertWarning("Для редактирования необходимо выбрать нужный КОД в таблице шаблонов!");
         }
     }
 
@@ -255,11 +271,12 @@ public class TemplatesLabelsController implements Initializable {
                                         getTemplatesLabels().getIdTemplate());
         TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
                                         templatesLabels.getIdTemplate());
-        TextFieldService.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
+        TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
+        cbCodeSelection.setValue(null);
         LOGGER.info("Delete template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW );
         initializeTableColumns();
         } else {
-            TextFieldService.alertWarning("Выберите в таблице нужный КОД для удаления!");
+            TextFieldUtil.alertWarning("Выберите в таблице нужный КОД для удаления!");
         }
     }
 
@@ -321,9 +338,17 @@ public class TemplatesLabelsController implements Initializable {
         }
         return 0;
     }
+    private int searchRow(String requestCode) {
+        for( int i=0;i<tableTemplates.getItems().size();i++){
+            if(tableTemplates.getItems().get(i).getKod().equals(requestCode)){
+                return i;
+            }
+        }
+        return 0;
+    }
 
     public void helpAction() {
-        TextFieldService.alertHelp("ДЛЯ ДОБАВЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
+        TextFieldUtil.alertHelp("ДЛЯ ДОБАВЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
                 "1) Выбрать \"КОД\" в поле со списком. \n" +
                 "2) Выбрать язык(РУС - по умолчанию, ENG - выделить).\n" +
                 "3) Отметить нужные параметры, которые вы желаете видеть на этикетке/QR-Code.\n" +
