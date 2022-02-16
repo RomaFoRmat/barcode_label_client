@@ -128,8 +128,6 @@ public class TemplatesLabelsController implements Initializable {
     public static final Logger LOGGER = LogManager.getLogger(TemplatesLabelsController.class);
 
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
@@ -144,21 +142,21 @@ public class TemplatesLabelsController implements Initializable {
         languageAction();
 
         SearchComboBoxUtil.autoCompleteComboBoxPlus(cbCodeSelection,
-                (typedText, itemToCompare) -> itemToCompare.getCode().toLowerCase().contains(typedText.toLowerCase())
+                (typedText, itemToCompare) -> itemToCompare.getCode().contains(typedText.toLowerCase())
                         || itemToCompare.getDescription().toLowerCase().contains(typedText.toLowerCase()));
         SearchComboBoxUtil.getComboBoxValue(cbCodeSelection);
     }
 
     /**
      * Получение объекта в таблице шаблонов
-     * */
-    private TemplateLabelDTO getSelectedTemplate(){
+     */
+    private TemplateLabelDTO getSelectedTemplate() {
         return tableTemplates.getSelectionModel().getSelectedItem();
     }
 
     /**
      * Иниализация таблицы шаблонов
-     * */
+     */
     public void initializeTableColumns() {
         table.clear();
 
@@ -181,16 +179,24 @@ public class TemplatesLabelsController implements Initializable {
 
     }
 
-    public void search(){
-        if (cbCodeSelection.getValue() !=null ) {
-            tableTemplates.getSelectionModel().select(searchRow(cbCodeSelection.getValue().getCode()));
+    /**
+     * Поиск строки в таблице согласно выбранного значения в comboBox,если таковая имеется
+     */
+    public void searchAction() {
+        String code = String.valueOf(cbCodeSelection.getValue()).split("-")[0].trim();
+        if (cbCodeSelection.getValue() != null && searchRowIndex(code) != null) {
+            tableTemplates.getSelectionModel().select(searchRowIndex(code));
+            checkboxMatching();
+        } else {
+            int row = tableTemplates.getSelectionModel().getSelectedIndex();
+            tableTemplates.getSelectionModel().clearSelection(row);
+            unselectCheckBox();
         }
-
     }
 
     /**
      * Добавление шаблона
-     * */
+     */
     @FXML
     public void addTemplate() {
         if (cbCodeSelection.getValue() != null) {
@@ -215,20 +221,23 @@ public class TemplatesLabelsController implements Initializable {
                 Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
                         "/api/codeDTO/" + templatesLabels.getIdCode());
                 TextFieldUtil.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
+                LOGGER.info("Added template for code:{} - {}", code.getCode(), Constants.FIO_VIEW);
                 cbCodeSelection.setValue(null);
-                LOGGER.info("Added template for code:{} - {}", code.getCode(), Constants.FIO_VIEW );
-
-
-            }else { TextFieldUtil.alertWarning("Шаблон для данного кода уже существует!"); }
-        } else { TextFieldUtil.alertWarning("Выберете КОД для создания шаблона!"); }
+                unselectCheckBox();
+            } else {
+                TextFieldUtil.alertWarning("Шаблон для данного кода уже существует!");
+            }
+        } else {
+            TextFieldUtil.alertWarning("Выберете КОД для создания шаблона!");
+        }
     }
 
     /**
      * Редактирование шаблона
-     * */
+     */
     @FXML
     public void updateTemplate() {
-        if(getSelectedTemplate() != null) {
+        if (getSelectedTemplate() != null) {
             Long idTemplate = getSelectedTemplate().getTemplatesLabels().getIdTemplate();
 
             List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
@@ -252,29 +261,31 @@ public class TemplatesLabelsController implements Initializable {
 
             TemplatesLabelsRepository.update(labels);
             TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно отредактирован!");
+            LOGGER.info("Update template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW);
             cbCodeSelection.setValue(null);
-            LOGGER.info("Update template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW );
+            unselectCheckBox();
             initializeTableColumns();
-        }else{
+        } else {
             TextFieldUtil.alertWarning("Для редактирования необходимо выбрать нужный КОД в таблице шаблонов!");
         }
     }
 
     /**
      * Удаление шаблона
-     * */
+     */
     @FXML
     public void deleteAction() {
-        if(getSelectedTemplate() != null){
-        TemplatesLabels templatesLabels = new TemplatesLabels();
-        templatesLabels.setIdTemplate(tableTemplates.getSelectionModel().getSelectedItem().
-                                        getTemplatesLabels().getIdTemplate());
-        TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
-                                        templatesLabels.getIdTemplate());
-        TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
-        cbCodeSelection.setValue(null);
-        LOGGER.info("Delete template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW );
-        initializeTableColumns();
+        if (getSelectedTemplate() != null) {
+            TemplatesLabels templatesLabels = new TemplatesLabels();
+            templatesLabels.setIdTemplate(tableTemplates.getSelectionModel().getSelectedItem().
+                    getTemplatesLabels().getIdTemplate());
+            TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
+                    templatesLabels.getIdTemplate());
+            TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
+            LOGGER.info("Delete template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW);
+            cbCodeSelection.setValue(null);
+            unselectCheckBox();
+            initializeTableColumns();
         } else {
             TextFieldUtil.alertWarning("Выберите в таблице нужный КОД для удаления!");
         }
@@ -282,10 +293,10 @@ public class TemplatesLabelsController implements Initializable {
 
     /**
      * Отображение языка(lblLanguage) в зависимости от значения CheckBox(cbLanguage)
-     * */
+     */
     @FXML
-    public void languageAction(){
-        if (!cbLanguage.isSelected()){
+    public void languageAction() {
+        if (!cbLanguage.isSelected()) {
             lblLanguage.setText("выбран РУС язык");
         } else {
             lblLanguage.setText("выбран ENG язык");
@@ -298,10 +309,10 @@ public class TemplatesLabelsController implements Initializable {
 
     /**
      * Проверка на наличие шаблона в таблице
-     * */
-    private boolean isTemplateExists(String idCode){
-        for(TemplateLabelDTO template: table){
-            if(template.getKod().equals(idCode)){
+     */
+    private boolean isTemplateExists(String idCode) {
+        for (TemplateLabelDTO template : table) {
+            if (template.getKod().equals(idCode)) {
                 return true;
             }
         }
@@ -310,10 +321,19 @@ public class TemplatesLabelsController implements Initializable {
 
     /**
      * Инициализация компонентов(CheckBox,ComboBox) при нажатии строки из таблицы
-     * */
+     */
     @FXML
     public void getSelected() {
-        cbCodeSelection.getSelectionModel().select(searchCodeIndex(getSelectedTemplate().getKod()));
+        if (getSelectedTemplate() != null) {
+            cbCodeSelection.getSelectionModel().select(searchCodeIndex(getSelectedTemplate().getKod()));
+            checkboxMatching();
+        }
+    }
+
+    /**
+     * Сопоставление флажков согласно выбранного шаблона
+     */
+    public void checkboxMatching() {
         cbLanguage.setSelected(getSelectedTemplate().getTemplatesLabels().getLanguageLabel());
         cbConstruct.setSelected(getSelectedTemplate().getTemplatesLabels().getConstruct());
         cbCode.setSelected(getSelectedTemplate().getTemplatesLabels().getCode());
@@ -329,22 +349,26 @@ public class TemplatesLabelsController implements Initializable {
 
     /**
      * Поиск индекса кода(ComboBox)
-     * */
+     */
     private int searchCodeIndex(String requestCode) {
-        for( int i=0;i<cbCodeSelection.getItems().size();i++){
-            if(cbCodeSelection.getItems().get(i).getCode().equals(requestCode)){
+        for (int i = 0; i < cbCodeSelection.getItems().size(); i++) {
+            if (cbCodeSelection.getItems().get(i).getCode().equals(requestCode)) {
                 return i;
             }
         }
         return 0;
     }
-    private int searchRow(String requestCode) {
-        for( int i=0;i<tableTemplates.getItems().size();i++){
-            if(tableTemplates.getItems().get(i).getKod().equals(requestCode)){
+
+    /**
+     * Поиск строки в таблице шаблонов
+     */
+    private Integer searchRowIndex(String requestCode) {
+        for (int i = 0; i < tableTemplates.getItems().size(); i++) {
+            if (tableTemplates.getItems().get(i).getKod().equals(requestCode)) {
                 return i;
             }
         }
-        return 0;
+        return null;
     }
 
     public void helpAction() {
@@ -355,12 +379,19 @@ public class TemplatesLabelsController implements Initializable {
                 "4) Нажать кнопку \"Добавить\".\n" +
                 "\n" +
                 "ДЛЯ РЕДАКТИРОВАНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
-                "1) Выбрать в таблице,нужный \"КОД\"(строку).\n" +
+                "1) Выбрать в таблице, нужный \"КОД\"(строку).\n" +
                 "2) Отметить или убрать нужные параметры.\n" +
                 "3) Нажать кнопку \"Изменить\".\n" +
                 "\n" +
                 "ДЛЯ УДАЛЕНИЯ ШАБЛОНА НЕОБХОДИМО:\n" +
                 "1) Выбрать в таблице нужный \"КОД\".\n" +
                 "2) Нажать кнопку \"Удалить\".");
+    }
+
+    public void unselectCheckBox() {
+        cbPart.setSelected(false);
+        cbLot.setSelected(false);
+        cbLength.setSelected(false);
+        cbWelds.setSelected(false);
     }
 }

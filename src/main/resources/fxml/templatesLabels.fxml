@@ -32,7 +32,7 @@
             <CheckBox fx:id="cbLength" text="Длина" />
          </children>
       </VBox>
-      <JFXComboBox fx:id="cbCodeSelection" editable="true" focusColor="#8800ff" labelFloat="true" layoutX="7.0" layoutY="67.0" onAction="#search" prefHeight="25.0" prefWidth="245.0" promptText="Выберите код" stylesheets="@../css/jfxSelectTemplates.css" />
+      <JFXComboBox fx:id="cbCodeSelection" editable="true" focusColor="#8800ff" labelFloat="true" layoutX="7.0" layoutY="67.0" onAction="#searchAction" prefHeight="25.0" prefWidth="245.0" promptText="Выберите код" stylesheets="@../css/jfxSelectTemplates.css" />
       <TableView fx:id="tableTemplates" layoutX="259.0" layoutY="40.0" onMouseClicked="#getSelected" prefHeight="410.0" prefWidth="580.0" stylesheets="@../css/tableView.css">
          <columns>
             <TableColumn fx:id="tcInsideCodes" prefWidth="50.0" text="Коды" />

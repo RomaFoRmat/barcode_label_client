@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import gui.application.AppProperties;
 import gui.model.dto.*;
+import gui.util.SearchComboBoxUtil;
 import gui.util.TextFieldUtil;
 
 import java.net.InetAddress;
@@ -172,6 +173,16 @@ public class ModalAddSpoolController {
         cbSelectMain.setItems(idGroups);
         cbSelectMain.getSelectionModel().select(0);
         newNumberSpool.setText(Constants.SPOOL_NUMBER);
+
+        SearchComboBoxUtil.autoCompleteComboBoxPlus(cbCode,
+                (typedText, itemToCompare) -> itemToCompare.getCode().toLowerCase().contains(typedText.toLowerCase())
+                        || itemToCompare.getDescription().toLowerCase().contains(typedText.toLowerCase()));
+        SearchComboBoxUtil.getComboBoxValue(cbCode);
+
+//        SearchComboBoxUtil.autoCompleteComboBoxPlus(cbSelectMain,
+//                (typedText, itemToCompare) -> itemToCompare.getIdGroup().toString().contains(typedText.toLowerCase())
+//                        || itemToCompare.getDateCreate().toString().toLowerCase().contains(typedText.toLowerCase()));
+//        SearchComboBoxUtil.getComboBoxValue(cbSelectMain);
     }
 
     //для выбора активного режима
