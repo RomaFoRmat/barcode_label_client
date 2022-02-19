@@ -93,7 +93,7 @@ public class LoginDialogController implements Initializable {
 
         Parent root = loader.getRoot();
         Stage stage = new Stage();
-        stage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ");
+        stage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ М/К");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         stage.setScene(new Scene(root, 900, 678));
         stage.setResizable(false);
