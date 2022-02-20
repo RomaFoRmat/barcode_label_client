@@ -393,6 +393,7 @@ public class ScanController {
         fieldModelRusList.add(new FieldModel(tfCode, cbCode, "Код:", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(tfLR, cbLR, "", CellStyleOption.ENLARGED));
         fieldModelRusList.add(new FieldModel(tfNumberSpool, cbNumberSpool, "№ кат.", CellStyleOption.BASE));
+        fieldModelRusList.add(new FieldModel(tfPart, cbPart, "№ партии:", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(tfWelds, cbWelds, "Cварка:", CellStyleOption.BASE));
         fieldModelRusList.add(new FieldModel(tfDatePrint, cbDate, "Дата:", CellStyleOption.BASE));
 
@@ -421,7 +422,7 @@ public class ScanController {
 
     /**
      * Отобразить катушки за заданный период времени
-     * */
+     */
     public void dateBetweenAction() {
         tableSpool.clear();
         if (dateStart.getDateTimeValue() == null && dateEnd.getDateTimeValue() == null) {
@@ -443,7 +444,7 @@ public class ScanController {
 
     /**
      * Очистить таблицу и поля DatePickers
-     * */
+     */
     public void clearTableAndDatePicker() {
         tableSpool.clear();
         dateStart.setDateTimeValue(null);
@@ -508,7 +509,7 @@ public class ScanController {
 
     /**
      * Отображение текущего времени
-     * */
+     */
     private void initClock() {
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -525,7 +526,7 @@ public class ScanController {
 
     /**
      * Добавление новой катушки
-     * */
+     */
     @FXML
     public void addSpool() {
         FXMLLoader loader = new FXMLLoader();
@@ -616,7 +617,7 @@ public class ScanController {
 
     /**
      * Очистка TextFields
-     * */
+     */
     public void clearFields() {
         tfTypeSpool.clear();
         tfCode.clear();
@@ -647,7 +648,7 @@ public class ScanController {
 
     /**
      * Формирование обычной бирки в Excel
-     * */
+     */
     public File exportToExcel() {
         try {
             InputStream file = getClass().getClassLoader().getResourceAsStream("template/Export.xlsx");
@@ -727,7 +728,7 @@ public class ScanController {
 
     /**
      * Формирование QR-Code в Excel
-     * */
+     */
     public File toFormQrCode() {
         try {
             InputStream file = getClass().getClassLoader().getResourceAsStream("template/QR-Code.xlsx");
@@ -832,7 +833,7 @@ public class ScanController {
 
     /**
      * Просмотр QR-Code
-     * */
+     */
     public void generateQrCode() throws IOException {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().open(toFormQrCode());
@@ -843,7 +844,7 @@ public class ScanController {
 
     /**
      * Печать QR-Code средствами Excel на активный принтер
-     * */
+     */
     public void printQrCode() throws IOException {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(toFormQrCode());
@@ -854,7 +855,7 @@ public class ScanController {
 
     /**
      * Печать обычной бирки средствами Excel на активный принтер
-     * */
+     */
     public void printLabel() throws IOException {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(exportToExcel());
@@ -865,7 +866,7 @@ public class ScanController {
 
     /**
      * Просмотр обычной бирки
-     * */
+     */
     public void toFormLabel() throws IOException {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().open(exportToExcel());
@@ -873,9 +874,10 @@ public class ScanController {
             TextFieldUtil.alertWarning(listAlert.get(1));
         }
     }
+
     /**
      * Инициализация таблицы
-     * */
+     */
     public void initializeTableColumns() {
         tcNumberSpool.setCellValueFactory(new PropertyValueFactory<>("numberSpool"));
         tcCodeProvider.setCellValueFactory(new PropertyValueFactory<>("code"));
@@ -915,10 +917,13 @@ public class ScanController {
 
     /**
      * Получить информацию о катушке,если таковой в БД нет - добавить
-     * */
+     */
+
     public void getInfoAction() {
         new Thread(() -> {
             try {
+                System.out.println(LocalDateTime.now()
+                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Method started");
                 loadSpinner.setVisible(true);
                 lblWait.setVisible(true);
                 lblLoad.setVisible(true);
@@ -927,13 +932,15 @@ public class ScanController {
                 if (!barcodeSpool.getText().isEmpty()) {
                     List<TestLabel> testLabelList = TestLabelRepository.
                             getTestLabel("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
+                    System.out.println(LocalDateTime.now()
+                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Response from the server");
                     if (testLabelList != null && testLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
                         Platform.runLater(this::addSpool);
                         return;
-                    } else{
-                       Platform.runLater(() ->  setCheckBoxesWithLabel(TemplatesLabelsRepository
-                               .findByIdCode(Long.valueOf(testLabelList.get(0).getCode())).get(0)));
+                    } else {
+                        Platform.runLater(() -> setCheckBoxesWithLabel(TemplatesLabelsRepository
+                                .findByIdCode(Long.valueOf(testLabelList.get(0).getCode())).get(0)));
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
@@ -985,7 +992,8 @@ public class ScanController {
                         tabInfoSpool.setText("Информация о катушке: №" + tfNumberSpool.getText());
                     });
                     barcodeSpool.setText("");
-                    System.out.println(LocalDateTime.now() + " Method ended");
+                    System.out.println(LocalDateTime.now().
+                            format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Method ended");
                 } else if (barcodeSpool.getText().isEmpty()) {
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_error.css");
@@ -1020,7 +1028,7 @@ public class ScanController {
 
     /**
      * Метод для выборки компонентов(TextField,CheckBox) согласно заданному шаблону этикетки
-     * */
+     */
     private void setCheckBoxesWithLabel(TemplatesLabels templatesLabels) {
         try {
 //            for (Field field : templatesLabels.getClass().getFields()) {
@@ -1032,18 +1040,22 @@ public class ScanController {
             Field[] fields = templatesLabels.getClass().getFields();
             for (Map.Entry<String, LabelField> entry : labelFieldMap.entrySet()) {
                 Field field = Arrays.stream(fields).filter(f -> f.getName().equals(entry.getKey())).findFirst().orElse(null);
-                if(field == null) {
+                if (field == null) {
                     entry.getValue().getLabelTextField().setEditable(false);
                     entry.getValue().getLabelCheckBox().setDisable(false);
-                }else{
-                    entry.getValue().getLabelTextField().setEditable((Boolean)field.get(templatesLabels));
-                    entry.getValue().getLabelCheckBox().setDisable(!(Boolean)field.get(templatesLabels));
-                    entry.getValue().getLabelCheckBox().setSelected((Boolean)field.get(templatesLabels));
+                } else {
+                    entry.getValue().getLabelTextField().setEditable((Boolean) field.get(templatesLabels));
+                    entry.getValue().getLabelCheckBox().setDisable(!(Boolean) field.get(templatesLabels));
+                    entry.getValue().getLabelCheckBox().setSelected((Boolean) field.get(templatesLabels));
                 }
             }
-            if (templatesLabels.getLanguageLabel()){
+            if (templatesLabels.getLanguageLabel()) {
                 cbConsumer.setValue("ENG");
-            }else cbConsumer.setValue("РУС");
+                cbTorsion.setDisable(false);
+            } else {
+                cbTorsion.setDisable(true);
+                cbConsumer.setValue("РУС");
+            }
         } catch (Exception e) {
             System.out.println("Field probably has private access");
             e.printStackTrace();
@@ -1052,18 +1064,18 @@ public class ScanController {
 
     /**
      * Мапа(ассоциативный массив) для сопоставления номера катушки с таблицей шаблонов
-     * */
+     */
     private Map<String, LabelField> createLabelFieldMap() {
         Map<String, LabelField> labelFields = new HashMap<>();
-        labelFields.put("construct", new LabelField(cbConstruct,tfConstruct));
-        labelFields.put("code", new LabelField(cbCode,tfCode));
-        labelFields.put("lr", new LabelField(cbLR,tfLR));
-        labelFields.put("numberSpool", new LabelField(cbNumberSpool,tfNumberSpool));
-        labelFields.put("datePrint", new LabelField(cbDate,tfDatePrint));
-        labelFields.put("part", new LabelField(cbPart,tfPart));
-        labelFields.put("lot", new LabelField(cbLot,tfLot));
-        labelFields.put("welds", new LabelField(cbWelds,tfWelds));
-        labelFields.put("lengthSpool", new LabelField(cbLength,tfLength));
+        labelFields.put("construct", new LabelField(cbConstruct, tfConstruct));
+        labelFields.put("code", new LabelField(cbCode, tfCode));
+        labelFields.put("lr", new LabelField(cbLR, tfLR));
+        labelFields.put("numberSpool", new LabelField(cbNumberSpool, tfNumberSpool));
+        labelFields.put("part", new LabelField(cbPart, tfPart));
+        labelFields.put("lot", new LabelField(cbLot, tfLot));
+        labelFields.put("datePrint", new LabelField(cbDate, tfDatePrint));
+        labelFields.put("welds", new LabelField(cbWelds, tfWelds));
+        labelFields.put("lengthSpool", new LabelField(cbLength, tfLength));
 
         return labelFields;
     }
