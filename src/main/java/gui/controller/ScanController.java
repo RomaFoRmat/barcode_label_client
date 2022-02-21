@@ -261,7 +261,8 @@ public class ScanController {
     private TableColumn<TestLabel, String> tcPart;
     @FXML
     private TableColumn<TestLabel, Integer> tcLot;
-
+    @FXML
+    private TableColumn<TestLabel, Integer> tcContainer;
 
 /*  //08.12.2021 - Закомментировано, т.к. часть данных убраны с пользовательского ввода для ЛИ м/к
     @FXML
@@ -416,7 +417,7 @@ public class ScanController {
         if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil, 0, 10000);
+            timer.schedule(updaterUtil, 0, 30000);
         }
     }
 
@@ -886,6 +887,7 @@ public class ScanController {
         tcConstruct.setCellValueFactory(new PropertyValueFactory<>("construct"));
         tcDateCreate.setCellValueFactory(new PropertyValueFactory<>("dateCreate"));
         tcLR.setCellValueFactory(new PropertyValueFactory<>("rl"));
+        tcContainer.setCellValueFactory(new PropertyValueFactory<>("container"));
         tcPart.setCellValueFactory(new PropertyValueFactory<>("part"));
         tcLot.setCellValueFactory(new PropertyValueFactory<>("lot"));
         tcWelds.setCellValueFactory(new PropertyValueFactory<>("welds"));

@@ -21,6 +21,7 @@ public class TestLabel {
     private String consumerCode;
     private String lot;
     private String part;
+    private Integer container;
     private String rl;
     private String typeSpool;
     private String personalRope;

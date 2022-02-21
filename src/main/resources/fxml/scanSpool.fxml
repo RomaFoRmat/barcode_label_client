@@ -421,6 +421,7 @@
                                         <TableColumn fx:id="tcLR" minWidth="3.0" prefWidth="34.0" text="L/R" />
                                         <TableColumn fx:id="tcPart" prefWidth="67.0" text="№ партии" />
                                         <TableColumn fx:id="tcLot" prefWidth="54.0" text="LOT" />
+                              <TableColumn fx:id="tcContainer" prefWidth="68.0" text="Контейнер" />
                                         <TableColumn fx:id="tcNumberRopeMachine" prefWidth="110.0" text="№ машины КУ" />
                                         <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
                                         <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />

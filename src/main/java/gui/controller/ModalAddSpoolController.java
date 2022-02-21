@@ -52,6 +52,8 @@ public class ModalAddSpoolController {
     @FXML
     private TextField numberLot;
     @FXML
+    private TextField tfContainer;
+    @FXML
     private ComboBox<String> cbLr;
 
     //    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 48, 72);
@@ -63,7 +65,6 @@ public class ModalAddSpoolController {
     private TextField newNumberRopeMachine;
     @FXML
     private TextField newPersonalRope;
-
     @FXML
     private TextField newNumberSpool;
     @FXML
@@ -122,6 +123,8 @@ public class ModalAddSpoolController {
     @FXML
     private Label lblAddNewSpool;
     @FXML
+    private Label lblNumbContainer;
+    @FXML
     private JFXButton btnCreate;
 
     public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
@@ -145,6 +148,7 @@ public class ModalAddSpoolController {
     public void initialize() {
         //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
         TextFieldUtil.setTextFieldNumeric(numberPart, 10);
+        TextFieldUtil.setTextFieldNumeric(tfContainer,10);
         TextFieldUtil.setTextFieldNumeric(newNumberRopeMachine, 3);
         TextFieldUtil.setLimitingFields(newNumberRopeMachine, 721);
         TextFieldUtil.setTextFieldNumeric(newNumberSpool, 12);
@@ -242,6 +246,13 @@ public class ModalAddSpoolController {
             lotDTO.setIdHead(11692L);
             lotDTO.setValue(numberLot.getText() != null ? numberLot.getText() : "");
 
+            //установить значение для поля "№ контейнера"
+            MainValueDTO containerDTO = new MainValueDTO();
+            containerDTO.setIdGroup(mainGroup.getIdGroup());
+            containerDTO.setIdHead(2063171L);
+//            containerDTO.setNumberValue(Double.valueOf(tfContainer.getText() != null ? tfContainer.getText() : ""));
+            containerDTO.setNumberValue(!tfContainer.getText().equals("") ? Double.valueOf(tfContainer.getText()) : null);
+
             //установить значение для поля "Протокол":
             MainValueDTO protocolDTO = new MainValueDTO();
             protocolDTO.setIdGroup(mainGroup.getIdGroup());
@@ -263,6 +274,7 @@ public class ModalAddSpoolController {
             mainValueDTOs.add(lrDTO);
             mainValueDTOs.add(partDTO);
             mainValueDTOs.add(lotDTO);
+            mainValueDTOs.add(containerDTO);
             mainValueDTOs.add(protocolDTO);
 
             //заполнение таблички DATE_TABLE(Дата создания)
@@ -597,6 +609,8 @@ public class ModalAddSpoolController {
             cancelBtn.setVisible(true);
             btnCreate.setVisible(false);
             lblAddNewSpool.setDisable(false);
+            lblNumbContainer.setDisable(true);
+            tfContainer.setDisable(true);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
@@ -612,6 +626,8 @@ public class ModalAddSpoolController {
             cancelBtn.setVisible(false);
             btnCreate.setVisible(true);
             lblAddNewSpool.setDisable(true);
+            lblNumbContainer.setDisable(false);
+            tfContainer.setDisable(false);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
