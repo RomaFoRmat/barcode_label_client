@@ -95,7 +95,7 @@ public class LoginDialogController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ М/К");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-        stage.setScene(new Scene(root, 900, 678));
+        stage.setScene(new Scene(root, 900, 709));
         stage.setResizable(false);
         stage.requestFocus();
         stage.show();

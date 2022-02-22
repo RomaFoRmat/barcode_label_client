@@ -101,6 +101,8 @@ public class ScanController {
     @FXML
     private Label lblNumberSpool;
     @FXML
+    private Label lblContainer;
+    @FXML
     private TextField tfTypeSpool;
     @FXML
     private TextField tfCode;
@@ -114,6 +116,8 @@ public class ScanController {
     private TextField tfPart;
     @FXML
     private TextField tfLot;
+    @FXML
+    private TextField tfContainer;
     @FXML
     private TextField tfLength;
     @FXML
@@ -234,6 +238,13 @@ public class ScanController {
     private CheckBox cbStraight600Avg;
     @FXML
     private CheckBox cbTorsion;
+    @FXML
+    private CheckBox cbContainer;
+    @FXML
+    private CheckBox cbPersonal;
+    @FXML
+    private CheckBox cbRopeMachine;
+
 
 //    @FXML
 //    private CheckBox cb_torsRope;
@@ -417,7 +428,7 @@ public class ScanController {
         if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil, 0, 30000);
+            timer.schedule(updaterUtil, 0, 190000);
         }
     }
 
@@ -960,6 +971,7 @@ public class ScanController {
                         tfLR.setText(label.getRl() != null ? label.getRl() : "");
                         tfPart.setText(label.getPart() != null ? label.getPart() : "");
                         tfLot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
+                        tfContainer.setText(label.getContainer() != null ? String.valueOf(label.getContainer()): "");
                         tfLength.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
                         tfWelds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
                         tfStraightforwardness300.setText(label.getStraightforwardness300() != null ?

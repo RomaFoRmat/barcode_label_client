@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import tornadofx.control.DateTimePicker?>
 
-<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="678.0" prefWidth="900.0" styleClass="root" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
+<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="709.0" prefWidth="900.0" styleClass="root" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
     <children>
         <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
             <children>
@@ -63,11 +63,11 @@
                                     <children>
                                         <VBox>
                                             <children>
-                                                <AnchorPane fx:id="scanSpinner" minHeight="0.0" minWidth="0.0" prefHeight="531.0" prefWidth="900.0" stylesheets="@../css/button.css">
+                                                <AnchorPane fx:id="scanSpinner" minHeight="0.0" minWidth="0.0" prefHeight="550.0" prefWidth="900.0" stylesheets="@../css/button.css">
                                                     <children>
-                                                        <VBox layoutX="28.0" layoutY="22.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0" stylesheets="@../css/label.css">
+                                                        <VBox layoutX="28.0" layoutY="14.0" prefHeight="401.0" prefWidth="150.0" spacing="9.0" stylesheets="@../css/label.css">
                                                             <children>
-                                                                <Label fx:id="lblType" prefHeight="32.0" prefWidth="158.0" text="Тип катушки">
+                                                                <Label fx:id="lblType" prefHeight="32.0" prefWidth="149.0" text="Тип катушки">
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0" />
                                                                     </font>
@@ -112,6 +112,7 @@
                                                                         <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
+                                                <Label fx:id="lblContainer" text="Контейнер" />
                                                                 <Label fx:id="lblTorsion" prefHeight="0.0" prefWidth="149.0" text="Кручение">
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0" />
@@ -122,7 +123,7 @@
                                                                 <Cursor fx:constant="DEFAULT" />
                                                             </cursor>
                                                         </VBox>
-                                                        <VBox fx:id="vBoxTfList0" layoutX="178.0" layoutY="22.0" spacing="9.0">
+                                                        <VBox fx:id="vBoxTfList0" layoutX="178.0" layoutY="14.0" spacing="9.0">
                                                             <children>
                                                                 <TextField fx:id="tfTypeSpool" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                                     <font>
@@ -169,6 +170,11 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
+                                                <TextField fx:id="tfContainer" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </TextField>
                                                                 <TextField fx:id="tfTorsion" prefHeight="32.0" prefWidth="149.0" stylesheets="@../css/style.css">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -176,8 +182,13 @@
                                                                 </TextField>
                                                             </children>
                                                         </VBox>
-                                                        <VBox layoutX="491.0" layoutY="23.0" prefHeight="363.0" prefWidth="205.0" spacing="9.0" stylesheets="@../css/label.css">
+                                                        <VBox layoutX="491.0" layoutY="14.0" prefHeight="401.0" prefWidth="205.0" spacing="9.0" stylesheets="@../css/label.css">
                                                             <children>
+                                                                <Label fx:id="lblPr300" text="Прямолин. 300">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="22.0" />
+                                                                    </font>
+                                                                </Label>
                                                                 <Label fx:id="lblPr600" text="Прямолин. 600">
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0" />
@@ -213,20 +224,30 @@
                                                                         <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
-                                                                <Label fx:id="lblPr300" text="Прямолин. 300">
-                                                                    <font>
-                                                                        <Font name="System Bold" size="22.0" />
-                                                                    </font>
-                                                                </Label>
                                                                 <Label fx:id="lblLength" text="Длинна">
                                                                     <font>
                                                                         <Font name="System Bold" size="22.0" />
                                                                     </font>
                                                                 </Label>
+                                                              <Label fx:id="lblPersonalRope" prefHeight="32.0" prefWidth="157.0" text="№ оператора">
+                                                                  <font>
+                                                                      <Font name="Comic Sans MS Bold" size="21.0" />
+                                                                  </font>
+                                                              </Label>
+                                                              <Label fx:id="lblRopeMachine" prefHeight="32.0" prefWidth="173.0" text="№ машины КУ">
+                                                                  <font>
+                                                                      <Font name="Comic Sans MS Bold" size="21.0" />
+                                                                  </font>
+                                                              </Label>
                                                             </children>
                                                         </VBox>
-                                                        <VBox fx:id="vBoxTfList1" layoutX="697.0" layoutY="22.0" prefHeight="364.0" prefWidth="149.0" spacing="9.0">
+                                                        <VBox fx:id="vBoxTfList1" layoutX="697.0" layoutY="14.0" prefHeight="442.0" prefWidth="149.0" spacing="9.0">
                                                             <children>
+                                                                <TextField fx:id="tfStraightforwardness300" prefHeight="32.0" stylesheets="@../css/style.css">
+                                                                    <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                    </font>
+                                                                </TextField>
                                                                 <TextField fx:id="tfStraightforwardness600_0" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -262,19 +283,24 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
-                                                                <TextField fx:id="tfStraightforwardness300" prefHeight="32.0" stylesheets="@../css/style.css">
-                                                                    <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                    </font>
-                                                                </TextField>
                                                                 <TextField fx:id="tfLength" prefHeight="32.0" stylesheets="@../css/style.css">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </TextField>
+                                                              <TextField fx:id="tfPersonalRope" prefHeight="32.0" prefWidth="57.0" stylesheets="@../css/style.css">
+                                                                  <font>
+                                                                      <Font name="System Bold" size="12.0" />
+                                                                  </font>
+                                                              </TextField>
+                                                              <TextField fx:id="tfNumberRopeMachine" prefHeight="32.0" prefWidth="44.0" stylesheets="@../css/style.css">
+                                                                  <font>
+                                                                      <Font name="System Bold" size="12.0" />
+                                                                  </font>
+                                                              </TextField>
                                                             </children>
                                                         </VBox>
-                                                        <VBox fx:id="vBoxCbList0" layoutX="336.0" layoutY="29.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox fx:id="vBoxCbList0" layoutX="336.0" layoutY="22.0" prefWidth="21.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
                                                                 <CheckBox fx:id="cbTypeSpool" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbConstruct" mnemonicParsing="false" />
@@ -285,10 +311,11 @@
                                                                 <CheckBox fx:id="cbLot" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbWelds" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbDate" mnemonicParsing="false" />
+                                                <CheckBox fx:id="cbContainer" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbTorsion" mnemonicParsing="false" />
                                                             </children>
                                                         </VBox>
-                                                        <VBox fx:id="vBoxCbList1" layoutX="855.0" layoutY="30.0" prefHeight="345.0" prefWidth="19.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox fx:id="vBoxCbList1" layoutX="855.0" layoutY="22.0" prefHeight="345.0" prefWidth="19.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
                                                                 <CheckBox fx:id="cbStraight600_0" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbStraight600_1" disable="true" mnemonicParsing="false" />
@@ -299,9 +326,11 @@
                                                                 <CheckBox fx:id="cbStraight600Avg" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbStraight300" disable="true" mnemonicParsing="false" />
                                                                 <CheckBox fx:id="cbLength" mnemonicParsing="false" />
+                                                <CheckBox fx:id="cbPersonal" mnemonicParsing="false" visible="false" />
+                                                <CheckBox fx:id="cbRopeMachine" mnemonicParsing="false" visible="false" />
                                                             </children>
                                                         </VBox>
-                                                        <JFXButton fx:id="btnLabelForm" buttonType="RAISED" layoutX="481.0" layoutY="440.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">
+                                                        <JFXButton fx:id="btnLabelForm" buttonType="RAISED" layoutX="482.0" layoutY="469.0" onAction="#toFormLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр этикетки">
                                                             <graphic>
                                                                 <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
@@ -310,7 +339,7 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btnPrintLabel" buttonType="RAISED" layoutX="641.0" layoutY="440.0" onAction="#printLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Печать этикетки">
+                                                        <JFXButton fx:id="btnPrintLabel" buttonType="RAISED" layoutX="642.0" layoutY="469.0" onAction="#printLabel" prefHeight="25.0" prefWidth="153.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Печать этикетки">
                                                             <graphic>
                                                                 <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
@@ -319,7 +348,7 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btnClear" layoutX="390.0" layoutY="442.0" onAction="#clearAction" prefHeight="29.0" prefWidth="79.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Сброс">
+                                                        <JFXButton fx:id="btnClear" layoutX="391.0" layoutY="471.0" onAction="#clearAction" prefHeight="29.0" prefWidth="79.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Сброс">
                                                             <graphic>
                                                                 <ImageView fitHeight="19.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
@@ -328,7 +357,7 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btnPrintQr" layoutX="241.0" layoutY="440.0" onAction="#printQrCode" prefHeight="34.0" prefWidth="140.0" style="-fx-border-color: #090000; -fx-border-radius: 4;" stylesheets="@../css/button.css" text="Печать QR-CODE">
+                                                        <JFXButton fx:id="btnPrintQr" layoutX="242.0" layoutY="469.0" onAction="#printQrCode" prefHeight="34.0" prefWidth="140.0" style="-fx-border-color: #090000; -fx-border-radius: 4;" stylesheets="@../css/button.css" text="Печать QR-CODE">
                                                             <graphic>
                                                                 <ImageView fitHeight="26.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
@@ -337,7 +366,7 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btnQrCode" buttonType="RAISED" layoutX="72.0" layoutY="440.0" onAction="#generateQrCode" prefHeight="34.0" prefWidth="159.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр QR-CODE">
+                                                        <JFXButton fx:id="btnQrCode" buttonType="RAISED" layoutX="73.0" layoutY="469.0" onAction="#generateQrCode" prefHeight="34.0" prefWidth="159.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Просмотр QR-CODE">
                                                             <graphic>
                                                                 <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
@@ -346,39 +375,19 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXComboBox fx:id="cbConsumer" focusColor="#7c0ed0" labelFloat="true" layoutX="362.0" layoutY="16.0" onAction="#choiceLabelAction" prefHeight="31.0" prefWidth="122.0" promptText="ТИП:" stylesheets="@../css/jfx_comboBox.css" unFocusColor="#7c0ed0" />
-                                                        <Label fx:id="lblPersonalRope" layoutX="491.0" layoutY="391.0" prefHeight="29.0" prefWidth="135.0" styleClass="label2" stylesheets="@../css/label.css" text="№ оператора">
-                                                            <font>
-                                                                <Font name="Comic Sans MS Bold" size="21.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField fx:id="tfPersonalRope" layoutX="630.0" layoutY="394.0" prefHeight="27.0" prefWidth="57.0" stylesheets="@../css/style.css">
-                                                            <font>
-                                                                <Font name="System Bold" size="12.0" />
-                                                            </font>
-                                                        </TextField>
-                                                        <Label layoutX="696.0" layoutY="390.0" prefHeight="32.0" prefWidth="148.0" styleClass="label2" stylesheets="@../css/label.css" text="№ машины КУ">
-                                                            <font>
-                                                                <Font name="Comic Sans MS Bold" size="21.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <TextField fx:id="tfNumberRopeMachine" layoutX="848.0" layoutY="394.0" prefHeight="27.0" prefWidth="44.0" stylesheets="@../css/style.css">
-                                                            <font>
-                                                                <Font name="System Bold" size="12.0" />
-                                                            </font>
-                                                        </TextField>
-                                                        <Separator focusTraversable="false" layoutX="-3.0" layoutY="480.0" prefHeight="6.0" prefWidth="922.0" style="-fx-background-color: #000000;" />
-                                                        <Label fx:id="lblFio" layoutX="307.0" layoutY="487.0" prefHeight="25.0" prefWidth="520.0" textFill="#030303">
+                                                        <JFXComboBox fx:id="cbConsumer" focusColor="#7c0ed0" labelFloat="true" layoutX="362.0" layoutY="15.0" onAction="#choiceLabelAction" prefHeight="31.0" prefWidth="122.0" promptText="ТИП:" stylesheets="@../css/jfx_comboBox.css" unFocusColor="#7c0ed0" />
+                                                        <Separator focusTraversable="false" layoutX="-3.0" layoutY="509.0" prefHeight="6.0" prefWidth="922.0" style="-fx-background-color: #000000;" />
+                                                        <Label fx:id="lblFio" layoutX="307.0" layoutY="516.0" prefHeight="25.0" prefWidth="520.0" textFill="#030303">
                                                             <font>
                                                                 <Font name="Comic Sans MS Bold" size="17.0" />
                                                             </font>
                                                         </Label>
-                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0" layoutY="486.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="279.0" layoutY="515.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
                                                                 <Image url="@../icon/user.png" />
                                                             </image>
                                                         </ImageView>
-                                                        <Pane layoutX="-21.0" layoutY="514.0" prefHeight="14.0" prefWidth="921.0" style="-fx-background-color: black;" />
+                                                        <Pane layoutX="-21.0" layoutY="544.0" prefHeight="4.0" prefWidth="921.0" style="-fx-background-color: black;" />
                                                         <JFXSpinner fx:id="loadSpinner" layoutX="386.0" layoutY="173.0" prefHeight="57.0" prefWidth="63.0" visible="false" />
                                                         <Label fx:id="lblLoad" layoutX="367.0" layoutY="147.0" prefHeight="22.0" prefWidth="130.0" text="идёт, загрузка..." visible="false">
                                                             <font>
@@ -404,7 +413,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="1350.0">
                             <children>
-                                <TableView fx:id="tableView" prefHeight="479.0" prefWidth="900.0" stylesheets="@../css/tableView.css">
+                                <TableView fx:id="tableView" prefHeight="511.0" prefWidth="900.0" stylesheets="@../css/tableView.css">
                                     <placeholder>
                                         <Label text="За текущий период катушек не обнаружено" />
                                         <font>
@@ -436,24 +445,24 @@
                                         <TableColumn fx:id="tcStraight600Avg" prefWidth="102.0" text="Прям.600_сред." />
                                     </columns>
                                 </TableView>
-                                <TextField fx:id="tfFilterField" layoutX="15.0" layoutY="484.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
-                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy" layoutX="467.0" layoutY="485.0" prefHeight="25.0" prefWidth="120.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy" layoutX="598.0" layoutY="485.0" prefHeight="25.0" prefWidth="120.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <Label layoutX="165.0" layoutY="482.0" prefHeight="28.0" prefWidth="298.0" text="Выборка данных за период времени:">
+                                <TextField fx:id="tfFilterField" layoutX="15.0" layoutY="517.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
+                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy" layoutX="467.0" layoutY="517.0" prefHeight="25.0" prefWidth="120.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
+                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy" layoutX="598.0" layoutY="517.0" prefHeight="25.0" prefWidth="120.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
+                                <Label layoutX="165.0" layoutY="515.0" prefHeight="28.0" prefWidth="298.0" text="Выборка данных за период времени:">
                                     <font>
                                         <Font name="Comic Sans MS Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <Line endX="-11.0" endY="-5.0" layoutX="765.0" layoutY="520.0" startX="28.5" startY="-39.0" strokeWidth="2.0" />
-                                <Line endX="-18.75" layoutX="145.0" layoutY="515.0" startX="21.5" startY="-34.0" strokeWidth="2.0" />
-                                <Line endX="829.0" layoutX="71.0" layoutY="480.0" startX="-71.0" strokeWidth="2.0" />
-                                <Line endX="819.0" layoutX="81.0" layoutY="516.0" startX="-81.0" strokeWidth="2.0" />
-                                <ImageView fitHeight="26.0" fitWidth="35.0" layoutX="727.0" layoutY="485.0" onMouseClicked="#clearTableAndDatePicker" pickOnBounds="true" preserveRatio="true">
+                                <Line endX="-11.0" endY="-5.0" layoutX="765.0" layoutY="552.0" startX="28.5" startY="-39.0" strokeWidth="2.0" />
+                                <Line endX="-18.75" layoutX="145.0" layoutY="547.0" startX="21.5" startY="-34.0" strokeWidth="2.0" />
+                                <Line endX="829.0" layoutX="71.0" layoutY="512.0" startX="-71.0" strokeWidth="2.0" />
+                                <Line endX="819.0" layoutX="81.0" layoutY="548.0" startX="-81.0" strokeWidth="2.0" />
+                                <ImageView fitHeight="26.0" fitWidth="35.0" layoutX="727.0" layoutY="517.0" onMouseClicked="#clearTableAndDatePicker" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../icon/clearTable.png" />
                                     </image>
                                 </ImageView>
-                                <JFXButton fx:id="btnDateBetween" layoutX="808.0" layoutY="484.0" onAction="#dateBetweenAction" prefHeight="25.0" prefWidth="81.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Выбрать">
+                                <JFXButton fx:id="btnDateBetween" layoutX="808.0" layoutY="517.0" onAction="#dateBetweenAction" prefHeight="25.0" prefWidth="81.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Выбрать">
                                     <graphic>
                                         <ImageView fitHeight="133.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
