@@ -428,7 +428,7 @@ public class ScanController {
         if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil, 0, 190000);
+            timer.schedule(updaterUtil, 0, 100000);
         }
     }
 
@@ -566,14 +566,16 @@ public class ScanController {
                 lblLoad.setVisible(true);
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
-                List<TestLabel> labelList = TestLabelRepository.getTestLabel
-                        ("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
+//                List<TestLabel> labelList = TestLabelRepository.getTestLabel
+//                        ("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
 
-                if (labelList != null && labelList.isEmpty()) {
-                    Platform.runLater(() -> {
+//                if (labelList != null && labelList.isEmpty()) {
+                if (barcodeSpool != null) {
+                Platform.runLater(() -> {
                         stage.close();
                         barcodeSpool.clear();
                         barcodeSpool.requestFocus();
+                        clearAction();
                     });
 
                 } else {
@@ -610,6 +612,7 @@ public class ScanController {
         cbStraight600_5.setSelected(false);
         cbStraight600Avg.setSelected(false);
         cbTorsion.setSelected(false);
+        cbContainer.setSelected(false);
 //        cb_torsRope.setSelected(false);
 //        cb_straightRope.setSelected(false);
     }
@@ -652,6 +655,7 @@ public class ScanController {
         tfTorsion.clear();
         tfPersonalRope.clear();
         tfNumberRopeMachine.clear();
+        tfContainer.clear();
         barcodeSpool.clear();
         tabInfoSpool.setText("Информация о катушке");
 

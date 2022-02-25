@@ -15,7 +15,7 @@ public class TestLabel {
     private Long idForeignGroup;
     @JsonProperty("timestamp")
     private LocalDateTime dateCreate;
-    private LocalDate dateRope;
+//    private LocalDate dateRope;
     private String code;
     private String construct;
     private String consumerCode;
@@ -41,5 +41,5 @@ public class TestLabel {
     private Double straightforwardnessRope;
     private Double straightforwardness300;
     private Double torsion;
-    private String codeDefect;
+//    private String codeDefect;
 }
