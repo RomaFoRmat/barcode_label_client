@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 @Data
-public class TestLabel {
+public class TableSpools {
 
     private Long idGroup;
     private Long idForeignGroup;
@@ -29,7 +29,7 @@ public class TestLabel {
     private String numberSpool;
     private Integer welds;
     private Integer numberRopeMachine;
-    private Double numberWeldingMachine;
+//    private Double numberWeldingMachine;
     private Double straightforwardness600_0;
     private Double straightforwardness600_1;
     private Double straightforwardness600_2;

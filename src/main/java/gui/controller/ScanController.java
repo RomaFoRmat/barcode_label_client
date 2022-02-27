@@ -11,8 +11,9 @@ import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
 import gui.application.Main;
 import gui.model.*;
+import gui.repository.BarcodeLabelRepository;
 import gui.repository.TemplatesLabelsRepository;
-import gui.repository.TestLabelRepository;
+import gui.repository.TableSpoolsRepository;
 import gui.util.*;
 import gui.util.DateUtil;
 import javafx.animation.Animation;
@@ -68,7 +69,7 @@ public class ScanController {
 
     @FXML
     private AnchorPane anchorPaneMain;
-    private final ObservableList<TestLabel> tableSpool = FXCollections.observableArrayList();
+    private final ObservableList<TableSpools> tableSpool = FXCollections.observableArrayList();
     private final List<String> listAlert = new ArrayList<>();
     @FXML
     private JFXButton btnLabelForm;
@@ -253,27 +254,27 @@ public class ScanController {
 //    private CheckBox cb_straightRope;
 
     @FXML
-    private TableView<TestLabel> tableView;
+    private TableView<TableSpools> tableView;
     @FXML
-    private TableColumn<TestLabel, String> tcNumberSpool;
+    private TableColumn<TableSpools, String> tcNumberSpool;
     @FXML
-    private TableColumn<TestLabel, String> tcTypeSpool;
+    private TableColumn<TableSpools, String> tcTypeSpool;
     @FXML
-    private TableColumn<TestLabel, String> tcCodeConsumer;
+    private TableColumn<TableSpools, String> tcCodeConsumer;
     @FXML
-    private TableColumn<TestLabel, String> tcCodeProvider;
+    private TableColumn<TableSpools, String> tcCodeProvider;
     @FXML
-    private TableColumn<TestLabel, String> tcConstruct;
+    private TableColumn<TableSpools, String> tcConstruct;
     @FXML
-    private TableColumn<TestLabel, LocalDateTime> tcDateCreate;
+    private TableColumn<TableSpools, LocalDateTime> tcDateCreate;
     @FXML
-    private TableColumn<TestLabel, String> tcLR;
+    private TableColumn<TableSpools, String> tcLR;
     @FXML
-    private TableColumn<TestLabel, String> tcPart;
+    private TableColumn<TableSpools, String> tcPart;
     @FXML
-    private TableColumn<TestLabel, Integer> tcLot;
+    private TableColumn<TableSpools, Integer> tcLot;
     @FXML
-    private TableColumn<TestLabel, Integer> tcContainer;
+    private TableColumn<TableSpools, Integer> tcContainer;
 
 /*  //08.12.2021 - Закомментировано, т.к. часть данных убраны с пользовательского ввода для ЛИ м/к
     @FXML
@@ -289,29 +290,29 @@ public class ScanController {
 */
 
     @FXML
-    private TableColumn<TestLabel, Integer> tcWelds;
+    private TableColumn<TableSpools, Integer> tcWelds;
     @FXML
-    private TableColumn<TestLabel, String> tcPersonalRope;
+    private TableColumn<TableSpools, String> tcPersonalRope;
     @FXML
-    private TableColumn<TestLabel, Double> tcNumberRopeMachine;
+    private TableColumn<TableSpools, Double> tcNumberRopeMachine;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight300;
+    private TableColumn<TableSpools, Double> tcStraight300;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600_0;
+    private TableColumn<TableSpools, Double> tcStraight600_0;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600_1;
+    private TableColumn<TableSpools, Double> tcStraight600_1;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600_2;
+    private TableColumn<TableSpools, Double> tcStraight600_2;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600_3;
+    private TableColumn<TableSpools, Double> tcStraight600_3;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600_4;
+    private TableColumn<TableSpools, Double> tcStraight600_4;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600_5;
+    private TableColumn<TableSpools, Double> tcStraight600_5;
     @FXML
-    private TableColumn<TestLabel, Double> tcStraight600Avg;
+    private TableColumn<TableSpools, Double> tcStraight600Avg;
     @FXML
-    private TableColumn<TestLabel, Double> tcTorsion;
+    private TableColumn<TableSpools, Double> tcTorsion;
     @FXML
     private TextField tfFilterField;
     @FXML
@@ -413,7 +414,7 @@ public class ScanController {
 
         //Для отображения корректного времени в tableColumn dateCreate:
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-        tcDateCreate.setCellFactory(column -> new TableCell<TestLabel, LocalDateTime>() {
+        tcDateCreate.setCellFactory(column -> new TableCell<TableSpools, LocalDateTime>() {
             protected void updateItem(LocalDateTime dateTime, boolean empty) {
                 super.updateItem(dateTime, empty);
                 if (empty) {
@@ -428,7 +429,7 @@ public class ScanController {
         if (timer != null) {
             timer.cancel();
             timer = new Timer();
-            timer.schedule(updaterUtil, 0, 100000);
+            timer.schedule(updaterUtil, 0, 10000);
         }
     }
 
@@ -441,11 +442,11 @@ public class ScanController {
             dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
             dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
         }
-        List<TestLabel> testLabelListForDate = TestLabelRepository.getAllSpoolsBetween(
+        List<TableSpools> tableSpoolsListForDate = TableSpoolsRepository.getAllSpoolsBetween(
                 "http://" + AppProperties.getHost() + "/api/allSpool/"
                         + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
                         + dateEnd.getDateTimeValue().with(LocalTime.MAX));
-        tableSpool.addAll(testLabelListForDate);
+        tableSpool.addAll(tableSpoolsListForDate);
         tableView.setItems(tableSpool);
         filterTable();
         tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
@@ -489,11 +490,11 @@ public class ScanController {
 
     public void filterTable() {
         /**Обворачиваем ObservableList в FilteredList (initially display all data) */
-        FilteredList<TestLabel> filteredData = new FilteredList<>(tableSpool, b -> true);
+        FilteredList<TableSpools> filteredData = new FilteredList<>(tableSpool, b -> true);
 
         /** Устанавливаем предикат фильтра всякий раз, когда фильтр изменяется: */
         tfFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(testLabel -> {
+            filteredData.setPredicate(tableSpools -> {
                 // If filter text is empty, display all spools.
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
@@ -501,14 +502,14 @@ public class ScanController {
                 // Сравниваем номер каждой катушки с текстом фильтра.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (testLabel.getNumberSpool().toLowerCase().contains(lowerCaseFilter)) {
+                if (tableSpools.getNumberSpool().toLowerCase().contains(lowerCaseFilter)) {
                     return true; //
                 } else
                     return false;
             });
         });
         /** Обворачиваем FilteredList в SortedList: */
-        SortedList<TestLabel> sortedData = new SortedList<>(filteredData);
+        SortedList<TableSpools> sortedData = new SortedList<>(filteredData);
         /** Привязываем компаратор SortedList к компаратору TableView: */
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());
         /** Добавляем в таблицу отфильтрованные данные: */
@@ -558,7 +559,7 @@ public class ScanController {
         stage.setResizable(false);
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         stage.showAndWait();
-
+ ""
         new Thread(() -> {
             try {
                 loadSpinner.setVisible(true);
@@ -566,18 +567,17 @@ public class ScanController {
                 lblLoad.setVisible(true);
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
-//                List<TestLabel> labelList = TestLabelRepository.getTestLabel
-//                        ("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
 
-//                if (labelList != null && labelList.isEmpty()) {
-                if (barcodeSpool != null) {
+                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.
+                            getBarcodeLabel("http://localhost:8097/api/spool/" + barcodeSpool.getText());
+                if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
+//                if (barcodeSpool.getText().isEmpty()) {
                 Platform.runLater(() -> {
                         stage.close();
-                        barcodeSpool.clear();
+//                        barcodeSpool.clear();
                         barcodeSpool.requestFocus();
                         clearAction();
                     });
-
                 } else {
                     Platform.runLater(this::getInfoAction);
                 }
@@ -604,13 +604,13 @@ public class ScanController {
         cbLength.setSelected(false);
         cbWelds.setSelected(false);
         cbNumberSpool.setSelected(false);
-        cbStraight300.setSelected(false);
-        cbStraight600_1.setSelected(false);
-        cbStraight600_2.setSelected(false);
-        cbStraight600_3.setSelected(false);
-        cbStraight600_4.setSelected(false);
-        cbStraight600_5.setSelected(false);
-        cbStraight600Avg.setSelected(false);
+//        cbStraight300.setSelected(false);
+//        cbStraight600_1.setSelected(false);
+//        cbStraight600_2.setSelected(false);
+//        cbStraight600_3.setSelected(false);
+//        cbStraight600_4.setSelected(false);
+//        cbStraight600_5.setSelected(false);
+//        cbStraight600Avg.setSelected(false);
         cbTorsion.setSelected(false);
         cbContainer.setSelected(false);
 //        cb_torsRope.setSelected(false);
@@ -644,14 +644,14 @@ public class ScanController {
         tfLength.clear();
         tfWelds.clear();
         tfNumberSpool.clear();
-        tfStraightforwardness300.clear();
-        tfStraightforwardness600_0.clear();
-        tfStraightforwardness600_1.clear();
-        tfStraightforwardness600_2.clear();
-        tfStraightforwardness600_3.clear();
-        tfStraightforwardness600_4.clear();
-        tfStraightforwardness600_5.clear();
-        tfStraightforwardness600Avg.clear();
+//        tfStraightforwardness300.clear();
+//        tfStraightforwardness600_0.clear();
+//        tfStraightforwardness600_1.clear();
+//        tfStraightforwardness600_2.clear();
+//        tfStraightforwardness600_3.clear();
+//        tfStraightforwardness600_4.clear();
+//        tfStraightforwardness600_5.clear();
+//        tfStraightforwardness600Avg.clear();
         tfTorsion.clear();
         tfPersonalRope.clear();
         tfNumberRopeMachine.clear();
@@ -947,22 +947,22 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
                 if (!barcodeSpool.getText().isEmpty()) {
-                    List<TestLabel> testLabelList = TestLabelRepository.
-                            getTestLabel("http://localhost:8097/api/label/spool/" + barcodeSpool.getText());
+                    List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.
+                            getBarcodeLabel("http://localhost:8097/api/spool/" + barcodeSpool.getText());
                     System.out.println(LocalDateTime.now()
                             .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Response from the server");
-                    if (testLabelList != null && testLabelList.isEmpty()) {
+                    if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
                         Platform.runLater(this::addSpool);
                         return;
                     } else {
                         Platform.runLater(() -> setCheckBoxesWithLabel(TemplatesLabelsRepository
-                                .findByIdCode(Long.valueOf(testLabelList.get(0).getCode())).get(0)));
+                                .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0)));
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
                     Platform.runLater(() -> {
-                        TestLabel label = testLabelList.get(0);
+                        BarcodeLabel label = barcodeLabelList.get(0);
 //            System.out.println(label);
                         LocalDate dateCurrentPrintLabel = LocalDate.now();
 
@@ -978,22 +978,8 @@ public class ScanController {
                         tfContainer.setText(label.getContainer() != null ? String.valueOf(label.getContainer()): "");
                         tfLength.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
                         tfWelds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
-                        tfStraightforwardness300.setText(label.getStraightforwardness300() != null ?
-                                String.valueOf((label.getStraightforwardness300())) : "");
-                        tfStraightforwardness600_0.setText(label.getStraightforwardness600_0() != null ?
-                                String.valueOf((label.getStraightforwardness600_0())) : "");
-                        tfStraightforwardness600_1.setText(label.getStraightforwardness600_1() != null ?
-                                String.valueOf(label.getStraightforwardness600_1()) : "");
-                        tfStraightforwardness600_2.setText(label.getStraightforwardness600_2() != null ?
-                                String.valueOf(label.getStraightforwardness600_2()) : "");
-                        tfStraightforwardness600_3.setText(label.getStraightforwardness600_3() != null ?
-                                String.valueOf(label.getStraightforwardness600_3()) : "");
-                        tfStraightforwardness600_4.setText(label.getStraightforwardness600_4() != null ?
-                                String.valueOf(label.getStraightforwardness600_4()) : "");
-                        tfStraightforwardness600_5.setText(label.getStraightforwardness600_5() != null ?
-                                String.valueOf(label.getStraightforwardness600_5()) : "");
-                        tfStraightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
-                                String.valueOf(label.getStraightforwardness600Avg()) : "");
+//                        tfStraightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
+//                                String.valueOf(label.getStraightforwardness600Avg()) : "");
                         tfTorsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
                         tfNumberRopeMachine.setText(label.getNumberRopeMachine() != null ?
                                 String.valueOf(label.getNumberRopeMachine()) : "");
