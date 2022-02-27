@@ -559,7 +559,6 @@ public class ScanController {
         stage.setResizable(false);
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
         stage.showAndWait();
- ""
         new Thread(() -> {
             try {
                 loadSpinner.setVisible(true);
