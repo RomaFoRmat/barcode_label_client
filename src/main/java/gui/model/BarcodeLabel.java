@@ -21,8 +21,8 @@ public class BarcodeLabel {
     private Integer container;
     private String rl;
     private String typeSpool;
-    private String personalRope;
-    private Integer numberRopeMachine;
+//    private String personalRope;
+//    private Integer numberRopeMachine;
     private Integer length;
     private Integer welds;
     private Double torsion;

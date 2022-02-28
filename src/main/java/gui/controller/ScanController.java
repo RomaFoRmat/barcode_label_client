@@ -123,84 +123,16 @@ public class ScanController {
     private TextField tfLength;
     @FXML
     private TextField tfWelds;
-
-    @FXML
-    private Label lblPr300;
-
-    @FXML
-    private Label lblPr600;
-
-    @FXML
-    private Label lblPr1;
-
-    @FXML
-    private Label lblPr2;
-
-    @FXML
-    private Label lblPr3;
-
-    @FXML
-    private Label lblPr4;
-
-    @FXML
-    private Label lblPr5;
-
-    @FXML
-    private Label lblPrAvg;
-
     @FXML
     private Label lblTorsion;
-
     @FXML
     private Label lblPersonalRope;
 
     @FXML
-    private Label lblPrRope;
-
-    @FXML
 //    private TextField personalRope;
-
     private TextField tfNumberSpool;
-
-    @FXML
-    private TextField tfStraightforwardness600_0;
-
-    @FXML
-    private TextField tfStraightforwardness600_1;
-
-    @FXML
-    private TextField tfStraightforwardness600_2;
-
-    @FXML
-    private TextField tfStraightforwardness600_3;
-
-    @FXML
-    private TextField tfStraightforwardness600_4;
-
-    @FXML
-    private TextField tfStraightforwardness600_5;
-
-    @FXML
-    private TextField tfStraightforwardness600Avg;
-
     @FXML
     private TextField tfTorsion;
-
-/*    @FXML
-    private TextField torsRope;
-
-    @FXML
-    private Label lbl_torsRope;
-
-    @FXML
-    private TextField straightforwardnessRope;*/
-
-    @FXML
-    private TextField tfPersonalRope;
-    @FXML
-    private TextField tfNumberRopeMachine;
-    @FXML
-    private TextField tfStraightforwardness300;
     @FXML
     private CheckBox cbTypeSpool;
     @FXML
@@ -222,22 +154,6 @@ public class ScanController {
     @FXML
     private CheckBox cbNumberSpool;
     @FXML
-    private CheckBox cbStraight300;
-    @FXML
-    private CheckBox cbStraight600_0;
-    @FXML
-    private CheckBox cbStraight600_1;
-    @FXML
-    private CheckBox cbStraight600_2;
-    @FXML
-    private CheckBox cbStraight600_3;
-    @FXML
-    private CheckBox cbStraight600_4;
-    @FXML
-    private CheckBox cbStraight600_5;
-    @FXML
-    private CheckBox cbStraight600Avg;
-    @FXML
     private CheckBox cbTorsion;
     @FXML
     private CheckBox cbContainer;
@@ -245,14 +161,6 @@ public class ScanController {
     private CheckBox cbPersonal;
     @FXML
     private CheckBox cbRopeMachine;
-
-
-//    @FXML
-//    private CheckBox cb_torsRope;
-
-//    @FXML
-//    private CheckBox cb_straightRope;
-
     @FXML
     private TableView<TableSpools> tableView;
     @FXML
@@ -288,7 +196,6 @@ public class ScanController {
     @FXML
     private TableColumn<TestLabel, Double> tcStraightRope;
 */
-
     @FXML
     private TableColumn<TableSpools, Integer> tcWelds;
     @FXML
@@ -539,9 +446,10 @@ public class ScanController {
 
     /**
      * Добавление новой катушки
+     * @param barcodeLabelList
      */
     @FXML
-    public void addSpool() {
+    public void addSpool(List<BarcodeLabel> barcodeLabelList) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/modalAddSpool.fxml"));
 
@@ -567,8 +475,6 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.
-                            getBarcodeLabel("http://localhost:8097/api/spool/" + barcodeSpool.getText());
                 if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
 //                if (barcodeSpool.getText().isEmpty()) {
                 Platform.runLater(() -> {
@@ -603,17 +509,8 @@ public class ScanController {
         cbLength.setSelected(false);
         cbWelds.setSelected(false);
         cbNumberSpool.setSelected(false);
-//        cbStraight300.setSelected(false);
-//        cbStraight600_1.setSelected(false);
-//        cbStraight600_2.setSelected(false);
-//        cbStraight600_3.setSelected(false);
-//        cbStraight600_4.setSelected(false);
-//        cbStraight600_5.setSelected(false);
-//        cbStraight600Avg.setSelected(false);
         cbTorsion.setSelected(false);
         cbContainer.setSelected(false);
-//        cb_torsRope.setSelected(false);
-//        cb_straightRope.setSelected(false);
     }
 
     public void unDisabledCheckBox() {
@@ -643,17 +540,9 @@ public class ScanController {
         tfLength.clear();
         tfWelds.clear();
         tfNumberSpool.clear();
-//        tfStraightforwardness300.clear();
-//        tfStraightforwardness600_0.clear();
-//        tfStraightforwardness600_1.clear();
-//        tfStraightforwardness600_2.clear();
-//        tfStraightforwardness600_3.clear();
-//        tfStraightforwardness600_4.clear();
-//        tfStraightforwardness600_5.clear();
-//        tfStraightforwardness600Avg.clear();
         tfTorsion.clear();
-        tfPersonalRope.clear();
-        tfNumberRopeMachine.clear();
+//        tfPersonalRope.clear();
+//        tfNumberRopeMachine.clear();
         tfContainer.clear();
         barcodeSpool.clear();
         tabInfoSpool.setText("Информация о катушке");
@@ -934,7 +823,6 @@ public class ScanController {
     /**
      * Получить информацию о катушке,если таковой в БД нет - добавить
      */
-
     public void getInfoAction() {
         new Thread(() -> {
             try {
@@ -952,7 +840,7 @@ public class ScanController {
                             .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
-                        Platform.runLater(this::addSpool);
+                        Platform.runLater(() -> addSpool(barcodeLabelList));
                         return;
                     } else {
                         Platform.runLater(() -> setCheckBoxesWithLabel(TemplatesLabelsRepository
@@ -977,15 +865,10 @@ public class ScanController {
                         tfContainer.setText(label.getContainer() != null ? String.valueOf(label.getContainer()): "");
                         tfLength.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
                         tfWelds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
-//                        tfStraightforwardness600Avg.setText(label.getStraightforwardness600Avg() != null ?
-//                                String.valueOf(label.getStraightforwardness600Avg()) : "");
                         tfTorsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
-                        tfNumberRopeMachine.setText(label.getNumberRopeMachine() != null ?
-                                String.valueOf(label.getNumberRopeMachine()) : "");
-                        tfPersonalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
-                        //            torsRope.setText(label.getTorsRope() != null ? String.valueOf(label.getTorsRope()) : "");
-                        //            straightforwardnessRope.setText(label.getStraightforwardnessRope() != null ?
-                        //                    String.valueOf(label.getStraightforwardnessRope()) : "");
+//                        tfNumberRopeMachine.setText(label.getNumberRopeMachine() != null ?
+//                                String.valueOf(label.getNumberRopeMachine()) : "");
+//                        tfPersonalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
                     });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");

@@ -39,7 +39,7 @@ public class LoginDialogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         TextFieldUtil.setTextFieldNumeric(loginUserTextField, 12);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scanSpoolOld.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/scanSpool.fxml"));
         try {
             loader.load();
         } catch (IOException e) {
@@ -95,7 +95,7 @@ public class LoginDialogController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("АРМ ЛИНИИ ИНСПЕКЦИИ М/К");
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-        stage.setScene(new Scene(root, 900, 632));
+        stage.setScene(new Scene(root, 900, 612));
         stage.setResizable(false);
         stage.requestFocus();
         stage.show();
