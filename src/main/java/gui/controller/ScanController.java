@@ -350,7 +350,7 @@ public class ScanController {
             dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
         }
         List<TableSpools> tableSpoolsListForDate = TableSpoolsRepository.getAllSpoolsBetween(
-                "http://" + AppProperties.getHost() + "/api/allSpool/"
+                    AppProperties.getHost() + "/api/allSpool/"
                         + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
                         + dateEnd.getDateTimeValue().with(LocalTime.MAX));
         tableSpool.addAll(tableSpoolsListForDate);
@@ -835,7 +835,7 @@ public class ScanController {
                 lblDataProcessing.setVisible(true);
                 if (!barcodeSpool.getText().isEmpty()) {
                     List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.
-                            getBarcodeLabel("http://localhost:8097/api/spool/" + barcodeSpool.getText());
+                            getBarcodeLabel(AppProperties.getHost() + "/api/spool/" + barcodeSpool.getText());
                     System.out.println(LocalDateTime.now()
                             .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {

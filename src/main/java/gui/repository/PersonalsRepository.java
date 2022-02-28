@@ -16,7 +16,7 @@ public class PersonalsRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static List<Personals> findByPassword(String password) {
-        String url = "http://" + AppProperties.getHost() + "/api/personals/" + password;
+        String url = AppProperties.getHost() + "/api/personals/" + password;
         return getUser(url);
     }
 

@@ -218,8 +218,8 @@ public class TemplatesLabelsController implements Initializable {
 
                 TemplatesLabelsRepository.addTemplate(templatesLabels);
                 initializeTableColumns();
-                Code code = CodeRepository.getIdKod("http://" + AppProperties.getHost() +
-                        "/api/codeDTO/" + templatesLabels.getIdCode());
+                Code code = CodeRepository.getIdKod(AppProperties.getHost()
+                        + "/api/codeDTO/" + templatesLabels.getIdCode());
                 TextFieldUtil.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
                 LOGGER.info("Added template for code:{} - {}", code.getCode(), Constants.FIO_VIEW);
                 cbCodeSelection.setValue(null);
@@ -241,7 +241,7 @@ public class TemplatesLabelsController implements Initializable {
             Long idTemplate = getSelectedTemplate().getTemplatesLabels().getIdTemplate();
 
             List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
-                    getByIdTemplate("http://" + AppProperties.getHost() + "/api/templates-id/" + idTemplate);
+                    getByIdTemplate(AppProperties.getHost() + "/api/templates-id/" + idTemplate);
 
             TemplatesLabels labels = templatesLabelsList.get(0);
 
@@ -279,7 +279,7 @@ public class TemplatesLabelsController implements Initializable {
             TemplatesLabels templatesLabels = new TemplatesLabels();
             templatesLabels.setIdTemplate(tableTemplates.getSelectionModel().getSelectedItem().
                     getTemplatesLabels().getIdTemplate());
-            TemplatesLabelsRepository.delete("http://" + AppProperties.getHost() + "/api/templates/" +
+            TemplatesLabelsRepository.delete(AppProperties.getHost() + "/api/templates/" +
                     templatesLabels.getIdTemplate());
             TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
             LOGGER.info("Delete template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW);

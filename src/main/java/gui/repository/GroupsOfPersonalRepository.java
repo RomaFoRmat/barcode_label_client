@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gui.application.AppProperties;
 import gui.model.GroupsOfPersonal;
-import gui.model.TestValue;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -16,7 +15,7 @@ public class GroupsOfPersonalRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static List<GroupsOfPersonal> findAllByIdGroup(Long idGroup) {
-        String url = "http://" + AppProperties.getHost() + "/api/getGroupsOfPersonal/"  + idGroup;
+        String url = AppProperties.getHost() + "/api/getGroupsOfPersonal/"  + idGroup;
         return getGroupsOfPersonal(url);
     }
 

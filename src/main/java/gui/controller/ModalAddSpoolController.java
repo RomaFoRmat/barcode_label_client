@@ -258,7 +258,7 @@ public class ModalAddSpoolController {
             protocolDTO.setIdGroup(mainGroup.getIdGroup());
             protocolDTO.setIdHead(1889350L);
 
-            String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol("http://" + AppProperties.getHost() + "/api/lastProtocol"));
+            String lastCurrentProtocol = String.valueOf(MainValueRepository.getLastProtocol(AppProperties.getHost() + "/api/lastProtocol"));
 
             if (lastCurrentProtocol.equals("[]")) {
                 protocolDTO.setNumberValue(1.0);
@@ -281,8 +281,7 @@ public class ModalAddSpoolController {
             MainGroupRequestDTO mainGroupRequestDTO = new MainGroupRequestDTO();
             mainGroupRequestDTO.setWhoCreate(Constants.FIO);
             String namePersonal = String.valueOf(AccessPersonalRepository.
-                    getAccessPersonal("http://" + AppProperties.getHost() +
-                            "/api/getAccessPersonal/" + Constants.ID_PERSONALS));
+                    getAccessPersonal(AppProperties.getHost() + "/api/getAccessPersonal/" + Constants.ID_PERSONALS));
             namePersonal = namePersonal.replaceAll("\\[", "").replaceAll("\\]", "");
             System.out.println(namePersonal);
             Long idLaboratory = Long.valueOf(namePersonal);
@@ -563,7 +562,7 @@ public class ModalAddSpoolController {
             ForeignGroupRequestDTO foreignGroupRequestDTO = new ForeignGroupRequestDTO();
             foreignGroupRequestDTO.setWhoCreate(Constants.FIO);
             String namePersonal = String.valueOf(AccessPersonalRepository.
-                    getAccessPersonal("http://" + AppProperties.getHost() +
+                    getAccessPersonal(AppProperties.getHost() +
                             "/api/getAccessPersonal/" + Constants.ID_PERSONALS));
             namePersonal = namePersonal.replaceAll("\\[", "").replaceAll("\\]", "");
 //            System.out.println(namePersonal);

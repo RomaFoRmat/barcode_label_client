@@ -24,17 +24,17 @@ public class MainValueRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static MainValue saveAndFlush(MainValue mainValue) {
-        String url = "http://" + AppProperties.getHost() + "/api/createMainValues";
+        String url = AppProperties.getHost() + "/api/createMainValues";
         return getResponseEntity(url, mainValue);
     }
 
     public static List<MainValue> findByMainValuePrimaryKeyIdHead(Long idHead) {
-        String url = "http://" + AppProperties.getHost() + "/api/allMainValues/" + idHead;
+        String url = AppProperties.getHost() + "/api/allMainValues/" + idHead;
         return getMainValue(url);
     }
 
     public static List<String> findFirstByMainValuePrimaryKeyIdHead() {
-        String url = "http://" + AppProperties.getHost() + "/api/lastProtocol";
+        String url = AppProperties.getHost() + "/api/lastProtocol";
         return getLastProtocol(url);
     }
 

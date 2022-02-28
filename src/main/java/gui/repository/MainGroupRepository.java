@@ -24,17 +24,17 @@ import java.util.List;
 
 public class MainGroupRepository {
 
-    public static final String MAIN_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllByConversion11690/idMainGroup";
+    public static final String MAIN_ENDPOINT = AppProperties.getHost() + "/api/getAllByConversion11690/idMainGroup";
     public static ObjectMapper mapper = new ObjectMapper();
-    public static final String MAIN_ID_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllIdGroup";
+    public static final String MAIN_ID_ENDPOINT = AppProperties.getHost() + "/api/getAllIdGroup";
 
     public static MainGroupResponseDTO addIdMain(MainGroupRequestDTO mainGroupRequestDTO) {
-        String url = "http://" + AppProperties.getHost() + "/api/addIdGroup";
+        String url = AppProperties.getHost() + "/api/addIdGroup";
         return getResponseEntity(url, mainGroupRequestDTO);
     }
 
     public static List<MainGroup> findByIdGroup(Long idGroup) {
-        String url = "http://" + AppProperties.getHost() + "/api/getIdGroupByConversion11690/" + idGroup;
+        String url = AppProperties.getHost() + "/api/getIdGroupByConversion11690/" + idGroup;
         return getMainGroup(url);
     }
 

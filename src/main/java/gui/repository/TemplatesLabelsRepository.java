@@ -24,31 +24,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class TemplatesLabelsRepository {
-    public static final String TEMPLATES_ENDPOINT = "http://" + AppProperties.getHost() + "/api/templates/all";
+    public static final String TEMPLATES_ENDPOINT = AppProperties.getHost() + "/api/templates/all";
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static void deleteByIdTemplate(Long idTemplate){
-        String url = "http://" + AppProperties.getHost() + "/api/templates/" + idTemplate;
+        String url = AppProperties.getHost() + "/api/templates/" + idTemplate;
         delete(url);
     }
 
     public static List<TemplatesLabels> findByIdCode(Long idCode) {
-        String url = "http://" + AppProperties.getHost() + "/api/templates-idCode/" + idCode;
+        String url = AppProperties.getHost() + "/api/templates-idCode/" + idCode;
         return getTemplate(url);
     }
 
     public static List<TemplatesLabels> findByIdTemplate(Long idTemplate) {
-        String url = "http://" + AppProperties.getHost() + "/api/templates-id/" + idTemplate;
+        String url = AppProperties.getHost() + "/api/templates-id/" + idTemplate;
         return getByIdTemplate(url);
     }
 
     public static TemplatesLabels addTemplate(TemplatesLabels templatesLabels) {
-        String url = "http://" + AppProperties.getHost() + "/api/templates";
+        String url = AppProperties.getHost() + "/api/templates";
         return getResponseEntity(url, templatesLabels);
     }
 
     public static TemplatesLabels update(TemplatesLabels templatesLabels) {
-        String url = "http://" + AppProperties.getHost() + "/api/templates";
+        String url = AppProperties.getHost() + "/api/templates";
         return updateTemplate(url, templatesLabels);
     }
 

@@ -18,8 +18,8 @@ public class TableSpoolsRepository {
 
     public static ObjectMapper mapper = new ObjectMapper();
 
-    public static final String SPOOLS_ENDPOINT = "http://" + AppProperties.getHost() + "/api/label/spool";
-    public static final String SPOOLS_ENDPOINT_lAST_DAY = "http://" + AppProperties.getHost() + "/api/allSpool/forTheLastDay";
+    public static final String SPOOLS_ENDPOINT = AppProperties.getHost() + "/api/label/spool";
+    public static final String SPOOLS_ENDPOINT_lAST_DAY = AppProperties.getHost() + "/api/allSpool/forTheLastDay";
 
     public static List<TableSpools> getAllSpools() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -65,13 +65,13 @@ public class TableSpoolsRepository {
     }
 
     public List<TableSpools> findAllByDateCreateBetween(LocalDateTime dateCreateStart, LocalDateTime dateCreateEnd) {
-        String url = "http://" + AppProperties.getHost() + "/api/allSpool/" + dateCreateStart + "/" + dateCreateEnd;
+        String url = AppProperties.getHost() + "/api/allSpool/" + dateCreateStart + "/" + dateCreateEnd;
         return getAllSpoolsBetween(url);
     }
 
 
     public static List<TableSpools> findByNumberSpool(String numberSpool) {
-        String url = "http://" + AppProperties.getHost() + "/api/label/spool/" + numberSpool;
+        String url = AppProperties.getHost() + "/api/label/spool/" + numberSpool;
         return getTestLabel(url);
     }
 
@@ -91,7 +91,7 @@ public class TableSpoolsRepository {
     }
 
     public List<TableSpools> findFirstValuesByRowNum(String rowNum) {
-        String url = "http://" + AppProperties.getHost() + "/api/allSpool/" + rowNum;
+        String url = AppProperties.getHost() + "/api/allSpool/" + rowNum;
         return getFirstValues(url);
     }
 

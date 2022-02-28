@@ -17,7 +17,7 @@ public class BarcodeLabelRepository {
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static List<BarcodeLabel> findByNumberSpool(String numberSpool) {
-        String url = "http://" + AppProperties.getHost() + "/api/spool/" + numberSpool;
+        String url = AppProperties.getHost() + "/api/spool/" + numberSpool;
         return getBarcodeLabel(url);
     }
 

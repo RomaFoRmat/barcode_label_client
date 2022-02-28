@@ -24,16 +24,16 @@ import java.util.List;
 
 public class ForeignGroupRepository {
 
-    public static final String FOREIGN_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllByIdForeignGroup";
+    public static final String FOREIGN_ENDPOINT = AppProperties.getHost() + "/api/getAllByIdForeignGroup";
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static ForeignGroupResponseDTO addIdForeign(ForeignGroupRequestDTO foreignGroupRequestDTO) {
-        String url = "http://" + AppProperties.getHost() + "/api/create/foreignGroup";
+        String url = AppProperties.getHost() + "/api/create/foreignGroup";
         return getResponseEntity(url, foreignGroupRequestDTO);
     }
 
     public static List<ForeignGroup> findByMainGroupIdConversionAndIdForeignGroup(Long idForeignGroup) {
-        String url = "http://" + AppProperties.getHost() + "/api/getByIdForeignGroup/" + idForeignGroup;
+        String url = AppProperties.getHost() + "/api/getByIdForeignGroup/" + idForeignGroup;
         return getForeignGroup(url);
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class CodeRepository {
 
-    public static final String CODE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/getAllCodes";
+    public static final String CODE_ENDPOINT = AppProperties.getHost() + "/api/getAllCodes";
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static List<Code> findAllByConversionIdConversion() {
@@ -33,7 +33,7 @@ public class CodeRepository {
     }
 
     public static Code findByIdKod(Long code) {
-        String url = "http://" + AppProperties.getHost() + "/api/codeDTO/" + code;
+        String url = AppProperties.getHost() + "/api/codeDTO/" + code;
         return getIdKod(url);
     }
 

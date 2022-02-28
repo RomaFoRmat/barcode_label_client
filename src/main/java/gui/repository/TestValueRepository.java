@@ -22,16 +22,16 @@ import java.util.List;
 
 public class TestValueRepository {
 
-    public static final String TEST_VALUE_ENDPOINT = "http://" + AppProperties.getHost() + "/api/allTestValuesByIdConversion11690";
+    public static final String TEST_VALUE_ENDPOINT = AppProperties.getHost() + "/api/allTestValuesByIdConversion11690";
     public static ObjectMapper mapper = new ObjectMapper();
 
     public static TestValue saveAndFlush(TestValue testValue) {
-        String url = "http://" + AppProperties.getHost() + "/api/createTestValues";
+        String url = AppProperties.getHost() + "/api/createTestValues";
         return getResponseEntity(url, testValue);
     }
 
     public static List<TestValue> findByIdConversionAndIdTestHead(Long idTestHead) {
-        String url = "http://" + AppProperties.getHost() + "/api/allTestValuesByIdConversion11690/" + idTestHead;
+        String url = AppProperties.getHost() + "/api/allTestValuesByIdConversion11690/" + idTestHead;
         return getTestValue(url);
     }
 
