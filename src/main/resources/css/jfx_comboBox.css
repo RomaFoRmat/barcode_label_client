@@ -23,12 +23,6 @@
     -fx-background-color: red;
 }
 
-/*.jfx-autocomplete-popup .list-cell:filled:selected {*/
-/*    -fx-background-color: #7c0ed0;*/
-/*}*/
-/*.jfx-autocomplete-popup .list-cell {*/
-/*    -fx-background-color: #whitesmoke;*/
-/*}*/
 .combo-box .arrow-button .arrow {
     -fx-background-color: black;
 }

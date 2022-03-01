@@ -41,6 +41,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -101,8 +102,6 @@ public class ScanController {
     private Label lblWelds;
     @FXML
     private Label lblNumberSpool;
-    @FXML
-    private Label lblContainer;
     @FXML
     private TextField tfTypeSpool;
     @FXML
@@ -261,6 +260,8 @@ public class ScanController {
     private Label lblWait;
     @FXML
     private Label lblDataProcessing;
+    @FXML
+    private JFXSpinner loadSpinnerTable;
 
     private final List<FieldModel> fieldModelEngList = new ArrayList();
     private final List<FieldModel> fieldModelRusList = new ArrayList();
@@ -344,22 +345,40 @@ public class ScanController {
      * Отобразить катушки за заданный период времени
      */
     public void dateBetweenAction() {
-        tableSpool.clear();
-        if (dateStart.getDateTimeValue() == null && dateEnd.getDateTimeValue() == null) {
-            dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
-            dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
-        }
-        List<TableSpools> tableSpoolsListForDate = TableSpoolsRepository.getAllSpoolsBetween(
-                    AppProperties.getHost() + "/api/allSpool/"
-                        + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
-                        + dateEnd.getDateTimeValue().with(LocalTime.MAX));
-        tableSpool.addAll(tableSpoolsListForDate);
-        tableView.setItems(tableSpool);
-        filterTable();
-        tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
-                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
-                .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
-
+        new Thread(() -> {
+            try {
+                loadSpinnerTable.setVisible(true);
+                tableSpool.clear();
+                Platform.runLater(() -> {
+                    tableView.setPlaceholder(new Text("Ожидайте идет загрузка..."));
+                    tableView.getPlaceholder().setStyle("-fx-font-size: 16; -fx-font-family: 'Comic Sans MS';");
+                });
+                if (dateStart.getDateTimeValue() == null && dateEnd.getDateTimeValue() == null) {
+                    dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
+                    dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
+                }
+                List<TableSpools> tableSpoolsListForDate = TableSpoolsRepository.getAllSpoolsBetween(
+                        AppProperties.getHost() + "/api/allSpool/"
+                                + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
+                                + dateEnd.getDateTimeValue().with(LocalTime.MAX));
+                tableSpool.addAll(tableSpoolsListForDate);
+                tableView.setItems(tableSpool);
+                        Platform.runLater(this::filterTable);
+//                filterTable();
+                Platform.runLater(() -> tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
+                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
+                        .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))));
+                loadSpinnerTable.setVisible(false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                loadSpinnerTable.setVisible(false);
+                Platform.runLater(()-> {
+                tableView.setPlaceholder( new Text("За текущий период катушек не обнаружено"));
+                tableView.getPlaceholder().setStyle("-fx-font-size: 16; -fx-font-family: 'Comic Sans MS';");
+                });
+            }
+        }).start();
     }
 
     /**
@@ -499,7 +518,7 @@ public class ScanController {
     }
 
     public void unselectCheckBox() {
-        cbTypeSpool.setSelected(false);
+//        cbTypeSpool.setSelected(false);
         cbCode.setSelected(false);
         cbConstruct.setSelected(false);
         cbDate.setSelected(false);
@@ -510,7 +529,6 @@ public class ScanController {
         cbWelds.setSelected(false);
         cbNumberSpool.setSelected(false);
         cbTorsion.setSelected(false);
-        cbContainer.setSelected(false);
     }
 
     public void unDisabledCheckBox() {
@@ -541,9 +559,6 @@ public class ScanController {
         tfWelds.clear();
         tfNumberSpool.clear();
         tfTorsion.clear();
-//        tfPersonalRope.clear();
-//        tfNumberRopeMachine.clear();
-        tfContainer.clear();
         barcodeSpool.clear();
         tabInfoSpool.setText("Информация о катушке");
 
@@ -857,12 +872,10 @@ public class ScanController {
                         tfCode.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
                         tfConstruct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
                         tfNumberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
-                        //            date_create.setText(label.getDate_create() != null ? DateUtil.format(label.getDate_create()) : "");
                         tfDatePrint.setText(DateUtil.format(dateCurrentPrintLabel));
                         tfLR.setText(label.getRl() != null ? label.getRl() : "");
                         tfPart.setText(label.getPart() != null ? label.getPart() : "");
                         tfLot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
-                        tfContainer.setText(label.getContainer() != null ? String.valueOf(label.getContainer()): "");
                         tfLength.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
                         tfWelds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
                         tfTorsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
@@ -906,9 +919,17 @@ public class ScanController {
         barcodeSpool.requestFocus();
     }
 
-    public void scanByKey(KeyEvent keyEvent) {
+    public void scanByKey(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             getInfoAction();
+        } else if (keyEvent.getCode() == KeyCode.F1) {
+            generateQrCode();
+        } else if (keyEvent.getCode() == KeyCode.F2) {
+            printQrCode();
+        } else if (keyEvent.getCode() == KeyCode.F3) {
+            toFormLabel();
+        } else if (keyEvent.getCode() == KeyCode.F4) {
+            printLabel();
         }
     }
 

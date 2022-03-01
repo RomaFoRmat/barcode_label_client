@@ -18,12 +18,13 @@ public class BarcodeLabel {
     private String consumerCode;
     private String lot;
     private String part;
-    private Integer container;
     private String rl;
     private String typeSpool;
-//    private String personalRope;
-//    private Integer numberRopeMachine;
     private Integer length;
     private Integer welds;
     private Double torsion;
+//    private Integer container;
+//    private String personalRope;
+//    private Integer numberRopeMachine;
+
 }

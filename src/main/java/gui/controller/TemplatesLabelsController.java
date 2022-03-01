@@ -42,81 +42,56 @@ public class TemplatesLabelsController implements Initializable {
 
     @FXML
     private CheckBox cbConstruct;
-
     @FXML
     private CheckBox cbLanguage;
-
     @FXML
     private CheckBox cbCode;
-
     @FXML
     private CheckBox cbLR;
-
     @FXML
     private CheckBox cbNumbSpool;
-
     @FXML
     private CheckBox cbPart;
-
     @FXML
     private CheckBox cbLot;
-
     @FXML
     private CheckBox cbWelds;
-
     @FXML
     private CheckBox cbLength;
     @FXML
     private CheckBox cbDatePrint;
-
     @FXML
     private Label lblLanguage;
-
     @FXML
     private TableColumn<TemplateLabelDTO, String> tcInsideCodes;
-
     @FXML
     private TableView<TemplateLabelDTO> tableTemplates;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcLanguage;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcConstruct;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcCode;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcLR;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcNumbSpool;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcDatePrint;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcPart;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcLot;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcLength;
-
     @FXML
     private TableColumn<TemplateLabelDTO, Boolean> tcWelds;
-
     @FXML
     private JFXButton btnAdd;
-
     @FXML
     private JFXButton btnEdit;
-
     @FXML
     private JFXButton btnDelete;
-
     @FXML
     private Hyperlink linkHelp;
 
