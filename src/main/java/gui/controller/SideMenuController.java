@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
@@ -38,6 +39,9 @@ public class SideMenuController implements Initializable {
     public AboutDialogController aboutDialogController;
     @FXML
     private JFXButton btnExit;
+    private final String osArch = System.getProperty("os.arch");
+    private final String x64 = "C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe";
+    private final String x86 = "C:\\Program Files\\LaboratoryResearches2\\ProjectStart2.exe";
 
     public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class);
 
@@ -75,16 +79,19 @@ public class SideMenuController implements Initializable {
     }
 
     @FXML
-    private void openProjectStart2() throws UnknownHostException {
-        try {
+    private void openProjectStart2() throws IOException {
+//            String osArch = System.getProperty("sun.arch.data.model"); //64,32
             Runtime run = Runtime.getRuntime();
-            run.exec("C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe");
-            LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
-        } catch (IOException e) {
-            LOGGER.error("{} - {}; {}", e.getMessage(),Constants.FIO_VIEW,InetAddress.getLocalHost());
+            if(osArch.equals("amd64") && (new File(x64)).exists()) {
+                run.exec(x64);
+                LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
+            } else if (osArch.equals("x86") && (new File(x86)).exists()){
+                run.exec(x86);
+                LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
+            } else {
+            LOGGER.error("{} - {}; {}", "Cannot run program",Constants.FIO_VIEW,InetAddress.getLocalHost());
             TextFieldUtil.alertError("Не удается найти указанный файл! \nЛибо данная программа не установлена на вашем ПК!");
         }
-
     }
 
     @FXML

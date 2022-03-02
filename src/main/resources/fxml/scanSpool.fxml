@@ -271,12 +271,12 @@
                                                                 <Font name="Comic Sans MS" size="15.0" />
                                                             </font>
                                                         </Label>
-                                                          <Label fx:id="lblType" layoutX="335.0" layoutY="294.0" prefHeight="33.0" prefWidth="149.0" text="Тип катушки:">
+                                                          <Label fx:id="lblType" layoutX="315.0" layoutY="294.0" prefHeight="33.0" prefWidth="149.0" text="Тип катушки:">
                                                               <font>
                                                                   <Font name="Comic Sans MS Bold" size="21.5" />
                                                               </font>
                                                           </Label>
-                                          <TextField fx:id="tfTypeSpool" alignment="CENTER" layoutX="487.0" layoutY="299.0" prefHeight="28.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                                          <TextField fx:id="tfTypeSpool" alignment="CENTER" layoutX="465.0" layoutY="299.0" prefHeight="28.0" prefWidth="80.0" stylesheets="@../css/style.css">
                                              <font>
                                                 <Font name="Comic Sans MS Bold" size="12.0" />
                                              </font>
@@ -363,7 +363,7 @@
         <JFXDrawer fx:id="drawer" defaultDrawerSize="208.0" direction="RIGHT" layoutX="699.0" layoutY="43.0" prefHeight="138.0" prefWidth="208.0" />
           <JFXTextField fx:id="barcodeSpool" alignment="CENTER" focusColor="#5ff85f" labelFloat="true" layoutX="330.0" layoutY="70.0" prefHeight="40.0" prefWidth="253.0" promptText="Отсканируйте штрих-код" stylesheets="@../css/jfx_success.css" unFocusColor="BLACK">
               <font>
-                  <Font name="Times New Roman" size="22.0" />
+                  <Font name="Comic Sans MS" size="19.0" />
               </font>
           </JFXTextField>
           <Button fx:id="btnGetInfo" alignment="CENTER" layoutX="590.0" layoutY="76.0" mnemonicParsing="false" onAction="#getInfoAction" prefHeight="30.0" prefWidth="41.0" style="-fx-background-radius: 27; -fx-padding: 4;" stylesheets="@../css/button.css">
