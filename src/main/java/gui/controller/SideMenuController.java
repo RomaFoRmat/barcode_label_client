@@ -42,7 +42,6 @@ public class SideMenuController implements Initializable {
     private final String osArch = System.getProperty("os.arch");
     private final String x64 = "C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe";
     private final String x86 = "C:\\Program Files\\LaboratoryResearches2\\ProjectStart2.exe";
-
     public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class);
 
     @Override

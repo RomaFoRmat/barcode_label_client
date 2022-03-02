@@ -10,7 +10,7 @@
 }
 
 .combo-box .list-cell:selected {
-    -fx-background-color: #7c0ed0;
+    -fx-background-color: #8800ff;
     -fx-text-fill: whitesmoke;
 }
 
@@ -20,9 +20,12 @@
 }
 
 .combo-box .list-cell:disabled {
-    -fx-background-color: red;
+    -fx-background-color: whitesmoke;
 }
 
 .combo-box .arrow-button .arrow {
     -fx-background-color: black;
 }
+
+
+

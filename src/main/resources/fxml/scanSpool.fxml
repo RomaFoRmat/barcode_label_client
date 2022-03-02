@@ -260,7 +260,7 @@
                                                             </image>
                                                         </ImageView>
                                                         <Pane layoutX="-21.0" layoutY="443.0" prefHeight="4.0" prefWidth="921.0" style="-fx-background-color: black;" />
-                                                        <JFXSpinner fx:id="loadSpinner" layoutX="411.0" layoutY="161.0" prefHeight="57.0" prefWidth="64.0" visible="false" />
+                                                        <JFXSpinner fx:id="loadSpinner" layoutX="409.0" layoutY="161.0" prefHeight="57.0" prefWidth="64.0" visible="false" />
                                                         <Label fx:id="lblLoad" layoutX="390.0" layoutY="133.0" prefHeight="22.0" prefWidth="123.0" text="идёт, загрузка..." visible="false">
                                                             <font>
                                                                 <Font name="Comic Sans MS" size="15.0" />
