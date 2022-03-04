@@ -55,7 +55,12 @@ import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import tornadofx.control.DateTimePicker;
 
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import java.awt.*;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -67,7 +72,6 @@ import java.util.List;
 
 
 public class ScanController {
-
     @FXML
     private AnchorPane anchorPaneMain;
     private final ObservableList<TableSpools> tableSpool = FXCollections.observableArrayList();
@@ -362,12 +366,13 @@ public class ScanController {
                                 + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
                                 + dateEnd.getDateTimeValue().with(LocalTime.MAX));
                 tableSpool.addAll(tableSpoolsListForDate);
-                tableView.setItems(tableSpool);
-                        Platform.runLater(this::filterTable);
-//                filterTable();
-                Platform.runLater(() -> tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
+                Platform.runLater(() -> {
+                        tableView.setItems(tableSpool);
+                        filterTable();
+                        tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
                         .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
-                        .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"))));
+                        .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+                });
                 loadSpinnerTable.setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -833,6 +838,7 @@ public class ScanController {
     public void clearAction() {
         unselectCheckBox();
         clearFields();
+        unDisabledCheckBox();
     }
 
     /**
@@ -986,4 +992,5 @@ public class ScanController {
 
         return labelFields;
     }
+
 }
