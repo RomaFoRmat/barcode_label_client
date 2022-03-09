@@ -19,7 +19,7 @@ public class BarcodeLabel {
     private String lot;
     private String part;
     private String rl;
-    private String typeSpool;
+//    private String typeSpool;
     private Integer length;
     private Integer welds;
     private Double torsion;

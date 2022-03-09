@@ -553,7 +553,7 @@ public class ScanController {
      * Очистка TextFields
      */
     public void clearFields() {
-        tfTypeSpool.clear();
+//        tfTypeSpool.clear();
         tfCode.clear();
         tfConstruct.clear();
         tfDatePrint.clear();
@@ -848,7 +848,7 @@ public class ScanController {
         new Thread(() -> {
             try {
                 System.out.println(LocalDateTime.now()
-                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Method started");
+                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method started");
                 loadSpinner.setVisible(true);
                 lblWait.setVisible(true);
                 lblLoad.setVisible(true);
@@ -858,7 +858,7 @@ public class ScanController {
                     List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.
                             getBarcodeLabel(AppProperties.getHost() + "/api/spool/" + barcodeSpool.getText());
                     System.out.println(LocalDateTime.now()
-                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Response from the server");
+                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
                         Platform.runLater(() -> addSpool(barcodeLabelList));
@@ -874,7 +874,7 @@ public class ScanController {
 //            System.out.println(label);
                         LocalDate dateCurrentPrintLabel = LocalDate.now();
 
-                        tfTypeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
+//                        tfTypeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
                         tfCode.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
                         tfConstruct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
                         tfNumberSpool.setText(label.getNumberSpool() != null ? (label.getNumberSpool()) : "");
@@ -888,6 +888,10 @@ public class ScanController {
 //                        tfNumberRopeMachine.setText(label.getNumberRopeMachine() != null ?
 //                                String.valueOf(label.getNumberRopeMachine()) : "");
 //                        tfPersonalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
+                        cbCode.setSelected(label.getConsumerCode() != null);
+                        if(!cbCode.isSelected()){
+                            cbCode.setDisable(true);
+                        }
                     });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
@@ -898,7 +902,7 @@ public class ScanController {
                     });
                     barcodeSpool.setText("");
                     System.out.println(LocalDateTime.now().
-                            format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " Method ended");
+                            format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method ended");
                 } else if (barcodeSpool.getText().isEmpty()) {
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_error.css");
