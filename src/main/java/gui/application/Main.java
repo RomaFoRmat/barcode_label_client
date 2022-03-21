@@ -8,17 +8,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Properties;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         primaryStage.setTitle("Вход в SPOOLS SCAN");
@@ -37,7 +37,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+//        Locale.setDefault(new Locale("ru", "RU"));
+        Locale.setDefault(new Locale("ru"));
         launch(args);
+
     }
 
 

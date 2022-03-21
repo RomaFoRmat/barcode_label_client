@@ -55,12 +55,7 @@ import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import tornadofx.control.DateTimePicker;
 
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
 import java.awt.*;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -278,9 +273,14 @@ public class ScanController {
     @FXML
     private JFXSpinner loadSpinner;
     private Map<String, LabelField> labelFieldMap;
+    public Scene scene;
+    public Stage stage;
 
     @FXML
     public void initialize() {
+        this.stage = new Stage();
+//        stage.getScene();
+        scanByKey();
         labelFieldMap = createLabelFieldMap();
         initJFXDrawer();
         loadSpinner.setProgress(-1);
@@ -929,18 +929,26 @@ public class ScanController {
         barcodeSpool.requestFocus();
     }
 
-    public void scanByKey(KeyEvent keyEvent) throws IOException {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            getInfoAction();
-        } else if (keyEvent.getCode() == KeyCode.F1) {
-            generateQrCode();
-        } else if (keyEvent.getCode() == KeyCode.F2) {
-            printQrCode();
-        } else if (keyEvent.getCode() == KeyCode.F3) {
-            toFormLabel();
-        } else if (keyEvent.getCode() == KeyCode.F4) {
-            printLabel();
-        }
+    public void scanByKey() {
+//        stage = (Stage) anchorPaneMain.getScene().getWindow();
+        stage.getScene();
+        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            try{
+                if (event.getCode() == KeyCode.ENTER) {
+                    getInfoAction();
+                } else if (event.getCode() == KeyCode.F1) {
+                    generateQrCode();
+                } else if (event.getCode() == KeyCode.F2) {
+                    printQrCode();
+                } else if (event.getCode() == KeyCode.F3) {
+                    toFormLabel();
+                } else if (event.getCode() == KeyCode.F4) {
+                    printLabel();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -997,4 +1005,18 @@ public class ScanController {
         return labelFields;
     }
 
+
+    public void printFromTable() {
+
+    }
+
+    public void viewFromTable() throws IOException, InterruptedException {
+        TableSpools getSelectedView = tableView.getSelectionModel().getSelectedItem();
+        if (getSelectedView != null) {
+            String numberSpool = getSelectedView.getNumberSpool();
+            barcodeSpool.setText(numberSpool);
+            getInfoAction();
+            generateQrCode();
+        }
+    }
 }
