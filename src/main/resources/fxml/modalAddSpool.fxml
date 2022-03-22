@@ -21,12 +21,12 @@
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <Label fx:id="lblSelectMainGroup" layoutX="473.0" layoutY="128.0" prefHeight="25.0" prefWidth="191.0" text="Выбор главной записи:">
+        <Label fx:id="lblSelectMainGroup" layoutX="475.0" layoutY="128.0" prefHeight="25.0" prefWidth="191.0" text="Выбор главной записи:">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="450.0" layoutY="153.0" prefHeight="25.0" prefWidth="252.0" stylesheets="@../css/jfxCbSelectMain.css" />
+        <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="445.0" layoutY="153.0" prefHeight="25.0" prefWidth="261.0" stylesheets="@../css/jfxCbSelectMain.css" />
         <VBox fx:id="vBoxMain1" layoutX="215.0" layoutY="91.0" prefHeight="135.0" prefWidth="179.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label prefHeight="19.0" prefWidth="94.0" text="№ партии:" wrapText="true">

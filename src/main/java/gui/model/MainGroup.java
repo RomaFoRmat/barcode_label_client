@@ -16,7 +16,7 @@ public class MainGroup {
     @Override
     public String toString() throws NullPointerException {
         if (dateCreate != null) {
-            return idGroup + " / " + "ДАТА: "
+            return "ID: " + idGroup + " / " + "ДАТА: "
                     + dateCreate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
         } else return idGroup.toString();
     }

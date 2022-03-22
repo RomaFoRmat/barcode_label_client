@@ -273,14 +273,9 @@ public class ScanController {
     @FXML
     private JFXSpinner loadSpinner;
     private Map<String, LabelField> labelFieldMap;
-    public Scene scene;
-    public Stage stage;
 
     @FXML
     public void initialize() {
-        this.stage = new Stage();
-//        stage.getScene();
-        scanByKey();
         labelFieldMap = createLabelFieldMap();
         initJFXDrawer();
         loadSpinner.setProgress(-1);
@@ -929,26 +924,10 @@ public class ScanController {
         barcodeSpool.requestFocus();
     }
 
-    public void scanByKey() {
-//        stage = (Stage) anchorPaneMain.getScene().getWindow();
-        stage.getScene();
-        stage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            try{
-                if (event.getCode() == KeyCode.ENTER) {
-                    getInfoAction();
-                } else if (event.getCode() == KeyCode.F1) {
-                    generateQrCode();
-                } else if (event.getCode() == KeyCode.F2) {
-                    printQrCode();
-                } else if (event.getCode() == KeyCode.F3) {
-                    toFormLabel();
-                } else if (event.getCode() == KeyCode.F4) {
-                    printLabel();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public void scanByKey(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            getInfoAction();
+        }
     }
 
     /**

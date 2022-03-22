@@ -98,6 +98,23 @@ public class LoginDialogController implements Initializable {
         stage.setScene(new Scene(root, 900, 600));
         stage.setResizable(false);
         stage.requestFocus();
+        stage.getScene().addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+            try{
+                 if (event.getCode() == KeyCode.F1) {
+                    ((ScanController) loader.getController()).generateQrCode();
+                } else if (event.getCode() == KeyCode.F2) {
+                    ((ScanController) loader.getController()).printQrCode();
+                } else if (event.getCode() == KeyCode.F3) {
+                    ((ScanController) loader.getController()).toFormLabel();
+                } else if (event.getCode() == KeyCode.F4) {
+                    ((ScanController) loader.getController()).printLabel();
+                }else if (event.getCode() == KeyCode.BACK_SPACE && event.isControlDown()) {
+                     ((ScanController) loader.getController()).clearAction();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         stage.show();
     }
 

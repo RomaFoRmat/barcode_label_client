@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
@@ -37,8 +38,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-//        Locale.setDefault(new Locale("ru", "RU"));
-        Locale.setDefault(new Locale("ru"));
+        Locale.setDefault(new Locale("ru", "RU"));
+//        Locale.setDefault(new Locale("ru"));
+//        Locale locale = new Locale("ru", "RU");
+//        ResourceBundle bundle = ResourceBundle.getBundle("controls",locale);
         launch(args);
 
     }
