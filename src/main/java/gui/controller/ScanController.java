@@ -421,14 +421,14 @@ public class ScanController {
         /** Устанавливаем предикат фильтра всякий раз, когда фильтр изменяется: */
         tfFilterField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(tableSpools -> {
-                // If filter text is empty, display all spools.
+                // Если текст фильтра пуст, отобразить все катушки.
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 // Сравниваем номер каждой катушки с текстом фильтра.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (tableSpools.getNumberSpool().toLowerCase().contains(lowerCaseFilter)) {
+                if (tableSpools.getNumberSpool().toLowerCase().contains(lowerCaseFilter) ) {
                     return true; //
                 } else
                     return false;
@@ -850,8 +850,8 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
                 if (!barcodeSpool.getText().isEmpty()) {
-                    List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.
-                            getBarcodeLabel(AppProperties.getHost() + "/api/spool/" + barcodeSpool.getText());
+                    List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween(
+                            AppProperties.getHost() + "/api/spool-between/" + 10 + "/" + barcodeSpool.getText());
                     System.out.println(LocalDateTime.now()
                             .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
@@ -984,18 +984,33 @@ public class ScanController {
         return labelFields;
     }
 
+    public void viewFromTable() {
+        TableSpools getSelectedView = tableView.getSelectionModel().getSelectedItem();
+        if (getSelectedView != null) {
+            String numberSpool = getSelectedView.getNumberSpool();
+            barcodeSpool.setText(numberSpool);
+            if (dateStart.getValue() == null && dateEnd.getValue() == null) {
+                dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
+                dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
+            }
+            if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
+                long diff =
+                        java.sql.Date.valueOf(dateEnd.getValue()).getTime() - java.sql.Date.valueOf(dateStart.getValue()).getTime();
+                int days = (int) (diff / (24 * 60 * 60 * 1000));
+                System.out.println(days + " days");
+                getInfoAction();
+                tabInfoSpool.getTabPane().getSelectionModel().select(0);
+            } else {
+                System.out.println("Something went wrong");
+            }
+        }
+    }
 
     public void printFromTable() {
 
     }
 
-    public void viewFromTable() throws IOException, InterruptedException {
-        TableSpools getSelectedView = tableView.getSelectionModel().getSelectedItem();
-        if (getSelectedView != null) {
-            String numberSpool = getSelectedView.getNumberSpool();
-            barcodeSpool.setText(numberSpool);
-            getInfoAction();
-            generateQrCode();
-        }
+    public void refreshItems() {
+        dateBetweenAction();
     }
 }

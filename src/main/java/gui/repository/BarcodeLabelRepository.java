@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import gui.application.AppProperties;
 import gui.model.BarcodeLabel;
+import gui.model.TableSpools;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BarcodeLabelRepository {
@@ -20,6 +22,10 @@ public class BarcodeLabelRepository {
         String url = AppProperties.getHost() + "/api/spool/" + numberSpool;
         return getBarcodeLabel(url);
     }
+    public static List<BarcodeLabel> findByNumberSpoolBetween(Integer amountDays,String numberSpool) {
+        String url = AppProperties.getHost() + "/api/spool-between/" + amountDays + "/"+ numberSpool;
+        return getBarcodeLabelBetween(url);
+    }
 
     public static List<BarcodeLabel> getBarcodeLabel(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -29,7 +35,20 @@ public class BarcodeLabelRepository {
                     mapper.readValue(httpResponse.getEntity().getContent(),
                             new TypeReference<List<BarcodeLabel>>() {
                             }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    public static List<BarcodeLabel> getBarcodeLabelBetween(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<BarcodeLabel>>() {
+                            }));
         } catch (IOException e) {
             e.printStackTrace();
         }
