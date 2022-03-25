@@ -22,8 +22,10 @@ public class BarcodeLabelRepository {
         String url = AppProperties.getHost() + "/api/spool/" + numberSpool;
         return getBarcodeLabel(url);
     }
-    public static List<BarcodeLabel> findByNumberSpoolBetween(Integer amountDays,String numberSpool) {
-        String url = AppProperties.getHost() + "/api/spool-between/" + amountDays + "/"+ numberSpool;
+    public static List<BarcodeLabel> findByNumberSpoolBetween(LocalDateTime dateStart,
+                                                              LocalDateTime dateEnd, String numberSpool) {
+//        String url = AppProperties.getHost() + "/api/spool-between/" + amountDays + "/"+ numberSpool;
+        String url = AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"+ numberSpool;
         return getBarcodeLabelBetween(url);
     }
 

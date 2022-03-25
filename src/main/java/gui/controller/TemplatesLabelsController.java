@@ -134,9 +134,7 @@ public class TemplatesLabelsController implements Initializable {
      */
     public void initializeTableColumns() {
         table.clear();
-
         List<TemplateLabelDTO> templateLabelDTOList = TemplatesLabelsRepository.getAllTemplates(TEMPLATES_ENDPOINT);
-
         tcInsideCodes.setCellValueFactory(new PropertyValueFactory<>("kod"));
         tcLanguage.setCellValueFactory(new PropertyValueFactory<>("languageLabel"));
         tcConstruct.setCellValueFactory(new PropertyValueFactory<>("construct"));

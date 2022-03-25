@@ -274,8 +274,12 @@ public class ScanController {
     private JFXSpinner loadSpinner;
     private Map<String, LabelField> labelFieldMap;
 
+    private final LocalDateTime currentDateTime = LocalDateTime.now();
+    private final LocalDateTime dateTimeFinish = currentDateTime.minusDays(10);
+
     @FXML
     public void initialize() {
+//        LocalDateTime localDateTime = currentDayTime.minusDays(10);
         labelFieldMap = createLabelFieldMap();
         initJFXDrawer();
         loadSpinner.setProgress(-1);
@@ -494,8 +498,11 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
+//                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
+//                        (AppProperties.getHost() + "/api/spool-between/" + Constants.DATE_START
+//                        + "/" + Constants.DATE_END + "/" + barcodeSpool.getText());
+
                 if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
-//                if (barcodeSpool.getText().isEmpty()) {
                 Platform.runLater(() -> {
                         stage.close();
 //                        barcodeSpool.clear();
@@ -503,7 +510,7 @@ public class ScanController {
                         clearAction();
                     });
                 } else {
-                    Platform.runLater(this::getInfoAction);
+                    Platform.runLater(() -> getInfoAction(Constants.DATE_START,Constants.DATE_END));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -836,10 +843,14 @@ public class ScanController {
         unDisabledCheckBox();
     }
 
+    public void getInfoAction(){
+        getInfoAction(dateTimeFinish, currentDateTime);
+    }
+
     /**
      * Получить информацию о катушке,если таковой в БД нет - добавить
      */
-    public void getInfoAction() {
+    public void getInfoAction(LocalDateTime dateStart, LocalDateTime dateEnd) {
         new Thread(() -> {
             try {
                 System.out.println(LocalDateTime.now()
@@ -851,7 +862,8 @@ public class ScanController {
                 lblDataProcessing.setVisible(true);
                 if (!barcodeSpool.getText().isEmpty()) {
                     List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween(
-                            AppProperties.getHost() + "/api/spool-between/" + 10 + "/" + barcodeSpool.getText());
+                            AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"
+                                    + barcodeSpool.getText());
                     System.out.println(LocalDateTime.now()
                             .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
@@ -994,20 +1006,37 @@ public class ScanController {
                 dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
             }
             if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
-                long diff =
-                        java.sql.Date.valueOf(dateEnd.getValue()).getTime() - java.sql.Date.valueOf(dateStart.getValue()).getTime();
-                int days = (int) (diff / (24 * 60 * 60 * 1000));
-                System.out.println(days + " days");
-                getInfoAction();
+               Constants.DATE_START= dateStart.getDateTimeValue().with(LocalTime.MIN);
+               Constants.DATE_END = dateEnd.getDateTimeValue().with(LocalTime.MAX);
+               getInfoAction(Constants.DATE_START,Constants.DATE_END);
+//Можно как то через поток,создать условие,как только getInfoAction отработает,запускать например generateQrCode()
+
                 tabInfoSpool.getTabPane().getSelectionModel().select(0);
             } else {
                 System.out.println("Something went wrong");
             }
         }
     }
+    public void printFromTable() throws IOException {
+        TableSpools getSelectedView = tableView.getSelectionModel().getSelectedItem();
+        if (getSelectedView != null) {
+            String numberSpool = getSelectedView.getNumberSpool();
+            barcodeSpool.setText(numberSpool);
+            if (dateStart.getValue() == null && dateEnd.getValue() == null) {
+                dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
+                dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
+            }
+            if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
+                Constants.DATE_START= dateStart.getDateTimeValue().with(LocalTime.MIN);
+                Constants.DATE_END = dateEnd.getDateTimeValue().with(LocalTime.MAX);
+                getInfoAction(Constants.DATE_START,Constants.DATE_END);
+                printQrCode();
 
-    public void printFromTable() {
-
+                tabInfoSpool.getTabPane().getSelectionModel().select(0);
+            } else {
+                System.out.println("Something went wrong");
+            }
+        }
     }
 
     public void refreshItems() {
