@@ -56,6 +56,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -64,6 +65,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class ScanController {
@@ -274,12 +280,15 @@ public class ScanController {
     private JFXSpinner loadSpinner;
     private Map<String, LabelField> labelFieldMap;
 
-    private final LocalDateTime currentDateTime = LocalDateTime.now();
-    private final LocalDateTime dateTimeFinish = currentDateTime.minusDays(10);
+    private  LocalDateTime currentDateTime;
+    private  LocalDateTime startDateTime ;
+    private ExecutorService executorService;
+    private CountDownLatch countDownLatch;
 
     @FXML
     public void initialize() {
-//        LocalDateTime localDateTime = currentDayTime.minusDays(10);
+        copyValueFromTable();
+
         labelFieldMap = createLabelFieldMap();
         initJFXDrawer();
         loadSpinner.setProgress(-1);
@@ -844,14 +853,19 @@ public class ScanController {
     }
 
     public void getInfoAction(){
-        getInfoAction(dateTimeFinish, currentDateTime);
+//        executorService = Executors.newCachedThreadPool();
+//        countDownLatch = new CountDownLatch(6);
+        currentDateTime = LocalDateTime.now();
+        startDateTime = currentDateTime.minusDays(8);
+        getInfoAction(startDateTime, currentDateTime);
     }
 
     /**
      * Получить информацию о катушке,если таковой в БД нет - добавить
      */
     public void getInfoAction(LocalDateTime dateStart, LocalDateTime dateEnd) {
-        new Thread(() -> {
+//        executorService.submit(() -> {
+        new Thread (() -> {
             try {
                 System.out.println(LocalDateTime.now()
                         .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method started");
@@ -868,11 +882,17 @@ public class ScanController {
                             .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
-                        Platform.runLater(() -> addSpool(barcodeLabelList));
+                        Platform.runLater(() -> {
+                            addSpool(barcodeLabelList);
+//                            countDownLatch.countDown();
+                        });
                         return;
                     } else {
-                        Platform.runLater(() -> setCheckBoxesWithLabel(TemplatesLabelsRepository
-                                .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0)));
+                        Platform.runLater(() -> {
+                            setCheckBoxesWithLabel(TemplatesLabelsRepository
+                                    .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0));
+//                            countDownLatch.countDown();
+                        });
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
@@ -899,6 +919,7 @@ public class ScanController {
                         if(!cbCode.isSelected()){
                             cbCode.setDisable(true);
                         }
+//                        countDownLatch.countDown();
                     });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
@@ -906,6 +927,7 @@ public class ScanController {
                         choiceLabelAction();
 //                        cbCode.setSelected(label.getConsumerCode() != null);
                         tabInfoSpool.setText("Информация о катушке: №" + tfNumberSpool.getText());
+//                        countDownLatch.countDown();
                     });
                     barcodeSpool.setText("");
                     System.out.println(LocalDateTime.now().
@@ -919,6 +941,7 @@ public class ScanController {
                         unselectCheckBox();
                         TextFieldUtil.alertWarning("Поле для cчитывания штрих-кода пустое!" +
                                 "\nПожалуйста, отсканируйте штрих-код катушки!");
+//                        countDownLatch.countDown();
                     });
                 }
                 System.out.println(LocalDateTime.now() + " Task succeeded. Setting spinner false");
@@ -932,6 +955,8 @@ public class ScanController {
                 lblDataProcessing.setVisible(false);
                 barcodeSpool.setVisible(true);
             }
+//            executorService.shutdown();
+//            countDownLatch.countDown();
         }).start();
         barcodeSpool.requestFocus();
     }
@@ -996,28 +1021,7 @@ public class ScanController {
         return labelFields;
     }
 
-    public void viewFromTable() {
-        TableSpools getSelectedView = tableView.getSelectionModel().getSelectedItem();
-        if (getSelectedView != null) {
-            String numberSpool = getSelectedView.getNumberSpool();
-            barcodeSpool.setText(numberSpool);
-            if (dateStart.getValue() == null && dateEnd.getValue() == null) {
-                dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
-                dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
-            }
-            if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
-               Constants.DATE_START= dateStart.getDateTimeValue().with(LocalTime.MIN);
-               Constants.DATE_END = dateEnd.getDateTimeValue().with(LocalTime.MAX);
-               getInfoAction(Constants.DATE_START,Constants.DATE_END);
-//Можно как то через поток,создать условие,как только getInfoAction отработает,запускать например generateQrCode()
-
-                tabInfoSpool.getTabPane().getSelectionModel().select(0);
-            } else {
-                System.out.println("Something went wrong");
-            }
-        }
-    }
-    public void printFromTable() throws IOException {
+    public void contextMenu(){
         TableSpools getSelectedView = tableView.getSelectionModel().getSelectedItem();
         if (getSelectedView != null) {
             String numberSpool = getSelectedView.getNumberSpool();
@@ -1030,13 +1034,47 @@ public class ScanController {
                 Constants.DATE_START= dateStart.getDateTimeValue().with(LocalTime.MIN);
                 Constants.DATE_END = dateEnd.getDateTimeValue().with(LocalTime.MAX);
                 getInfoAction(Constants.DATE_START,Constants.DATE_END);
-                printQrCode();
-
                 tabInfoSpool.getTabPane().getSelectionModel().select(0);
             } else {
                 System.out.println("Something went wrong");
             }
         }
+
+    }
+
+    public void viewFromTable() {
+//        executorService = Executors.newCachedThreadPool();
+        contextMenu();
+    }
+
+    public void printFromTable() {
+//        executorService = Executors.newCachedThreadPool();
+//        countDownLatch = new CountDownLatch(6);
+        contextMenu();
+//        try {
+//            boolean isFinished = executorService.awaitTermination(1, TimeUnit.MINUTES);
+//            boolean countDownFinished = countDownLatch.await(1,TimeUnit.MINUTES);
+//            if (isFinished && countDownFinished) printQrCode();
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void copyValueFromTable(){
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tableView.setOnKeyPressed(e -> {
+            if (e.isControlDown() && e.getCode() == KeyCode.C) {
+                ObservableList<TableSpools> selectedItems = tableView.getSelectionModel().getSelectedItems();
+                //получаем список выделенных строк и копируем их, например - через точку с запятой, как в excel'e
+                String copyString = selectedItems
+                        .stream()
+                        .map(TableSpools::getNumberSpool)
+                        .collect(Collectors.joining(System.lineSeparator()));
+                //далее сохраняем это в буфер обмена
+                StringSelection stringSelection = new StringSelection(copyString);
+                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+            }
+        });
     }
 
     public void refreshItems() {
