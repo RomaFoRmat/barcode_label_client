@@ -59,10 +59,12 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -280,7 +282,6 @@ public class ScanController {
     private JFXSpinner loadSpinner;
     private Map<String, LabelField> labelFieldMap;
 
-    private  LocalDateTime currentDateTime;
     private  LocalDateTime startDateTime ;
     private ExecutorService executorService;
     private CountDownLatch countDownLatch;
@@ -375,20 +376,20 @@ public class ScanController {
                                 + dateEnd.getDateTimeValue().with(LocalTime.MAX));
                 tableSpool.addAll(tableSpoolsListForDate);
                 Platform.runLater(() -> {
-                        tableView.setItems(tableSpool);
-                        filterTable();
-                        tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
-                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
-                        .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
+                    tableView.setItems(tableSpool);
+                    filterTable();
+                    tabSpoolList.setText("Катушки c: " + dateStart.getDateTimeValue().with(LocalTime.MIN)
+                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " по: " + dateEnd.getDateTimeValue()
+                            .with(LocalTime.MAX).format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
                 });
                 loadSpinnerTable.setVisible(false);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 loadSpinnerTable.setVisible(false);
-                Platform.runLater(()-> {
-                tableView.setPlaceholder( new Text("За текущий период катушек не обнаружено"));
-                tableView.getPlaceholder().setStyle("-fx-font-size: 16; -fx-font-family: 'Comic Sans MS';");
+                Platform.runLater(() -> {
+                    tableView.setPlaceholder(new Text("За текущий период катушек не обнаружено"));
+                    tableView.getPlaceholder().setStyle("-fx-font-size: 16; -fx-font-family: 'Comic Sans MS';");
                 });
             }
         }).start();
@@ -478,10 +479,10 @@ public class ScanController {
 
     /**
      * Добавление новой катушки
-     * @param barcodeLabelList
+     *
      */
     @FXML
-    public void addSpool(List<BarcodeLabel> barcodeLabelList) {
+    public void addSpool(LocalDateTime dateStart, LocalDateTime dateEnd) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/modalAddSpool.fxml"));
 
@@ -507,20 +508,18 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-//                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
-//                        (AppProperties.getHost() + "/api/spool-between/" + Constants.DATE_START
-//                        + "/" + Constants.DATE_END + "/" + barcodeSpool.getText());
-
-                if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                 Platform.runLater(() -> {
+                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
+                        (AppProperties.getHost() + "/api/spool-between/" + dateStart
+                                + "/" + dateEnd + "/" + barcodeSpool.getText());
+
+                    if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         stage.close();
 //                        barcodeSpool.clear();
                         barcodeSpool.requestFocus();
                         clearAction();
-                    });
-                } else {
-                    Platform.runLater(() -> getInfoAction(Constants.DATE_START,Constants.DATE_END));
-                }
+                    } else { getInfoAction(dateStart, dateEnd); }
+                });
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -853,9 +852,7 @@ public class ScanController {
     }
 
     public void getInfoAction(){
-//        executorService = Executors.newCachedThreadPool();
-//        countDownLatch = new CountDownLatch(6);
-        currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now();
         startDateTime = currentDateTime.minusDays(8);
         getInfoAction(startDateTime, currentDateTime);
     }
@@ -864,39 +861,34 @@ public class ScanController {
      * Получить информацию о катушке,если таковой в БД нет - добавить
      */
     public void getInfoAction(LocalDateTime dateStart, LocalDateTime dateEnd) {
-//        executorService.submit(() -> {
         new Thread (() -> {
             try {
-                System.out.println(LocalDateTime.now()
-                        .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method started");
+                System.out.println(LocalDateTime.now().format(
+                        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method started");
                 loadSpinner.setVisible(true);
                 lblWait.setVisible(true);
                 lblLoad.setVisible(true);
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
+
+                Platform.runLater(() -> {
                 if (!barcodeSpool.getText().isEmpty()) {
                     List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween(
                             AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"
                                     + barcodeSpool.getText());
-                    System.out.println(LocalDateTime.now()
-                            .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
+                    System.out.println(LocalDateTime.now().format(
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Constants.SPOOL_NUMBER = barcodeSpool.getText();
-                        Platform.runLater(() -> {
-                            addSpool(barcodeLabelList);
-//                            countDownLatch.countDown();
-                        });
+                            addSpool(dateStart,dateEnd);
                         return;
-                    } else {
-                        Platform.runLater(() -> {
+
+                    }  else {
                             setCheckBoxesWithLabel(TemplatesLabelsRepository
                                     .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0));
-//                            countDownLatch.countDown();
-                        });
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
-                    Platform.runLater(() -> {
                         BarcodeLabel label = barcodeLabelList.get(0);
 //            System.out.println(label);
                         LocalDate dateCurrentPrintLabel = LocalDate.now();
@@ -919,31 +911,24 @@ public class ScanController {
                         if(!cbCode.isSelected()){
                             cbCode.setDisable(true);
                         }
-//                        countDownLatch.countDown();
-                    });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
-                    Platform.runLater(() -> {
                         choiceLabelAction();
 //                        cbCode.setSelected(label.getConsumerCode() != null);
                         tabInfoSpool.setText("Информация о катушке: №" + tfNumberSpool.getText());
-//                        countDownLatch.countDown();
-                    });
                     barcodeSpool.setText("");
-                    System.out.println(LocalDateTime.now().
-                            format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method ended");
+                    System.out.println(LocalDateTime.now().format(
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method ended");
                 } else if (barcodeSpool.getText().isEmpty()) {
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_error.css");
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
-                    Platform.runLater(() -> {
-                        clearFields();
-                        unselectCheckBox();
-                        TextFieldUtil.alertWarning("Поле для cчитывания штрих-кода пустое!" +
-                                "\nПожалуйста, отсканируйте штрих-код катушки!");
-//                        countDownLatch.countDown();
-                    });
+                    clearFields();
+                    unselectCheckBox();
+                    TextFieldUtil.alertWarning("Поле для cчитывания штрих-кода пустое!" +
+                                        "\nПожалуйста, отсканируйте штрих-код катушки!");
                 }
+            });
                 System.out.println(LocalDateTime.now() + " Task succeeded. Setting spinner false");
                 loadSpinner.setVisible(false);
             } catch (Exception e) {
@@ -955,8 +940,6 @@ public class ScanController {
                 lblDataProcessing.setVisible(false);
                 barcodeSpool.setVisible(true);
             }
-//            executorService.shutdown();
-//            countDownLatch.countDown();
         }).start();
         barcodeSpool.requestFocus();
     }
@@ -1031,10 +1014,11 @@ public class ScanController {
                 dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
             }
             if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
-                Constants.DATE_START= dateStart.getDateTimeValue().with(LocalTime.MIN);
-                Constants.DATE_END = dateEnd.getDateTimeValue().with(LocalTime.MAX);
-                getInfoAction(Constants.DATE_START,Constants.DATE_END);
-                tabInfoSpool.getTabPane().getSelectionModel().select(0);
+                LocalDateTime start = dateStart.getDateTimeValue().with(LocalTime.MIN);
+                LocalDateTime end = dateEnd.getDateTimeValue().with(LocalTime.MAX);
+                executorService = Executors.newCachedThreadPool();
+                countDownLatch = new CountDownLatch(2);
+                getInfoAction(start,end);
             } else {
                 System.out.println("Something went wrong");
             }
@@ -1045,11 +1029,12 @@ public class ScanController {
     public void viewFromTable() {
 //        executorService = Executors.newCachedThreadPool();
         contextMenu();
+        tabInfoSpool.getTabPane().getSelectionModel().select(0);
     }
 
     public void printFromTable() {
 //        executorService = Executors.newCachedThreadPool();
-//        countDownLatch = new CountDownLatch(6);
+//        countDownLatch = new CountDownLatch(2);
         contextMenu();
 //        try {
 //            boolean isFinished = executorService.awaitTermination(1, TimeUnit.MINUTES);

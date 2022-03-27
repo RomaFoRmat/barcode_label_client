@@ -24,7 +24,6 @@ public class BarcodeLabelRepository {
     }
     public static List<BarcodeLabel> findByNumberSpoolBetween(LocalDateTime dateStart,
                                                               LocalDateTime dateEnd, String numberSpool) {
-//        String url = AppProperties.getHost() + "/api/spool-between/" + amountDays + "/"+ numberSpool;
         String url = AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"+ numberSpool;
         return getBarcodeLabelBetween(url);
     }
@@ -46,7 +45,7 @@ public class BarcodeLabelRepository {
     public static List<BarcodeLabel> getBarcodeLabelBetween(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
-            mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
+            mapper.registerModule(new JavaTimeModule());
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
                             new TypeReference<List<BarcodeLabel>>() {
