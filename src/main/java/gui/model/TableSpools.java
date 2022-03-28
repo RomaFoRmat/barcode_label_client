@@ -15,7 +15,6 @@ public class TableSpools {
     private Long idForeignGroup;
     @JsonProperty("timestamp")
     private LocalDateTime dateCreate;
-//    private LocalDate dateRope;
     private String code;
     private String construct;
     private String consumerCode;
@@ -29,7 +28,6 @@ public class TableSpools {
     private String numberSpool;
     private Integer welds;
     private Integer numberRopeMachine;
-//    private Double numberWeldingMachine;
     private Double straightforwardness600_0;
     private Double straightforwardness600_1;
     private Double straightforwardness600_2;
@@ -38,8 +36,10 @@ public class TableSpools {
     private Double straightforwardness600_5;
     private Double straightforwardness600Avg;
     private Double torsRope;
-    private Double straightforwardnessRope;
     private Double straightforwardness300;
     private Double torsion;
+//    private LocalDate dateRope;
+//    private Double numberWeldingMachine;
+//private Double straightforwardnessRope;
 //    private String codeDefect;
 }

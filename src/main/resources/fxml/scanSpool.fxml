@@ -342,6 +342,7 @@
                               <TableColumn fx:id="tcContainer" prefWidth="68.0" text="Контейнер" />
                                         <TableColumn fx:id="tcNumberRopeMachine" prefWidth="110.0" text="№ машины КУ" />
                                         <TableColumn fx:id="tcPersonalRope" prefWidth="62.0" text="Оператор" />
+                              <TableColumn fx:id="tcLength" prefWidth="50.0" text="Длина" />
                                         <TableColumn fx:id="tcWelds" prefWidth="85.0" text="Кол-во сварок" />
                                         <TableColumn fx:id="tcTorsion" prefWidth="70.0" text="Кручение" />
                                         <TableColumn fx:id="tcStraight300" prefWidth="67.0" text="Прям.300" />

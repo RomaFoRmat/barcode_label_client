@@ -57,6 +57,7 @@ import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.awt.print.PrinterJob;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.sql.Time;
@@ -206,6 +207,8 @@ public class ScanController {
     private TableColumn<TableSpools, Integer> tcWelds;
     @FXML
     private TableColumn<TableSpools, String> tcPersonalRope;
+    @FXML
+    private TableColumn<TableSpools, String> tcLength;
     @FXML
     private TableColumn<TableSpools, Double> tcNumberRopeMachine;
     @FXML
@@ -508,18 +511,17 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-                Platform.runLater(() -> {
                 List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
                         (AppProperties.getHost() + "/api/spool-between/" + dateStart
                                 + "/" + dateEnd + "/" + barcodeSpool.getText());
-
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
-                        stage.close();
+                        Platform.runLater(() -> {
+                            stage.close();
 //                        barcodeSpool.clear();
-                        barcodeSpool.requestFocus();
-                        clearAction();
-                    } else { getInfoAction(dateStart, dateEnd); }
-                });
+                            barcodeSpool.requestFocus();
+                            clearAction();
+                        });
+                    } else { Platform.runLater(() -> getInfoAction(dateStart, dateEnd)); }
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -824,6 +826,7 @@ public class ScanController {
         tcPart.setCellValueFactory(new PropertyValueFactory<>("part"));
         tcLot.setCellValueFactory(new PropertyValueFactory<>("lot"));
         tcWelds.setCellValueFactory(new PropertyValueFactory<>("welds"));
+        tcLength.setCellValueFactory(new PropertyValueFactory<>("length"));
         tcPersonalRope.setCellValueFactory(new PropertyValueFactory<>("personalRope"));
         tcNumberRopeMachine.setCellValueFactory(new PropertyValueFactory<>("numberRopeMachine"));
         tcStraight300.setCellValueFactory(new PropertyValueFactory<>("straightforwardness300"));
@@ -835,9 +838,7 @@ public class ScanController {
         tcStraight600_5.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600_5"));
         tcStraight600Avg.setCellValueFactory(new PropertyValueFactory<>("straightforwardness600Avg"));
         tcTorsion.setCellValueFactory(new PropertyValueFactory<>("torsion"));
-
 /*        //08.12.2021 -  часть данных убраны с пользовательского ввода для ЛИ м/к:
-        tcLength.setCellValueFactory(new PropertyValueFactory<>("length"));
         tcNumbWeldingMachine.setCellValueFactory(new PropertyValueFactory<>("numberWeldingMachine"));
         tcDateRope.setCellValueFactory(new PropertyValueFactory<>("dateRope"));
         tcTorsionRope.setCellValueFactory(new PropertyValueFactory<>("torsRope"));
@@ -871,7 +872,7 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-                Platform.runLater(() -> {
+//                Platform.runLater(() -> {
                 if (!barcodeSpool.getText().isEmpty()) {
                     List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween(
                             AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"
@@ -879,20 +880,22 @@ public class ScanController {
                     System.out.println(LocalDateTime.now().format(
                             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
-                        Constants.SPOOL_NUMBER = barcodeSpool.getText();
-                            addSpool(dateStart,dateEnd);
+                        Platform.runLater(() -> {
+                            Constants.SPOOL_NUMBER = barcodeSpool.getText();
+                            addSpool(dateStart, dateEnd);
+                        });
                         return;
 
                     }  else {
-                            setCheckBoxesWithLabel(TemplatesLabelsRepository
-                                    .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0));
+                            Platform.runLater(() -> setCheckBoxesWithLabel(TemplatesLabelsRepository
+                                    .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0)));
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
+                    Platform.runLater(() -> {
                         BarcodeLabel label = barcodeLabelList.get(0);
 //            System.out.println(label);
                         LocalDate dateCurrentPrintLabel = LocalDate.now();
-
 //                        tfTypeSpool.setText(label.getTypeSpool() != null ? String.valueOf(label.getTypeSpool()) : "");
                         tfCode.setText(label.getConsumerCode() != null ? String.valueOf(label.getConsumerCode()) : "");
                         tfConstruct.setText(label.getConstruct() != null ? (label.getConstruct()) : "");
@@ -901,25 +904,27 @@ public class ScanController {
                         tfLR.setText(label.getRl() != null ? label.getRl() : "");
                         tfPart.setText(label.getPart() != null ? label.getPart() : "");
                         tfLot.setText(label.getLot() != null ? String.valueOf(label.getLot()) : "");
-                        tfLength.setText(label.getLength() != null ? String.valueOf(label.getLength()) : "");
+                        tfLength.setText(label.getLength() != null ? label.getLength() : "");
                         tfWelds.setText(label.getWelds() != null ? String.valueOf(label.getWelds()) : "0");
                         tfTorsion.setText(label.getTorsion() != null ? String.valueOf(label.getTorsion()) : "");
-//                        tfNumberRopeMachine.setText(label.getNumberRopeMachine() != null ?
-//                                String.valueOf(label.getNumberRopeMachine()) : "");
-//                        tfPersonalRope.setText(label.getPersonalRope() != null ? label.getPersonalRope() : "");
+
                         cbCode.setSelected(label.getConsumerCode() != null);
                         if(!cbCode.isSelected()){
                             cbCode.setDisable(true);
                         }
+                    });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
+                    Platform.runLater(() -> {
                         choiceLabelAction();
 //                        cbCode.setSelected(label.getConsumerCode() != null);
                         tabInfoSpool.setText("Информация о катушке: №" + tfNumberSpool.getText());
                     barcodeSpool.setText("");
+                    });
                     System.out.println(LocalDateTime.now().format(
                             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method ended");
                 } else if (barcodeSpool.getText().isEmpty()) {
+                    Platform.runLater(() -> {
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_error.css");
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
@@ -927,8 +932,10 @@ public class ScanController {
                     unselectCheckBox();
                     TextFieldUtil.alertWarning("Поле для cчитывания штрих-кода пустое!" +
                                         "\nПожалуйста, отсканируйте штрих-код катушки!");
+                    });
                 }
-            });
+
+//            });
                 System.out.println(LocalDateTime.now() + " Task succeeded. Setting spinner false");
                 loadSpinner.setVisible(false);
             } catch (Exception e) {
@@ -966,7 +973,7 @@ public class ScanController {
                 Field field = Arrays.stream(fields).filter(f -> f.getName().equals(entry.getKey())).findFirst().orElse(null);
                 if (field == null) {
                     entry.getValue().getLabelTextField().setEditable(false);
-                    entry.getValue().getLabelCheckBox().setDisable(false);
+//                    entry.getValue().getLabelCheckBox().setDisable(false);
                 } else {
                     entry.getValue().getLabelTextField().setEditable((Boolean) field.get(templatesLabels));
                     entry.getValue().getLabelCheckBox().setDisable(!(Boolean) field.get(templatesLabels));
@@ -1016,14 +1023,11 @@ public class ScanController {
             if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
                 LocalDateTime start = dateStart.getDateTimeValue().with(LocalTime.MIN);
                 LocalDateTime end = dateEnd.getDateTimeValue().with(LocalTime.MAX);
-                executorService = Executors.newCachedThreadPool();
-                countDownLatch = new CountDownLatch(2);
-                getInfoAction(start,end);
+                 getInfoAction(start,end);
             } else {
                 System.out.println("Something went wrong");
             }
         }
-
     }
 
     public void viewFromTable() {

@@ -20,7 +20,7 @@ public class BarcodeLabel {
     private String part;
     private String rl;
 //    private String typeSpool;
-    private Integer length;
+    private String length;
     private Integer welds;
     private Double torsion;
 //    private Integer container;

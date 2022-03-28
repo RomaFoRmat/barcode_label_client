@@ -96,22 +96,16 @@
                     </font>
                 </Label>
                 <TextField fx:id="newCountOfWelds" />
-                <Label disable="true" text="Длина:" wrapText="true">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Label>
-                <TextField fx:id="newLength" disable="true" />
-            </children>
-        </VBox>
-        <VBox fx:id="vBoxMain3" layoutX="247.0" layoutY="322.0" prefHeight="310.0" prefWidth="210.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
-            <children>
                 <Label text="Кручение:">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
                 <TextField fx:id="newTorsion" />
+            </children>
+        </VBox>
+        <VBox fx:id="vBoxMain3" layoutX="247.0" layoutY="322.0" prefHeight="310.0" prefWidth="210.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
+            <children>
                 <Label text="Прямолинейность 300:">
                     <font>
                         <Font size="13.0" />
@@ -136,16 +130,16 @@
                     </font>
                 </Label>
                 <TextField fx:id="newStraight600_2" />
-            </children>
-        </VBox>
-        <VBox fx:id="vBoxMain4" layoutX="482.0" layoutY="318.0" prefHeight="212.0" prefWidth="206.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
-            <children>
                 <Label text="Прямолинейность 600_3:" wrapText="true">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
                 <TextField fx:id="newStraight600_3" />
+            </children>
+        </VBox>
+        <VBox fx:id="vBoxMain4" layoutX="482.0" layoutY="318.0" prefHeight="212.0" prefWidth="206.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
+            <children>
                 <Label text="Прямолинейность 600_4:">
                     <font>
                         <Font size="13.0" />

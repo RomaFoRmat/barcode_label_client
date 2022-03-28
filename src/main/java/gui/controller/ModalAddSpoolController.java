@@ -152,7 +152,7 @@ public class ModalAddSpoolController {
         TextFieldUtil.setTextFieldNumeric(newNumberRopeMachine, 3);
         TextFieldUtil.setLimitingFields(newNumberRopeMachine, 721);
         TextFieldUtil.setTextFieldNumeric(newNumberSpool, 12);
-        TextFieldUtil.setTextFieldNumeric(newLength, 10);
+//        TextFieldUtil.setTextFieldNumeric(newLength, 10);
         TextFieldUtil.setTextFieldNumeric(newPersonalRope, 7);
         TextFieldUtil.setTextFieldNumeric(newCountOfWelds, 3);
         TextFieldUtil.setFieldForStraight(newTorsion, 7);
