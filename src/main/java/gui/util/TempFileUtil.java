@@ -19,7 +19,7 @@ public class TempFileUtil {
         String id = String.valueOf(LocalDateTime.now().format(formatForDate));
         System.out.println(id);
 //        return new File("src\\main\\resources\\template\\temp\\" + "label -" + id + ".xlsx");
-        return new File("template\\temp\\" + "label_" + id + ".xlsx");
+        return new File("template\\temp\\" + "label_" + id + ".xlsm");
     }
 
     public static File createQrCodePng(){

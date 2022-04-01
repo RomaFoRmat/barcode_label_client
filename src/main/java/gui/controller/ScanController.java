@@ -65,7 +65,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -445,7 +444,8 @@ public class ScanController {
                 // Сравниваем номер каждой катушки с текстом фильтра.
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                if (tableSpools.getNumberSpool().toLowerCase().contains(lowerCaseFilter) ) {
+                if (tableSpools.getNumberSpool() != null &&
+                        tableSpools.getNumberSpool().toLowerCase().contains(lowerCaseFilter) ) {
                     return true; //
                 } else
                     return false;
@@ -667,12 +667,9 @@ public class ScanController {
      */
     public File toFormQrCode() {
         try {
-            InputStream file = getClass().getClassLoader().getResourceAsStream("template/QR-Code.xlsx");
+            InputStream file = getClass().getClassLoader().getResourceAsStream("template/QR-Code.xlsm");
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
-//            XSSFWorkbook workbook = new XSSFWorkbook();
-//            Sheet sheet = workbook.createSheet("QR-Code");
-
             StringBuilder codeBuilder = new StringBuilder();
             String imageFormat = "png";
             Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
@@ -718,8 +715,8 @@ public class ScanController {
                     Constants.FIO_VIEW);
 //            System.out.println(codeBuilder);
             outputStreamQr.close();
-            InputStream inputStream = new FileInputStream(imageQrCode);
 
+            InputStream inputStream = new FileInputStream(imageQrCode);
             //Получите содержимое InputStream как byte [].
             byte[] bytes = IOUtils.toByteArray(inputStream);
             //Добавляет картинку в workbook
@@ -740,7 +737,6 @@ public class ScanController {
             Picture pict = drawing.createPicture(anchor, pictureIdx);
             //Восстанавливаем исходный размер изображения
             pict.resize();
-
             //для подгонки нужного размера 40х30:
             Row thirdRow = sheet.getRow(2);
             Row fourthRow = sheet.getRow(3);
@@ -784,7 +780,7 @@ public class ScanController {
     public void printQrCode() throws IOException {
         if (NodeUtils.checkSelectedAndEmptyFields(vBoxCbList0, vBoxCbList1, vBoxTfList0, vBoxTfList1)) {
             Desktop.getDesktop().print(toFormQrCode());
-        } else {
+            } else {
             TextFieldUtil.alertWarning(listAlert.get(0));
         }
     }
@@ -855,6 +851,8 @@ public class ScanController {
     public void getInfoAction(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         startDateTime = currentDateTime.minusDays(8);
+        System.out.println(currentDateTime);
+        System.out.println(startDateTime);
         getInfoAction(startDateTime, currentDateTime);
     }
 
@@ -1036,7 +1034,7 @@ public class ScanController {
         tabInfoSpool.getTabPane().getSelectionModel().select(0);
     }
 
-    public void printFromTable() {
+    public void printFromTable() throws IOException{
 //        executorService = Executors.newCachedThreadPool();
 //        countDownLatch = new CountDownLatch(2);
         contextMenu();
@@ -1047,6 +1045,7 @@ public class ScanController {
 //        }catch (Exception e) {
 //            e.printStackTrace();
 //        }
+
     }
 
     private void copyValueFromTable(){
@@ -1067,6 +1066,7 @@ public class ScanController {
     }
 
     public void refreshItems() {
+//        Platform.runLater(this::dateBetweenAction);
         dateBetweenAction();
     }
 }
