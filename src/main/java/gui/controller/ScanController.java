@@ -57,10 +57,8 @@ import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.print.PrinterJob;
 import java.io.*;
 import java.lang.reflect.Field;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -69,8 +67,6 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -240,6 +236,7 @@ public class ScanController {
     private JFXHamburger hamburgerMenu;
     @FXML
     private JFXComboBox<String> cbConsumer;
+
     @FXML
     private Label lblFio;
     @FXML
@@ -587,7 +584,7 @@ public class ScanController {
      */
     public File exportToExcel() {
         try {
-            InputStream file = getClass().getClassLoader().getResourceAsStream("template/Export.xlsx");
+            InputStream file = getClass().getClassLoader().getResourceAsStream("template/Export.xlsm");
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             Sheet sheet = workbook.getSheetAt(0);
 
@@ -959,36 +956,37 @@ public class ScanController {
      * Метод для выборки компонентов(TextField,CheckBox) согласно заданному шаблону этикетки
      */
     private void setCheckBoxesWithLabel(TemplatesLabels templatesLabels) {
-        try {
+
+            try {
 //            for (Field field : templatesLabels.getClass().getFields()) {
 //                if (labelFieldMap.containsKey(field.getName())) {
 //                    LabelField labelField = labelFieldMap.get(field.getName());
 //                    labelField.getLabelCheckBox().setSelected((Boolean) field.get(templatesLabels));
 //                }
 //            }
-            Field[] fields = templatesLabels.getClass().getFields();
-            for (Map.Entry<String, LabelField> entry : labelFieldMap.entrySet()) {
-                Field field = Arrays.stream(fields).filter(f -> f.getName().equals(entry.getKey())).findFirst().orElse(null);
-                if (field == null) {
-                    entry.getValue().getLabelTextField().setEditable(false);
-//                    entry.getValue().getLabelCheckBox().setDisable(false);
-                } else {
-                    entry.getValue().getLabelTextField().setEditable((Boolean) field.get(templatesLabels));
-                    entry.getValue().getLabelCheckBox().setDisable(!(Boolean) field.get(templatesLabels));
-                    entry.getValue().getLabelCheckBox().setSelected((Boolean) field.get(templatesLabels));
+                Field[] fields = templatesLabels.getClass().getFields();
+                for (Map.Entry<String, LabelField> entry : labelFieldMap.entrySet()) {
+                    Field field = Arrays.stream(fields).filter(f -> f.getName().equals(entry.getKey())).findFirst().orElse(null);
+                    if (field == null) {
+                        entry.getValue().getLabelTextField().setEditable(false);
+                        entry.getValue().getLabelCheckBox().setDisable(false);
+                    } else {
+                        entry.getValue().getLabelTextField().setEditable((Boolean) field.get(templatesLabels));
+//                        entry.getValue().getLabelCheckBox().setDisable(!(Boolean) field.get(templatesLabels));
+                        entry.getValue().getLabelCheckBox().setSelected((Boolean) field.get(templatesLabels));
+                    }
                 }
+                if (templatesLabels.getLanguageLabel()) {
+                    cbConsumer.setValue("ENG");
+                    cbTorsion.setDisable(false);
+                } else {
+                    cbTorsion.setDisable(true);
+                    cbConsumer.setValue("РУС");
+                }
+            } catch (Exception e) {
+                System.out.println("Field probably has private access");
+                e.printStackTrace();
             }
-            if (templatesLabels.getLanguageLabel()) {
-                cbConsumer.setValue("ENG");
-                cbTorsion.setDisable(false);
-            } else {
-                cbTorsion.setDisable(true);
-                cbConsumer.setValue("РУС");
-            }
-        } catch (Exception e) {
-            System.out.println("Field probably has private access");
-            e.printStackTrace();
-        }
     }
 
     /**
