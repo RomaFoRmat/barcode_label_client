@@ -1,18 +1,19 @@
 package gui.controller;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.*;
 
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
 import gui.model.dto.*;
 import gui.util.SearchComboBoxUtil;
 import gui.util.TextFieldUtil;
 
+import java.awt.*;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,12 +22,14 @@ import gui.repository.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -34,6 +37,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.controlsfx.control.CheckComboBox;
 
 public class ModalAddSpoolController {
 
@@ -95,11 +99,9 @@ public class ModalAddSpoolController {
 //    private TextField newNumberWeldingMachine;
     @FXML
     private TextField newTorsion;
-
     public ModalAddSpoolController modalAddSpoolController;
     @FXML
     private ComboBox<Code> cbCode;
-
     @FXML
     private CheckBox newSample;
     @FXML
@@ -123,7 +125,47 @@ public class ModalAddSpoolController {
     @FXML
     private Label lblNumbContainer;
     @FXML
+    private Label lblWelds;
+    @FXML
+    private Label lblTorsion;
+    @FXML
+    private Label lblStraight300;
+    @FXML
+    private Label lblStraight600;
+    @FXML
+    private Label lblStraight600_1;
+    @FXML
+    private Label lblStraight600_2;
+    @FXML
+    private Label lblStraight600_3;
+    @FXML
+    private Label lblStraight600_4;
+    @FXML
+    private Label lblStraight600_5;
+    @FXML
+    private CheckBox cbStraight300;
+    @FXML
+    private CheckBox cbStraight600;
+    @FXML
+    private CheckBox cbWelds;
+    @FXML
+    private CheckBox cbTorsion;
+    @FXML
+    private CheckBox cbStraight600_1;
+    @FXML
+    private CheckBox cbStraight600_2;
+    @FXML
+    private CheckBox cbStraight600_3;
+    @FXML
+    private CheckBox cbStraight600_4;
+    @FXML
+    private CheckBox cbStraight600_5;
+    @FXML
     private JFXButton btnCreate;
+    @FXML
+    private JFXComboBox<String> cbMode;
+    @FXML
+    private StackPane stackPaneMain;
 
     public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
     private Stage stage;
@@ -137,47 +179,9 @@ public class ModalAddSpoolController {
     private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
     //    @FXML
 //    private DatePicker newDateRope;
-    @FXML
-    private JFXComboBox<String> cbMode;
-    @FXML
-    private StackPane stackPaneMain;
-
-    @FXML
-    private CheckBox cbStraight600_4;
-
-    @FXML
-    private CheckBox cbStraight300;
-
-    @FXML
-    private CheckBox cbStraight600_3;
-
-    @FXML
-    private CheckBox cbStraight600_2;
-
-    @FXML
-    private CheckBox cbStraight600_1;
-
-    @FXML
-    private CheckBox cbStraight600_5;
-    @FXML
-    private Label lblStraight300;
-    @FXML
-    private Label lblStraight600_1;
-    @FXML
-    private Label lblStraight600_2;
-    @FXML
-    private Label lblStraight600_3;
-    @FXML
-    private Label lblStraight600_4;
-    @FXML
-    private Label lblStraight600_5;
-
-    private Map<CheckBox, Boolean> cbBooleanMap;
 
     @FXML
     public void initialize() {
-        cbBooleanMap = statusCheckboxMap();
-        selectCheckboxes();
         //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
         TextFieldUtil.setTextFieldNumeric(numberPart, 10);
         TextFieldUtil.setTextFieldNumeric(tfContainer, 10);
@@ -221,11 +225,13 @@ public class ModalAddSpoolController {
 //        SearchComboBoxUtil.getComboBoxValue(cbSelectMain);
     }
 
+
     //для выбора активного режима
     @FXML
     public void selectionAction() {
         selectionMode(cbMode.getValue());
     }
+
 
     public void modalAddSpoolCancel() {
         stage = (Stage) cancelBtn.getScene().getWindow();
@@ -342,8 +348,8 @@ public class ModalAddSpoolController {
 
     public void okDialogSuccess() {
         JFXDialogLayout message = new JFXDialogLayout();
-//        message.setHeading(new Text("УСПЕХ!"));
-        message.setBody(new Text("Главная запись успешно создана!"));
+        message.setHeading(new Text("УСПЕХ!"));
+        message.setBody(new Text("Главная запись успешно создана"));
         message.setStyle("-fx-font-size: 15; -fx-font-family: 'Comic Sans MS';");
         JFXDialog dialog = new JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
         JFXButton btnDialog = new JFXButton("OK");
@@ -625,6 +631,12 @@ public class ModalAddSpoolController {
         }
     }
 
+    public void selectMasterRecord(){
+//        Limit limit = new Limit();
+//        int selectedIndex = cbSelectMain.getSelectionModel().getSelectedIndex();
+
+    }
+
     public void selectionMode(String mode) {
         if (mode.equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             lblSelectMainGroup.setDisable(false);
@@ -663,69 +675,61 @@ public class ModalAddSpoolController {
         }
     }
 
-    @FXML
-    public void cbSelection300() {
-//        newStraight300.setDisable(!cbStraight300.isSelected());
-//        lblStraight300.setDisable(!cbStraight300.isSelected());
-        if (cbStraight300.isSelected()) {
-            cbBooleanMap.put(cbStraight300,true);
-            newStraight300.setDisable(false);
-            lblStraight300.setDisable(false);
-        } else {
-            cbBooleanMap.put(cbStraight300, false);
-            newStraight300.setDisable(true);
-            lblStraight300.setDisable(true);
-        }
+    public void cbSelectionTorsion(){
+        newTorsion.setDisable(!cbTorsion.isSelected());
+        lblTorsion.setDisable(!cbTorsion.isSelected());
     }
 
-    public void selectCheckboxes() {
-        for (Map.Entry<CheckBox, Boolean> entry : cbBooleanMap.entrySet()) {
-            if (entry.getKey().isSelected()) {
-                entry.setValue(true);
-            } else {
-                entry.setValue(false);
-            }
-        }
+    public void cbSelectionWelds() {
+        newCountOfWelds.setDisable(!cbWelds.isSelected());
+        lblWelds.setDisable(!cbWelds.isSelected());
     }
 
-    @FXML
-    public void cbSelection600_2() {
-        newStraight600_2.setDisable(!cbStraight600_2.isSelected());
-        lblStraight600_2.setDisable(!cbStraight600_2.isSelected());
+    public void cbSelection300(){
+        newStraight300.setDisable(!cbStraight300.isSelected());
+        lblStraight300.setDisable(!cbStraight300.isSelected());
     }
-
-    @FXML
-    public void cbSelection600_1() {
+    public void cbSelection600(){
+        newStraight600.setDisable(!cbStraight600.isSelected());
+        lblStraight600.setDisable(!cbStraight600.isSelected());
+    }
+    public void cbSelection600_1(){
         newStraight600_1.setDisable(!cbStraight600_1.isSelected());
         lblStraight600_1.setDisable(!cbStraight600_1.isSelected());
     }
-
-    @FXML
-    public void cbSelection600_3() {
+    public void cbSelection600_2(){
+        newStraight600_2.setDisable(!cbStraight600_2.isSelected());
+        lblStraight600_2.setDisable(!cbStraight600_2.isSelected());
+    }
+    public void cbSelection600_3(){
         newStraight600_3.setDisable(!cbStraight600_3.isSelected());
         lblStraight600_3.setDisable(!cbStraight600_3.isSelected());
     }
-
-    @FXML
-    public void cbSelection600_4() {
+    public void cbSelection600_4(){
         newStraight600_4.setDisable(!cbStraight600_4.isSelected());
         lblStraight600_4.setDisable(!cbStraight600_4.isSelected());
     }
-
-    @FXML
-    public void cbSelection600_5() {
+    public void cbSelection600_5(){
         newStraight600_5.setDisable(!cbStraight600_5.isSelected());
         lblStraight600_5.setDisable(!cbStraight600_5.isSelected());
     }
 
-    private Map<CheckBox, Boolean> statusCheckboxMap() {
+
+
+    private Map<CheckBox, Boolean> statusCheckBoxMap() {
         Map<CheckBox, Boolean> checkBoxMap = new HashMap<>();
-        checkBoxMap.put(cbStraight300, cbStraight300.isSelected());
-        checkBoxMap.put(cbStraight600_1, cbStraight600_1.isSelected());
-        checkBoxMap.put(cbStraight600_2, cbStraight600_2.isSelected());
-        checkBoxMap.put(cbStraight600_3, cbStraight600_3.isSelected());
-        checkBoxMap.put(cbStraight600_4, cbStraight600_4.isSelected());
-        checkBoxMap.put(cbStraight600_5, cbStraight600_5.isSelected());
+        Limit limit = new Limit();
+        checkBoxMap.put(cbWelds, limit.getVisible());
+        checkBoxMap.put(cbTorsion, limit.getVisible());
+        checkBoxMap.put(cbStraight300, limit.getVisible());
+        checkBoxMap.put(cbStraight600, limit.getVisible());
+        checkBoxMap.put(cbStraight600_1, limit.getVisible());
+        checkBoxMap.put(cbStraight600_2, limit.getVisible());
+        checkBoxMap.put(cbStraight600_3, limit.getVisible());
+        checkBoxMap.put(cbStraight600_4, limit.getVisible());
+        checkBoxMap.put(cbStraight600_5, limit.getVisible());
+
         return checkBoxMap;
     }
+
 }
