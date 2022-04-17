@@ -38,6 +38,23 @@ public class MainValueRepository {
         return getLastProtocol(url);
     }
 
+    public static Long findByValue11691(Long idGroup){
+        String url = AppProperties.getHost() + "/api/value11691ById/" + idGroup;
+        return  getValueForCode(url);
+    }
+
+    public static Long getValueForCode(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(), new TypeReference<Long>() {
+                    }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static List<String> getLastProtocol(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);

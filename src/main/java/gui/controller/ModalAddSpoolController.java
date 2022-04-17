@@ -4,12 +4,14 @@ import com.jfoenix.controls.*;
 
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
+import gui.application.Main;
 import gui.model.dto.*;
 import gui.util.SearchComboBoxUtil;
 import gui.util.TextFieldUtil;
 
 import java.awt.*;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -23,8 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -166,6 +167,8 @@ public class ModalAddSpoolController {
     private JFXComboBox<String> cbMode;
     @FXML
     private StackPane stackPaneMain;
+    @FXML
+    private Label lblCaptionCode;
 
     public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
     private Stage stage;
@@ -625,17 +628,60 @@ public class ModalAddSpoolController {
             TestValueDTO valueForeign = testValueDTOs.get(0);
             System.out.println(testValueDTOs);
 
-
         } else {
             addMainGroup();
         }
     }
 
     public void selectMasterRecord(){
-//        Limit limit = new Limit();
-//        int selectedIndex = cbSelectMain.getSelectionModel().getSelectedIndex();
+        cbStraight600_1.setSelected(false);
+        cbStraight600_2.setSelected(false);
+        cbStraight600_3.setSelected(false);
+        cbStraight600_4.setSelected(false);
+        cbStraight600_5.setSelected(false);
+        cbSelection600_1();
+        cbSelection600_2();
+        cbSelection600_3();
+        cbSelection600_4();
+        cbSelection600_5();
+        MainGroup mainGroup = new MainGroup();
+        mainGroup.setIdGroup(cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup());
+        Long byValue11691 = MainValueRepository.findByValue11691(mainGroup.getIdGroup());
+        Code code = CodeRepository.findByIdKod(byValue11691);
+        lblCaptionCode.setText(code.getCode() + " - " + code.getDescription());
+        Long idCode = code.getCodePrimaryKey().getIdCode();
+        List<Limit> limitList = LimitRepository.findLimitByLimitUniqueKeyCodePK(idCode);
+
+        if (limitList != null){
+            for (Limit limit : limitList) {
+                Long idTestHead = limit.getLimitUniqueKey().getIdTestHead();
+                Boolean visible = limit.getVisible();
+//                System.out.println(idTestHead + ", " + visible);
+                if (idTestHead == 11735) {
+                    cbStraight600_5.setSelected(true);
+                    cbSelection600_5();
+                } else if (idTestHead == 11734) {
+                    cbStraight600_4.setSelected(true);
+                    cbSelection600_4();
+                } else if (idTestHead == 11733){
+                    cbStraight600_3.setSelected(true);
+                    cbSelection600_3();
+                } else if (idTestHead == 11732) {
+                    cbStraight600_2.setSelected(true);
+                    cbSelection600_2();
+                }
+                //и т.д.
+            }
+        }
+
+
+
+
+
 
     }
+
+
 
     public void selectionMode(String mode) {
         if (mode.equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {

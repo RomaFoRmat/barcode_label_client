@@ -187,6 +187,7 @@
       <CheckBox fx:id="cbStraight600_3" layoutX="444.0" layoutY="592.0" mnemonicParsing="false" onAction="#cbSelection600_3" prefHeight="17.0" prefWidth="6.0" />
       <CheckBox fx:id="cbStraight600_4" layoutX="681.0" layoutY="348.0" mnemonicParsing="false" onAction="#cbSelection600_4" prefHeight="17.0" prefWidth="6.0" />
       <CheckBox fx:id="cbStraight600_5" layoutX="681.0" layoutY="407.0" mnemonicParsing="false" onAction="#cbSelection600_5" prefHeight="17.0" prefWidth="6.0" />
+      <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="439.0" layoutY="82.0" prefHeight="47.0" prefWidth="276.0" textAlignment="CENTER" textFill="#523297" wrapText="true" />
     </children>
    <stylesheets>
       <URL value="@../css/button.css" />
