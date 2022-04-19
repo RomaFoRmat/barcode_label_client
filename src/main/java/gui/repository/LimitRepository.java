@@ -19,12 +19,12 @@ public class LimitRepository {
         return getStatusField(url);
     }
 
-    public static List<Limit> findLimitByLimitUniqueKeyCodePK(Long idCode){
+    public static List<Limit> findByLimitUniqueKeyIdCode(Long idCode){
         String url = AppProperties.getHost() + "/api/show-experience/" + idCode;
         return getFields(url);
     }
 
-    public static List<Limit> getFields(String url) {
+    private static List<Limit> getFields(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             return client.execute(request, httpResponse ->

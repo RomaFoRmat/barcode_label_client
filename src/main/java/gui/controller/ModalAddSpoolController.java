@@ -2,16 +2,11 @@ package gui.controller;
 
 import com.jfoenix.controls.*;
 
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import gui.application.AppProperties;
-import gui.application.Main;
 import gui.model.dto.*;
 import gui.util.SearchComboBoxUtil;
 import gui.util.TextFieldUtil;
 
-import java.awt.*;
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
@@ -24,13 +19,11 @@ import gui.repository.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -38,7 +31,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.controlsfx.control.CheckComboBox;
 
 public class ModalAddSpoolController {
 
@@ -170,6 +162,8 @@ public class ModalAddSpoolController {
     @FXML
     private Label lblCaptionCode;
 
+    private Map<Long, ModalField> modalFieldMap;
+
     public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
     private Stage stage;
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
@@ -185,6 +179,7 @@ public class ModalAddSpoolController {
 
     @FXML
     public void initialize() {
+        modalFieldMap = statusCheckBoxMap();
         //Ограничение ввода символов и длинны в соответствующие поля для TestValue/MainValue:
         TextFieldUtil.setTextFieldNumeric(numberPart, 10);
         TextFieldUtil.setTextFieldNumeric(tfContainer, 10);
@@ -636,51 +631,26 @@ public class ModalAddSpoolController {
     }
 
     public void selectMasterRecord(){
-        cbStraight600_1.setSelected(false);
-        cbStraight600_2.setSelected(false);
-        cbStraight600_3.setSelected(false);
-        cbStraight600_4.setSelected(false);
-        cbStraight600_5.setSelected(false);
-        cbSelection600_1();
-        cbSelection600_2();
-        cbSelection600_3();
-        cbSelection600_4();
-        cbSelection600_5();
+        reset();
         MainGroup mainGroup = new MainGroup();
         mainGroup.setIdGroup(cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup());
-        Long byValue11691 = MainValueRepository.findByValue11691(mainGroup.getIdGroup());
-        Code code = CodeRepository.findByIdKod(byValue11691);
+        Code code = CodeRepository.findByIdKod(MainValueRepository.findByValue11691(mainGroup.getIdGroup()));
         lblCaptionCode.setText(code.getCode() + " - " + code.getDescription());
         Long idCode = code.getCodePrimaryKey().getIdCode();
-        List<Limit> limitList = LimitRepository.findLimitByLimitUniqueKeyCodePK(idCode);
+        List<Limit> limitList = LimitRepository.findByLimitUniqueKeyIdCode(idCode);
 
-        if (limitList != null){
+        if (limitList != null) {
             for (Limit limit : limitList) {
                 Long idTestHead = limit.getLimitUniqueKey().getIdTestHead();
-                Boolean visible = limit.getVisible();
-//                System.out.println(idTestHead + ", " + visible);
-                if (idTestHead == 11735) {
-                    cbStraight600_5.setSelected(true);
-                    cbSelection600_5();
-                } else if (idTestHead == 11734) {
-                    cbStraight600_4.setSelected(true);
-                    cbSelection600_4();
-                } else if (idTestHead == 11733){
-                    cbStraight600_3.setSelected(true);
-                    cbSelection600_3();
-                } else if (idTestHead == 11732) {
-                    cbStraight600_2.setSelected(true);
-                    cbSelection600_2();
+                for (Map.Entry<Long, ModalField> entry : modalFieldMap.entrySet()) {
+                    if(idTestHead.equals(entry.getKey())) {
+                        entry.getValue().getCheckBox().setSelected(true);
+                        entry.getValue().getTextField().setDisable(false);
+                        entry.getValue().getLabel().setDisable(false);
+                    }
                 }
-                //и т.д.
             }
         }
-
-
-
-
-
-
     }
 
 
@@ -721,6 +691,19 @@ public class ModalAddSpoolController {
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
+    }
+
+    public void reset(){
+        cbStraight600_1.setSelected(false);
+        cbStraight600_2.setSelected(false);
+        cbStraight600_3.setSelected(false);
+        cbStraight600_4.setSelected(false);
+        cbStraight600_5.setSelected(false);
+        cbSelection600_1();
+        cbSelection600_2();
+        cbSelection600_3();
+        cbSelection600_4();
+        cbSelection600_5();
     }
 
     public void cbSelectionTorsion(){
@@ -764,18 +747,18 @@ public class ModalAddSpoolController {
 
 
 
-    private Map<CheckBox, Boolean> statusCheckBoxMap() {
-        Map<CheckBox, Boolean> checkBoxMap = new HashMap<>();
+    private Map<Long, ModalField> statusCheckBoxMap() {
+        Map<Long, ModalField> checkBoxMap = new HashMap<>();
         Limit limit = new Limit();
-        checkBoxMap.put(cbWelds, limit.getVisible());
-        checkBoxMap.put(cbTorsion, limit.getVisible());
-        checkBoxMap.put(cbStraight300, limit.getVisible());
-        checkBoxMap.put(cbStraight600, limit.getVisible());
-        checkBoxMap.put(cbStraight600_1, limit.getVisible());
-        checkBoxMap.put(cbStraight600_2, limit.getVisible());
-        checkBoxMap.put(cbStraight600_3, limit.getVisible());
-        checkBoxMap.put(cbStraight600_4, limit.getVisible());
-        checkBoxMap.put(cbStraight600_5, limit.getVisible());
+        checkBoxMap.put(11728L, new ModalField(cbStraight300, newStraight300, lblStraight300));
+        checkBoxMap.put(11729L, new ModalField(cbTorsion, newTorsion, lblTorsion));
+        checkBoxMap.put(11730L, new ModalField(cbWelds, newCountOfWelds, lblWelds));
+        checkBoxMap.put(1918897L, new ModalField(cbStraight600, newStraight600, lblStraight600));
+        checkBoxMap.put(11731L, new ModalField(cbStraight600_1, newStraight600_1, lblStraight600_1));
+        checkBoxMap.put(11732L, new ModalField(cbStraight600_2, newStraight600_2, lblStraight600_2));
+        checkBoxMap.put(11733L, new ModalField(cbStraight600_3, newStraight600_3, lblStraight600_3));
+        checkBoxMap.put(11734L, new ModalField(cbStraight600_4, newStraight600_4, lblStraight600_4));
+        checkBoxMap.put(11735L, new ModalField(cbStraight600_5, newStraight600_5, lblStraight600_5));
 
         return checkBoxMap;
     }
