@@ -15,7 +15,7 @@ public class AccessPersonalRepository {
 
     public static ObjectMapper mapper = new ObjectMapper();
 
-    public static List<AccessPersonal> findAllByAccessPersonalPrimaryKeyPersonalsIdPersonal(Long idPersonal) {
+    public static List<AccessPersonal> findAllByPkIdPersonal(Long idPersonal) {
         String url = AppProperties.getHost() + "/getAccessPersonal/" + idPersonal;
         return getAccessPersonal(url);
     }

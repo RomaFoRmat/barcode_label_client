@@ -37,7 +37,7 @@ public class CodeRepository {
         return getIdKod(url);
     }
 
-    public static Code getIdKod(String url) {
+    private static Code getIdKod(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a

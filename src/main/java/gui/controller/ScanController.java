@@ -8,7 +8,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import gui.application.AppProperties;
 import gui.application.Main;
 import gui.model.*;
 import gui.repository.BarcodeLabelRepository;
@@ -50,17 +49,14 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import tornadofx.control.DateTimePicker;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.print.PrinterJob;
 import java.io.*;
 import java.lang.reflect.Field;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -69,8 +65,6 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -373,10 +367,9 @@ public class ScanController {
                     dateStart.setDateTimeValue(LocalDateTime.now().with(LocalTime.MIN));
                     dateEnd.setDateTimeValue(LocalDateTime.now().with(LocalTime.MAX));
                 }
-                List<TableSpools> tableSpoolsListForDate = TableSpoolsRepository.getAllSpoolsBetween(
-                        AppProperties.getHost() + "/api/allSpool/"
-                                + dateStart.getDateTimeValue().with(LocalTime.MIN) + "/"
-                                + dateEnd.getDateTimeValue().with(LocalTime.MAX));
+                List<TableSpools> tableSpoolsListForDate = TableSpoolsRepository
+                        .findAllByDateCreateBetween(dateStart.getDateTimeValue().with(LocalTime.MIN),
+                                                    dateEnd.getDateTimeValue().with(LocalTime.MAX));
                 tableSpool.addAll(tableSpoolsListForDate);
                 Platform.runLater(() -> {
                     tableView.setItems(tableSpool);
@@ -512,9 +505,8 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
-                        (AppProperties.getHost() + "/api/spool-between/" + dateStart
-                                + "/" + dateEnd + "/" + barcodeSpool.getText());
+                List<BarcodeLabel> barcodeLabelList =
+                        BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Platform.runLater(() -> {
                             stage.close();
@@ -640,11 +632,11 @@ public class ScanController {
             sheet.addMergedRegion(new CellRangeAddress(rowExcel, rowExcel, 0, 1));
 
             //добавление внешних границ к этикетке:
-            CellRangeAddress region = new CellRangeAddress(0, rowExcel, 0, 1);
-            RegionUtil.setBorderBottom(BorderStyle.THIN, region, sheet);
-            RegionUtil.setBorderTop(BorderStyle.THIN, region, sheet);
-            RegionUtil.setBorderLeft(BorderStyle.THIN, region, sheet);
-            RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
+//            CellRangeAddress region = new CellRangeAddress(0, rowExcel, 0, 1);
+//            RegionUtil.setBorderBottom(BorderStyle.THIN, region, sheet);
+//            RegionUtil.setBorderTop(BorderStyle.THIN, region, sheet);
+//            RegionUtil.setBorderLeft(BorderStyle.THIN, region, sheet);
+//            RegionUtil.setBorderRight(BorderStyle.THIN, region, sheet);
 
             file.close();
 
@@ -873,9 +865,8 @@ public class ScanController {
 
 //                Platform.runLater(() -> {
                 if (!barcodeSpool.getText().isEmpty()) {
-                    List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween(
-                            AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"
-                                    + barcodeSpool.getText());
+                    List<BarcodeLabel> barcodeLabelList =
+                            BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
                     System.out.println(LocalDateTime.now().format(
                             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Response from the server");
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {

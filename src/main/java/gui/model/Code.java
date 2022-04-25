@@ -1,6 +1,5 @@
 package gui.model;
 
-import gui.repository.CodeRepository;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public class Code {
 
     @Override
     public String toString() {
-        return code + " - " + description +  " | " + "id:" + codePrimaryKey.getIdCode();
+        return code + " - " + description ;
     }
 
 }

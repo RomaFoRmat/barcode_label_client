@@ -52,7 +52,7 @@ public class TemplatesLabelsRepository {
         return updateTemplate(url, templatesLabels);
     }
 
-    public static List<TemplatesLabels> getByIdTemplate(String url) {
+    private static List<TemplatesLabels> getByIdTemplate(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             mapper.registerModule(new JavaTimeModule());
@@ -67,7 +67,7 @@ public class TemplatesLabelsRepository {
         return null;
     }
 
-    public static void delete(String url) {
+    private static void delete(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpDelete httpDelete = new HttpDelete(url);
             client.execute(httpDelete);

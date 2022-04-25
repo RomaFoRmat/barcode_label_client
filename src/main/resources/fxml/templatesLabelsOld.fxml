@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="templatesPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="843.0" styleClass="rootTemplates" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.TemplatesLabelsController">
    <children>
-      <VBox layoutX="15.0" layoutY="216.0" prefHeight="102.0" prefWidth="118.0" spacing="10.0" stylesheets="@../css/cheсkBox.css">
+      <VBox layoutX="15.0" layoutY="216.0" prefHeight="102.0" prefWidth="98.0" spacing="10.0" stylesheets="@../css/cheсkBox.css">
          <children>
             <CheckBox fx:id="cbConstruct" selected="true" text="Конструкция" />
             <CheckBox fx:id="cbCode" selected="true" text="Код" />
@@ -24,7 +24,7 @@
             <CheckBox fx:id="cbNumbSpool" selected="true" text="№ катушки" />
          </children>
       </VBox>
-      <VBox layoutX="152.0" layoutY="216.0" prefHeight="103.0" prefWidth="99.0" spacing="10.0" stylesheets="@../css/cheсkBox.css">
+      <VBox layoutX="152.0" layoutY="216.0" prefHeight="103.0" prefWidth="78.0" spacing="10.0" stylesheets="@../css/cheсkBox.css">
          <children>
             <CheckBox fx:id="cbPart" text="№ партии" />
             <CheckBox fx:id="cbLot" text="Lot" />
@@ -32,8 +32,8 @@
             <CheckBox fx:id="cbLength" text="Длина" />
          </children>
       </VBox>
-      <JFXComboBox fx:id="cbCodeSelection" editable="true" focusColor="#8800ff" labelFloat="true" layoutX="7.0" layoutY="67.0" onAction="#searchAction" prefHeight="25.0" prefWidth="250.0" promptText="Выберите код" stylesheets="@../css/jfxSelectTemplates.css" />
-      <TableView fx:id="tableTemplates" layoutX="264.0" layoutY="40.0" onMouseClicked="#getSelected" prefHeight="410.0" prefWidth="575.0" stylesheets="@../css/tableView.css">
+      <JFXComboBox fx:id="cbCodeSelection" editable="true" focusColor="#8800ff" labelFloat="true" layoutX="7.0" layoutY="67.0" onAction="#searchAction" prefHeight="25.0" prefWidth="245.0" promptText="Выберите код" stylesheets="@../css/jfxSelectTemplates.css" />
+      <TableView fx:id="tableTemplates" layoutX="259.0" layoutY="40.0" onMouseClicked="#getSelected" prefHeight="410.0" prefWidth="580.0" stylesheets="@../css/tableView.css">
          <columns>
             <TableColumn fx:id="tcInsideCodes" prefWidth="50.0" text="Коды" />
             <TableColumn prefWidth="614.0" text="Параметры этикетки">
@@ -52,31 +52,31 @@
             </TableColumn>
          </columns>
       </TableView>
-      <Label layoutX="355.0" layoutY="7.0" text="Шаблонизатор термоэтикеток">
+      <Label layoutX="335.0" layoutY="7.0" text="Шаблонизатор термоэтикеток">
          <font>
             <Font name="Comic Sans MS Bold" size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnAdd" layoutX="37.0" layoutY="377.0" onAction="#addTemplate" prefWidth="89.0" stylesheets="@../css/buttonTemplate.css" text="Добавить" />
-      <JFXButton fx:id="btnEdit" layoutX="137.0" layoutY="377.0" onAction="#updateTemplate" prefHeight="27.0" prefWidth="90.0" stylesheets="@../css/buttonTemplate.css" text="Изменить" />
-      <JFXButton fx:id="btnDelete" layoutX="93.0" layoutY="415.0" onAction="#deleteAction" prefHeight="27.0" prefWidth="77.0" stylesheets="@../css/buttonTemplate.css" text="Удалить" />
+      <JFXButton fx:id="btnAdd" layoutX="44.0" layoutY="377.0" onAction="#addTemplate" stylesheets="@../css/buttonTemplate.css" text="Добавить" />
+      <JFXButton fx:id="btnEdit" layoutX="132.0" layoutY="377.0" onAction="#updateTemplate" prefHeight="27.0" prefWidth="78.0" stylesheets="@../css/buttonTemplate.css" text="Изменить" />
+      <JFXButton fx:id="btnDelete" layoutX="93.0" layoutY="412.0" onAction="#deleteAction" stylesheets="@../css/buttonTemplate.css" text="Удалить" />
       <CheckBox fx:id="cbLanguage" layoutX="80.0" layoutY="150.0" onAction="#languageAction" stylesheets="@../css/cheсkBox.css" text="РУC/ENG" />
-      <CheckBox fx:id="cbDatePrint" layoutX="95.0" layoutY="335.0" selected="true" stylesheets="@../css/cheсkBox.css" text="ДАТА" />
+      <CheckBox fx:id="cbDatePrint" layoutX="95.0" layoutY="330.0" selected="true" stylesheets="@../css/cheсkBox.css" text="ДАТА" />
       <Label fx:id="lblLanguage" layoutX="127.0" layoutY="120.0">
          <font>
             <Font size="13.0" />
          </font></Label>
-      <Separator layoutY="115.0" prefHeight="4.0" prefWidth="264.0" />
+      <Separator layoutY="115.0" prefHeight="4.0" prefWidth="259.0" />
       <Label layoutX="25.0" layoutY="120.0" text="Язык этикетки:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Separator layoutY="181.0" prefHeight="4.0" prefWidth="264.0" />
+      <Separator layoutY="181.0" prefHeight="4.0" prefWidth="259.0" />
       <Label layoutX="85.0" layoutY="188.0" text="Параметры:">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Separator layoutY="361.0" prefHeight="4.0" prefWidth="264.0" />
+      <Separator layoutY="361.0" prefHeight="4.0" prefWidth="259.0" />
       <ImageView fitHeight="34.0" fitWidth="43.0" layoutX="55.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icon/help.png" />

@@ -49,7 +49,7 @@ public class TableSpoolsRepository {
         return Collections.emptyList();
     }
 
-    public static List<TableSpools> getAllSpoolsBetween(String url) {
+    private static List<TableSpools> getAllSpoolsBetween(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             mapper.registerModule(new JavaTimeModule());//для нужного формата даты из JSON'a
@@ -64,7 +64,7 @@ public class TableSpoolsRepository {
         return Collections.emptyList();
     }
 
-    public List<TableSpools> findAllByDateCreateBetween(LocalDateTime dateCreateStart, LocalDateTime dateCreateEnd) {
+    public static List<TableSpools> findAllByDateCreateBetween(LocalDateTime dateCreateStart, LocalDateTime dateCreateEnd) {
         String url = AppProperties.getHost() + "/api/allSpool/" + dateCreateStart + "/" + dateCreateEnd;
         return getAllSpoolsBetween(url);
     }

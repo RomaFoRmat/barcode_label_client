@@ -347,7 +347,7 @@ public class ModalAddSpoolController {
 
     public void okDialogSuccess() {
         JFXDialogLayout message = new JFXDialogLayout();
-        message.setHeading(new Text("УСПЕХ!"));
+//        message.setHeading(new Text("УСПЕХ!"));
         message.setBody(new Text("Главная запись успешно создана"));
         message.setStyle("-fx-font-size: 15; -fx-font-family: 'Comic Sans MS';");
         JFXDialog dialog = new JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
@@ -654,7 +654,6 @@ public class ModalAddSpoolController {
     }
 
 
-
     public void selectionMode(String mode) {
         if (mode.equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
             lblSelectMainGroup.setDisable(false);
@@ -671,6 +670,7 @@ public class ModalAddSpoolController {
             lblAddNewSpool.setDisable(false);
             lblNumbContainer.setDisable(true);
             tfContainer.setDisable(true);
+            lblCaptionCode.setDisable(false);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
@@ -688,17 +688,22 @@ public class ModalAddSpoolController {
             lblAddNewSpool.setDisable(true);
             lblNumbContainer.setDisable(false);
             tfContainer.setDisable(false);
+            lblCaptionCode.setDisable(true);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
     }
 
     public void reset(){
+        cbTorsion.setSelected(false);
+        cbWelds.setSelected(false);
         cbStraight600_1.setSelected(false);
         cbStraight600_2.setSelected(false);
         cbStraight600_3.setSelected(false);
         cbStraight600_4.setSelected(false);
         cbStraight600_5.setSelected(false);
+        cbSelectionTorsion();
+        cbSelectionWelds();
         cbSelection600_1();
         cbSelection600_2();
         cbSelection600_3();
@@ -749,7 +754,6 @@ public class ModalAddSpoolController {
 
     private Map<Long, ModalField> statusCheckBoxMap() {
         Map<Long, ModalField> checkBoxMap = new HashMap<>();
-        Limit limit = new Limit();
         checkBoxMap.put(11728L, new ModalField(cbStraight300, newStraight300, lblStraight300));
         checkBoxMap.put(11729L, new ModalField(cbTorsion, newTorsion, lblTorsion));
         checkBoxMap.put(11730L, new ModalField(cbWelds, newCountOfWelds, lblWelds));

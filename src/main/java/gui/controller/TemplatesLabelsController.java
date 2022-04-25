@@ -12,6 +12,7 @@ import gui.repository.CodeRepository;
 import gui.repository.TemplatesLabelsRepository;
 import gui.util.SearchComboBoxUtil;
 import gui.util.TextFieldUtil;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -156,10 +157,12 @@ public class TemplatesLabelsController implements Initializable {
      * Поиск строки в таблице согласно выбранного значения в comboBox,если таковая имеется
      */
     public void searchAction() {
+
         String code = String.valueOf(cbCodeSelection.getValue()).split("-")[0].trim();
+
         if (cbCodeSelection.getValue() != null && searchRowIndex(code) != null) {
             tableTemplates.getSelectionModel().select(searchRowIndex(code));
-            checkboxMatching();
+             checkboxMatching();
         } else {
             int row = tableTemplates.getSelectionModel().getSelectedIndex();
             tableTemplates.getSelectionModel().clearSelection(row);
@@ -191,8 +194,7 @@ public class TemplatesLabelsController implements Initializable {
 
                 TemplatesLabelsRepository.addTemplate(templatesLabels);
                 initializeTableColumns();
-                Code code = CodeRepository.getIdKod(AppProperties.getHost()
-                        + "/api/codeDTO/" + templatesLabels.getIdCode());
+                Code code = CodeRepository.findByIdKod(templatesLabels.getIdCode());
                 TextFieldUtil.alertInformation("Шаблон для кода " + code.getCode() + " успешно добавлен!");
                 LOGGER.info("Added template for code:{} - {}", code.getCode(), Constants.FIO_VIEW);
                 cbCodeSelection.setValue(null);
@@ -213,8 +215,7 @@ public class TemplatesLabelsController implements Initializable {
         if (getSelectedTemplate() != null) {
             Long idTemplate = getSelectedTemplate().getTemplatesLabels().getIdTemplate();
 
-            List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.
-                    getByIdTemplate(AppProperties.getHost() + "/api/templates-id/" + idTemplate);
+            List<TemplatesLabels> templatesLabelsList = TemplatesLabelsRepository.findByIdTemplate(idTemplate);
 
             TemplatesLabels labels = templatesLabelsList.get(0);
 
@@ -252,8 +253,7 @@ public class TemplatesLabelsController implements Initializable {
             TemplatesLabels templatesLabels = new TemplatesLabels();
             templatesLabels.setIdTemplate(tableTemplates.getSelectionModel().getSelectedItem().
                     getTemplatesLabels().getIdTemplate());
-            TemplatesLabelsRepository.delete(AppProperties.getHost() + "/api/templates/" +
-                    templatesLabels.getIdTemplate());
+            TemplatesLabelsRepository.deleteByIdTemplate(templatesLabels.getIdTemplate());
             TextFieldUtil.alertInformation("Шаблон для кода " + getSelectedTemplate().getKod() + " успешно удалён!");
             LOGGER.info("Delete template for code:{} - {}", getSelectedTemplate().getKod(), Constants.FIO_VIEW);
             cbCodeSelection.setValue(null);

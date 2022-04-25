@@ -27,7 +27,7 @@
 <?import javafx.scene.text.Font?>
 <?import tornadofx.control.DateTimePicker?>
 
-<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="605.0" prefWidth="900.0" styleClass="root" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
+<AnchorPane fx:id="anchorPaneMain" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#scanByKey" prefHeight="600.0" prefWidth="900.0" styleClass="root" stylesheets="@../css/mainView.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ScanController">
     <children>
         <Pane layoutY="-1.0" prefHeight="74.0" prefWidth="900.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
             <children>
@@ -186,7 +186,7 @@
                                                                 </TextField>
                                                             </children>
                                                         </VBox>
-                                                        <VBox fx:id="vBoxCbList0" layoutX="343.0" layoutY="87.0" prefHeight="213.0" prefWidth="22.0" spacing="23.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox fx:id="vBoxCbList0" layoutX="343.0" layoutY="86.0" prefHeight="212.0" prefWidth="22.0" spacing="24.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
                                                                 <CheckBox fx:id="cbConstruct" mnemonicParsing="false" prefHeight="24.0" />
                                                                 <CheckBox fx:id="cbCode" mnemonicParsing="false" prefHeight="22.0" />
@@ -222,7 +222,7 @@
                                                                 </ImageView>
                                                             </graphic>
                                                         </JFXButton>
-                                                        <JFXButton fx:id="btnClear" layoutX="396.0" layoutY="337.0" onAction="#clearAction" prefHeight="33.0" prefWidth="89.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Сброс">
+                                                        <JFXButton fx:id="btnClear" layoutX="401.0" layoutY="337.0" onAction="#clearAction" prefHeight="29.0" prefWidth="79.0" style="-fx-border-radius: 4; -fx-border-color: #090000;" stylesheets="@../css/button.css" text="Сброс">
                                                             <graphic>
                                                                 <ImageView fitHeight="19.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                                     <image>
@@ -250,18 +250,18 @@
                                                             </graphic>
                                                         </JFXButton>
                                                         <JFXComboBox fx:id="cbConsumer" focusColor="#7c0ed0" labelFloat="true" layoutX="387.0" layoutY="25.0" onAction="#choiceLabelAction" prefHeight="31.0" prefWidth="120.0" promptText="ЭТИКЕТКА:" stylesheets="@../css/jfx_comboBox.css" unFocusColor="#7c0ed0" />
-                                                        <Separator focusTraversable="false" layoutX="-3.0" layoutY="397.0" prefHeight="6.0" prefWidth="908.0" style="-fx-background-color: #000000;" />
-                                                        <Label fx:id="lblFio" layoutX="301.0" layoutY="411.0" prefHeight="25.0" prefWidth="520.0" textFill="#030303">
+                                                        <Separator focusTraversable="false" layoutX="-3.0" layoutY="390.0" prefHeight="6.0" prefWidth="908.0" style="-fx-background-color: #000000;" />
+                                                        <Label fx:id="lblFio" layoutX="301.0" layoutY="405.0" prefHeight="25.0" prefWidth="520.0" textFill="#030303">
                                                             <font>
                                                                 <Font name="Comic Sans MS Bold" size="17.0" />
                                                             </font>
                                                         </Label>
-                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="273.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
+                                                        <ImageView fitHeight="28.0" fitWidth="41.0" layoutX="273.0" layoutY="402.0" pickOnBounds="true" preserveRatio="true">
                                                             <image>
                                                                 <Image url="@../icon/user.png" />
                                                             </image>
                                                         </ImageView>
-                                                        <Pane layoutX="-21.0" layoutY="441.0" prefHeight="4.0" prefWidth="921.0" style="-fx-background-color: black;" />
+                                                        <Pane layoutX="-21.0" layoutY="435.0" prefHeight="4.0" prefWidth="921.0" style="-fx-background-color: black;" />
                                                         <JFXSpinner fx:id="loadSpinner" layoutX="409.0" layoutY="170.0" prefHeight="57.0" prefWidth="64.0" visible="false" />
                                                         <Label fx:id="lblLoad" layoutX="390.0" layoutY="138.0" prefHeight="22.0" prefWidth="123.0" text="идёт, загрузка..." visible="false">
                                                             <font>
@@ -273,37 +273,37 @@
                                                                 <Font name="Comic Sans MS" size="15.0" />
                                                             </font>
                                                         </Label>
-                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="308.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="308.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../icon/f2.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="564.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="564.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../icon/f3.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="158.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="158.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../icon/f1.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="727.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="727.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../icon/f4.png" />
                                              </image>
                                           </ImageView>
-                                          <Label layoutX="438.0" layoutY="370.0" text="+">
+                                          <Label layoutX="438.0" layoutY="368.0" text="+">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="447.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="447.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../icon/backspace.png" />
                                              </image>
                                           </ImageView>
-                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="415.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="415.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../icon/ctrl.png" />
                                              </image>
@@ -364,24 +364,24 @@
                               </ContextMenu>
                            </contextMenu>
                                 </TableView>
-                                <TextField fx:id="tfFilterField" layoutX="15.0" layoutY="409.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
-                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy" layoutX="467.0" layoutY="409.0" prefHeight="25.0" prefWidth="120.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
-                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy" layoutX="598.0" layoutY="409.0" prefHeight="25.0" prefWidth="120.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
+                                <TextField fx:id="tfFilterField" layoutX="15.0" layoutY="407.0" prefHeight="27.0" prefWidth="106.0" promptText="Поиск катушки" stylesheets="@../css/searchTab2.css" />
+                                <DateTimePicker fx:id="dateStart" format="dd-MM-yyyy" layoutX="467.0" layoutY="408.0" prefHeight="25.0" prefWidth="120.0" promptText="НАЧАЛО:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
+                                <DateTimePicker fx:id="dateEnd" format="dd-MM-yyyy" layoutX="598.0" layoutY="408.0" prefHeight="25.0" prefWidth="120.0" promptText="КОНЕЦ:" showWeekNumbers="true" stylesheets="@../css/dateTimePicker.css" />
                                 <Label layoutX="165.0" layoutY="408.0" prefHeight="29.0" prefWidth="300.0" text="Выборка данных за период времени:">
                                     <font>
                                         <Font name="Comic Sans MS Bold" size="16.0" />
                                     </font>
                                 </Label>
-                                <Line endX="-10.25" endY="-1.0" layoutX="765.0" layoutY="444.0" startX="28.0" startY="-40.0" strokeWidth="2.0" />
-                                <Line endX="-18.0" endY="4.0" layoutX="145.0" layoutY="439.0" startX="21.0" startY="-35.0" strokeWidth="2.0" />
+                                <Line endX="-10.25" endY="-7.0" layoutX="765.0" layoutY="444.0" startX="28.0" startY="-40.0" strokeWidth="2.0" />
+                                <Line endX="-18.0" endY="-2.0" layoutX="145.0" layoutY="439.0" startX="21.0" startY="-35.0" strokeWidth="2.0" />
                                 <Line endX="829.0" layoutX="71.0" layoutY="403.0" startX="-71.0" strokeWidth="2.0" />
-                                <Line endX="819.0" layoutX="81.0" layoutY="444.0" startX="-81.0" strokeWidth="2.0" />
-                                <ImageView fitHeight="26.0" fitWidth="35.0" layoutX="727.0" layoutY="410.0" onMouseClicked="#clearTableAndDatePicker" pickOnBounds="true" preserveRatio="true">
+                                <Line endX="819.0" layoutX="81.0" layoutY="438.0" startX="-81.0" strokeWidth="2.0" />
+                                <ImageView fitHeight="26.0" fitWidth="35.0" layoutX="727.0" layoutY="409.0" onMouseClicked="#clearTableAndDatePicker" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../icon/clearTable.png" />
                                     </image>
                                 </ImageView>
-                                <JFXButton fx:id="btnDateBetween" layoutX="797.0" layoutY="409.0" onAction="#dateBetweenAction" prefHeight="27.0" prefWidth="96.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Выбрать">
+                                <JFXButton fx:id="btnDateBetween" layoutX="808.0" layoutY="407.0" onAction="#dateBetweenAction" prefHeight="25.0" prefWidth="81.0" style="-fx-border-color: black;" stylesheets="@../css/buttonTabList.css" text="Выбрать">
                                     <graphic>
                                         <ImageView fitHeight="133.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
