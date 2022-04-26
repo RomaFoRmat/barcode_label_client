@@ -32,7 +32,7 @@ public class CellStylesUtil {
         style.setAlignment(HorizontalAlignment.LEFT);
         XSSFFont font = workbook.createFont();
         font.setBold(true);
-        font.setFontHeightInPoints((short) 8);
+        font.setFontHeightInPoints((short) 10);
         font.setFontName("Times New Roman");
 //        style.setBorderBottom(BorderStyle.THIN);
 //        font.setUnderline(Font.U_SINGLE);
@@ -55,10 +55,10 @@ public class CellStylesUtil {
     public static CellStyle createStyleForCountry(XSSFWorkbook workbook) {
         XSSFCellStyle style = workbook.createCellStyle();
         style.setVerticalAlignment(VerticalAlignment.CENTER);
-        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setAlignment(HorizontalAlignment.LEFT);
         XSSFFont font = workbook.createFont();
         font.setBold(true);
-        font.setFontHeightInPoints((short) 9);
+        font.setFontHeightInPoints((short) 10);
         font.setFontName("Times New Roman");
         style.setFont(font);
         return style;

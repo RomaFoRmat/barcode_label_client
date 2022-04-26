@@ -212,20 +212,38 @@
             </HBox>
             </children>
         </VBox>
-        <VBox fx:id="vBoxMain4" layoutX="487.0" layoutY="318.0" prefHeight="160.0" prefWidth="190.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
+        <VBox fx:id="vBoxMain4" layoutX="487.0" layoutY="318.0" prefHeight="160.0" prefWidth="207.0" spacing="7.0" stylesheets="@../css/fieldModal.css">
             <children>
                 <Label fx:id="lblStraight600_4" disable="true" text="Прямолинейность 600_4:">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newStraight600_4" disable="true" />
+            <HBox fx:id="hBoxStraight600_4" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
+               <children>
+                      <TextField fx:id="newStraight600_4" disable="true" prefWidth="190.0" />
+                  <CheckBox fx:id="cbStraight600_4" mnemonicParsing="false" onAction="#cbSelection600_4" prefHeight="17.0" prefWidth="6.0">
+                     <HBox.margin>
+                        <Insets top="3.0" />
+                     </HBox.margin>
+                  </CheckBox>
+               </children>
+            </HBox>
                 <Label fx:id="lblStraight600_5" disable="true" text="Прямолинейность 600_5:">
                     <font>
                         <Font size="13.0" />
                     </font>
                 </Label>
-                <TextField fx:id="newStraight600_5" disable="true" />
+            <HBox fx:id="hBoxStraight600_5" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
+               <children>
+                      <TextField fx:id="newStraight600_5" disable="true" prefWidth="190.0" />
+                  <CheckBox fx:id="cbStraight600_5" mnemonicParsing="false" onAction="#cbSelection600_5" prefHeight="17.0" prefWidth="6.0">
+                     <HBox.margin>
+                        <Insets top="3.0" />
+                     </HBox.margin>
+                  </CheckBox>
+               </children>
+            </HBox>
                 <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Образец" />
             </children>
         </VBox>
@@ -281,12 +299,6 @@
          </children>
       </StackPane>
       <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="439.0" layoutY="82.0" prefHeight="47.0" prefWidth="276.0" textAlignment="CENTER" textFill="#523297" wrapText="true" />
-      <VBox layoutX="684.0" layoutY="348.0" prefHeight="84.0" prefWidth="21.0" spacing="42.0">
-         <children>
-            <CheckBox fx:id="cbStraight600_4" mnemonicParsing="false" onAction="#cbSelection600_4" prefHeight="17.0" prefWidth="6.0" />
-            <CheckBox fx:id="cbStraight600_5" mnemonicParsing="false" onAction="#cbSelection600_5" prefHeight="17.0" prefWidth="6.0" />
-         </children>
-      </VBox>
     </children>
    <stylesheets>
       <URL value="@../css/button.css" />

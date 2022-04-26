@@ -39,7 +39,8 @@ public class SideMenuController implements Initializable {
     public AboutDialogController aboutDialogController;
     @FXML
     private JFXButton btnExit;
-    private final String osArch = System.getProperty("os.arch");
+//    private final String osArch = System.getProperty("os.arch");
+    private final String osArch = System.getProperty("sun.arch.data.model");
     private final String x64 = "C:\\Program Files (x86)\\LaboratoryResearches2\\ProjectStart2.exe";
     private final String x86 = "C:\\Program Files\\LaboratoryResearches2\\ProjectStart2.exe";
     public static final Logger LOGGER = LogManager.getLogger(SideMenuController.class);
@@ -79,12 +80,13 @@ public class SideMenuController implements Initializable {
 
     @FXML
     private void openProjectStart2() throws IOException {
-//            String osArch = System.getProperty("sun.arch.data.model"); //64,32
-            Runtime run = Runtime.getRuntime();
-            if(osArch.equals("amd64") && (new File(x64)).exists()) {
+//            String osArch2 = System.getProperty("sun.arch.data.model"); //64,32
+        Runtime run = Runtime.getRuntime();
+//        Defining bit depth JVM:
+            if(osArch.equals("64") && (new File(x64)).exists()) {
                 run.exec(x64);
                 LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
-            } else if (osArch.equals("x86") && (new File(x86)).exists()){
+            } else if (osArch.equals("32") && (new File(x86)).exists()){
                 run.exec(x86);
                 LOGGER.info("Open Lab STPC-2: {}; {}", Constants.FIO_VIEW, InetAddress.getLocalHost());
             } else {

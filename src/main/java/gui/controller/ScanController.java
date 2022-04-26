@@ -618,7 +618,7 @@ public class ScanController {
                         cell0.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
                         row.createCell(1).setCellValue(field.getTextField().getText());
                         cell1.setCellStyle(CellStylesUtil.getCellStyle(workbook, field.getCellStyleOption()));
-                        row.setHeightInPoints(10);
+                        row.setHeightInPoints(11);
                     }
                     rowExcel++;
                 }

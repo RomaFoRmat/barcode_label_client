@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 import gui.model.*;
 import gui.repository.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -161,6 +162,8 @@ public class ModalAddSpoolController {
     private StackPane stackPaneMain;
     @FXML
     private Label lblCaptionCode;
+    @FXML
+//    private JFXSpinner spinner;
 
     private Map<Long, ModalField> modalFieldMap;
 
@@ -674,6 +677,7 @@ public class ModalAddSpoolController {
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
+            Platform.runLater(() -> cbCode.requestFocus());
             cbSelectMain.setDisable(true);
             lblSelectMainGroup.setDisable(true);
             lblCreateMainGroup.setDisable(false);
