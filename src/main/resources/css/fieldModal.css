@@ -35,4 +35,12 @@
     -fx-text-fill: black;
 }
 
-
+.check-box:selected .box {
+    /* background color for selected checkbox */
+    -fx-background-color: lime;
+}
+.check-box:selected > .box > .mark,
+.check-box:indeterminate > .box > .mark {
+    /* modify mark color */
+    -fx-background-color: #0a0a0a;
+}

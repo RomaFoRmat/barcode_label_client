@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -51,10 +52,7 @@ public class ModalAddSpoolController {
     private TextField tfContainer;
     @FXML
     private ComboBox<String> cbLr;
-
-    //    private final ObservableList<Integer> countSpool = FXCollections.observableArrayList(36, 48, 72);
     private final ObservableList<String> data = FXCollections.observableArrayList("L", "R");
-
     @FXML
     private ComboBox<String> cbTypeSpool;
     @FXML
@@ -163,7 +161,15 @@ public class ModalAddSpoolController {
     @FXML
     private Label lblCaptionCode;
     @FXML
-//    private JFXSpinner spinner;
+    private ImageView imgCtrl;
+    @FXML
+    private Label lblKey;
+    @FXML
+    private ImageView imgEnter;
+    @FXML
+    private ImageView imgEsc;
+    @FXML
+    private JFXSpinner spinner;
 
     private Map<Long, ModalField> modalFieldMap;
 
@@ -240,10 +246,14 @@ public class ModalAddSpoolController {
         stage.close();
     }
 
-    public void cancelModalKey(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ESCAPE) {
-            modalAddSpoolCancel();
-        }
+    public void hotKey(KeyEvent keyEvent) throws UnknownHostException {
+            if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                modalAddSpoolCancel();
+            } else if(cancelBtn.isVisible()) {
+                if (keyEvent.getCode() == KeyCode.ENTER && keyEvent.isControlDown()) {
+                    okBtnAction();
+                }
+            }
     }
 
     public void addMainGroup() throws UnknownHostException {
@@ -674,6 +684,10 @@ public class ModalAddSpoolController {
             lblNumbContainer.setDisable(true);
             tfContainer.setDisable(true);
             lblCaptionCode.setDisable(false);
+            lblKey.setVisible(true);
+            imgCtrl.setVisible(true);
+            imgEnter.setVisible(true);
+            imgEsc.setVisible(true);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
@@ -693,6 +707,10 @@ public class ModalAddSpoolController {
             lblNumbContainer.setDisable(false);
             tfContainer.setDisable(false);
             lblCaptionCode.setDisable(true);
+            lblKey.setVisible(false);
+            imgCtrl.setVisible(false);
+            imgEnter.setVisible(false);
+            imgEsc.setVisible(false);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
