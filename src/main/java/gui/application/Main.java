@@ -1,17 +1,23 @@
 package gui.application;
 
 
+import gui.util.TextFieldUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.application.Preloader;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileLock;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -20,6 +26,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        final File file = new File("application.lock");
+        final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
+        final FileLock fileLock = randomAccessFile.getChannel().tryLock();
+
+        if (fileLock == null) {
+            TextFieldUtil.alertWarning("ПРИЛОЖЕНИЕ УЖЕ ЗАПУЩЕНО!!!");
+            stop();
+        }
 
         setProperties();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
@@ -29,7 +43,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
 //        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
-
     }
 
     @Override
