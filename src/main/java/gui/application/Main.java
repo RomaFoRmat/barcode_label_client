@@ -1,26 +1,19 @@
 package gui.application;
 
 
+import gui.util.Sftp;
 import gui.util.TextFieldUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.application.Preloader;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.channels.FileLock;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Main extends Application {
 
@@ -35,7 +28,13 @@ public class Main extends Application {
             stop();
         }
 
+//        Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword, sourceFile);
+
         setProperties();
+
+//        File currentDir = new File("d:/Soft/app");
+//        displayAllVersionsInDirectory(currentDir);
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         primaryStage.setTitle("Вход в SPOOLS SCAN");
         primaryStage.setScene(new Scene(root, 500, 304));
@@ -48,7 +47,7 @@ public class Main extends Application {
     @Override
     public void stop() {
         Platform.exit();
-        System.exit (0);
+        System.exit(0);
     }
 
     public static void main(String[] args) {
@@ -59,7 +58,6 @@ public class Main extends Application {
         launch(args);
 
     }
-
 
     private void setProperties() {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties")) {
@@ -72,6 +70,17 @@ public class Main extends Application {
             AppProperties.setVersion(property.getProperty("pack.version", "unknown"));
         } catch (IOException io) {
             io.printStackTrace();
+        }
+    }
+
+    private static void displayAllVersionsInDirectory(File dir) {
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                String[] versions = file.getName().split("-");
+                String res = versions[versions.length - 1];
+                System.out.println(res.replaceAll("\\.jar",""));
+            }
         }
     }
 }

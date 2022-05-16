@@ -1,5 +1,6 @@
 package gui.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 
@@ -11,6 +12,7 @@ public class MainGroup {
 
     private Long idGroup;
     private Conversion idConversion;
+//    @JsonProperty("timestamp")
     private LocalDateTime dateCreate;
 
     @Override

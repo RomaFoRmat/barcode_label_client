@@ -33,6 +33,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import tornadofx.control.DateTimePicker;
 
 public class ModalAddSpoolController {
 
@@ -169,7 +170,9 @@ public class ModalAddSpoolController {
     @FXML
     private ImageView imgEsc;
     @FXML
-    private JFXSpinner spinner;
+    private DateTimePicker dateStart;
+    @FXML
+    private DateTimePicker dateEnd;
 
     private Map<Long, ModalField> modalFieldMap;
 
@@ -178,7 +181,7 @@ public class ModalAddSpoolController {
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
-    private List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroup();
+    private List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroupMonth();
     private ObservableList<MainGroup> idGroups = FXCollections.observableArrayList(idGroupList);
 
     private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS-40", "BS-60", "BS-80/17", "BS-80/33");
@@ -361,7 +364,7 @@ public class ModalAddSpoolController {
     public void okDialogSuccess() {
         JFXDialogLayout message = new JFXDialogLayout();
 //        message.setHeading(new Text("УСПЕХ!"));
-        message.setBody(new Text("Главная запись успешно создана"));
+        message.setBody(new Text("Главная запись успешно создана!"));
         message.setStyle("-fx-font-size: 15; -fx-font-family: 'Comic Sans MS';");
         JFXDialog dialog = new JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
         JFXButton btnDialog = new JFXButton("OK");
@@ -688,6 +691,8 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(true);
             imgEnter.setVisible(true);
             imgEsc.setVisible(true);
+            dateStart.setVisible(true);
+            dateEnd.setVisible(true);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
@@ -711,6 +716,8 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(false);
             imgEnter.setVisible(false);
             imgEsc.setVisible(false);
+            dateStart.setVisible(false);
+            dateEnd.setVisible(false);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }

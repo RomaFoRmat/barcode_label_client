@@ -8,6 +8,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import gui.application.AppProperties;
 import gui.application.Main;
 import gui.model.*;
 import gui.repository.BarcodeLabelRepository;
@@ -507,10 +508,12 @@ public class ScanController {
 
                 List<BarcodeLabel> barcodeLabelList =
                         BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
+//                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
+//                        (AppProperties.getHost() + "/api/spool-between/" + dateStart
+//                                + "/" + dateEnd + "/" + barcodeSpool.getText());
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Platform.runLater(() -> {
                             stage.close();
-//                        barcodeSpool.clear();
                             barcodeSpool.requestFocus();
                             clearAction();
                         });

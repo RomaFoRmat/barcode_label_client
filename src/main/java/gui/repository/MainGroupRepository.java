@@ -19,6 +19,7 @@ import org.apache.http.impl.client.HttpClients;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class MainGroupRepository {
 
     public static final String MAIN_ENDPOINT = AppProperties.getHost() + "/api/getAllByConversion11690/idMainGroup";
     public static ObjectMapper mapper = new ObjectMapper();
-    public static final String MAIN_ID_ENDPOINT = AppProperties.getHost() + "/api/getAllIdGroup";
+    public static final String MAIN_ID_ENDPOINT = AppProperties.getHost() + "/api/getAllIdGroup-forTheMonth";
 
     public static MainGroupResponseDTO addIdMain(MainGroupRequestDTO mainGroupRequestDTO) {
         String url = AppProperties.getHost() + "/api/addIdGroup";
@@ -37,6 +38,25 @@ public class MainGroupRepository {
         String url = AppProperties.getHost() + "/api/getIdGroupByConversion11690/" + idGroup;
         return getMainGroup(url);
     }
+    public static List<MainGroup> findAllByDateCreateBetween(LocalDateTime dateStart, LocalDateTime dateEnd) {
+        String url = AppProperties.getHost() + "/api/getAllIdGroupBetween/" + dateStart + "/" + dateEnd;
+        return getAllIdGroupBetween(url);
+    }
+
+    private static List<MainGroup> getAllIdGroupBetween(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<MainGroup>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
 
     public static List<MainGroup> findAllByIdConversion() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
@@ -52,7 +72,7 @@ public class MainGroupRepository {
         return Collections.emptyList();
     }
 
-    public static List<MainGroup> getAllIdGroup() {
+    public static List<MainGroup> getAllIdGroupMonth() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(MAIN_ID_ENDPOINT);
             mapper.registerModule(new JavaTimeModule());
