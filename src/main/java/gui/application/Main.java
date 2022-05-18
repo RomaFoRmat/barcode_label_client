@@ -1,7 +1,6 @@
 package gui.application;
 
 
-import gui.util.Sftp;
 import gui.util.TextFieldUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,8 +31,8 @@ public class Main extends Application {
 
         setProperties();
 
-//        File currentDir = new File("d:/Soft/app");
-//        displayAllVersionsInDirectory(currentDir);
+        File currentDir = new File("d:/Soft/app");
+        getMaxVersion(currentDir);
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
         primaryStage.setTitle("Вход в SPOOLS SCAN");
@@ -73,14 +72,19 @@ public class Main extends Application {
         }
     }
 
-    private static void displayAllVersionsInDirectory(File dir) {
+    private static void getMaxVersion(File dir) {
         File[] files = dir.listFiles();
+        double maxVersion = 0;
         for (File file : files) {
             if (file.isFile()) {
-                String[] versions = file.getName().split("-");
-                String res = versions[versions.length - 1];
-                System.out.println(res.replaceAll("\\.jar",""));
+                String name = file.getName().replace(".jar", "");
+                String[] result = name.split("-");
+                double version = Double.parseDouble(result[result.length - 1]);
+                if (version > maxVersion) {
+                    maxVersion = version;
+                }
             }
         }
+        System.out.println(maxVersion);
     }
 }
