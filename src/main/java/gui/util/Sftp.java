@@ -40,7 +40,7 @@ public class Sftp {
 //
 //                channelSftp.exit();
 
-                displayAllVersionsInDirectory(sourceFile);
+//                getMaxVersion(sourceFile);
 
                 session.disconnect();
             } catch (Exception cause) {
@@ -88,21 +88,25 @@ public class Sftp {
         }
 
 
-        private static void displayAllVersionsInDirectory(File dir) throws IOException {
+        public static double getMaxVersion(File dir) {
             File[] files = dir.listFiles();
-            for (File file : files) {
-                if (file.isFile()) {
-                    String[] versions = file.getName().split("-");
-                    String res = versions[versions.length - 1];
-                    System.out.println(res.replaceAll("\\.jar",""));
-                    if (res != AppProperties.getVersion()){
-                        TextFieldUtil.alertInformation("Приложение будет обновлено и запущено сразу после обновления!");
-                        Platform.exit();
-                        System.exit(0);
-                        Desktop.getDesktop().open(new File("updater.jar"));
+            double maxVersion = 0;
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        String name = file.getName().replace(".jar", "");
+                        String[] result = name.split("-");
+                        double version = Double.parseDouble(result[result.length - 1]);
+                        if (version > maxVersion) {
+                            maxVersion = version;
+                        }
                     }
                 }
+//            System.out.println(maxVersion);
+            } else {
+                System.out.println("Данной директории не существует");
             }
+            return maxVersion;
         }
     }
 }
