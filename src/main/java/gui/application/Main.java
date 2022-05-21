@@ -1,6 +1,7 @@
 package gui.application;
 
 
+import gui.model.Constants;
 import gui.util.Sftp;
 import gui.util.TextFieldUtil;
 import javafx.application.Application;
@@ -22,7 +23,7 @@ public class Main extends Application {
     Integer sourcePort    = 22;
     String sourceUser     = "root";
     String sourcePassword = "stpc-2plus";
-    File sourceFile     = new File("/root/Projects/Release/bsw_sgp_api");
+    String sourceDir = "/root/Projects/Release/bsw_spools_scan";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,18 +36,14 @@ public class Main extends Application {
             stop();
         }
 
-        Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword,sourceFile);
+        Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword,sourceDir);
 
         setProperties();
 
-//        File currentDir = new File("d:/ss_app/test");
-        File currentDir = new File(String.valueOf(sourceFile));
-        double maxVersion = getMaxVersion(currentDir);
-        if (maxVersion > Double.parseDouble(AppProperties.getVersion())){
+        if (Constants.MAX_VERSION > Constants.CURRENT_VERSION) {
             System.out.println("Start Updater");
-            TextFieldUtil.alertInformation(
-                    "Найдена новая версия программы: " + maxVersion + "\nПриложение будет обновлено и перезапущено!");
-//            Desktop.getDesktop().open(new File(""));
+            TextFieldUtil.alertInformation("Найдена новая версия программы: " + Constants.MAX_VERSION +
+                    ". Установлена: " + Constants.CURRENT_VERSION + "\nПриложение будет обновлено и перезапущено!");
             Runtime.getRuntime().exec("cmd /c start run.bat");
             System.out.println("Exit Spools Scan");
             stop();
@@ -85,30 +82,31 @@ public class Main extends Application {
             if (host.isEmpty()) throw new IllegalArgumentException("Set host address in application.properties");
             AppProperties.setHost(property.getProperty("pack.host", ""));
             AppProperties.setVersion(property.getProperty("pack.version", "unknown"));
+            Constants.CURRENT_VERSION = Double.valueOf(AppProperties.getVersion());
         } catch (IOException io) {
             io.printStackTrace();
         }
     }
 
-    private static double getMaxVersion(File dir) {
-        File[] files = dir.listFiles();
-        double maxVersion = 0;
-        if (files != null) {
-            for (File file : files) {
-                if (file.isFile()) {
-                    String name = file.getName().replace(".jar", "");
-                    String[] result = name.split("-");
-                    double version = Double.parseDouble(result[result.length - 1]);
-                    if (version > maxVersion) {
-                        maxVersion = version;
-                    }
-                }
-            }
-//            System.out.println(maxVersion);
-        } else {
-            System.out.println("Данной директории не существует");
-        }
-        return maxVersion;
-    }
+//    private static double getMaxVersion(File dir) {
+//        File[] files = dir.listFiles();
+//        double maxVersion = 0;
+//        if (files != null) {
+//            for (File file : files) {
+//                if (file.isFile()) {
+//                    String name = file.getName().replace(".jar", "");
+//                    String[] result = name.split("_");
+//                    double version = Double.parseDouble(result[result.length - 1]);
+//                    if (version > maxVersion) {
+//                        maxVersion = version;
+//                    }
+//                }
+//            }
+////            System.out.println(maxVersion);
+//        } else {
+//            System.out.println("Данной директории не существует");
+//        }
+//        return maxVersion;
+//    }
 
 }

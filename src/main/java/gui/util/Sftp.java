@@ -1,20 +1,16 @@
 package gui.util;
 
 import com.jcraft.jsch.*;
-import gui.application.AppProperties;
-import gui.application.Main;
-import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import gui.model.Constants;
+import org.apache.commons.collections4.SplitMapUtils;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 public class Sftp {
     public static class Connection {
 
-        public static void check(String host, Integer port, String user, String password, File sourceFile) {
+        public static void check(String host, Integer port, String user, String password, String sourceDir) {
             try {
                 JSch jsch = new JSch();
 
@@ -29,23 +25,15 @@ public class Sftp {
 
                 System.out.println("channel connected");
 
-//                ChannelSftp channelSftp = (ChannelSftp) channel;
-//                try {
-//                    System.out.println("start");
-//                    time0 = System.currentTimeMillis();
-//                    channelSftp.get(sourceFile, localFile, new MyProgressMonitor(sourceFile), ChannelSftp.OVERWRITE);
-//                } catch (SftpException cause) {
-//                    cause.printStackTrace();
-//                }
-//
-//                channelSftp.exit();
+                ChannelSftp channelSftp = (ChannelSftp) channel;
+                getMaxVersionFile(channelSftp, sourceDir);
 
-//                getMaxVersion(sourceFile);
-
+                channelSftp.exit();
                 session.disconnect();
             } catch (Exception cause) {
                 cause.printStackTrace();
             }
+
         }
 
         /**
@@ -87,26 +75,47 @@ public class Sftp {
             }
         }
 
+//        public static double getMaxVersion(File dir) {
+//            File[] files = dir.listFiles();
+//            double maxVersion = 0;
+//            int maxVersionIndex = 0;
+//            if (files != null) {
+//                for (File file : files) {
+//                    if (file.isFile()) {
+//                        String name = file.getName().replace(".jar", "");
+//                        String[] result = name.split("-");
+//                        double version = Double.parseDouble(result[result.length - 1]);
+//                        if (version > maxVersion) {
+//                            maxVersion = version;
+//                        }
+//                    }
+//                }
+////            System.out.println(maxVersion);
+//            } else {
+//                System.out.println("Данной директории не существует");
+//            }
+//            return maxVersion;
+//        }
 
-        public static double getMaxVersion(File dir) {
-            File[] files = dir.listFiles();
+
+        public static double getMaxVersionFile(ChannelSftp channelSftp, String dir) throws SftpException {
+            List<ChannelSftp.LsEntry> files = channelSftp.ls(dir);
             double maxVersion = 0;
-            if (files != null) {
-                for (File file : files) {
-                    if (file.isFile()) {
-                        String name = file.getName().replace(".jar", "");
-                        String[] result = name.split("-");
-                        double version = Double.parseDouble(result[result.length - 1]);
-                        if (version > maxVersion) {
-                            maxVersion = version;
-                        }
+            for (ChannelSftp.LsEntry entry : files) {
+                if (!entry.getAttrs().isDir()) {
+                    String path = entry.getFilename();
+                    String name = entry.getFilename().replace(".jar", "");
+                    String[] result = name.split("-");
+                    double version = Double.parseDouble(result[result.length - 1]);
+                    if (version > maxVersion) {
+                        maxVersion = version;
                     }
                 }
-//            System.out.println(maxVersion);
-            } else {
-                System.out.println("Данной директории не существует");
             }
+            Constants.MAX_VERSION = maxVersion;
+            System.out.println("Актуальная версия: " + maxVersion);
             return maxVersion;
+
+            }
         }
     }
-}

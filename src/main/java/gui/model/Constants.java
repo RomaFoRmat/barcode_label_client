@@ -10,5 +10,7 @@ public class Constants {
     public static String IP_ADDRESS;
     public static LocalDateTime DATE_START;
     public static LocalDateTime DATE_END;
+    public static Double MAX_VERSION;
+    public static Double CURRENT_VERSION;
     public static final String SIDE_MENU = "/fxml/sideMenu.fxml";
 }
