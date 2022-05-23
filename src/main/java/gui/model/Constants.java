@@ -13,4 +13,7 @@ public class Constants {
     public static Double MAX_VERSION;
     public static Double CURRENT_VERSION;
     public static final String SIDE_MENU = "/fxml/sideMenu.fxml";
+    public static final String FILE_DATA = "chcp 1251\n" +
+            "java -jar D:\\Bykov_projects\\barcode_label_client\\updater\\updater-1.0.jar\n" +
+            "exit";
 }

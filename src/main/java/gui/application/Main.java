@@ -2,6 +2,7 @@ package gui.application;
 
 
 import gui.model.Constants;
+import gui.util.FileUtil;
 import gui.util.Sftp;
 import gui.util.TextFieldUtil;
 import javafx.application.Application;
@@ -12,9 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.*;
 import java.nio.channels.FileLock;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 
@@ -24,6 +26,7 @@ public class Main extends Application {
     String sourceUser     = "root";
     String sourcePassword = "stpc-2plus";
     String sourceDir = "/root/Projects/Release/bsw_spools_scan";
+    String localDir = "template\\temp";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -37,15 +40,14 @@ public class Main extends Application {
         }
 
         Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword,sourceDir);
-
         setProperties();
 
         if (Constants.MAX_VERSION > Constants.CURRENT_VERSION) {
             System.out.println("Start Updater");
             TextFieldUtil.alertInformation("Найдена новая версия программы: " + Constants.MAX_VERSION +
                     ". Установлена: " + Constants.CURRENT_VERSION + "\nПриложение будет обновлено и перезапущено!");
-            Runtime.getRuntime().exec("cmd /c start run.bat");
-            System.out.println("Exit Spools Scan");
+            FileUtil.createFile(new File("run_updater.bat"),Constants.FILE_DATA);
+            Runtime.getRuntime().exec("cmd /c start run_updater.bat");
             stop();
         }
 
@@ -56,6 +58,8 @@ public class Main extends Application {
         primaryStage.setResizable(false);
 //        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
+
+        FileUtil.folderTempFiles(localDir);
     }
 
     @Override
@@ -87,26 +91,4 @@ public class Main extends Application {
             io.printStackTrace();
         }
     }
-
-//    private static double getMaxVersion(File dir) {
-//        File[] files = dir.listFiles();
-//        double maxVersion = 0;
-//        if (files != null) {
-//            for (File file : files) {
-//                if (file.isFile()) {
-//                    String name = file.getName().replace(".jar", "");
-//                    String[] result = name.split("_");
-//                    double version = Double.parseDouble(result[result.length - 1]);
-//                    if (version > maxVersion) {
-//                        maxVersion = version;
-//                    }
-//                }
-//            }
-////            System.out.println(maxVersion);
-//        } else {
-//            System.out.println("Данной директории не существует");
-//        }
-//        return maxVersion;
-//    }
-
 }

@@ -14,26 +14,23 @@ public class Sftp {
             try {
                 JSch jsch = new JSch();
 
-                Session session = jsch.getSession(user, host, port);
-                session.setUserInfo(new MyUserInfo(password));
-                session.connect();
+                Session session = jsch.getSession(user, host, port);        //создаём сессию
+                session.setUserInfo(new MyUserInfo(password));              //авто-подстановка пароля
+                session.connect();                                          //соединение
+                System.out.println("Session connected");
 
-                System.out.println("session connected");
-
-                Channel channel = session.openChannel("sftp");
-                channel.connect();
-
-                System.out.println("channel connected");
+                Channel channel = session.openChannel("sftp");         //открываем канал для передачи файлов
+                channel.connect();                                          //соединение
+                System.out.println("Channel connected");
 
                 ChannelSftp channelSftp = (ChannelSftp) channel;
-                getMaxVersionFile(channelSftp, sourceDir);
+                getMaxVersionFile(channelSftp, sourceDir);                  // № max версии
 
                 channelSftp.exit();
                 session.disconnect();
             } catch (Exception cause) {
-                cause.printStackTrace();
+                System.out.println("Cannot make connection to SFTP server | Directory not found");
             }
-
         }
 
         /**
@@ -75,29 +72,6 @@ public class Sftp {
             }
         }
 
-//        public static double getMaxVersion(File dir) {
-//            File[] files = dir.listFiles();
-//            double maxVersion = 0;
-//            int maxVersionIndex = 0;
-//            if (files != null) {
-//                for (File file : files) {
-//                    if (file.isFile()) {
-//                        String name = file.getName().replace(".jar", "");
-//                        String[] result = name.split("-");
-//                        double version = Double.parseDouble(result[result.length - 1]);
-//                        if (version > maxVersion) {
-//                            maxVersion = version;
-//                        }
-//                    }
-//                }
-////            System.out.println(maxVersion);
-//            } else {
-//                System.out.println("Данной директории не существует");
-//            }
-//            return maxVersion;
-//        }
-
-
         public static double getMaxVersionFile(ChannelSftp channelSftp, String dir) throws SftpException {
             List<ChannelSftp.LsEntry> files = channelSftp.ls(dir);
             double maxVersion = 0;
@@ -115,7 +89,6 @@ public class Sftp {
             Constants.MAX_VERSION = maxVersion;
             System.out.println("Актуальная версия: " + maxVersion);
             return maxVersion;
-
             }
         }
     }
