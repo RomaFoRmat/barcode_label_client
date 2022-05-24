@@ -16,4 +16,10 @@ public class Constants {
     public static final String FILE_DATA = "chcp 1251\n" +
             "java -jar D:\\Bykov_projects\\barcode_label_client\\updater\\updater-1.0.jar\n" +
             "exit";
+    public static final String SOURCE_HOST = "172.16.172.122";
+    public static final Integer SOURCE_PORT = 22;
+    public static final String SOURCE_USER  = "root";
+    public static final String SOURCE_PASSWORD = "stpc-2plus";
+    public static final String SOURCE_DIR = "/root/Projects/Release/bsw_spools_scan";
+    public static final String LOCAL_DIR = "template\\temp";
 }

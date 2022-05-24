@@ -506,11 +506,11 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-                List<BarcodeLabel> barcodeLabelList =
-                        BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
-//                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
-//                        (AppProperties.getHost() + "/api/spool-between/" + dateStart
-//                                + "/" + dateEnd + "/" + barcodeSpool.getText());
+//                List<BarcodeLabel> barcodeLabelList =
+//                        BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
+                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
+                        (AppProperties.getHost() + "/api/spool-between/" + dateStart
+                                + "/" + dateEnd + "/" + barcodeSpool.getText());
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Platform.runLater(() -> {
                             stage.close();

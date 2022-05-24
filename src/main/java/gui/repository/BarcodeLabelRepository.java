@@ -42,7 +42,7 @@ public class BarcodeLabelRepository {
         return null;
     }
 
-    private static List<BarcodeLabel> getBarcodeLabelBetween(String url) {
+    public static List<BarcodeLabel> getBarcodeLabelBetween(String url) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             mapper.registerModule(new JavaTimeModule());

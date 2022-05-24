@@ -21,12 +21,12 @@ import java.util.*;
 
 
 public class Main extends Application {
-    String sourceHost     = "172.16.172.122";
-    Integer sourcePort    = 22;
-    String sourceUser     = "root";
-    String sourcePassword = "stpc-2plus";
-    String sourceDir = "/root/Projects/Release/bsw_spools_scan";
-    String localDir = "template\\temp";
+//    String sourceHost     = "172.16.172.122";
+//    Integer sourcePort    = 22;
+//    String sourceUser     = "root";
+//    String sourcePassword = "stpc-2plus";
+//    String sourceDir = "/root/Projects/Release/bsw_spools_scan";
+//    String localDir = "template\\temp";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,9 +39,11 @@ public class Main extends Application {
             stop();
         }
 
-        Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword,sourceDir);
+//        Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword,sourceDir);
+        Sftp.Connection.check(Constants.SOURCE_HOST, Constants.SOURCE_PORT, Constants.SOURCE_USER,
+                              Constants.SOURCE_PASSWORD,Constants.SOURCE_DIR);
         setProperties();
-
+//
         if (Constants.MAX_VERSION > Constants.CURRENT_VERSION) {
             System.out.println("Start Updater");
             TextFieldUtil.alertInformation("Найдена новая версия программы: " + Constants.MAX_VERSION +
@@ -59,7 +61,7 @@ public class Main extends Application {
 //        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
 
-        FileUtil.folderTempFiles(localDir);
+        FileUtil.folderTempFiles(Constants.LOCAL_DIR);
     }
 
     @Override

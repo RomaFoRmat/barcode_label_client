@@ -20,6 +20,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -153,6 +154,8 @@ public class ModalAddSpoolController {
     private CheckBox cbStraight600_4;
     @FXML
     private CheckBox cbStraight600_5;
+    @FXML
+    private CheckBox personalStamp;
     @FXML
     private JFXButton btnCreate;
     @FXML
@@ -365,8 +368,9 @@ public class ModalAddSpoolController {
         JFXDialogLayout message = new JFXDialogLayout();
 //        message.setHeading(new Text("УСПЕХ!"));
         message.setBody(new Text("Главная запись успешно создана!"));
-        message.setStyle("-fx-font-size: 15; -fx-font-family: 'Comic Sans MS';");
-        JFXDialog dialog = new JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.NONE);
+        message.setAlignment(Pos.TOP_RIGHT);
+        message.setStyle("-fx-font-size: 16; -fx-font-family: 'Comic Sans MS';");
+        JFXDialog dialog = new JFXDialog(stackPaneMain, message, JFXDialog.DialogTransition.CENTER);
         JFXButton btnDialog = new JFXButton("OK");
 
         btnDialog.setOnAction(event -> dialog.close());
@@ -592,6 +596,14 @@ public class ModalAddSpoolController {
             sampleDTO.setIdConversion(11690L);
             sampleDTO.setMainGroup(mainGroup);
 
+            //установить значение для поля "ЛК(личное клеймо)":
+            TestValueDTO personalStampDTO = new TestValueDTO();
+            personalStampDTO.setIdForeignGroup(foreignGroup.getIdForeignGroup());
+            personalStampDTO.setIdTestHead(2129173L);
+            personalStampDTO.setValue(personalStamp.isSelected() ? 1d : 0d);
+            personalStampDTO.setIdConversion(11690L);
+            personalStampDTO.setMainGroup(mainGroup);
+
 
             testValueDTOs.add(numberSpoolDTO);
             testValueDTOs.add(numberRopeMachineDTO);
@@ -611,6 +623,7 @@ public class ModalAddSpoolController {
 //            testValueDTOs.add(torsionRopeDTO);
 //            testValueDTOs.add(straightRopeDTO);
             testValueDTOs.add(sampleDTO);
+            testValueDTOs.add(personalStampDTO);
 
             ForeignGroupRequestDTO foreignGroupRequestDTO = new ForeignGroupRequestDTO();
             foreignGroupRequestDTO.setWhoCreate(Constants.FIO);
