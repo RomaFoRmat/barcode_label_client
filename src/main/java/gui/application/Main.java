@@ -1,7 +1,5 @@
 package gui.application;
 
-
-import gui.model.Constants;
 import gui.util.FileUtil;
 import gui.util.Sftp;
 import gui.util.TextFieldUtil;
@@ -15,18 +13,12 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.nio.channels.FileLock;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
+
+import static gui.model.Constants.*;
 
 
 public class Main extends Application {
-//    String sourceHost     = "172.16.172.122";
-//    Integer sourcePort    = 22;
-//    String sourceUser     = "root";
-//    String sourcePassword = "stpc-2plus";
-//    String sourceDir = "/root/Projects/Release/bsw_spools_scan";
-//    String localDir = "template\\temp";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,18 +31,19 @@ public class Main extends Application {
             stop();
         }
 
-//        Sftp.Connection.check(sourceHost, sourcePort, sourceUser, sourcePassword,sourceDir);
-        Sftp.Connection.check(Constants.SOURCE_HOST, Constants.SOURCE_PORT, Constants.SOURCE_USER,
-                              Constants.SOURCE_PASSWORD,Constants.SOURCE_DIR);
+        boolean check = Sftp.check(SOURCE_HOST, SOURCE_PORT, SOURCE_USER, SOURCE_PASSWORD, SOURCE_DIR);
         setProperties();
-//
-        if (Constants.MAX_VERSION > Constants.CURRENT_VERSION) {
-            System.out.println("Start Updater");
-            TextFieldUtil.alertInformation("Найдена новая версия программы: " + Constants.MAX_VERSION +
-                    ". Установлена: " + Constants.CURRENT_VERSION + "\nПриложение будет обновлено и перезапущено!");
-            FileUtil.createFile(new File("run_updater.bat"),Constants.FILE_DATA);
-            Runtime.getRuntime().exec("cmd /c start run_updater.bat");
-            stop();
+
+        if (check) {
+            if (MAX_VERSION > CURRENT_VERSION) {
+                System.out.println("Start Updater");
+                TextFieldUtil.alertInformation("Найдена новая версия программы: " + MAX_VERSION +
+                        ". Установлена: " + CURRENT_VERSION + "\nПриложение будет обновлено и перезапущено!");
+                FileUtil.folderTempFiles("C:\\bsw_spools_scan\\bat\\");
+                FileUtil.createFile(new File(FOLDER_PATH), FILE_DATA);
+                Runtime.getRuntime().exec(START_UPDATE);
+                stop();
+            }
         }
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
@@ -61,7 +54,7 @@ public class Main extends Application {
 //        primaryStage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
 
-        FileUtil.folderTempFiles(Constants.LOCAL_DIR);
+        FileUtil.folderTempFiles(LOCAL_DIR);
     }
 
     @Override
@@ -88,7 +81,7 @@ public class Main extends Application {
             if (host.isEmpty()) throw new IllegalArgumentException("Set host address in application.properties");
             AppProperties.setHost(property.getProperty("pack.host", ""));
             AppProperties.setVersion(property.getProperty("pack.version", "unknown"));
-            Constants.CURRENT_VERSION = Double.valueOf(AppProperties.getVersion());
+            CURRENT_VERSION = Double.valueOf(AppProperties.getVersion());
         } catch (IOException io) {
             io.printStackTrace();
         }

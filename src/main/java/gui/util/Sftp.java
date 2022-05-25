@@ -2,15 +2,11 @@ package gui.util;
 
 import com.jcraft.jsch.*;
 import gui.model.Constants;
-import org.apache.commons.collections4.SplitMapUtils;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
-
 import java.util.List;
 
 public class Sftp {
-    public static class Connection {
 
-        public static void check(String host, Integer port, String user, String password, String sourceDir) {
+        public static boolean check(String host, Integer port, String user, String password, String sourceDir) {
             try {
                 JSch jsch = new JSch();
 
@@ -29,8 +25,10 @@ public class Sftp {
                 channelSftp.exit();
                 session.disconnect();
             } catch (Exception cause) {
-                System.out.println("Cannot make connection to SFTP server | Directory not found");
+                System.out.println("Cannot make connection to SFTP server | Directory not found | Update check failed");
+                return false;
             }
+            return true;
         }
 
         /**
@@ -77,7 +75,6 @@ public class Sftp {
             double maxVersion = 0;
             for (ChannelSftp.LsEntry entry : files) {
                 if (!entry.getAttrs().isDir()) {
-                    String path = entry.getFilename();
                     String name = entry.getFilename().replace(".jar", "");
                     String[] result = name.split("-");
                     double version = Double.parseDouble(result[result.length - 1]);
@@ -90,5 +87,4 @@ public class Sftp {
             System.out.println("Актуальная версия: " + maxVersion);
             return maxVersion;
             }
-        }
     }

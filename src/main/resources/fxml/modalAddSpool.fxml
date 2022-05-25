@@ -6,7 +6,9 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -296,14 +298,24 @@
                         </HBox>
                         </children>
                     </VBox>
-                  <DateTimePicker fx:id="dateStart" layoutX="240.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" />
-                    <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="225.0" layoutY="76.0" onAction="#selectMasterRecord" prefHeight="27.0" prefWidth="261.0" stylesheets="@../css/jfxCbSelectMain.css" />
+                  <DateTimePicker fx:id="dateStart" layoutX="240.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" visible="false" />
+                    <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="225.0" layoutY="76.0" onAction="#selectMasterRecord" prefHeight="27.0" prefWidth="261.0" stylesheets="@../css/jfxCbSelectMain.css">
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                              <CheckMenuItem fx:id="checkMenuOneMonth" mnemonicParsing="false" onAction="#showIdForTheMonth" text="Отобразить за последний месяц" />
+                              <CheckMenuItem fx:id="checkMenuSixMonths" mnemonicParsing="false" onAction="#showIdForTheSixMonths" text="Отобразить за последние полгода" />
+                              <CheckMenuItem fx:id="checkMenuYear" mnemonicParsing="false" onAction="#showIdForTheYear" text="Отобразить за текущий год" />
+                              <CheckMenuItem fx:id="checkMenuTime" mnemonicParsing="false" onAction="#showForTheTimePeriod" text="Задать точный период времени" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu></JFXComboBox>
                     <Label fx:id="lblSelectMainGroup" layoutX="252.0" layoutY="46.0" prefHeight="27.0" prefWidth="207.0" text="Выбор главной записи:">
                         <font>
                             <Font name="System Bold" size="16.5" />
                         </font>
                     </Label>
-                  <DateTimePicker fx:id="dateEnd" layoutX="365.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" />
+                  <DateTimePicker fx:id="dateEnd" layoutX="365.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" visible="false" />
                   <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="-7.0" prefHeight="47.0" prefWidth="276.0" textAlignment="CENTER" textFill="#523297" wrapText="true" />
                </children>
             </AnchorPane>

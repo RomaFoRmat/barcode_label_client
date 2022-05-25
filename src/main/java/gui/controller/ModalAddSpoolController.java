@@ -177,6 +177,18 @@ public class ModalAddSpoolController {
     @FXML
     private DateTimePicker dateEnd;
 
+    @FXML
+    private CheckMenuItem checkMenuOneMonth;
+
+    @FXML
+    private CheckMenuItem checkMenuSixMonths;
+
+    @FXML
+    private CheckMenuItem checkMenuYear;
+
+    @FXML
+    private CheckMenuItem checkMenuTime;
+
     private Map<Long, ModalField> modalFieldMap;
 
     public static final Logger LOGGER = LogManager.getLogger(ModalAddSpoolController.class.getName());
@@ -186,6 +198,13 @@ public class ModalAddSpoolController {
 
     private List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroupMonth();
     private ObservableList<MainGroup> idGroups = FXCollections.observableArrayList(idGroupList);
+
+    private List<MainGroup> idGroupListMonths = MainGroupRepository.getAllIdGroupSixMonths();
+    private ObservableList<MainGroup> idGroupSixMonth = FXCollections.observableArrayList(idGroupListMonths);
+
+    private List<MainGroup> idGroupListYear = MainGroupRepository.getAllIdGroupYear();
+    private ObservableList<MainGroup> idGroupYear = FXCollections.observableArrayList(idGroupListYear);
+
 
     private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS-40", "BS-60", "BS-80/17", "BS-80/33");
     private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
@@ -223,20 +242,33 @@ public class ModalAddSpoolController {
         cbMode.getSelectionModel().select(1);
         selectionMode(cbMode.getValue());
         cbCode.setItems(codes);
-        cbSelectMain.setItems(idGroups);
-        cbSelectMain.getSelectionModel().select(0);
+        checkMenuOneMonth.setSelected(true);
+        selectContextMenu();
+
         newNumberSpool.setText(Constants.SPOOL_NUMBER);
 
         SearchComboBoxUtil.autoCompleteComboBoxPlus(cbCode,
                 (typedText, itemToCompare) -> itemToCompare.getCode().toLowerCase().contains(typedText.toLowerCase())
                         || itemToCompare.getDescription().toLowerCase().contains(typedText.toLowerCase()));
         SearchComboBoxUtil.getComboBoxValue(cbCode);
-        selectMasterRecord();
+
 
 //        SearchComboBoxUtil.autoCompleteComboBoxPlus(cbSelectMain,
 //                (typedText, itemToCompare) -> itemToCompare.getIdGroup().toString().contains(typedText.toLowerCase())
 //                        || itemToCompare.getDateCreate().toString().toLowerCase().contains(typedText.toLowerCase()));
 //        SearchComboBoxUtil.getComboBoxValue(cbSelectMain);
+    }
+
+    private void selectContextMenu() {
+        if (checkMenuOneMonth.isSelected()) {
+            showIdForTheMonth();
+        } else if (checkMenuSixMonths.isSelected()) {
+            showIdForTheMonth();
+        } else if(checkMenuYear.isSelected()){
+            showIdForTheYear();
+        } else  if(checkMenuTime.isSelected()){
+            showForTheTimePeriod();
+        }
     }
 
 
@@ -387,7 +419,7 @@ public class ModalAddSpoolController {
     public void okBtnAction() throws UnknownHostException {
 
         if (cbMode.getValue().equals("ВЫБОР ТЕКУЩЕЙ ЗАПИСИ")) {
-            selectMasterRecord();
+//            selectMasterRecord();
             MainGroup mainGroup = new MainGroup();
             mainGroup.setIdGroup(Long.valueOf(String.valueOf(cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup())));
             ForeignGroup foreignGroup = new ForeignGroup();
@@ -704,8 +736,8 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(true);
             imgEnter.setVisible(true);
             imgEsc.setVisible(true);
-            dateStart.setVisible(true);
-            dateEnd.setVisible(true);
+//            dateStart.setVisible(true);
+//            dateEnd.setVisible(true);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
@@ -729,8 +761,8 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(false);
             imgEnter.setVisible(false);
             imgEsc.setVisible(false);
-            dateStart.setVisible(false);
-            dateEnd.setVisible(false);
+//            dateStart.setVisible(false);
+//            dateEnd.setVisible(false);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
@@ -808,5 +840,44 @@ public class ModalAddSpoolController {
 
         return checkBoxMap;
     }
+
+    public void showIdForTheMonth(){
+        checkMenuSixMonths.setSelected(false);
+        checkMenuYear.setSelected(false);
+        checkMenuTime.setSelected(false);
+        cbSelectMain.getSelectionModel().clearSelection();
+        cbSelectMain.setItems(idGroups);
+        cbSelectMain.getSelectionModel().select(0);
+        selectMasterRecord();
+    }
+
+    public void showIdForTheSixMonths(){
+        dateStart.setVisible(false);
+        dateEnd.setVisible(false);
+        checkMenuOneMonth.setSelected(false);
+        checkMenuYear.setSelected(false);
+        checkMenuTime.setSelected(false);
+        cbSelectMain.getSelectionModel().clearSelection();
+        cbSelectMain.setItems(idGroupSixMonth);
+        cbSelectMain.getSelectionModel().select(0);
+        selectMasterRecord();
+    }
+
+    public void showIdForTheYear(){
+        checkMenuOneMonth.setSelected(false);
+        checkMenuSixMonths.setSelected(false);
+        checkMenuTime.setSelected(false);
+        cbSelectMain.getSelectionModel().clearSelection();
+        cbSelectMain.setItems(idGroupYear);
+        cbSelectMain.getSelectionModel().select(0);
+    }
+    public void showForTheTimePeriod(){
+        checkMenuOneMonth.setSelected(false);
+        checkMenuSixMonths.setSelected(false);
+        checkMenuYear.setSelected(false);
+        dateStart.setVisible(true);
+        dateEnd.setVisible(true);
+    }
+
 
 }

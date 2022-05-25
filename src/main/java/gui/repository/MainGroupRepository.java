@@ -28,6 +28,8 @@ public class MainGroupRepository {
     public static final String MAIN_ENDPOINT = AppProperties.getHost() + "/api/getAllByConversion11690/idMainGroup";
     public static ObjectMapper mapper = new ObjectMapper();
     public static final String MAIN_ID_ENDPOINT = AppProperties.getHost() + "/api/getAllIdGroup-forTheMonth";
+    public static final String MAIN_ID_MONTHS = AppProperties.getHost() + "/api/getAllIdGroup-forSixMonths";
+    public static final String MAIN_ID_YEAR = AppProperties.getHost() + "/api//getAllIdGroup-forTheYear";
 
     public static MainGroupResponseDTO addIdMain(MainGroupRequestDTO mainGroupRequestDTO) {
         String url = AppProperties.getHost() + "/api/addIdGroup";
@@ -75,6 +77,34 @@ public class MainGroupRepository {
     public static List<MainGroup> getAllIdGroupMonth() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(MAIN_ID_ENDPOINT);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<MainGroup>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public static List<MainGroup> getAllIdGroupSixMonths() {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(MAIN_ID_MONTHS);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<MainGroup>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public static List<MainGroup> getAllIdGroupYear() {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(MAIN_ID_YEAR);
             mapper.registerModule(new JavaTimeModule());
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
