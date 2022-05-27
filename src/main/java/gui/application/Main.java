@@ -1,5 +1,6 @@
 package gui.application;
 
+import gui.controller.SideMenuController;
 import gui.util.FileUtil;
 import gui.util.Sftp;
 import gui.util.TextFieldUtil;
@@ -21,6 +22,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.ConnectException;
@@ -32,6 +35,8 @@ import static gui.model.Constants.*;
 
 
 public class Main extends Application {
+
+    public static final Logger LOGGER = LogManager.getLogger(Main.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -62,9 +67,11 @@ public class Main extends Application {
             HttpResponse response = httpClient.execute(httpget, localContext);
             EntityUtils.consume(response.getEntity());
 
+            System.out.println("Successful connection to the server");
+
         } catch (ConnectException e) {
             TextFieldUtil.alertError("Нет связи с сервером!");
-            System.out.println(e.getMessage());
+            LOGGER.error("Cannot make connection to server: {}", InetAddress.getLocalHost());
         }
 
 
