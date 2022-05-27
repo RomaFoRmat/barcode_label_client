@@ -29,7 +29,7 @@ public class MainGroupRepository {
     public static ObjectMapper mapper = new ObjectMapper();
     public static final String MAIN_ID_ENDPOINT = AppProperties.getHost() + "/api/getAllIdGroup-forTheMonth";
     public static final String MAIN_ID_MONTHS = AppProperties.getHost() + "/api/getAllIdGroup-forSixMonths";
-    public static final String MAIN_ID_YEAR = AppProperties.getHost() + "/api//getAllIdGroup-forTheYear";
+    public static final String MAIN_ID_YEAR = AppProperties.getHost() + "/api/getAllIdGroup-forTheYear";
 
     public static MainGroupResponseDTO addIdMain(MainGroupRequestDTO mainGroupRequestDTO) {
         String url = AppProperties.getHost() + "/api/addIdGroup";

@@ -7,6 +7,7 @@ public class AppProperties {
     public static Personals personals;
     public static String host;
     public static String version;
+    public static String ip;
 
     public static String getHost() {
         return host;
@@ -26,5 +27,13 @@ public class AppProperties {
 
     public static void setVersion(String version) {
         AppProperties.version = version;
+    }
+
+    public static String getIp() {
+        return ip;
+    }
+
+    public static void setIp(String ip) {
+        AppProperties.ip = ip;
     }
 }

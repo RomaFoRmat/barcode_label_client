@@ -10,8 +10,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.HttpHostConnectException;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.net.ConnectException;
+import java.net.InetAddress;
 import java.nio.channels.FileLock;
 import java.util.*;
 
@@ -33,6 +46,30 @@ public class Main extends Application {
 
         boolean check = Sftp.check(SOURCE_HOST, SOURCE_PORT, SOURCE_USER, SOURCE_PASSWORD, SOURCE_DIR);
         setProperties();
+
+//        if (ping(AppProperties.getIp()))
+//            System.out.println("Сервер доступен");
+//        else
+//            TextFieldUtil.alertError("Нет связи с сервером!");
+
+//        new Thread (() -> {
+
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()){
+
+            HttpContext localContext = new BasicHttpContext();
+            HttpGet httpget = new HttpGet(AppProperties.getHost());
+
+            HttpResponse response = httpClient.execute(httpget, localContext);
+            EntityUtils.consume(response.getEntity());
+
+        } catch (ConnectException e) {
+            TextFieldUtil.alertError("Нет связи с сервером!");
+            System.out.println(e.getMessage());
+        }
+
+
+//        }).start();
+
 
         if (check) {
             if (MAX_VERSION > CURRENT_VERSION) {
@@ -81,9 +118,24 @@ public class Main extends Application {
             if (host.isEmpty()) throw new IllegalArgumentException("Set host address in application.properties");
             AppProperties.setHost(property.getProperty("pack.host", ""));
             AppProperties.setVersion(property.getProperty("pack.version", "unknown"));
+            AppProperties.setIp(property.getProperty("pack.ipAddress"));
             CURRENT_VERSION = Double.valueOf(AppProperties.getVersion());
         } catch (IOException io) {
             io.printStackTrace();
         }
     }
+
+
+
+    private static boolean ping(String host) {
+        try {
+            InetAddress address = InetAddress.getByName(host);
+            return address.isReachable(3000);
+        } catch (IOException exc){
+            return false;
+        }
+    }
+
+
+
 }

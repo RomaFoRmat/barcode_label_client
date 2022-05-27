@@ -846,6 +846,7 @@ public class ModalAddSpoolController {
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
         cbSelectMain.getSelectionModel().clearSelection();
+        cbSelectMain.getItems().clear();
         cbSelectMain.setItems(idGroups);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
@@ -858,6 +859,7 @@ public class ModalAddSpoolController {
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
         cbSelectMain.getSelectionModel().clearSelection();
+        cbSelectMain.getItems().clear();
         cbSelectMain.setItems(idGroupSixMonth);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
@@ -868,6 +870,7 @@ public class ModalAddSpoolController {
         checkMenuSixMonths.setSelected(false);
         checkMenuTime.setSelected(false);
         cbSelectMain.getSelectionModel().clearSelection();
+        cbSelectMain.getItems().clear();
         cbSelectMain.setItems(idGroupYear);
         cbSelectMain.getSelectionModel().select(0);
     }
