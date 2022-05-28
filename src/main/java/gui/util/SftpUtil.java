@@ -4,7 +4,7 @@ import com.jcraft.jsch.*;
 import gui.model.Constants;
 import java.util.List;
 
-public class Sftp {
+public class SftpUtil {
 
         public static boolean check(String host, Integer port, String user, String password, String sourceDir) {
             try {

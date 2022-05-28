@@ -72,6 +72,7 @@ public class TextFieldUtil {
         if (alert.getResult() == ButtonType.YES) {
             System.out.println(error);
         }
+
     }
 
     public static void alertHelp(String information) {

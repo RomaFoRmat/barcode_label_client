@@ -1,8 +1,8 @@
 package gui.application;
 
-import gui.controller.SideMenuController;
 import gui.util.FileUtil;
-import gui.util.Sftp;
+import gui.util.ScheduledTaskUtil;
+import gui.util.SftpUtil;
 import gui.util.TextFieldUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,23 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.conn.HttpHostConnectException;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-import java.net.ConnectException;
-import java.net.InetAddress;
 import java.nio.channels.FileLock;
 import java.util.*;
 
@@ -35,49 +20,28 @@ import static gui.model.Constants.*;
 
 
 public class Main extends Application {
-
-    public static final Logger LOGGER = LogManager.getLogger(Main.class);
+    ScheduledTaskUtil serverConnectionTask = new ScheduledTaskUtil();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final File file = new File("application.lock");
-        final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
-        final FileLock fileLock = randomAccessFile.getChannel().tryLock();
+
+        final File file = new File("application.lock");   //файл для блокировки нежелательного запуска app
+        final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");     //чтение/запись файла
+        final FileLock fileLock = randomAccessFile.getChannel().tryLock();  //получаем канал файла и вызываем tryLock()
 
         if (fileLock == null) {
+            //tryLock() – возвращает FileLock или null, если блокировка не может быть получена
             TextFieldUtil.alertWarning("ПРИЛОЖЕНИЕ УЖЕ ЗАПУЩЕНО!!!");
             stop();
         }
 
-        boolean check = Sftp.check(SOURCE_HOST, SOURCE_PORT, SOURCE_USER, SOURCE_PASSWORD, SOURCE_DIR);
+        boolean check = SftpUtil.check(SOURCE_HOST, SOURCE_PORT, SOURCE_USER, SOURCE_PASSWORD, SOURCE_DIR); //SFTP Connect
         setProperties();
+        serverConnectionTask.startScheduleTask();    //запуск задачи на проверку связи с сервером
 
-//        if (ping(AppProperties.getIp()))
-//            System.out.println("Сервер доступен");
-//        else
-//            TextFieldUtil.alertError("Нет связи с сервером!");
-
-//        new Thread (() -> {
-
-        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()){
-
-            HttpContext localContext = new BasicHttpContext();
-            HttpGet httpget = new HttpGet(AppProperties.getHost());
-
-            HttpResponse response = httpClient.execute(httpget, localContext);
-            EntityUtils.consume(response.getEntity());
-
-            System.out.println("Successful connection to the server");
-
-        } catch (ConnectException e) {
-            TextFieldUtil.alertError("Нет связи с сервером!");
-            LOGGER.error("Cannot make connection to server: {}", InetAddress.getLocalHost());
-        }
-
-
-//        }).start();
-
-
+        /**
+         *Запуск updater_client.jar:
+         */
         if (check) {
             if (MAX_VERSION > CURRENT_VERSION) {
                 System.out.println("Start Updater");
@@ -128,21 +92,7 @@ public class Main extends Application {
             AppProperties.setIp(property.getProperty("pack.ipAddress"));
             CURRENT_VERSION = Double.valueOf(AppProperties.getVersion());
         } catch (IOException io) {
-            io.printStackTrace();
+            System.out.println(io.getMessage());
         }
     }
-
-
-
-    private static boolean ping(String host) {
-        try {
-            InetAddress address = InetAddress.getByName(host);
-            return address.isReachable(3000);
-        } catch (IOException exc){
-            return false;
-        }
-    }
-
-
-
 }
