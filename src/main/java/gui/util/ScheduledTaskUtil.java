@@ -26,9 +26,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ScheduledTaskUtil {
-    private static final Logger LOGGER = LogManager.getLogger(Main.class);
+    private static final Logger LOGGER = LogManager.getLogger(ScheduledTaskUtil.class);
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private final Alert alert = new Alert(Alert.AlertType.ERROR,"Нет связи с сервером!");
+    private final Alert alert = new Alert(Alert.AlertType.ERROR,"Потеряно соединение с сервером!");
     private final Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 
     public void startScheduleTask() {
@@ -41,7 +41,7 @@ public class ScheduledTaskUtil {
         }, 0, 10, TimeUnit.SECONDS);
     }
 
-    private void getResponseFromTheServer() throws UnknownHostException {
+    public void getResponseFromTheServer() throws UnknownHostException {
         try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
 
             HttpContext localContext = new BasicHttpContext();
@@ -50,19 +50,34 @@ public class ScheduledTaskUtil {
             HttpResponse response = httpClient.execute(httpget, localContext);
             EntityUtils.consume(response.getEntity());
 
-            System.out.println("Server connection: true |"
+            System.out.println("Server connection: true | "
                     + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         } catch (IOException e) {
             Platform.runLater(()-> {
                 alert.setTitle("Ошибка");
                 stage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-                alert.getDialogPane().setGraphic(new ImageView("/icon/error2.png"));
-                alert.setHeaderText(null);
+                alert.getDialogPane().setGraphic(new ImageView("/icon/serverError.png"));
+                alert.setHeaderText("Server connection: FAILED");
                 alert.showAndWait();
             });
             LOGGER.error("Connect to {} failed: {}", AppProperties.getHost(), InetAddress.getLocalHost());
         }
+    }
 
+    public boolean preLaunchCheck() throws UnknownHostException {
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create().build()) {
+
+            HttpContext localContext = new BasicHttpContext();
+            HttpGet httpget = new HttpGet(AppProperties.getHost());
+
+            HttpResponse response = httpClient.execute(httpget, localContext);
+            EntityUtils.consume(response.getEntity());
+
+        } catch (IOException e) {
+            LOGGER.error("Pre-launch to {} failed: {}", AppProperties.getHost(), InetAddress.getLocalHost());
+            return false;
+        }
+        return true;
     }
 }

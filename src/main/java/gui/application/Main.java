@@ -1,9 +1,6 @@
 package gui.application;
 
-import gui.util.FileUtil;
-import gui.util.ScheduledTaskUtil;
-import gui.util.SftpUtil;
-import gui.util.TextFieldUtil;
+import gui.util.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +17,7 @@ import static gui.model.Constants.*;
 
 
 public class Main extends Application {
-    ScheduledTaskUtil serverConnectionTask = new ScheduledTaskUtil();
+    ScheduledTaskUtil serverConnectionTask = new ScheduledTaskUtil();   //планировщик задач
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -37,7 +34,6 @@ public class Main extends Application {
 
         boolean check = SftpUtil.check(SOURCE_HOST, SOURCE_PORT, SOURCE_USER, SOURCE_PASSWORD, SOURCE_DIR); //SFTP Connect
         setProperties();
-        serverConnectionTask.startScheduleTask();    //запуск задачи на проверку связи с сервером
 
         /**
          *Запуск updater_client.jar:
@@ -54,15 +50,20 @@ public class Main extends Application {
             }
         }
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
-        primaryStage.setTitle("Вход в SPOOLS SCAN");
-        primaryStage.setScene(new Scene(root, 500, 304));
-        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
-        primaryStage.setResizable(false);
-//        primaryStage.initStyle(StageStyle.UTILITY);
-        primaryStage.show();
+        if (serverConnectionTask.preLaunchCheck()) {
+            serverConnectionTask.startScheduleTask();  //запуск задачи на проверку связи с сервером c заданным временем
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
+            primaryStage.setTitle("Вход в SPOOLS SCAN");
+            primaryStage.setScene(new Scene(root, 500, 304));
+            primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/icon/logoBMZ.png")));
+            primaryStage.setResizable(false);
+//            primaryStage.initStyle(StageStyle.UTILITY);
+            primaryStage.show();
 
-        FileUtil.folderTempFiles(LOCAL_DIR);
+            FileUtil.folderTempFiles(LOCAL_DIR);
+        } else {
+            TextFieldUtil.alertError("Нет соединения с сервером!\nЗапуск программы невозможен. Работа будет завершена.");
+        }
     }
 
     @Override
@@ -73,9 +74,8 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Locale.setDefault(new Locale("ru", "RU"));
-//        Locale.setDefault(new Locale("ru"));
 //        Locale locale = new Locale("ru", "RU");
-//        ResourceBundle bundle = ResourceBundle.getBundle("controls",locale);
+//        ResourceBundle.getBundle("com/sun/javafx/scene/control/skin/resources/controls",locale);
         launch(args);
 
     }
