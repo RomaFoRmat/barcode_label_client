@@ -3,6 +3,7 @@ package gui.application;
 import gui.util.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.application.Preloader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +22,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         final File file = new File("application.lock");   //файл для блокировки нежелательного запуска app
         final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");     //чтение/запись файла
         final FileLock fileLock = randomAccessFile.getChannel().tryLock();  //получаем канал файла и вызываем tryLock()
@@ -49,7 +49,7 @@ public class Main extends Application {
                 stop();
             }
         }
-
+            notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START));
         if (serverConnectionTask.preLaunchCheck()) {
             serverConnectionTask.startScheduleTask();  //запуск задачи на проверку связи с сервером c заданным временем
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
