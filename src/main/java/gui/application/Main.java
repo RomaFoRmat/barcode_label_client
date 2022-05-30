@@ -20,8 +20,10 @@ import static gui.model.Constants.*;
 public class Main extends Application {
     ScheduledTaskUtil serverConnectionTask = new ScheduledTaskUtil();   //планировщик задач
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         final File file = new File("application.lock");   //файл для блокировки нежелательного запуска app
         final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");     //чтение/запись файла
         final FileLock fileLock = randomAccessFile.getChannel().tryLock();  //получаем канал файла и вызываем tryLock()
@@ -49,7 +51,8 @@ public class Main extends Application {
                 stop();
             }
         }
-            notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START));
+
+        notifyPreloader(new Preloader.StateChangeNotification(Preloader.StateChangeNotification.Type.BEFORE_START));
         if (serverConnectionTask.preLaunchCheck()) {
             serverConnectionTask.startScheduleTask();  //запуск задачи на проверку связи с сервером c заданным временем
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginDialog.fxml"));
@@ -62,7 +65,7 @@ public class Main extends Application {
 
             FileUtil.folderTempFiles(LOCAL_DIR);
         } else {
-            TextFieldUtil.alertError("Нет соединения с сервером!\nЗапуск программы невозможен. Работа будет завершена.");
+            TextFieldUtil.alertError("Нет соединения с сервером!\nЗапуск программы невозможен.\nРабота будет завершена.");
         }
     }
 
