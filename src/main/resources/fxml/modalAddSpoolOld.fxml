@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import tornadofx.control.DateTimePicker?>
 
-<AnchorPane fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#hotKey" prefHeight="670.0" prefWidth="717.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ModalAddSpoolController">
+<AnchorPane fx:id="dialogPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#hotKey" prefHeight="660.0" prefWidth="717.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.ModalAddSpoolController">
     <children>
         <Label fx:id="lblAddNewSpool" layoutX="13.0" layoutY="293.0" prefHeight="29.0" prefWidth="218.0" text="Ввод новой катушки:">
             <font>
@@ -33,19 +33,19 @@
             <children>
                 <Label text="Код:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="cbCode" editable="true" prefHeight="25.0" prefWidth="210.0" stylesheets="@../css/cbModal.css" />
                 <Label prefHeight="19.0" prefWidth="94.0" text="Тип катушки:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="cbTypeSpool" prefHeight="26.0" prefWidth="188.0" stylesheets="@../css/fieldModal.css" />
                 <Label fx:id="lblCountSpool" prefHeight="2.0" prefWidth="168.0" text="L/R:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="cbLr" prefHeight="26.0" prefWidth="210.0" stylesheets="@../css/fieldModal.css" />
@@ -55,7 +55,7 @@
             <children>
                 <Label text="№ катушки:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -70,7 +70,7 @@
             </HBox>
                 <Label text="№ канатной машины:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -85,7 +85,7 @@
             </HBox>
                 <Label text="Табельный № канатчика:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -100,7 +100,7 @@
             </HBox>
                 <Label fx:id="lblWelds" disable="true" text="Количество сварок:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxWelds" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -118,7 +118,7 @@
             </HBox>
                 <Label fx:id="lblTorsion" disable="true" text="Кручение:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxTorsion" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -137,7 +137,7 @@
             <children>
                 <Label fx:id="lblStraight300" disable="true" text="Прямолинейность 300:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight300" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -152,7 +152,7 @@
             </HBox>
                 <Label fx:id="lblStraight600" disable="true" text="Прямолинейность 600:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight600" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -167,7 +167,7 @@
             </HBox>
                 <Label fx:id="lblStraight600_1" disable="true" text="Прямолинейность 600_1:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight600_1" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -182,7 +182,7 @@
             </HBox>
                 <Label fx:id="lblStraight600_2" disable="true" text="Прямолинейность 600_2:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight600_2" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -197,7 +197,7 @@
             </HBox>
                 <Label fx:id="lblStraight600_3" disable="true" text="Прямолинейность 600_3:" wrapText="true">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight600_3" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -216,7 +216,7 @@
             <children>
                 <Label fx:id="lblStraight600_4" disable="true" text="Прямолинейность 600_4:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight600_4" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -231,7 +231,7 @@
             </HBox>
                 <Label fx:id="lblStraight600_5" disable="true" text="Прямолинейность 600_5:">
                     <font>
-                        <Font size="14.5" />
+                        <Font size="14.0" />
                     </font>
                 </Label>
             <HBox fx:id="hBoxStraight600_5" prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -248,19 +248,19 @@
             <CheckBox fx:id="personalstamp" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="ЛК" />
             </children>
         </VBox>
-        <Separator layoutX="236.0" layoutY="325.0" orientation="VERTICAL" prefHeight="337.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
-        <Separator layoutX="470.0" layoutY="325.0" orientation="VERTICAL" prefHeight="337.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
+        <Separator layoutX="236.0" layoutY="325.0" orientation="VERTICAL" prefHeight="327.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
+        <Separator layoutX="470.0" layoutY="325.0" orientation="VERTICAL" prefHeight="327.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
         <JFXComboBox fx:id="cbMode" focusColor="#8800ff" focusTraversable="false" labelFloat="true" layoutX="222.0" layoutY="13.0" onAction="#selectionAction" prefHeight="32.0" prefWidth="297.0" promptText="СОЗДАТЬ / ВЫБРАТЬ главную запись " stylesheets="@../css/jfxComboBoxModal.css" />
-        <Separator layoutX="430.0" layoutY="56.0" orientation="VERTICAL" prefHeight="236.0" prefWidth="6.0" style="-fx-background-color: #3573dd;" />
+        <Separator layoutX="431.0" layoutY="56.0" orientation="VERTICAL" prefHeight="233.0" prefWidth="6.0" style="-fx-background-color: #3573dd;" />
         <Label fx:id="lblCreateMainGroup" layoutX="13.0" layoutY="63.0" prefHeight="25.0" prefWidth="244.0" text="Создание главной записи:">
             <font>
                 <Font name="System Bold" size="16.5" />
             </font>
         </Label>
-        <JFXButton fx:id="okBtn" focusTraversable="false" layoutX="503.0" layoutY="597.0" onAction="#okBtnAction" prefHeight="27.0" prefWidth="88.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Добавить" />
-        <JFXButton fx:id="cancelBtn" focusTraversable="false" layoutX="602.0" layoutY="597.0" onAction="#modalAddSpoolCancel" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Отмена" />
+        <JFXButton fx:id="okBtn" focusTraversable="false" layoutX="503.0" layoutY="589.0" onAction="#okBtnAction" prefHeight="27.0" prefWidth="88.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Добавить" />
+        <JFXButton fx:id="cancelBtn" focusTraversable="false" layoutX="602.0" layoutY="589.0" onAction="#modalAddSpoolCancel" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: gray; -fx-border-radius: 5;" text="Отмена" />
         <Line endX="633.5" endY="-7.62939453125E-6" layoutX="82.0" layoutY="57.0" startX="-81.99999237060547" startY="-1.1444091796875E-5" stroke="#3573dd" strokeWidth="2.0" />
-        <Line endX="638.0" layoutX="78.0" layoutY="293.0" startX="-79.0" stroke="#3573dd" strokeWidth="2.0" />
+        <Line endX="638.0" layoutX="78.0" layoutY="290.0" startX="-79.0" stroke="#3573dd" strokeWidth="2.0" />
       <StackPane fx:id="stackPaneMain" layoutX="220.0" layoutY="90.0" prefHeight="178.0" prefWidth="482.0">
          <children>
             <AnchorPane prefHeight="178.0" prefWidth="484.0">
@@ -269,19 +269,19 @@
                         <children>
                             <Label prefHeight="19.0" prefWidth="94.0" text="№ партии:" wrapText="true">
                                 <font>
-                                    <Font size="14.5" />
+                                    <Font size="14.0" />
                                 </font>
                             </Label>
                             <TextField fx:id="numberPart" />
                             <Label prefHeight="19.0" prefWidth="94.0" text="№ лота:" wrapText="true">
                                 <font>
-                                    <Font size="14.5" />
+                                    <Font size="14.0" />
                                 </font>
                             </Label>
                             <TextField fx:id="numberLot" />
                         <Label fx:id="lblNumbContainer" prefHeight="2.0" prefWidth="168.0" text="№ контейнера:" wrapText="true">
                            <font>
-                              <Font size="14.5" />
+                              <Font size="14.0" />
                            </font>
                         </Label>
                         <HBox prefHeight="26.0" prefWidth="200.0" spacing="7.0">
@@ -299,11 +299,10 @@
                         </children>
                     </VBox>
                   <DateTimePicker fx:id="dateStart" layoutX="240.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" visible="false" />
-                    <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="223.0" layoutY="78.0" onAction="#selectMasterRecord" prefHeight="30.0" prefWidth="265.0" stylesheets="@../css/jfxCbSelectMain.css" visibleRowCount="8">
+                    <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="225.0" layoutY="76.0" onAction="#selectMasterRecord" prefHeight="27.0" prefWidth="261.0" stylesheets="@../css/jfxCbSelectMain.css">
                      <contextMenu>
                         <ContextMenu>
                           <items>
-                              <CheckMenuItem fx:id="checkMenuWeek" mnemonicParsing="false" onAction="#showIdForTheWeek" text="Отобразить за последние 7 дней" />
                               <CheckMenuItem fx:id="checkMenuOneMonth" mnemonicParsing="false" onAction="#showIdForTheMonth" text="Отобразить за последний месяц" />
                               <CheckMenuItem fx:id="checkMenuSixMonths" mnemonicParsing="false" onAction="#showIdForTheSixMonths" text="Отобразить за последние полгода" />
                               <CheckMenuItem fx:id="checkMenuYear" mnemonicParsing="false" onAction="#showIdForTheYear" text="Отобразить за текущий год" />
@@ -311,36 +310,33 @@
                           </items>
                         </ContextMenu>
                      </contextMenu></JFXComboBox>
-                    <Label fx:id="lblSelectMainGroup" layoutX="252.0" layoutY="47.0" prefHeight="27.0" prefWidth="207.0" text="Выбор главной записи:">
+                    <Label fx:id="lblSelectMainGroup" layoutX="252.0" layoutY="46.0" prefHeight="27.0" prefWidth="207.0" text="Выбор главной записи:">
                         <font>
                             <Font name="System Bold" size="16.5" />
                         </font>
                     </Label>
                   <DateTimePicker fx:id="dateEnd" layoutX="365.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" visible="false" />
-                  <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="-7.0" prefHeight="52.0" prefWidth="277.0" textAlignment="CENTER" textFill="#523297" wrapText="true">
-                     <font>
-                        <Font size="13.5" />
-                     </font></Label>
+                  <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="-7.0" prefHeight="47.0" prefWidth="276.0" textAlignment="CENTER" textFill="#523297" wrapText="true" />
                </children>
             </AnchorPane>
          </children>
       </StackPane>
-      <ImageView fx:id="imgCtrl" fitHeight="30.0" fitWidth="31.0" layoutX="515.0" layoutY="628.0" pickOnBounds="true">
+      <ImageView fx:id="imgCtrl" fitHeight="30.0" fitWidth="31.0" layoutX="515.0" layoutY="621.0" pickOnBounds="true">
          <image>
             <Image url="@../icon/ctrlKey.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblKey" layoutX="545.0" layoutY="632.0" text="+">
+      <Label fx:id="lblKey" layoutX="544.0" layoutY="624.0" text="+">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <ImageView fx:id="imgEnter" fitHeight="24.0" fitWidth="30.0" layoutX="552.0" layoutY="631.0" pickOnBounds="true">
+      <ImageView fx:id="imgEnter" fitHeight="24.0" fitWidth="30.0" layoutX="552.0" layoutY="623.0" pickOnBounds="true">
          <image>
             <Image url="@../icon/enterKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="imgEsc" fitHeight="28.0" fitWidth="30.0" layoutX="630.0" layoutY="629.0" pickOnBounds="true">
+      <ImageView fx:id="imgEsc" fitHeight="28.0" fitWidth="30.0" layoutX="630.0" layoutY="621.0" pickOnBounds="true">
          <image>
             <Image url="@../icon/escKey.png" />
          </image>

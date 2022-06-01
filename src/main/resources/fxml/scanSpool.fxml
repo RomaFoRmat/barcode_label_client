@@ -186,7 +186,7 @@
                                                                 </TextField>
                                                             </children>
                                                         </VBox>
-                                                        <VBox fx:id="vBoxCbList0" layoutX="343.0" layoutY="87.0" prefHeight="213.0" prefWidth="22.0" spacing="23.0" stylesheets="@../css/cheсkBox.css">
+                                                        <VBox fx:id="vBoxCbList0" layoutX="343.0" layoutY="87.0" prefHeight="201.0" prefWidth="22.0" spacing="23.0" stylesheets="@../css/cheсkBox.css">
                                                             <children>
                                                                 <CheckBox fx:id="cbConstruct" focusTraversable="false" mnemonicParsing="false" prefHeight="24.0" />
                                                                 <CheckBox fx:id="cbCode" focusTraversable="false" mnemonicParsing="false" prefHeight="22.0" />

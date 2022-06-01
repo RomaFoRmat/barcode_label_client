@@ -27,6 +27,7 @@ public class MainGroupRepository {
 
     public static final String MAIN_ENDPOINT = AppProperties.getHost() + "/api/getAllByConversion11690/idMainGroup";
     public static ObjectMapper mapper = new ObjectMapper();
+    public static final String MAIN_ID_WEEK = AppProperties.getHost() + "/api/getAllIdGroup-forTheWeek";
     public static final String MAIN_ID_ENDPOINT = AppProperties.getHost() + "/api/getAllIdGroup-forTheMonth";
     public static final String MAIN_ID_MONTHS = AppProperties.getHost() + "/api/getAllIdGroup-forSixMonths";
     public static final String MAIN_ID_YEAR = AppProperties.getHost() + "/api/getAllIdGroup-forTheYear";
@@ -63,6 +64,20 @@ public class MainGroupRepository {
     public static List<MainGroup> findAllByIdConversion() {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(MAIN_ENDPOINT);
+            mapper.registerModule(new JavaTimeModule());
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<List<MainGroup>>() {
+                            }));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
+    public static List<MainGroup> getAllIdGroupWeek() {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(MAIN_ID_WEEK);
             mapper.registerModule(new JavaTimeModule());
             return client.execute(request, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(),
