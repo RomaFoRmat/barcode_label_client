@@ -66,6 +66,8 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -856,6 +858,7 @@ public class ScanController {
      * Получить информацию о катушке,если таковой в БД нет - добавить
      */
     public void getInfoAction(LocalDateTime dateStart, LocalDateTime dateEnd) {
+//        executorService.submit(()->{
         new Thread (() -> {
             try {
                 System.out.println(LocalDateTime.now().format(
@@ -876,13 +879,17 @@ public class ScanController {
                         Platform.runLater(() -> {
                             Constants.SPOOL_NUMBER = barcodeSpool.getText();
                             addSpool(dateStart, dateEnd);
+//                            System.out.println("Countdown: " + countDownLatch.getCount());
+//                            countDownLatch.countDown();
                         });
                         return;
 
                     }  else {
-                            Platform.runLater(() -> setCheckBoxesWithLabel(TemplatesLabelsRepository
-                                    .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0)));
-//                       Platform.runLater(()->modePrint(barcodeLabelList));
+                            Platform.runLater(() -> { setCheckBoxesWithLabel(TemplatesLabelsRepository
+                                    .findByIdCode(Long.valueOf(barcodeLabelList.get(0).getCode())).get(0));
+//                                System.out.println("Countdown: " + countDownLatch.getCount());
+//                                countDownLatch.countDown();
+                            });
                     }
                     LOGGER.info("Spool number scan: " + barcodeSpool.getText());
 
@@ -906,6 +913,8 @@ public class ScanController {
                         if(!cbCode.isSelected()){
                             cbCode.setDisable(true);
                         }
+//                        System.out.println("Countdown: " + countDownLatch.getCount());
+//                        countDownLatch.countDown();
                     });
                     barcodeSpool.getStylesheets().clear();
                     barcodeSpool.getStylesheets().add("/css/jfx_success.css");
@@ -913,7 +922,9 @@ public class ScanController {
                         choiceLabelAction();
 //                        cbCode.setSelected(label.getConsumerCode() != null);
                         tabInfoSpool.setText("Информация о катушке: №" + tfNumberSpool.getText());
-                    barcodeSpool.setText("");
+                        barcodeSpool.setText("");
+//                        System.out.println("Countdown: " + countDownLatch.getCount());
+//                        countDownLatch.countDown();
                     });
                     System.out.println(LocalDateTime.now().format(
                             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss.ms")) + " Method ended");
@@ -926,6 +937,8 @@ public class ScanController {
                     unselectCheckBox();
                     TextFieldUtil.alertWarning("Поле для cчитывания штрих-кода пустое!" +
                                         "\nПожалуйста, отсканируйте штрих-код катушки!");
+//                        System.out.println("Countdown: " + countDownLatch.getCount());
+//                        countDownLatch.countDown();
                     });
                 }
 
@@ -942,6 +955,10 @@ public class ScanController {
                 barcodeSpool.setVisible(true);
             }
         }).start();
+//            executorService.shutdown();
+//            System.out.println("Countdown: " + countDownLatch.getCount());
+//            countDownLatch.countDown();
+//        });
         barcodeSpool.requestFocus();
     }
 
@@ -1018,7 +1035,9 @@ public class ScanController {
             if(dateStart.getDateTimeValue() != null && dateEnd.getDateTimeValue()!=null) {
                 LocalDateTime start = dateStart.getDateTimeValue().with(LocalTime.MIN);
                 LocalDateTime end = dateEnd.getDateTimeValue().with(LocalTime.MAX);
-                 getInfoAction(start,end);
+                getInfoAction(start,end);
+//                executorService = Executors.newCachedThreadPool();
+//                countDownLatch = new CountDownLatch(2);
             } else {
                 System.out.println("Something went wrong");
             }
@@ -1031,17 +1050,17 @@ public class ScanController {
         tabInfoSpool.getTabPane().getSelectionModel().select(0);
     }
 
-    public void printFromTable() throws IOException{
-//        executorService = Executors.newCachedThreadPool();
-//        countDownLatch = new CountDownLatch(2);
+    public void printFromTable(){
+        executorService = Executors.newCachedThreadPool();
+        countDownLatch = new CountDownLatch(6);
         contextMenu();
-//        try {
-//            boolean isFinished = executorService.awaitTermination(1, TimeUnit.MINUTES);
-//            boolean countDownFinished = countDownLatch.await(1,TimeUnit.MINUTES);
-//            if (isFinished && countDownFinished) printQrCode();
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            boolean isFinished = executorService.awaitTermination(15, TimeUnit.SECONDS);
+            boolean countDownFinished = countDownLatch.await(15,TimeUnit.SECONDS);
+            if (isFinished && countDownFinished) printQrCode();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

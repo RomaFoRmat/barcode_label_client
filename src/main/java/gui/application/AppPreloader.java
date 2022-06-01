@@ -1,6 +1,5 @@
 package gui.application;
 
-import com.jfoenix.controls.JFXSpinner;
 import javafx.application.Preloader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -19,7 +18,7 @@ public class AppPreloader extends Preloader {
         this.preloadStage = primaryStage;
         VBox pane = new VBox();
         ImageView imageView = new ImageView();
-        Image loading = new Image(getClass().getResourceAsStream("/icon/progress-bar-my.png"));
+        Image loading = new Image(getClass().getResourceAsStream("/icon/progress-bar-preload.png"));
         imageView.setImage(loading);
         pane.getChildren().add(imageView);
         pane.setStyle("-fx-background-color: transparent");
