@@ -298,7 +298,7 @@
                         </HBox>
                         </children>
                     </VBox>
-                  <DateTimePicker fx:id="dateStart" layoutX="240.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" visible="false" />
+                  <DateTimePicker fx:id="dateStart" layoutX="240.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" />
                     <JFXComboBox fx:id="cbSelectMain" focusColor="#8800ff" layoutX="223.0" layoutY="78.0" onAction="#selectMasterRecord" prefHeight="30.0" prefWidth="265.0" stylesheets="@../css/jfxCbSelectMain.css" visibleRowCount="8">
                      <contextMenu>
                         <ContextMenu>
@@ -316,8 +316,8 @@
                             <Font name="System Bold" size="16.5" />
                         </font>
                     </Label>
-                  <DateTimePicker fx:id="dateEnd" layoutX="365.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" visible="false" />
-                  <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="217.0" layoutY="-7.0" prefHeight="52.0" prefWidth="277.0" textAlignment="CENTER" textFill="#523297" wrapText="true">
+                  <DateTimePicker fx:id="dateEnd" layoutX="365.0" layoutY="136.0" prefHeight="25.0" prefWidth="105.0" />
+                  <Label fx:id="lblCaptionCode" alignment="CENTER" contentDisplay="CENTER" layoutX="218.0" layoutY="-7.0" prefHeight="52.0" prefWidth="276.0" textAlignment="CENTER" textFill="#523297" wrapText="true">
                      <font>
                         <Font size="13.5" />
                      </font></Label>
@@ -346,6 +346,21 @@
          </image>
       </ImageView>
       <JFXSpinner fx:id="spinner" layoutX="551.0" layoutY="218.0" visible="false" />
+      <Label layoutX="475.0" layoutY="268.0" text="В данной партии:">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAmount" layoutX="594.0" layoutY="269.0">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSpools" layoutX="610.0" layoutY="268.0">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
     </children>
    <stylesheets>
       <URL value="@../css/button.css" />

@@ -37,6 +37,11 @@ public class ForeignGroupRepository {
         return getForeignGroup(url);
     }
 
+    public static Integer findByMainGroupAmount(Long idGroup) {
+        String url = AppProperties.getHost() + "/api/amount-spools/" + idGroup;
+        return getAmountSpools(url);
+    }
+
     public static ForeignGroupResponseDTO getResponseEntity(String url, ForeignGroupRequestDTO foreignGroupRequestDTO) {
         try (CloseableHttpClient client = HttpClients.createDefault()) {
             HttpPost httpPost = new HttpPost(url);
@@ -48,6 +53,19 @@ public class ForeignGroupRepository {
             httpPost.setEntity(new StringEntity(gson.toJson(foreignGroupRequestDTO), StandardCharsets.UTF_8));
             return client.execute(httpPost, httpResponse ->
                     mapper.readValue(httpResponse.getEntity().getContent(), ForeignGroupResponseDTO.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static Integer getAmountSpools(String url) {
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(url);
+            return client.execute(request, httpResponse ->
+                    mapper.readValue(httpResponse.getEntity().getContent(),
+                            new TypeReference<Integer>() {
+                            }));
         } catch (IOException e) {
             e.printStackTrace();
         }

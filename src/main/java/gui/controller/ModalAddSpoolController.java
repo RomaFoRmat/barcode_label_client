@@ -176,7 +176,10 @@ public class ModalAddSpoolController {
     private DateTimePicker dateStart;
     @FXML
     private DateTimePicker dateEnd;
-
+    @FXML
+    private Label lblAmount;
+    @FXML
+    private Label lblSpools;
     @FXML
     private CheckMenuItem checkMenuOneMonth;
 
@@ -271,9 +274,9 @@ public class ModalAddSpoolController {
             showIdForTheMonth();
         } else if (checkMenuSixMonths.isSelected()) {
             showIdForTheMonth();
-        } else if(checkMenuYear.isSelected()){
+        } else if (checkMenuYear.isSelected()) {
             showIdForTheYear();
-        } else  if(checkMenuTime.isSelected()){
+        } else if (checkMenuTime.isSelected()) {
             showForTheTimePeriod();
         }
     }
@@ -292,13 +295,13 @@ public class ModalAddSpoolController {
     }
 
     public void hotKey(KeyEvent keyEvent) throws UnknownHostException {
-            if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                modalAddSpoolCancel();
-            } else if(cancelBtn.isVisible()) {
-                if (keyEvent.getCode() == KeyCode.ENTER && keyEvent.isControlDown()) {
-                    okBtnAction();
-                }
+        if (keyEvent.getCode() == KeyCode.ESCAPE) {
+            modalAddSpoolCancel();
+        } else if (cancelBtn.isVisible()) {
+            if (keyEvent.getCode() == KeyCode.ENTER && keyEvent.isControlDown()) {
+                okBtnAction();
             }
+        }
     }
 
     public void addMainGroup() throws UnknownHostException {
@@ -700,25 +703,36 @@ public class ModalAddSpoolController {
 
     public void selectMasterRecord() {
         reset();
-        MainGroup mainGroup = new MainGroup();
-        mainGroup.setIdGroup(cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup());
-//        Long idGroup = cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup();
-        Code code = CodeRepository.findByIdKod(MainValueRepository.findByValue11691(mainGroup.getIdGroup()));
+        Long idGroup = cbSelectMain.getItems().get(cbSelectMain.getSelectionModel().getSelectedIndex()).getIdGroup();
+        Code code = CodeRepository.findByIdKod(MainValueRepository.findByValue11691(idGroup));
         lblCaptionCode.setText(code.getCode() + " - " + code.getDescription());
         Long idCode = code.getCodePrimaryKey().getIdCode();
+        Integer amount = ForeignGroupRepository.findByMainGroupAmount(idGroup);
+        setLabel(amount);
+        lblAmount.setText(String.valueOf(amount));
         List<Limit> limitList = LimitRepository.findByLimitUniqueKeyIdCode(idCode);
 
         if (limitList != null) {
             for (Limit limit : limitList) {
                 Long idTestHead = limit.getLimitUniqueKey().getIdTestHead();
                 for (Map.Entry<Long, ModalField> entry : modalFieldMap.entrySet()) {
-                    if(idTestHead.equals(entry.getKey())) {
+                    if (idTestHead.equals(entry.getKey())) {
                         entry.getValue().getCheckBox().setSelected(true);
                         entry.getValue().getTextField().setDisable(false);
                         entry.getValue().getLabel().setDisable(false);
                     }
                 }
             }
+        }
+    }
+
+    private void setLabel (Integer amount) {
+        if ((amount % 10 == 1) && (amount % 100 != 11)) {
+            lblSpools.setText("катушка");
+        } else if (amount % 10 == 2 || amount % 10 == 3 || amount % 10 == 4) {
+            lblSpools.setText("катушки");
+        } else {
+            lblSpools.setText("катушек");
         }
     }
 
@@ -769,14 +783,12 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(false);
             imgEnter.setVisible(false);
             imgEsc.setVisible(false);
-//            dateStart.setVisible(false);
-//            dateEnd.setVisible(false);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
     }
 
-    public void reset(){
+    public void reset() {
         cbTorsion.setSelected(false);
         cbWelds.setSelected(false);
         cbStraight600_1.setSelected(false);
@@ -793,7 +805,7 @@ public class ModalAddSpoolController {
         cbSelection600_5();
     }
 
-    public void cbSelectionTorsion(){
+    public void cbSelectionTorsion() {
         newTorsion.setDisable(!cbTorsion.isSelected());
         lblTorsion.setDisable(!cbTorsion.isSelected());
     }
@@ -803,35 +815,40 @@ public class ModalAddSpoolController {
         lblWelds.setDisable(!cbWelds.isSelected());
     }
 
-    public void cbSelection300(){
+    public void cbSelection300() {
         newStraight300.setDisable(!cbStraight300.isSelected());
         lblStraight300.setDisable(!cbStraight300.isSelected());
     }
-    public void cbSelection600(){
+
+    public void cbSelection600() {
         newStraight600.setDisable(!cbStraight600.isSelected());
         lblStraight600.setDisable(!cbStraight600.isSelected());
     }
-    public void cbSelection600_1(){
+
+    public void cbSelection600_1() {
         newStraight600_1.setDisable(!cbStraight600_1.isSelected());
         lblStraight600_1.setDisable(!cbStraight600_1.isSelected());
     }
-    public void cbSelection600_2(){
+
+    public void cbSelection600_2() {
         newStraight600_2.setDisable(!cbStraight600_2.isSelected());
         lblStraight600_2.setDisable(!cbStraight600_2.isSelected());
     }
-    public void cbSelection600_3(){
+
+    public void cbSelection600_3() {
         newStraight600_3.setDisable(!cbStraight600_3.isSelected());
         lblStraight600_3.setDisable(!cbStraight600_3.isSelected());
     }
-    public void cbSelection600_4(){
+
+    public void cbSelection600_4() {
         newStraight600_4.setDisable(!cbStraight600_4.isSelected());
         lblStraight600_4.setDisable(!cbStraight600_4.isSelected());
     }
-    public void cbSelection600_5(){
+
+    public void cbSelection600_5() {
         newStraight600_5.setDisable(!cbStraight600_5.isSelected());
         lblStraight600_5.setDisable(!cbStraight600_5.isSelected());
     }
-
 
 
     private Map<Long, ModalField> statusCheckBoxMap() {
@@ -854,6 +871,8 @@ public class ModalAddSpoolController {
         checkMenuSixMonths.setSelected(false);
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
+        dateStart.setVisible(false);
+        dateEnd.setVisible(false);
         cbSelectMain.getSelectionModel().clearSelection();
         cbSelectMain.getItems().clear();
         cbSelectMain.setValue(null);
@@ -867,6 +886,8 @@ public class ModalAddSpoolController {
         checkMenuSixMonths.setSelected(false);
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
+        dateStart.setVisible(false);
+        dateEnd.setVisible(false);
         cbSelectMain.getSelectionModel().clearSelection();
         cbSelectMain.getItems().clear();
         cbSelectMain.setValue(null);
@@ -876,11 +897,12 @@ public class ModalAddSpoolController {
     }
 
     public void showIdForTheSixMonths() {
-        dateStart.setVisible(false);
-        dateEnd.setVisible(false);
         checkMenuOneMonth.setSelected(false);
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
+        checkMenuWeek.setSelected(false);
+        dateStart.setVisible(false);
+        dateEnd.setVisible(false);
         cbSelectMain.getSelectionModel().clearSelection();
         cbSelectMain.getItems().clear();
         cbSelectMain.setItems(idGroupSixMonth);
@@ -888,22 +910,27 @@ public class ModalAddSpoolController {
         selectMasterRecord();
     }
 
-    public void showIdForTheYear(){
+    public void showIdForTheYear() {
         checkMenuOneMonth.setSelected(false);
         checkMenuSixMonths.setSelected(false);
         checkMenuTime.setSelected(false);
+        checkMenuWeek.setSelected(false);
+        dateStart.setVisible(false);
+        dateEnd.setVisible(false);
         cbSelectMain.getSelectionModel().clearSelection();
         cbSelectMain.getItems().clear();
         cbSelectMain.setItems(idGroupYear);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
     }
-    public void showForTheTimePeriod(){
-//        checkMenuOneMonth.setSelected(false);
-//        checkMenuSixMonths.setSelected(false);
-//        checkMenuYear.setSelected(false);
-//        dateStart.setVisible(true);
-//        dateEnd.setVisible(true);
+
+    public void showForTheTimePeriod() {
+        checkMenuOneMonth.setSelected(false);
+        checkMenuSixMonths.setSelected(false);
+        checkMenuYear.setSelected(false);
+        checkMenuWeek.setSelected(false);
+        dateStart.setVisible(true);
+        dateEnd.setVisible(true);
     }
 
 
