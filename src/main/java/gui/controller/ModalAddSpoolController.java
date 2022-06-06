@@ -202,17 +202,17 @@ public class ModalAddSpoolController {
     private List<Code> codeList = CodeRepository.findAllByConversionIdConversion();
     private final ObservableList<Code> codes = FXCollections.observableArrayList(codeList);
 
-    private List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroupMonth();
-    private ObservableList<MainGroup> idGroups = FXCollections.observableArrayList(idGroupList);
+    private final List<MainGroup> idGroupList = MainGroupRepository.getAllIdGroupMonth();
+    private final ObservableList<MainGroup> idGroups = FXCollections.observableArrayList(idGroupList);
 
-    private List<MainGroup> idGroupListWeek = MainGroupRepository.getAllIdGroupWeek();
-    private ObservableList<MainGroup> idGroupWeek = FXCollections.observableArrayList(idGroupListWeek);
+    private final List<MainGroup> idGroupListWeek = MainGroupRepository.getAllIdGroupWeek();
+    private final ObservableList<MainGroup> idGroupWeek = FXCollections.observableArrayList(idGroupListWeek);
 
-    private List<MainGroup> idGroupListMonths = MainGroupRepository.getAllIdGroupSixMonths();
-    private ObservableList<MainGroup> idGroupSixMonth = FXCollections.observableArrayList(idGroupListMonths);
+    private final List<MainGroup> idGroupListMonths = MainGroupRepository.getAllIdGroupSixMonths();
+    private final ObservableList<MainGroup> idGroupSixMonth = FXCollections.observableArrayList(idGroupListMonths);
 
-    private List<MainGroup> idGroupListYear = MainGroupRepository.getAllIdGroupYear();
-    private ObservableList<MainGroup> idGroupYear = FXCollections.observableArrayList(idGroupListYear);
+    private final List<MainGroup> idGroupListYear = MainGroupRepository.getAllIdGroupYear();
+    private final ObservableList<MainGroup> idGroupYear = FXCollections.observableArrayList(idGroupListYear);
 
     private final ObservableList<String> typeSpool = FXCollections.observableArrayList("BS-40", "BS-60", "BS-80/17", "BS-80/33");
     private final ObservableList<String> mode = FXCollections.observableArrayList("СОЗДАНИЕ", "ВЫБОР ТЕКУЩЕЙ ЗАПИСИ");
@@ -729,7 +729,8 @@ public class ModalAddSpoolController {
     private void setLabel (Integer amount) {
         if ((amount % 10 == 1) && (amount % 100 != 11)) {
             lblSpools.setText("катушка");
-        } else if (amount % 10 == 2 || amount % 10 == 3 || amount % 10 == 4) {
+        } else if ((amount % 10 == 2 || amount % 10 == 3 || amount % 10 == 4)
+                && !(amount % 100 == 12 || amount % 100 == 13 || amount % 100 == 14)) {
             lblSpools.setText("катушки");
         } else {
             lblSpools.setText("катушек");
@@ -758,8 +759,6 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(true);
             imgEnter.setVisible(true);
             imgEsc.setVisible(true);
-//            dateStart.setVisible(true);
-//            dateEnd.setVisible(true);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
