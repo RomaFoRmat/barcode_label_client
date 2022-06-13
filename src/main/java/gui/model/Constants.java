@@ -7,6 +7,7 @@ public class Constants {
     public static String FIO_VIEW;
     public static String FIO;
     public static Long ID_PERSONALS;
+    public static Long ID_GROUP;
     public static String IP_ADDRESS;
     public static LocalDateTime DATE_START;
     public static LocalDateTime DATE_END;

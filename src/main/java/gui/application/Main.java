@@ -1,5 +1,6 @@
 package gui.application;
 
+import gui.controller.SideMenuController;
 import gui.util.*;
 import javafx.application.Application;
 import javafx.application.Platform;

@@ -25,6 +25,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.ResourceBundle;
+import static gui.model.Constants.*;
 
 public class LoginDialogController implements Initializable {
 
@@ -62,13 +63,14 @@ public class LoginDialogController implements Initializable {
             }
 
             Personals personal = personalsList.get(0);
-            Constants.FIO_VIEW = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
-            Constants.FIO = personal.getFio();
-            Constants.ID_PERSONALS = personal.getIdPersonal();
-            Constants.IP_ADDRESS = InetAddress.getLocalHost().getHostAddress().toString();
+            FIO_VIEW = personal.getFio() + " (№:" + personal.getPersonnelNumber() + ")";
+            FIO = personal.getFio();
+            ID_PERSONALS = personal.getIdPersonal();
+            IP_ADDRESS = InetAddress.getLocalHost().getHostAddress();
+            ID_GROUP = personal.getGroupsOfPersonal().getIdGroup();
             AppProperties.personals = personal;
             LOGGER.info("User logged in: {}/{}({}); {}",
-                    Constants.FIO_VIEW, personal.getGroupsOfPersonal().getNameGroup(),
+                    FIO_VIEW, personal.getGroupsOfPersonal().getNameGroup(),
                     personal.getGroupsOfPersonal().getIdGroup(), InetAddress.getLocalHost());
             Stage stage = (Stage) loginButton.getScene().getWindow();
             stage.close();
@@ -81,7 +83,6 @@ public class LoginDialogController implements Initializable {
     }
 
     public void show() {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/scanSpool.fxml"));
 
@@ -115,6 +116,7 @@ public class LoginDialogController implements Initializable {
                 e.printStackTrace();
             }
         });
+
         stage.show();
     }
 
