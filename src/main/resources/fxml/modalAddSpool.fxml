@@ -245,7 +245,7 @@
                </children>
             </HBox>
                 <CheckBox fx:id="newSample" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Образец" />
-            <CheckBox fx:id="personalstamp" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="ЛК" />
+            <CheckBox fx:id="personalStamp" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="ЛК" />
             </children>
         </VBox>
         <Separator layoutX="236.0" layoutY="325.0" orientation="VERTICAL" prefHeight="337.0" prefWidth="4.0" style="-fx-background-color: #3573dd;" />
@@ -351,12 +351,12 @@
             <Font name="System Italic" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lblAmount" layoutX="592.0" layoutY="269.0">
+      <Label fx:id="lblAmount" layoutX="593.0" layoutY="269.0">
          <font>
             <Font name="System Italic" size="13.0" />
          </font>
       </Label>
-      <Label fx:id="lblSpools" layoutX="608.0" layoutY="268.0">
+      <Label fx:id="lblSpools" layoutX="609.0" layoutY="268.0">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>

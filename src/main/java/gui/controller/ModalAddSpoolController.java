@@ -250,7 +250,8 @@ public class ModalAddSpoolController {
         cbMode.getSelectionModel().select(1);
         selectionMode(cbMode.getValue());
         cbCode.setItems(codes);
-        checkMenuWeek.setSelected(true);
+
+        checkMenuOneMonth.setSelected(true);
         selectContextMenu();
 
         newNumberSpool.setText(Constants.SPOOL_NUMBER);
@@ -729,11 +730,24 @@ public class ModalAddSpoolController {
     private void setLabel (Integer amount) {
         if ((amount % 10 == 1) && (amount % 100 != 11)) {
             lblSpools.setText("катушка");
+            isDoubleDigit(amount);
         } else if ((amount % 10 == 2 || amount % 10 == 3 || amount % 10 == 4)
                 && !(amount % 100 == 12 || amount % 100 == 13 || amount % 100 == 14)) {
             lblSpools.setText("катушки");
+            isDoubleDigit(amount);
         } else {
             lblSpools.setText("катушек");
+            isDoubleDigit(amount);
+        }
+
+    }
+
+    public void isDoubleDigit(Integer amount) {
+        boolean b = amount > 9 && amount < 100;
+        if (b) {
+            lblSpools.setLayoutX(609);
+        }else {
+            lblSpools.setLayoutX(604);
         }
     }
 
@@ -870,11 +884,11 @@ public class ModalAddSpoolController {
         checkMenuSixMonths.setSelected(false);
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
-        dateStart.setVisible(false);
-        dateEnd.setVisible(false);
-        cbSelectMain.getSelectionModel().clearSelection();
-        cbSelectMain.getItems().clear();
-        cbSelectMain.setValue(null);
+//        dateStart.setVisible(false);
+//        dateEnd.setVisible(false);
+//        cbSelectMain.getSelectionModel().clearSelection();
+//        cbSelectMain.getItems().clear();
+//        cbSelectMain.setItems(null);
         cbSelectMain.setItems(idGroups);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
@@ -887,9 +901,9 @@ public class ModalAddSpoolController {
         checkMenuTime.setSelected(false);
         dateStart.setVisible(false);
         dateEnd.setVisible(false);
-        cbSelectMain.getSelectionModel().clearSelection();
-        cbSelectMain.getItems().clear();
-        cbSelectMain.setValue(null);
+//        cbSelectMain.getSelectionModel().clearSelection();
+//        cbSelectMain.getItems().clear();
+//        cbSelectMain.setItems(null);
         cbSelectMain.setItems(idGroupWeek);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
@@ -902,8 +916,10 @@ public class ModalAddSpoolController {
         checkMenuWeek.setSelected(false);
         dateStart.setVisible(false);
         dateEnd.setVisible(false);
-        cbSelectMain.getSelectionModel().clearSelection();
-        cbSelectMain.getItems().clear();
+        checkMenuWeek.setSelected(false);
+//        cbSelectMain.getSelectionModel().clearSelection();
+//        cbSelectMain.getItems().clear();
+//        cbSelectMain.setItems(null);
         cbSelectMain.setItems(idGroupSixMonth);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
@@ -916,8 +932,10 @@ public class ModalAddSpoolController {
         checkMenuWeek.setSelected(false);
         dateStart.setVisible(false);
         dateEnd.setVisible(false);
-        cbSelectMain.getSelectionModel().clearSelection();
-        cbSelectMain.getItems().clear();
+        checkMenuWeek.setSelected(false);
+//        cbSelectMain.getSelectionModel().clearSelection();
+//        cbSelectMain.getItems().clear();
+//        cbSelectMain.setItems(null);
         cbSelectMain.setItems(idGroupYear);
         cbSelectMain.getSelectionModel().select(0);
         selectMasterRecord();
