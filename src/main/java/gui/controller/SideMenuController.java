@@ -52,7 +52,9 @@ public class SideMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        btnTemplates.setDisable(ID_GROUP != 11661L);
+        if (ID_GROUP != null) {
+        btnTemplates.setDisable (ID_GROUP != 11661L);
+        }
         FXMLLoader aboutLoader = new FXMLLoader(getClass().getResource("/fxml/about.fxml"));
         FXMLLoader templatesLoader = new FXMLLoader(getClass().getResource("/fxml/templatesLabels.fxml"));
         try {
@@ -63,7 +65,6 @@ public class SideMenuController implements Initializable {
         }
         aboutDialogController = aboutLoader.getController();
         templatesLabelsController = templatesLoader.getController();
-
     }
 
 
