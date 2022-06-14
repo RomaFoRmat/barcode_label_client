@@ -1053,19 +1053,19 @@ public class ScanController {
         tabInfoSpool.getTabPane().getSelectionModel().select(0);
     }
 
-    public void printFromTable(){
-        executorService = Executors.newCachedThreadPool();
-        countDownLatch = new CountDownLatch(6);
-        contextMenu();
-        try {
-            boolean isFinished = executorService.awaitTermination(15, TimeUnit.SECONDS);
-            boolean countDownFinished = countDownLatch.await(15,TimeUnit.SECONDS);
-            if (isFinished && countDownFinished) printQrCode();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public void printFromTable(){
+//        executorService = Executors.newCachedThreadPool();
+//        countDownLatch = new CountDownLatch(6);
+//        contextMenu();
+//        try {
+//            boolean isFinished = executorService.awaitTermination(15, TimeUnit.SECONDS);
+//            boolean countDownFinished = countDownLatch.await(15,TimeUnit.SECONDS);
+//            if (isFinished && countDownFinished) printQrCode();
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     private void copyValueFromTable(){
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

@@ -358,7 +358,6 @@
                               <ContextMenu>
                                 <items>
                                     <MenuItem mnemonicParsing="false" onAction="#viewFromTable" text="Просмотр" />
-                                  <MenuItem mnemonicParsing="false" onAction="#printFromTable" text="Печать QR-CODE" />
                                     <MenuItem mnemonicParsing="false" onAction="#refreshItems" text="Обновить" />
                                 </items>
                               </ContextMenu>

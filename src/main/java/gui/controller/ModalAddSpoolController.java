@@ -181,6 +181,8 @@ public class ModalAddSpoolController {
     @FXML
     private Label lblSpools;
     @FXML
+    private Label lblPart;
+    @FXML
     private CheckMenuItem checkMenuOneMonth;
 
     @FXML
@@ -773,6 +775,9 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(true);
             imgEnter.setVisible(true);
             imgEsc.setVisible(true);
+            lblPart.setVisible(true);
+            lblSpools.setVisible(true);
+            lblAmount.setVisible(true);
 
             LOGGER.info("Selected mode: \"ВЫБОР\"");
         } else if (mode.equals("СОЗДАНИЕ")) {
@@ -796,6 +801,9 @@ public class ModalAddSpoolController {
             imgCtrl.setVisible(false);
             imgEnter.setVisible(false);
             imgEsc.setVisible(false);
+            lblPart.setVisible(false);
+            lblSpools.setVisible(false);
+            lblAmount.setVisible(false);
 
             LOGGER.info("Selected mode: \"СОЗДАНИЕ\"");
         }
@@ -884,8 +892,8 @@ public class ModalAddSpoolController {
         checkMenuSixMonths.setSelected(false);
         checkMenuYear.setSelected(false);
         checkMenuTime.setSelected(false);
-//        dateStart.setVisible(false);
-//        dateEnd.setVisible(false);
+        dateStart.setVisible(false);
+        dateEnd.setVisible(false);
 //        cbSelectMain.getSelectionModel().clearSelection();
 //        cbSelectMain.getItems().clear();
 //        cbSelectMain.setItems(null);

@@ -346,7 +346,7 @@
          </image>
       </ImageView>
       <JFXSpinner fx:id="spinner" layoutX="551.0" layoutY="218.0" visible="false" />
-      <Label layoutX="475.0" layoutY="268.0" text="В данной партии:">
+      <Label fx:id="lblPart" layoutX="475.0" layoutY="268.0" text="В данной партии:" visible="false">
          <font>
             <Font name="System Italic" size="14.0" />
          </font>
