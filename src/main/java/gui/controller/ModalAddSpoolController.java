@@ -36,6 +36,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tornadofx.control.DateTimePicker;
 
+import static gui.model.Constants.SPOOL_NUMBER;
+import static gui.model.Constants.SPOOL_NUMBER_MODAL;
+
 public class ModalAddSpoolController {
 
     @FXML
@@ -252,38 +255,22 @@ public class ModalAddSpoolController {
         cbMode.getSelectionModel().select(1);
         selectionMode(cbMode.getValue());
         cbCode.setItems(codes);
-
-        checkMenuOneMonth.setSelected(true);
-        selectContextMenu();
-
-        newNumberSpool.setText(Constants.SPOOL_NUMBER);
+        cbSelectMain.setItems(idGroupWeek);
+        cbSelectMain.getSelectionModel().select(0);
+//        checkMenuOneMonth.setSelected(true);
+//        selectContextMenu();
 
         SearchComboBoxUtil.autoCompleteComboBoxPlus(cbCode,
                 (typedText, itemToCompare) -> itemToCompare.getCode().toLowerCase().contains(typedText.toLowerCase())
                         || itemToCompare.getDescription().toLowerCase().contains(typedText.toLowerCase()));
         SearchComboBoxUtil.getComboBoxValue(cbCode);
-
+        selectMasterRecord();
 
 //        SearchComboBoxUtil.autoCompleteComboBoxPlus(cbSelectMain,
 //                (typedText, itemToCompare) -> itemToCompare.getIdGroup().toString().contains(typedText.toLowerCase())
 //                        || itemToCompare.getDateCreate().toString().toLowerCase().contains(typedText.toLowerCase()));
 //        SearchComboBoxUtil.getComboBoxValue(cbSelectMain);
     }
-
-    private void selectContextMenu() {
-        if (checkMenuWeek.isSelected()) {
-            showIdForTheWeek();
-        } else if (checkMenuOneMonth.isSelected()) {
-            showIdForTheMonth();
-        } else if (checkMenuSixMonths.isSelected()) {
-            showIdForTheMonth();
-        } else if (checkMenuYear.isSelected()) {
-            showIdForTheYear();
-        } else if (checkMenuTime.isSelected()) {
-            showForTheTimePeriod();
-        }
-    }
-
 
     //для выбора активного режима
     @FXML
@@ -887,76 +874,89 @@ public class ModalAddSpoolController {
         return checkBoxMap;
     }
 
-    public void showIdForTheMonth() {
-        checkMenuWeek.setSelected(false);
-        checkMenuSixMonths.setSelected(false);
-        checkMenuYear.setSelected(false);
-        checkMenuTime.setSelected(false);
-        dateStart.setVisible(false);
-        dateEnd.setVisible(false);
-//        cbSelectMain.getSelectionModel().clearSelection();
-//        cbSelectMain.getItems().clear();
-//        cbSelectMain.setItems(null);
-        cbSelectMain.setItems(idGroups);
-        cbSelectMain.getSelectionModel().select(0);
-        selectMasterRecord();
-    }
+//    private void selectContextMenu() {
+//        if (checkMenuWeek.isSelected()) {
+//            showIdForTheWeek();
+//        } else if (checkMenuOneMonth.isSelected()) {
+//            showIdForTheMonth();
+//        } else if (checkMenuSixMonths.isSelected()) {
+//            showIdForTheMonth();
+//        } else if (checkMenuYear.isSelected()) {
+//            showIdForTheYear();
+//        } else if (checkMenuTime.isSelected()) {
+//            showForTheTimePeriod();
+//        }
+//    }
 
-    public void showIdForTheWeek() {
-        checkMenuOneMonth.setSelected(false);
-        checkMenuSixMonths.setSelected(false);
-        checkMenuYear.setSelected(false);
-        checkMenuTime.setSelected(false);
-        dateStart.setVisible(false);
-        dateEnd.setVisible(false);
-//        cbSelectMain.getSelectionModel().clearSelection();
-//        cbSelectMain.getItems().clear();
-//        cbSelectMain.setItems(null);
-        cbSelectMain.setItems(idGroupWeek);
-        cbSelectMain.getSelectionModel().select(0);
-        selectMasterRecord();
-    }
-
-    public void showIdForTheSixMonths() {
-        checkMenuOneMonth.setSelected(false);
-        checkMenuYear.setSelected(false);
-        checkMenuTime.setSelected(false);
-        checkMenuWeek.setSelected(false);
-        dateStart.setVisible(false);
-        dateEnd.setVisible(false);
-        checkMenuWeek.setSelected(false);
-//        cbSelectMain.getSelectionModel().clearSelection();
-//        cbSelectMain.getItems().clear();
-//        cbSelectMain.setItems(null);
-        cbSelectMain.setItems(idGroupSixMonth);
-        cbSelectMain.getSelectionModel().select(0);
-        selectMasterRecord();
-    }
-
-    public void showIdForTheYear() {
-        checkMenuOneMonth.setSelected(false);
-        checkMenuSixMonths.setSelected(false);
-        checkMenuTime.setSelected(false);
-        checkMenuWeek.setSelected(false);
-        dateStart.setVisible(false);
-        dateEnd.setVisible(false);
-        checkMenuWeek.setSelected(false);
-//        cbSelectMain.getSelectionModel().clearSelection();
-//        cbSelectMain.getItems().clear();
-//        cbSelectMain.setItems(null);
-        cbSelectMain.setItems(idGroupYear);
-        cbSelectMain.getSelectionModel().select(0);
-        selectMasterRecord();
-    }
-
-    public void showForTheTimePeriod() {
-        checkMenuOneMonth.setSelected(false);
-        checkMenuSixMonths.setSelected(false);
-        checkMenuYear.setSelected(false);
-        checkMenuWeek.setSelected(false);
-        dateStart.setVisible(true);
-        dateEnd.setVisible(true);
-    }
-
+//    public void showIdForTheMonth() {
+//        checkMenuWeek.setSelected(false);
+//        checkMenuSixMonths.setSelected(false);
+//        checkMenuYear.setSelected(false);
+//        checkMenuTime.setSelected(false);
+//        dateStart.setVisible(false);
+//        dateEnd.setVisible(false);
+////        cbSelectMain.getSelectionModel().clearSelection();
+////        cbSelectMain.getItems().clear();
+////        cbSelectMain.setItems(null);
+//        cbSelectMain.setItems(idGroups);
+//        cbSelectMain.getSelectionModel().select(0);
+//        selectMasterRecord();
+//    }
+//
+//    public void showIdForTheWeek() {
+//        checkMenuOneMonth.setSelected(false);
+//        checkMenuSixMonths.setSelected(false);
+//        checkMenuYear.setSelected(false);
+//        checkMenuTime.setSelected(false);
+//        dateStart.setVisible(false);
+//        dateEnd.setVisible(false);
+////        cbSelectMain.getSelectionModel().clearSelection();
+////        cbSelectMain.getItems().clear();
+////        cbSelectMain.setItems(null);
+//        cbSelectMain.setItems(idGroupWeek);
+//        cbSelectMain.getSelectionModel().select(0);
+//        selectMasterRecord();
+//    }
+//
+//    public void showIdForTheSixMonths() {
+//        checkMenuOneMonth.setSelected(false);
+//        checkMenuYear.setSelected(false);
+//        checkMenuTime.setSelected(false);
+//        checkMenuWeek.setSelected(false);
+//        dateStart.setVisible(false);
+//        dateEnd.setVisible(false);
+//        checkMenuWeek.setSelected(false);
+////        cbSelectMain.getSelectionModel().clearSelection();
+////        cbSelectMain.getItems().clear();
+////        cbSelectMain.setItems(null);
+//        cbSelectMain.setItems(idGroupSixMonth);
+//        cbSelectMain.getSelectionModel().select(0);
+//        selectMasterRecord();
+//    }
+//
+//    public void showIdForTheYear() {
+//        checkMenuOneMonth.setSelected(false);
+//        checkMenuSixMonths.setSelected(false);
+//        checkMenuTime.setSelected(false);
+//        checkMenuWeek.setSelected(false);
+//        dateStart.setVisible(false);
+//        dateEnd.setVisible(false);
+//        checkMenuWeek.setSelected(false);
+////        cbSelectMain.getSelectionModel().clearSelection();
+////        cbSelectMain.getItems().clear();
+////        cbSelectMain.setItems(null);
+//        cbSelectMain.setItems(idGroupYear);
+//        cbSelectMain.getSelectionModel().select(0);
+//        selectMasterRecord();
+//    }
+//
+//    public void showForTheTimePeriod() {
+//        checkMenuOneMonth.setSelected(false);
+//        checkMenuSixMonths.setSelected(false);
+//        checkMenuYear.setSelected(false);
+//        checkMenuWeek.setSelected(false);
+//        dateStart.setVisible(true);
+//        dateEnd.setVisible(true);
+//    }
 
 }

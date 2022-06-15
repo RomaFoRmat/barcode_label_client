@@ -511,11 +511,8 @@ public class ScanController {
                 barcodeSpool.setVisible(false);
                 lblDataProcessing.setVisible(true);
 
-//                List<BarcodeLabel> barcodeLabelList =
-//                        BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
-                List<BarcodeLabel> barcodeLabelList = BarcodeLabelRepository.getBarcodeLabelBetween
-                        (AppProperties.getHost() + "/api/spool-between/" + dateStart
-                                + "/" + dateEnd + "/" + barcodeSpool.getText());
+                List<BarcodeLabel> barcodeLabelList =
+                        BarcodeLabelRepository.findByNumberSpoolBetween(dateStart,dateEnd,barcodeSpool.getText());
                     if (barcodeLabelList != null && barcodeLabelList.isEmpty()) {
                         Platform.runLater(() -> {
                             stage.close();
@@ -850,10 +847,8 @@ public class ScanController {
     }
 
     public void getInfoAction(){
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDateTime currentDateTime = LocalDateTime.now().plusSeconds(10);
         startDateTime = currentDateTime.minusDays(8);
-        System.out.println(currentDateTime);
-        System.out.println(startDateTime);
         getInfoAction(startDateTime, currentDateTime);
     }
 

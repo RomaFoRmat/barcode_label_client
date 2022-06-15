@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class Constants {
     public static String SPOOL_NUMBER;
+    public static String SPOOL_NUMBER_MODAL;
     public static String FIO_VIEW;
     public static String FIO;
     public static Long ID_PERSONALS;
