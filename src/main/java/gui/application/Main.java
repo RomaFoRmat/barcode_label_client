@@ -1,6 +1,5 @@
 package gui.application;
 
-import gui.controller.SideMenuController;
 import gui.util.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -20,7 +19,6 @@ import static gui.model.Constants.*;
 
 public class Main extends Application {
     ScheduledTaskUtil serverConnectionTask = new ScheduledTaskUtil();   //планировщик задач
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {

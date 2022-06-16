@@ -86,7 +86,7 @@
             <Image url="@../icon/spool.png" />
          </image>
       </ImageView>
-      <Hyperlink fx:id="linkManual" layoutX="24.0" layoutY="250.0" onAction="#usersManual" text="Руководство" textFill="#ee2b21" wrapText="true">
+      <Hyperlink fx:id="linkManual" focusTraversable="false" layoutX="25.0" layoutY="250.0" onAction="#usersManual" text="Руководство" textFill="#ee2b21">
          <font>
             <Font name="Comic Sans MS Bold" size="13.0" />
          </font></Hyperlink>

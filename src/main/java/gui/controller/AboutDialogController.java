@@ -2,6 +2,7 @@ package gui.controller;
 
 import gui.application.AppProperties;
 import gui.application.Main;
+import gui.util.TempFileUtil;
 import gui.util.TextFieldUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,10 +14,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.SneakyThrows;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,6 +43,7 @@ public class AboutDialogController implements Initializable {
     private Stage stage;
 
 
+    @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.stage = new Stage();
@@ -65,24 +67,28 @@ public class AboutDialogController implements Initializable {
     }
 
     @FXML
-    private void usersManual()  {
+    private void usersManual() throws IOException {
         if (linkManual.isVisited()) {
-            try {
-                File pdfFile = new File(getClass().getResource("/template/manual.pdf").toURI());
-                if (pdfFile.exists()) {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().open(pdfFile);
-                    } else {
-                        System.out.println("AWT Desktop is not supported!");
+            if (Desktop.isDesktopSupported()) {
+                // File in user working directory, System.getProperty("user.dir");
+                File file = TempFileUtil.createPdfTemp();
+                if (!file.exists()) {
+                    // In JAR
+                    InputStream inputStream = ClassLoader.getSystemClassLoader()
+                            .getResourceAsStream("template/manual.pdf");
+                    // Copy file
+                    OutputStream outputStream = new FileOutputStream(file);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, length);
                     }
-                } else {
-                    TextFieldUtil.alertError("Руководство пользователя не найдено!");
+                    outputStream.close();
+                    inputStream.close();
                 }
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                // Open file
+                Desktop.getDesktop().open(file);
             }
-
         }
     }
 

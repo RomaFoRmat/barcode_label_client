@@ -34,4 +34,13 @@ public class TempFileUtil {
         return new File("template\\temp\\" + "qrCode-" + id + ".png");
 
     }
+
+    public static File createPdfTemp() {
+        try {
+            FileUtils.cleanDirectory(new File("template/temp"));
+        } catch (IOException e) {
+            e.getMessage();
+        }
+        return new File("template\\temp\\" + "manual.pdf");
+    }
 }

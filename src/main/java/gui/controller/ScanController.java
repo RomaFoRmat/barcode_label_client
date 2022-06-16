@@ -28,7 +28,6 @@ import javafx.fxml.FXML;
 
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -846,8 +845,8 @@ public class ScanController {
         unDisabledCheckBox();
     }
 
-    public void getInfoAction(){
-        LocalDateTime currentDateTime = LocalDateTime.now().plusSeconds(10);
+    public void getInfoAction() {
+        LocalDateTime currentDateTime = LocalDateTime.now().plusSeconds(20);
         startDateTime = currentDateTime.minusDays(8);
         getInfoAction(startDateTime, currentDateTime);
     }

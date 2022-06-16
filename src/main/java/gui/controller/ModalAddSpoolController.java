@@ -247,6 +247,7 @@ public class ModalAddSpoolController {
 //        TextFieldService.setFieldForStraight(newTorsionRope, 7);
 //        TextFieldService.setFieldForStraight(newStraightRope, 7);
 //        TextFieldService.setTextFieldNumeric(newNumberWeldingMachine, 7);
+        newNumberSpool.setText(Constants.SPOOL_NUMBER);
         cbLr.setItems(data);
         cbLr.getSelectionModel().select(0);
         cbTypeSpool.setItems(typeSpool);
