@@ -24,6 +24,8 @@ public class BarcodeLabelRepository {
     }
     public static List<BarcodeLabel> findByNumberSpoolBetween(LocalDateTime dateStart,
                                                               LocalDateTime dateEnd, String numberSpool) {
+        if(dateStart == null) dateStart = LocalDateTime.now().minusDays(8);
+        if(dateEnd == null) dateEnd = LocalDateTime.now();
         String url = AppProperties.getHost() + "/api/spool-between/" + dateStart + "/" + dateEnd + "/"+ numberSpool;
         return getBarcodeLabelBetween(url);
     }

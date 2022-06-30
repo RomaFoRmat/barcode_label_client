@@ -846,9 +846,9 @@ public class ScanController {
     }
 
     public void getInfoAction() {
-        LocalDateTime currentDateTime = LocalDateTime.now().plusSeconds(20);
-        startDateTime = currentDateTime.minusDays(8);
-        getInfoAction(startDateTime, currentDateTime);
+//        LocalDateTime currentDateTime = LocalDateTime.now();
+//        startDateTime = currentDateTime.minusDays(8);
+        getInfoAction(null, null);
     }
 
     /**
